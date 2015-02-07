@@ -1,0 +1,20 @@
+{
+    "libs": [
+        "browser",
+        "ecma5"
+    ],
+    "loadEagerly": [
+        "public/libs/three/three.js"
+    ],
+    "plugins": {
+        "doc_comment": false,
+        "closure": {
+            "finder": {
+                "name": "grep",
+                "dirs": [
+                    "public"
+                ]
+            }
+        }
+    }
+}

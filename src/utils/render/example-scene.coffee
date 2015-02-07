@@ -1,0 +1,150 @@
+# Data representation of the scene
+
+definition =
+
+  settings:
+    clearBuffers: ["COLOR", "DEPTH"]
+    clearColor: [1.0, 1.0, 1.0, 1.0]
+    width: 100
+    height: 200
+
+
+  shaders:
+    "space-color":
+      vert: someCode
+      frag: someCode
+      attribs:
+        "position": "f 3"
+        "normal": "f 3"
+      uniforms:
+        "modelMatrix": "m 4"
+        "projectionMatrix": "m 4"
+        "texture1": "t"
+
+
+  layers:
+    "object-layer": # type is one of ["render", "static", "data", "effect"]
+      type: "render" # do an actual webgl rendering into a texture
+      objects: ["mycube"]
+    "full-layer":
+      type: "render"
+      objects: ["mymesh"]
+      clearColor: [1.0, 0.5, 0.0, 1.0]
+      flipY: true
+      wrap: 'CLAMP_TO_EDGE'
+      wrapT: 'CLAMP_TO_EDGE'
+      wrapS: 'MIRRORED_REPEAT'
+      minFilter: 'LINEAR'
+      magFilter: 'LINEAR'
+      buffered: true # get its own FrameBuffer
+      width: 100
+      height: 100
+    "texture-layer":
+      type: "static" # just make a static texture
+      asset: myImage # or video or canvas...
+    "effect-layer":
+      type: "effect"
+      uniforms:
+        "uniform1":
+          124
+        "uniform-layer":
+          consts.SOURCE_LAYER
+        "uniform-layer":
+          "canvas-layer1"
+      shader: "effectShader"
+
+
+  geometries:
+    "my-geometry":
+      attribs:
+        "position":
+          buffer: someBuffer
+          storeType: "STATIC"
+        "normal":
+          array: [
+            -0.5, 0.5,
+            -0.5, -0.5,
+            0.5, 0.5,
+            0.5, -0.5
+          ]
+          type: 'Float32Array'
+          storeType: "DYNAMIC"
+      drawType: "TRIANGLES"
+      itemCount: 123
+
+
+  objects:
+    "mycube":
+      uniforms:
+        "modelMatrix":
+          someValue
+        "projectionMatrix":
+          someValue
+        "texture1":
+          "layer1"
+      shader: "space-color"
+      geometry: "my-geometry"
+
+
+# Example Render-Context
+
+context =
+
+  gl: glCtx
+  canvas: canvas
+
+  source:
+    texture: GLTextureIndex
+    frameBuffer: GLFrameBufferIndex
+    depthBuffer: GLRenderBuffer
+
+  target:
+    texture: GLTexture
+    frameBuffer: GLFrameBuffer
+    depthBuffer: GLRenderBuffer
+
+  settings:
+    clearBits: calculatedClearBit
+
+
+  shaders:
+    "space-color":
+      program: someGLIndex
+      vert: someGLIndex
+      frag: someGLIndex
+      attribs:
+        "positon":
+          index: someGLAttrIndex
+          type: someGLType # gl.FLOAT, gl.BYTE, ...
+          itemSize: 3
+        "normal":
+          index: someGLAttrIndex
+          type: someGLType # gl.FLOAT, gl.BYTE, ...
+          itemSize: 3
+      uniforms:
+        "modelMatrix":
+          index: someGLUniformIndex
+          type: 'm 3'
+        "projectionMatrix":
+          index: someGLUniformIndex
+          type: 'm 4'
+
+
+  geometries:
+    "my-geometry":
+      attribs:
+        "position": someGLBuffIndex
+        "normal": someGLBuffIndex
+      drawType: someGLDrawType
+      itemCount: 23
+
+
+  # layers have merged in props from above
+  layers:
+    "static-layer":
+      texture: GLTextureIndex
+    "buffered-layer":
+      texture: GLTextureIndex
+      frameBuffer: GLFrameBufferIndex
+      depthBuffer: someBuffIdx
+
