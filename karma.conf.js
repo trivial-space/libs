@@ -16,25 +16,25 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
         // closure base
-        'public/libs/goog/base.js',
+        'custom_modules/closure/closure/goog/base.js',
 
         // included files - tests
         'test/run/**/*.js',
 
         // source files - these are only watched and served
-        {pattern: 'public/**/*.js', included: false},
+        {pattern: 'dist/**/*.js', included: false},
 
         // external deps
-        {pattern: 'public/deps.js', included: false, served: false}
+        {pattern: 'dist/deps.js', included: false, served: false}
     ],
 
     preprocessors: {
         // tests are preprocessed for dependencies (closure) and for iits
         'test/run/**/*.js': ['closure', 'closure-iit'],
         // source files are preprocessed for dependencies
-        'public/**/*.js': ['closure'],
+        'dist/**/*.js': ['closure'],
         // external deps
-        'public/deps.js': ['closure-deps']
+        'dist/deps.js': ['closure-deps']
     },
 
     // list of files to exclude
@@ -45,7 +45,7 @@ module.exports = function(config) {
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress'],
+    reporters: ['mocha'],
 
 
     // web server port
