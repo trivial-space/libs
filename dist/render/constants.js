@@ -6,7 +6,7 @@ goog.scope(function() {
   consts = tslibs.render.constants;
   gl = goog.webgl;
   consts.SOURCE_LAYER = 'source';
-  consts.layerType = {
+  consts.LayerType = {
     RENDER: 'render',
     EFFECT: 'effect',
     STATIC: 'static'

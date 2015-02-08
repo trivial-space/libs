@@ -181,13 +181,29 @@ goog.scope(function() {
         for (name in data.attribs) {
             attribData = data.attribs[name];
             attribs[name] = attribs[name] || gl.createBuffer();
-            if (attribData.buffer) {
-                buffer = attribData.buffer;
-            } else {
-                buffer = new window[attribData.type](attribData.array);
-            }
+
             gl.bindBuffer(glConsts.ARRAY_BUFFER, attribs[name]);
-            gl.bufferData(glConsts.ARRAY_BUFFER, buffer, gl[attribData.storeType + "_DRAW"]);
+            gl.bufferData(glConsts.ARRAY_BUFFER,
+                          Ctx.getBufferData(attribData),
+                          gl[(attribData.storeType || 'STATIC') + '_DRAW']);
+        }
+
+        if (data.elements) {
+            geometry.elements = geometry.elements || {};
+            geometry.elements.buffer = geometry.elements.buffer || gl.createBuffer();
+
+            buffer = Ctx.getBufferData(data.elements);
+            geometry.elements.glType = Ctx.TypedArrayToGLType(buffer);
+
+            gl.bindBuffer(glConsts.ELEMENT_ARRAY_BUFFER, geometry.elements.buffer);
+            gl.bufferData(glConsts.ELEMENT_ARRAY_BUFFER,
+                          buffer,
+                          gl[(data.elements.storeType || 'STATIC') + '_DRAW']);
+
+        } else {
+            if (geometry.elements) {
+                delete geometry.elements;
+            }
         }
     };
 
@@ -200,17 +216,18 @@ goog.scope(function() {
         if (data.buffered) {
             data.width = data.width || this.settings.width;
             data.height = data.height || this.settings.height;
+            data.clearColor = data.clearColor || this.settings.clearColor;
             Ctx.updateRenderTarget(this.gl, layer, data);
         }
 
         switch (data.type) {
-            case consts.layerType.STATIC:
+            case consts.LayerType.STATIC:
                 this.updateStaticLayer(layer, data);
                 break;
-            case consts.layerType.RENDER:
+            case consts.LayerType.RENDER:
                 layer.objects = data.objects;
                 break;
-            case consts.layerType.EFFECT:
+            case consts.LayerType.EFFECT:
                 layer.object = data;
                 layer.object.geometry = '_renderQuad';
         }
@@ -269,12 +286,12 @@ goog.scope(function() {
 
             // render
 
-            if (layer.type === consts.layerType.RENDER) {
+            if (layer.type === consts.LayerType.RENDER) {
                 for (objectId in layer.objects) {
-                    this.renderObject(this.objects[objectId]);
+                    this.renderObject(this.objects[layer.objects[objectId]]);
                 }
 
-            } else if (layer.type === consts.layerType.EFFECT) {
+            } else if (layer.type === consts.LayerType.EFFECT) {
                 this.renderObject(layer.object);
             }
 
@@ -366,7 +383,14 @@ goog.scope(function() {
             }
         }
 
-        gl.drawArrays(geometry.drawType, 0, geometry.itemCount);
+        if (geometry.elements) {
+            gl.bindBuffer(glConsts.ELEMENT_ARRAY_BUFFER, geometry.elements.buffer);
+            gl.drawElements(geometry.drawType, geometry.itemCount, geometry.elements.glType, 0);
+
+        } else {
+            gl.drawArrays(geometry.drawType, 0, geometry.itemCount);
+        }
+
     };
 
     // ===== helper function =====
@@ -428,6 +452,30 @@ goog.scope(function() {
         gl.bindFramebuffer(gl.FRAMEBUFFER, null);
         gl.bindTexture(gl.TEXTURE_2D, null);
         gl.bindRenderbuffer(gl.RENDERBUFFER, null);
+    };
+
+
+    Ctx.getBufferData = function(data) {
+        if (data.buffer) {
+            return data.buffer;
+        } else {
+            return new window[data.type](data.array);
+        }
+    };
+
+
+    Ctx.TypedArrayToGLType = function(array) {
+        if (array instanceof Uint8Array) {
+            return glConsts.UNSIGNED_BYTE;
+        }
+        if (array instanceof Uint16Array) {
+            return glConsts.UNSIGNED_SHORT;
+        }
+        if (array instanceof Uint32Array) {
+            return glConsts.UNSIGNED_INT;
+        }
+
+        throw new TypeError('invalid array type');
     };
 
 });

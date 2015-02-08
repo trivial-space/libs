@@ -1438,6 +1438,7 @@ goog.addDependency('../custom_modules/closure/closure/goog/window/window_test.js
 goog.addDependency('events/direction-keys.js', ['tslibs.events.DirectionKeys'], ['goog.events.EventTarget'], false);
 goog.addDependency('events/drag-element.js', ['tslibs.events.DragElement'], ['goog.events.EventTarget'], false);
 goog.addDependency('events/mouse-press-element.js', ['tslibs.events.MouseButtonElement'], ['goog.events.EventTarget'], false);
+goog.addDependency('geometry/plane.js', ['tslibs.geometry.plane'], [], false);
 goog.addDependency('graphics/PixelContext.js', ['tslibs.graphics.PixelContext'], ['goog.object', 'tslibs.graphics'], false);
 goog.addDependency('graphics/base.js', ['tslibs.graphics'], ['tslibs.math'], false);
 goog.addDependency('graphics/textures.js', ['tslibs.graphics.textures'], ['tslibs.graphics', 'tslibs.graphics.PixelContext', 'tslibs.math.noise'], false);

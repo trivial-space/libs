@@ -137,8 +137,8 @@ goog.scope(function() {
 
 
     AssetSystem.prototype.addAssets = function(assets) {
-        if (assets.texts) {
-            this.addTexts(assets.texts);
+        if (assets.text) {
+            this.addTexts(assets.text);
         }
     };
 

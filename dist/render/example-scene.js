@@ -59,14 +59,19 @@ definition = {
     "my-geometry": {
       attribs: {
         "position": {
-          buffer: someBuffer,
-          storeType: "STATIC"
+          buffer: someBuffer
         },
         "normal": {
           array: [-0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5],
           type: 'Float32Array',
           storeType: "DYNAMIC"
         }
+      },
+      elements: {
+        buffer: someBuffer,
+        array: [1, 2, 3],
+        type: 'Uint8Array',
+        storeType: 'STATIC'
       },
       drawType: "TRIANGLES",
       itemCount: 123
@@ -134,6 +139,10 @@ context = {
       attribs: {
         "position": someGLBuffIndex,
         "normal": someGLBuffIndex
+      },
+      elements: {
+        buffer: someBuffIdx,
+        glType: gl.UNSIGNED_SHORT
       },
       drawType: someGLDrawType,
       itemCount: 23

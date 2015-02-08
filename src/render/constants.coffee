@@ -11,7 +11,7 @@ goog.scope ->
   consts.SOURCE_LAYER = 'source'
 
 
-  consts.layerType =
+  consts.LayerType =
     RENDER: 'render'
     EFFECT: 'effect'
     STATIC: 'static'

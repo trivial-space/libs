@@ -59,7 +59,6 @@ definition =
       attribs:
         "position":
           buffer: someBuffer
-          storeType: "STATIC"
         "normal":
           array: [
             -0.5, 0.5,
@@ -69,6 +68,12 @@ definition =
           ]
           type: 'Float32Array'
           storeType: "DYNAMIC"
+      elements: # optional index array
+        buffer: someBuffer
+        #or
+        array: [1, 2, 3]
+        type: 'Uint8Array'
+        storeType: 'STATIC' # optional 'STATIC' is default
       drawType: "TRIANGLES"
       itemCount: 123
 
@@ -135,6 +140,9 @@ context =
       attribs:
         "position": someGLBuffIndex
         "normal": someGLBuffIndex
+      elements:
+        buffer: someBuffIdx
+        glType: gl.UNSIGNED_SHORT
       drawType: someGLDrawType
       itemCount: 23
 

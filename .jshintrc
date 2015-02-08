@@ -14,5 +14,5 @@
 
     "browser": true,
 
-    "predef": ["ts", "goog", "THREE", "console"]
+    "predef": ["ts", "tslibs", "goog", "THREE", "console"]
 }

@@ -15,7 +15,6 @@ tslibs.systems.EntitySystem = function() {
     this.changes = {};
 };
 
-
 goog.scope(function() {
 
     var obj = goog.object,
@@ -94,7 +93,6 @@ goog.scope(function() {
             this.entities[entityId] = val;
         }
     };
-
 
     EntitySystem.prototype.updateReactionsTree = function(entityId, actors, reaction) {
         var deps = [entityId].concat(actors),
