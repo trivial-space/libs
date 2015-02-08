@@ -30,10 +30,8 @@ tslibs.render.Context = function(canvas) {
         throw Error("WebGL-Context could not be initialized!");
     }
 
-
     this.gl = gl;
     this.canvas = canvas;
-
 
     this.updateGeometry('_renderQuad', lib.geometries.renderQuad);
     this.updateShader('_renderResult', lib.shaders.renderResult);
@@ -42,6 +40,7 @@ tslibs.render.Context = function(canvas) {
 
 
 goog.scope(function() {
+
     var Ctx = tslibs.render.Context,
         consts = tslibs.render.constants,
         glConsts = goog.webgl;
@@ -193,7 +192,7 @@ goog.scope(function() {
             geometry.elements.buffer = geometry.elements.buffer || gl.createBuffer();
 
             buffer = Ctx.getBufferData(data.elements);
-            geometry.elements.glType = Ctx.TypedArrayToGLType(buffer);
+            geometry.elements.glType = Ctx.typedArrayToGLType(buffer);
 
             gl.bindBuffer(glConsts.ELEMENT_ARRAY_BUFFER, geometry.elements.buffer);
             gl.bufferData(glConsts.ELEMENT_ARRAY_BUFFER,
@@ -336,6 +335,7 @@ goog.scope(function() {
             value = object.uniforms[name];
 
             switch (uniform.type) {
+
                 case 't':
                     texture = (value === consts.SOURCE_LAYER) ?
                         this.source.texture :
@@ -344,40 +344,52 @@ goog.scope(function() {
                     gl.bindTexture(glConsts.TEXTURE_2D, texture);
                     gl.uniform1i(index, textureCount);
                     textureCount++;
-                break;
+                    break;
+
                 case 'f 1':
                     gl.uniform1f(index, value);
-                break;
+                    break;
+
                 case 'f 2':
                     gl.uniform2fv(index, value);
-                break;
+                    break;
+
                 case 'f 3':
                     gl.uniform3fv(index, value);
-                break;
+                    break;
+
                 case 'f 4':
                     gl.uniform4fv(index, value);
-                break;
+                    break;
+
                 case 'm 2':
                     gl.uniformMatrix2fv(index, false, value);
-                break;
+                    break;
+
                 case 'm 3':
                     gl.uniformMatrix3fv(index, false, value);
-                break;
+                    break;
+
                 case 'm 4':
                     gl.uniformMatrix4fv(index, false, value);
-                break;
+                    break;
+
                 case 'i 1':
                     gl.uniform1i(index, value);
-                break;
+                    break;
+
                 case 'i 2':
                     gl.uniform2iv(index, value);
-                break;
+                    break;
+
                 case 'i 3':
                     gl.uniform3iv(index, value);
-                break;
+                    break;
+
                 case 'i 4':
                     gl.uniform4iv(index, value);
-                break;
+                    break;
+
                 default:
                     console.error("Uniform type " + uniform.type + " unknown. uniform " + name + " not set!");
             }
@@ -392,6 +404,7 @@ goog.scope(function() {
         }
 
     };
+
 
     // ===== helper function =====
 
@@ -464,7 +477,7 @@ goog.scope(function() {
     };
 
 
-    Ctx.TypedArrayToGLType = function(array) {
+    Ctx.typedArrayToGLType = function(array) {
         if (array instanceof Uint8Array) {
             return glConsts.UNSIGNED_BYTE;
         }
