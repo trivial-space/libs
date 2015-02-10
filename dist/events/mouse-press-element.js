@@ -1,29 +1,38 @@
 goog.provide('tslibs.events.MouseButtonElement');
-goog.require('goog.events.EventTarget');
+goog.require('tslibs.events.EntityEvent');
+goog.require('goog.object');
 
 
 /**
  * @constructor
- * @extends {goog.events.EventTarget}
+ * @extends {tslibs.events.EntityEvent}
  */
-tslibs.events.MouseButtonElement = function(element, enableRightBtn) {
-    tslibs.events.MouseButtonElement.base(this, 'constructor');
+tslibs.events.MouseButtonElement = function(element, options) {
+    tslibs.events.EntityEvent.call(this);
 
-    this.leftBtn = false;
-    this.middleBtn = false;
-    this.rightBtn = false;
+    this.options = {
+        enableRightButton: false
+    };
+    goog.object.extend(this.options, options);
 
+    this.entityName = 'inputEvent.mouseButton';
+
+    this.value.leftButton = false;
+    this.value.middleButton = false;
+    this.value.rightButton = false;
+
+    this._stop = false;
 
     element.addEventListener("mousedown", goog.bind(this.onMouseDown, this), false);
     document.addEventListener("mouseup", goog.bind(this.onMouseUp, this), false);
 
-    if (enableRightBtn) {
+    if (this.options.enableRightButton) {
         element.addEventListener("contextmenu", function(e) {
             e.preventDefault();
         }, false);
     }
 };
-goog.inherits(tslibs.events.MouseButtonElement, goog.events.EventTarget);
+goog.inherits(tslibs.events.MouseButtonElement, tslibs.events.EntityEvent);
 
 
 goog.scope(function() {
@@ -33,7 +42,8 @@ goog.scope(function() {
 
     MouseButtonElement.prototype.onMouseUp = function(e) {
         e.preventDefault();
-        this.leftBtn = this.middleBtn = this.rightBtn = false;
+        this.value.leftButton = this.value.middleButton = this.value.rightButton = false;
+        this._stop = true;
     };
 
 
@@ -41,21 +51,26 @@ goog.scope(function() {
         e.preventDefault();
         switch (e.button) {
           case 0:
-            this.leftBtn = true;
+            this.value.leftButton = true;
             break;
           case 1:
-            this.middleBtn = true;
+            this.value.middleButton = true;
             break;
           case 2:
-            this.rightBtn = true;
+            this.value.rightButton = true;
             break;
         }
     };
 
 
     MouseButtonElement.prototype.sample = function() {
-        if (this.rightBtn || this.middleBtn || this.leftBtn) {
-            this.dispatchEvent('change');
+        if (this.value.rightButton ||
+            this.value.middleButton ||
+            this.value.leftButton ||
+            this._stop) {
+
+            this.entitySystem.propagateChange(this.entityName);
+            this._stop = false;
         }
     };
 });

@@ -1,16 +1,20 @@
 goog.provide('tslibs.events.DragElement');
-goog.require('goog.events.EventTarget');
+goog.require('tslibs.events.EntityEvent');
 
 
 /**
  * @constructor
- * @extends {goog.events.EventTarget}
+ * @extends {tslibs.events.EntityEvent}
  */
 tslibs.events.DragElement = function(element) {
-    tslibs.events.DragElement.base(this, 'constructor');
+    tslibs.events.EntityEvent.call(this);
 
-    this.deltaX = 0;
-    this.deltaY = 0;
+    this.entityName = 'inputEvent.mouseDrag';
+
+    this.value = {
+        deltaX: 0,
+        deltaY: 0
+    };
 
     this._x = 0;
     this._y = 0;
@@ -24,7 +28,7 @@ tslibs.events.DragElement = function(element) {
     document.addEventListener("mousemove", goog.bind(this.onMouseMove, this), false);
     document.addEventListener("mouseup", goog.bind(this.onMouseUp, this), false);
 };
-goog.inherits(tslibs.events.DragElement, goog.events.EventTarget);
+goog.inherits(tslibs.events.DragElement, tslibs.events.EntityEvent);
 
 
 goog.scope(function() {
@@ -33,18 +37,18 @@ goog.scope(function() {
 
     DragElement.prototype.onMouseMove = function(e) {
         if (this._dragging) {
-            this._oldDeltaX = this.deltaX;
-            this._oldDeltaY = this.deltaY;
-            this.deltaX = this._x - e.screenX;
-            this.deltaY = this._y - e.screenY;
+            this._oldDeltaX = this.value.deltaX;
+            this._oldDeltaY = this.value.deltaY;
+            this.value.deltaX = this._x - e.screenX;
+            this.value.deltaY = this._y - e.screenY;
             this._x = e.screenX;
             this._y = e.screenY;
         }
     };
 
     DragElement.prototype.onMouseUp = function() {
-        this.deltaX = this._oldDeltaX = 0;
-        this.deltaY = this._oldDeltaY = 0;
+        this.value.deltaX = this._oldDeltaX = 0;
+        this.value.deltaY = this._oldDeltaY = 0;
         this._dragging = false;
     };
 
@@ -58,21 +62,11 @@ goog.scope(function() {
     };
 
     DragElement.prototype.sample = function() {
-        if ((this.deltaX && this.deltaX != this._oldDeltaX) ||
-            (this.deltaY && this.deltaY != this._oldDeltaY)) {
-            this.dispatchEvent({
-                type: 'change',
-                deltaX: this.deltaX,
-                deltaY: this.deltaY
-            });
-        }
+        if ((this.value.deltaX && this.value.deltaX != this._oldDeltaX) ||
+            (this.value.deltaY && this.value.deltaY != this._oldDeltaY) ||
+            this._stop) {
 
-        if (this._stop) {
-            this.dispatchEvent({
-                type: 'change',
-                deltaX: 0,
-                deltaY: 0
-            });
+            this.entitySystem.propagateChange(this.entityName);
             this._stop = false;
         }
     };

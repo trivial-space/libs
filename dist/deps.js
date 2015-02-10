@@ -1435,9 +1435,10 @@ goog.addDependency('../custom_modules/closure/closure/goog/vec/vec4f.js', ['goog
 goog.addDependency('../custom_modules/closure/closure/goog/webgl/webgl.js', ['goog.webgl'], [], false);
 goog.addDependency('../custom_modules/closure/closure/goog/window/window.js', ['goog.window'], ['goog.string', 'goog.userAgent'], false);
 goog.addDependency('../custom_modules/closure/closure/goog/window/window_test.js', ['goog.windowTest'], ['goog.dom', 'goog.events', 'goog.string', 'goog.testing.AsyncTestCase', 'goog.testing.jsunit', 'goog.window'], false);
-goog.addDependency('events/direction-keys.js', ['tslibs.events.DirectionKeys'], ['goog.events.EventTarget'], false);
-goog.addDependency('events/drag-element.js', ['tslibs.events.DragElement'], ['goog.events.EventTarget'], false);
-goog.addDependency('events/mouse-press-element.js', ['tslibs.events.MouseButtonElement'], ['goog.events.EventTarget'], false);
+goog.addDependency('events/direction-keys.js', ['tslibs.events.DirectionKeys'], ['goog.object', 'tslibs.events.EntityEvent'], false);
+goog.addDependency('events/drag-element.js', ['tslibs.events.DragElement'], ['tslibs.events.EntityEvent'], false);
+goog.addDependency('events/event-entity.js', ['tslibs.events.EntityEvent'], [], false);
+goog.addDependency('events/mouse-press-element.js', ['tslibs.events.MouseButtonElement'], ['goog.object', 'tslibs.events.EntityEvent'], false);
 goog.addDependency('geometry/plane.js', ['tslibs.geometry.plane'], [], false);
 goog.addDependency('graphics/PixelContext.js', ['tslibs.graphics.PixelContext'], ['goog.object', 'tslibs.graphics'], false);
 goog.addDependency('graphics/base.js', ['tslibs.graphics'], ['tslibs.math'], false);

@@ -26,6 +26,11 @@ goog.scope(function() {
     };
 
 
+    EntitySystem.prototype.addValue = function(name, value) {
+        this.entities[name] = value;
+    };
+
+
     EntitySystem.prototype.addEntities = function(spec) {
         for (var id in spec) {
             this.addEntity(id, spec[id]);

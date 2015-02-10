@@ -168,7 +168,6 @@ goog.scope(function() {
 
 
     Ctx.prototype.updateGeometry = function(name, data) {
-
         var attribs, attribData, geometry, buffer,
             gl = this.gl;
 
@@ -211,11 +210,12 @@ goog.scope(function() {
         var layer = this.layers[name] = this.layers[name] || {};
 
         layer.type = data.type;
+        layer.noClear = data.noClear;
+        layer.clearColor = data.clearColor || this.settings.clearColor;
 
         if (data.buffered) {
-            data.width = data.width || this.settings.width;
-            data.height = data.height || this.settings.height;
-            data.clearColor = data.clearColor || this.settings.clearColor;
+            layer.width = data.width || this.settings.width;
+            layer.height = data.height || this.settings.height;
             Ctx.updateRenderTarget(this.gl, layer, data);
         }
 
@@ -267,23 +267,22 @@ goog.scope(function() {
             if (directRender) {
                 gl.bindFramebuffer(glConsts.FRAMEBUFFER, null);
                 gl.viewport(0, 0, this.settings.width, this.settings.height);
-                gl.clearColor.apply(gl, this.settings.clearColor);
 
             } else if (renderToTarget) {
                 gl.bindFramebuffer(glConsts.FRAMEBUFFER, this.target.frameBuffer);
                 gl.viewport(0, 0, this.settings.width, this.settings.height);
-                gl.clearColor.apply(gl, this.settings.clearColor);
 
             // render to layers own frameBuffer
             } else {
                 gl.bindFramebuffer(glConsts.FRAMEBUFFER, layer.frameBuffer);
-                gl.viewport(0, 0,
-                            layer.width || this.settings.width,
-                            layer.height || this.settings.height);
-                gl.clearColor.apply(gl, layer.clearColor || this.settings.clearColor);
+                gl.viewport(0, 0, layer.width, layer.height);
             }
 
             // render
+            if (!layer.noClear) {
+                gl.clearColor.apply(gl, this.settings.clearColor);
+                gl.clear(gl.COLOR_BUFFER_BIT);
+            }
 
             if (layer.type === consts.LayerType.RENDER) {
                 for (objectId in layer.objects) {
@@ -306,7 +305,6 @@ goog.scope(function() {
         if (!directRender) {
             gl.bindFramebuffer(glConsts.FRAMEBUFFER, null);
             gl.viewport(0, 0, this.settings.width, this.settings.height);
-            gl.clearColor.apply(gl, this.settings.clearColor);
             this.renderObject(this.objects['_result']);
         }
     };
@@ -459,7 +457,7 @@ goog.scope(function() {
 
         var e = gl.checkFramebufferStatus(glConsts.FRAMEBUFFER);
         if (e != glConsts.FRAMEBUFFER_COMPLETE) {
-            console.log('framebuffer error', e, data);
+            console.error('framebuffer error', e, data);
         }
 
         gl.bindFramebuffer(gl.FRAMEBUFFER, null);

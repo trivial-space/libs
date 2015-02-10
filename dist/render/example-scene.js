@@ -39,7 +39,8 @@ definition = {
       magFilter: 'LINEAR',
       buffered: true,
       width: 100,
-      height: 100
+      height: 100,
+      noClear: true
     },
     "texture-layer": {
       type: "static",

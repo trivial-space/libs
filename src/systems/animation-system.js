@@ -32,7 +32,7 @@ goog.scope(function() {
             this.isPlaying = true;
 
             var oldTime = Date.now(),
-            newTime = null;
+                newTime = null;
 
             var animate = function() {
 

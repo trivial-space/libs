@@ -39,6 +39,7 @@ definition =
       buffered: true # get its own FrameBuffer
       width: 100
       height: 100
+      noClear: true
     "texture-layer":
       type: "static" # just make a static texture
       asset: myImage # or video or canvas...

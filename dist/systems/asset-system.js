@@ -24,6 +24,7 @@ goog.inherits(tslibs.systems.AssetSystem, goog.events.EventTarget);
 
 
 tslibs.systems.AssetSystem.Constants = {};
+
 /**
  * @enum {string}
  */
@@ -31,7 +32,6 @@ tslibs.systems.AssetSystem.Constants.Status = {
     PENDING: 'pending',
     READY: 'ready'
 };
-
 
 /**
  * @enum {string}
