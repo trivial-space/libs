@@ -1,4 +1,4 @@
 goog.require 'tslibs.systems.AssetSystem'
 
 
-describe 'EntitySystem', ->
+describe 'AssetSystem', ->

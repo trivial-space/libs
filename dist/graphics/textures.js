@@ -12,15 +12,15 @@ goog.scope(function() {
       return Math.floor((float + 1) * 127);
     },
     createTileNoiseTexture: function(width, height, startX, startY) {
-      var canvas, ctx, i, i4, noise1, noise2, noise3, noise4, pixeldata, to8Bit, _i, _ref, _ref1;
-      _ref = newCanvas(width, height), canvas = _ref[0], ctx = _ref[1];
+      var canvas, ctx, i, i4, j, noise1, noise2, noise3, noise4, pixeldata, ref, ref1, to8Bit;
+      ref = newCanvas(width, height), canvas = ref[0], ctx = ref[1];
       to8Bit = tslibs.graphics.textures.to8Bit;
       noise1 = noise.tileNoise(width, height, startX, startY);
       noise2 = noise.tileNoise(width, height, startX * 2.1, startY * 2.1);
       noise3 = noise.tileNoise(width, height, startX * 4.2, startY * 4.2);
       noise4 = noise.tileNoise(width, height, startX * 8.3, startY * 8.3);
       pixeldata = ctx.getImageData(0, 0, width, height);
-      for (i = _i = 0, _ref1 = noise1.length - 1; 0 <= _ref1 ? _i <= _ref1 : _i >= _ref1; i = 0 <= _ref1 ? ++_i : --_i) {
+      for (i = j = 0, ref1 = noise1.length - 1; 0 <= ref1 ? j <= ref1 : j >= ref1; i = 0 <= ref1 ? ++j : --j) {
         i4 = i * 4;
         pixeldata.data[i4] = to8Bit(noise1[i]);
         pixeldata.data[i4 + 1] = to8Bit(noise2[i]);

@@ -24,6 +24,9 @@ describe 'EntitySystem', ->
       expect sys.actions
         .to.exist
 
+      expect sys.callbacks
+        .to.exist
+
 
   describe 'values', ->
 
@@ -287,5 +290,59 @@ describe 'EntitySystem', ->
 
       expect action.update
         .to.be.calledWith 'xVal', 'yVal'
+
+
+    describe 'callbacks', ->
+
+      it 'can be added to sys', ->
+        callback = (foo, bar) -> 'some foo bar operation'
+
+        id = sys.addCallback 'foo bar', callback
+
+        expect id
+          .to.be.a 'string'
+
+        expect sys.callbacks.foo
+          .to.be.instanceof Array
+
+        expect sys.callbacks.bar
+          .to.be.instanceof Array
+
+        expect sys.callbacks.foo
+          .to.contain id
+
+        expect sys.callbacks.bar
+          .to.contain id
+
+        expect sys.actions[id].update
+          .to.have.equal callback
+
+
+      it 'are called on entity change', ->
+        cb = sinon.stub()
+
+        sys.addEntities
+          'foo':
+            init: -> 10
+
+          'bar':
+            require: 'foo'
+            init: (foo) -> foo + 2
+            callback: cb
+
+        sys.updateEntity 'foo', (foo) -> foo - 5
+        sys.flush()
+
+        expect sys.entities.bar
+          .to.equal 7
+
+        expect cb
+          .to.be.calledWith 7
+
+
+      it 'can be more than one', ->
+
+
+      it 'is called only once even if registered for many entities', ->
 
 

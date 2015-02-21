@@ -4,64 +4,64 @@ goog.scope(function() {
   var fns;
   fns = tslibs.math.vectors;
   fns.add = function(vec1, vec2) {
-    var i, _i, _ref, _results;
-    _results = [];
-    for (i = _i = 0, _ref = vec1.length - 1; 0 <= _ref ? _i <= _ref : _i >= _ref; i = 0 <= _ref ? ++_i : --_i) {
-      _results.push(vec1[i] + vec2[i]);
+    var i, j, ref, results;
+    results = [];
+    for (i = j = 0, ref = vec1.length - 1; 0 <= ref ? j <= ref : j >= ref; i = 0 <= ref ? ++j : --j) {
+      results.push(vec1[i] + vec2[i]);
     }
-    return _results;
+    return results;
   };
   fns.addScalar = function(vec, scalar) {
-    var i, _i, _len, _results;
-    _results = [];
-    for (_i = 0, _len = vec.length; _i < _len; _i++) {
-      i = vec[_i];
-      _results.push(i + scalar);
+    var i, j, len, results;
+    results = [];
+    for (j = 0, len = vec.length; j < len; j++) {
+      i = vec[j];
+      results.push(i + scalar);
     }
-    return _results;
+    return results;
   };
   fns.sub = function(vec1, vec2) {
-    var i, _i, _ref, _results;
-    _results = [];
-    for (i = _i = 0, _ref = vec1.length - 1; 0 <= _ref ? _i <= _ref : _i >= _ref; i = 0 <= _ref ? ++_i : --_i) {
-      _results.push(vec1[i] - vec2[i]);
+    var i, j, ref, results;
+    results = [];
+    for (i = j = 0, ref = vec1.length - 1; 0 <= ref ? j <= ref : j >= ref; i = 0 <= ref ? ++j : --j) {
+      results.push(vec1[i] - vec2[i]);
     }
-    return _results;
+    return results;
   };
   fns.subScalar = function(vec, scalar) {
-    var i, _i, _len, _results;
-    _results = [];
-    for (_i = 0, _len = vec.length; _i < _len; _i++) {
-      i = vec[_i];
-      _results.push(i - scalar);
+    var i, j, len, results;
+    results = [];
+    for (j = 0, len = vec.length; j < len; j++) {
+      i = vec[j];
+      results.push(i - scalar);
     }
-    return _results;
+    return results;
   };
   fns.mul = function(vec, scalar) {
-    var val, _i, _len, _results;
-    _results = [];
-    for (_i = 0, _len = vec.length; _i < _len; _i++) {
-      val = vec[_i];
-      _results.push(val * scalar);
+    var j, len, results, val;
+    results = [];
+    for (j = 0, len = vec.length; j < len; j++) {
+      val = vec[j];
+      results.push(val * scalar);
     }
-    return _results;
+    return results;
   };
   fns.div = function(vec, scalar) {
-    var val, _i, _len, _results;
+    var j, len, results, val;
     if (scalar) {
-      _results = [];
-      for (_i = 0, _len = vec.length; _i < _len; _i++) {
-        val = vec[_i];
-        _results.push(val / scalar);
+      results = [];
+      for (j = 0, len = vec.length; j < len; j++) {
+        val = vec[j];
+        results.push(val / scalar);
       }
-      return _results;
+      return results;
     }
   };
   fns.length = function(vec) {
-    var sum, val, _i, _len;
+    var j, len, sum, val;
     sum = 0;
-    for (_i = 0, _len = vec.length; _i < _len; _i++) {
-      val = vec[_i];
+    for (j = 0, len = vec.length; j < len; j++) {
+      val = vec[j];
       sum += val * val;
     }
     return Math.sqrt(sum);
@@ -77,9 +77,9 @@ goog.scope(function() {
     }
   };
   return fns.isEqual = function(vec1, vec2) {
-    var equal, i, _i, _ref;
+    var equal, i, j, ref;
     equal = true;
-    for (i = _i = 0, _ref = vec1.length - 1; 0 <= _ref ? _i <= _ref : _i >= _ref; i = 0 <= _ref ? ++_i : --_i) {
+    for (i = j = 0, ref = vec1.length - 1; 0 <= ref ? j <= ref : j >= ref; i = 0 <= ref ? ++j : --j) {
       if (vec1[i] !== vec2[i]) {
         equal = false;
       }

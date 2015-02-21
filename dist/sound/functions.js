@@ -16,7 +16,7 @@ define(function() {
       }
     },
     loadSounds: function(context, urlList, success, error) {
-      var bufferList, e, index, loadBuffer, loadCount, url, _i, _len, _results;
+      var bufferList, e, i, index, len, loadBuffer, loadCount, results, url;
       bufferList = new Array();
       loadCount = 0;
       loadBuffer = function(url, index) {
@@ -43,12 +43,12 @@ define(function() {
         return request.send();
       };
       try {
-        _results = [];
-        for (index = _i = 0, _len = urlList.length; _i < _len; index = ++_i) {
+        results = [];
+        for (index = i = 0, len = urlList.length; i < len; index = ++i) {
           url = urlList[index];
-          _results.push(loadBuffer(url, index));
+          results.push(loadBuffer(url, index));
         }
-        return _results;
+        return results;
       } catch (_error) {
         e = _error;
         console.error(e);

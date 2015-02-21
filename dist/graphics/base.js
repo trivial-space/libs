@@ -7,10 +7,10 @@ goog.scope(function() {
   return tslibs.graphics = {
     BLACK: [0, 0, 0, 255],
     WHITE: [255, 255, 255, 255],
-    mixColors: function(_arg, _arg1) {
+    mixColors: function(arg, arg1) {
       var a1, a2, b, b1, b2, g, g1, g2, r, r1, r2, step;
-      r1 = _arg[0], g1 = _arg[1], b1 = _arg[2], a1 = _arg[3];
-      r2 = _arg1[0], g2 = _arg1[1], b2 = _arg1[2], a2 = _arg1[3];
+      r1 = arg[0], g1 = arg[1], b1 = arg[2], a1 = arg[3];
+      r2 = arg1[0], g2 = arg1[1], b2 = arg1[2], a2 = arg1[3];
       step = a2 / 255.0;
       r = Math.floor(math.lerp(r1, r2, step));
       g = Math.floor(math.lerp(g1, g2, step));
@@ -23,9 +23,9 @@ goog.scope(function() {
       }
       return [scale, scale, scale, alpha];
     },
-    colorToCSS: function(_arg) {
+    colorToCSS: function(arg) {
       var a, b, g, r;
-      r = _arg[0], g = _arg[1], b = _arg[2], a = _arg[3];
+      r = arg[0], g = arg[1], b = arg[2], a = arg[3];
       return "rgba(" + r + ", " + g + ", " + b + ", " + (a / 255) + ")";
     },
     newCanvas: function(width, height) {
