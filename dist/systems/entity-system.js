@@ -283,6 +283,21 @@ goog.scope(function() {
     };
 
 
+    EntitySystem.prototype.removeCallback = function(cbId) {
+        var entityId, callbacks, index;
+        delete this.actions[cbId];
+        delete this.calls[cbId];
+
+        for (entityId in this.callbacks) {
+            callbacks = this.callbacks[entityId];
+            index = callbacks.indexOf(cbId);
+            if (index >= 0) {
+                callbacks.splice(index, 1);
+            }
+        }
+    };
+
+
     // ===== Helpers =====
 
     EntitySystem.prototype.processRequire = function(spec) {
