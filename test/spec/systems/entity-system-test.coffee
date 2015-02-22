@@ -13,7 +13,7 @@ describe 'EntitySystem', ->
 
   describe 'constructor', ->
 
-    it 'creates object with entities, reactions, components, actions and setup', ->
+    it 'creates object with entities, reactions, components, actions', ->
 
       expect sys.entities
         .to.exist
@@ -42,6 +42,16 @@ describe 'EntitySystem', ->
 
 
   describe 'entity specs', ->
+
+    it 'can have initial values', ->
+      spec =
+        value: 123
+
+      sys.addEntity 'foo', spec
+
+      expect sys.entities.foo
+        .to.equal 123
+
 
     it 'initializes entities programatically', ->
       spec = init: -> "newEntity"
@@ -253,6 +263,74 @@ describe 'EntitySystem', ->
         .to.equal 8
 
 
+    it 'preserve reaction state after reinit reations', ->
+      spec =
+        'foo':
+          value: 'foo_value'
+        'bar':
+          value: 'bar_value'
+        'test':
+          require: 'bar'
+          init: (bar) ->
+            myTest: 'test_value',
+            myBar: bar
+          reactions:
+            'foo':
+              (test, foo) ->
+                test.myFoo = foo
+                return
+
+      sys.addEntities spec
+
+      expect sys.entities.test
+        .to.deep.equal
+          myTest: 'test_value'
+          myFoo: 'foo_value'
+          myBar: 'bar_value'
+
+      sys.resetEntity 'bar', 'bar_new_value'
+      sys.flush()
+
+      expect sys.entities.test
+        .to.deep.equal
+          myTest: 'test_value'
+          myFoo: 'foo_value'
+          myBar: 'bar_new_value'
+
+
+    it 'calls reactions only once', ->
+      reaction = sinon.stub()
+      spec =
+        'foo':
+          value: 'foo_value'
+        'bar':
+          value: 'bar_value'
+        'baz':
+          value: 'baz_value'
+        'test':
+          require: 'bar'
+          init: (bar) -> 'test_value'
+          reactions:
+            'foo baz ': reaction
+
+      sys.addEntities spec
+
+      expect reaction
+        .to.be.calledOnce
+      reaction.reset()
+
+      sys.resetEntity 'foo', 'foo_new_value'
+      sys.resetEntity 'bar', 'bar_new_value'
+      sys.resetEntity 'baz', 'baz_new_value'
+      sys.flush()
+
+      expect reaction
+        .to.be.calledOnce
+      expect reaction
+        .to.be.calledWith 'test_value', 'foo_new_value', 'baz_new_value'
+
+
+
 
   describe 'actions', ->
 
@@ -395,5 +473,15 @@ describe 'EntitySystem', ->
       expect cb
         .to.not.be.called
 
+
+  describe 'Entitystring parsing', ->
+
+    it 'parses ids separated by whitespace into an array of ids', ->
+
+      expect sys.processEntityString '  foo  bar '
+        .to.deep.equal ['foo', 'bar']
+
+      expect sys.processEntityString '\nfoo\tbar '
+        .to.deep.equal ['foo', 'bar']
 
 

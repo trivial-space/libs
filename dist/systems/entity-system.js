@@ -15,6 +15,7 @@ tslibs.systems.EntitySystem = function() {
     this.changes = {};
     this.calls = {};
     this.callbacks = {};
+    this.reactionsByEntity = {};
 };
 
 goog.scope(function() {
@@ -47,36 +48,45 @@ goog.scope(function() {
     };
 
 
-    EntitySystem.prototype.addEntity = function(id, props) {
-        this.processRequire(props);
-        var deps = props.dependencies = props.dependencies || [];
+    EntitySystem.prototype.addEntity = function(id, spec) {
+        this.processRequire(spec);
+
+        var deps = spec.dependencies = spec.dependencies || [],
+            reaction;
+
+        // handle values
+        if (spec.value) {
+            this.addValue(id, spec.value);
+        }
 
         // handle entity initialization
-        if (props.init) {
+        if (spec.init) {
             if (deps.length) {
                 this.updateReactionsTree(
                     id, deps,
-                    {init: props.init}
+                    {init: spec.init}
                 );
             } else {
-                this.changeEntity(id, deps, props.init);
+                this.changeEntity(id, deps, spec.init);
             }
         }
 
         // handle reactions
-        if (props.reactions) {
-            for (var key in props.reactions) {
+        if (spec.reactions) {
+            for (var key in spec.reactions) {
                 deps = this.processEntityString(key);
-                this.updateReactionsTree(
+                reaction = this.updateReactionsTree(
                     id, deps,
-                    props.reactions[key]
+                    spec.reactions[key]
                 );
+                this.reactionsByEntity[id] = this.reactionsByEntity[id] || [];
+                this.reactionsByEntity[id].push(reaction);
             }
         }
 
         // handle change callbacks
-        if (props.callback) {
-            this.addCallback(id, props.callback);
+        if (spec.callback) {
+            this.addCallback(id, spec.callback);
         }
     };
 
@@ -124,6 +134,8 @@ goog.scope(function() {
             r = this.reactions[actor] = this.reactions[actor] || {};
             r[entityId] = id;
         }
+
+        return id;
     };
 
 
@@ -131,7 +143,8 @@ goog.scope(function() {
         var nextIds = this.reactions[id],
             callbacks = this.callbacks[id],
             nextId, change, actionId,
-            i, cbId;
+            reactionId, reactions,
+            i, j, cbId;
 
         // register reactions
         if (nextIds) {
@@ -149,6 +162,25 @@ goog.scope(function() {
 
                 if (!change.order || change.order < order) {
                     change.order = order;
+                }
+
+                // restore reaction state after reinit
+                if (this.actions[actionId].init) {
+                    reactions = this.reactionsByEntity[nextId];
+                    for (j in reactions) {
+                        reactionId = reactions[j];
+                        change = this.changes[reactionId] = this.changes[reactionId] || {};
+
+                        if (change.count) {
+                            change.count++;
+                        } else {
+                            change.count = 1;
+                        }
+
+                        if (!change.order || change.order < order) {
+                            change.order = order;
+                        }
+                    }
                 }
 
                 this.propagateChange(nextId, order + 1);
@@ -308,6 +340,6 @@ goog.scope(function() {
 
 
     EntitySystem.prototype.processEntityString = function(es) {
-        return es.split(/\s+/);
+        return es.trim().split(/\s+/);
     };
 });
