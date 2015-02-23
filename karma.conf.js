@@ -25,16 +25,19 @@ module.exports = function(config) {
         {pattern: 'dist/**/*.js', included: false},
 
         // external deps
-        {pattern: 'dist/deps.js', included: false, served: false}
+        {pattern: 'dist/deps.js', included: false},
+        {pattern: 'custom_modules/closure/closure/goog/deps.js', included: false},
+        {pattern: 'custom_modules/closure/closure/goog/**/*.js', included: false},
     ],
 
     preprocessors: {
         // tests are preprocessed for dependencies (closure) and for iits
-        'test/run/**/*.js': ['closure', 'closure-iit'],
+        'test/run/**/*.js': ['closure'],
         // source files are preprocessed for dependencies
         'dist/**/*.js': ['closure'],
         // external deps
-        'dist/deps.js': ['closure-deps']
+        'dist/deps.js': ['closure-deps'],
+        // 'custom_modules/closure/closure/goog/deps.js': ['closure-deps']
     },
 
     // list of files to exclude

@@ -48,5 +48,12 @@ tslibs.math = {
   },
   normalRand: function() {
     return (Math.random() * 2 - 1) + (Math.random() * 2 - 1) + (Math.random() * 2 - 1);
-  }
+  },
+  degToRad: (function() {
+    var degreeToRadiansFactor;
+    degreeToRadiansFactor = Math.PI / 180;
+    return function(degrees) {
+      return degrees * degreeToRadiansFactor;
+    };
+  })()
 };

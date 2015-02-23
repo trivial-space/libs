@@ -13,6 +13,9 @@ tslibs.systems.EntitySystem = function() {
     this.reactions = {};
     this.actions = {};
     this.changes = {};
+    this.calls = {};
+    this.callbacks = {};
+    this.reactionsByEntity = {};
 };
 
 goog.scope(function() {
@@ -20,6 +23,8 @@ goog.scope(function() {
     var obj = goog.object,
         EntitySystem = tslibs.systems.EntitySystem;
 
+
+    // ===== Entity registration =====
 
     EntitySystem.prototype.addValues = function(values) {
         obj.extend(this.entities, values);
@@ -43,31 +48,45 @@ goog.scope(function() {
     };
 
 
-    EntitySystem.prototype.addEntity = function(id, props) {
-        this.processRequire(props);
-        var deps = props.dependencies = props.dependencies || [];
+    EntitySystem.prototype.addEntity = function(id, spec) {
+        this.processRequire(spec);
+
+        var deps = spec.dependencies = spec.dependencies || [],
+            reaction;
+
+        // handle values
+        if (spec.value) {
+            this.addValue(id, spec.value);
+        }
 
         // handle entity initialization
-        if (props.init) {
+        if (spec.init) {
             if (deps.length) {
                 this.updateReactionsTree(
                     id, deps,
-                    {init: props.init}
+                    {init: spec.init}
                 );
             } else {
-                this.changeEntity(id, deps, props.init);
+                this.changeEntity(id, deps, spec.init);
             }
         }
 
         // handle reactions
-        if (props.reactions) {
-            for (var key in props.reactions) {
+        if (spec.reactions) {
+            for (var key in spec.reactions) {
                 deps = this.processEntityString(key);
-                this.updateReactionsTree(
+                reaction = this.updateReactionsTree(
                     id, deps,
-                    props.reactions[key]
+                    spec.reactions[key]
                 );
+                this.reactionsByEntity[id] = this.reactionsByEntity[id] || [];
+                this.reactionsByEntity[id].push(reaction);
             }
+        }
+
+        // handle change callbacks
+        if (spec.callback) {
+            this.addCallback(id, spec.callback);
         }
     };
 
@@ -84,20 +103,7 @@ goog.scope(function() {
     };
 
 
-    EntitySystem.prototype.changeEntity = function(entityId, deps, fn) {
-        var args = [];
-        for (var i in deps) {
-            args[i] = this.entities[deps[i]];
-        }
-
-        var val = fn.apply(null, args);
-
-        if (val === false) {
-            return val;
-        } else if (val != null) {
-            this.entities[entityId] = val;
-        }
-    };
+    // ===== Change propagation =====
 
     EntitySystem.prototype.updateReactionsTree = function(entityId, actors, reaction) {
         var deps = [entityId].concat(actors),
@@ -128,13 +134,19 @@ goog.scope(function() {
             r = this.reactions[actor] = this.reactions[actor] || {};
             r[entityId] = id;
         }
+
+        return id;
     };
 
 
     EntitySystem.prototype.propagateChange = function(id, order) {
         var nextIds = this.reactions[id],
-            nextId, change, actionId;
+            callbacks = this.callbacks[id],
+            nextId, change, actionId,
+            reactionId, reactions,
+            i, j, cbId;
 
+        // register reactions
         if (nextIds) {
             order = order || 1;
             for (nextId in nextIds) {
@@ -152,8 +164,51 @@ goog.scope(function() {
                     change.order = order;
                 }
 
+                // restore reaction state after reinit
+                if (this.actions[actionId].init) {
+                    reactions = this.reactionsByEntity[nextId];
+                    for (j in reactions) {
+                        reactionId = reactions[j];
+                        change = this.changes[reactionId] = this.changes[reactionId] || {};
+
+                        if (change.count) {
+                            change.count++;
+                        } else {
+                            change.count = 1;
+                        }
+
+                        if (!change.order || change.order < order) {
+                            change.order = order;
+                        }
+                    }
+                }
+
                 this.propagateChange(nextId, order + 1);
             }
+        }
+
+        // register callback calls
+        if (callbacks) {
+            for (i in callbacks) {
+                cbId = callbacks[i];
+                this.calls[cbId] = true;
+            }
+        }
+    };
+
+
+    EntitySystem.prototype.changeEntity = function(entityId, deps, fn) {
+        var args = [];
+        for (var i in deps) {
+            args[i] = this.entities[deps[i]];
+        }
+
+        var val = fn.apply(null, args);
+
+        if (val === false) {
+            return val;
+        } else if (val != null) {
+            this.entities[entityId] = val;
         }
     };
 
@@ -178,7 +233,7 @@ goog.scope(function() {
     EntitySystem.prototype.flush = function() {
         var process = {},
             actionId, change, action, actions,
-            p, o, i, result;
+            p, i, order, result, cbId;
 
         for (actionId in this.changes) {
             change = this.changes[actionId];
@@ -190,8 +245,9 @@ goog.scope(function() {
             }
         }
 
-        for (o in process) {
-            actions = process[o];
+        // call all changes and reactio updates
+        for (order in process) {
+            actions = process[order];
 
             for (i in actions) {
                 actionId = actions[i];
@@ -208,8 +264,16 @@ goog.scope(function() {
             }
         }
 
+        // call callbacks
+        for (cbId in this.calls) {
+            this.callAction(cbId);
+        }
+        this.calls = {};
+
     };
 
+
+    // ===== Actions =====
 
     EntitySystem.prototype.addAction = function(id, action) {
         this.processRequire(action);
@@ -230,6 +294,44 @@ goog.scope(function() {
     };
 
 
+    // ===== Callbacks =====
+
+    EntitySystem.prototype.addCallback = function(entityString, callback) {
+        var deps = this.processEntityString(entityString),
+            cbId = tslibs.math.generateUUID(),
+            k, cbs;
+
+        for (k in deps) {
+            cbs = this.callbacks[deps[k]] = this.callbacks[deps[k]] || [];
+            cbs.push(cbId);
+        }
+
+        this.addAction(cbId, {
+            dependencies: deps,
+            update: callback
+        });
+
+        return cbId;
+    };
+
+
+    EntitySystem.prototype.removeCallback = function(cbId) {
+        var entityId, callbacks, index;
+        delete this.actions[cbId];
+        delete this.calls[cbId];
+
+        for (entityId in this.callbacks) {
+            callbacks = this.callbacks[entityId];
+            index = callbacks.indexOf(cbId);
+            if (index >= 0) {
+                callbacks.splice(index, 1);
+            }
+        }
+    };
+
+
+    // ===== Helpers =====
+
     EntitySystem.prototype.processRequire = function(spec) {
         if (spec && spec.require) {
             spec.dependencies = this.processEntityString(spec.require);
@@ -238,6 +340,6 @@ goog.scope(function() {
 
 
     EntitySystem.prototype.processEntityString = function(es) {
-        return es.split(/\s+/);
+        return es.trim().split(/\s+/);
     };
 });

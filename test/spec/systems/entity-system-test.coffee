@@ -13,7 +13,7 @@ describe 'EntitySystem', ->
 
   describe 'constructor', ->
 
-    it 'creates object with entities, reactions, components, actions and setup', ->
+    it 'creates object with entities, reactions, components, actions', ->
 
       expect sys.entities
         .to.exist
@@ -22,6 +22,9 @@ describe 'EntitySystem', ->
         .to.exist
 
       expect sys.actions
+        .to.exist
+
+      expect sys.callbacks
         .to.exist
 
 
@@ -39,6 +42,16 @@ describe 'EntitySystem', ->
 
 
   describe 'entity specs', ->
+
+    it 'can have initial values', ->
+      spec =
+        value: 123
+
+      sys.addEntity 'foo', spec
+
+      expect sys.entities.foo
+        .to.equal 123
+
 
     it 'initializes entities programatically', ->
       spec = init: -> "newEntity"
@@ -250,6 +263,74 @@ describe 'EntitySystem', ->
         .to.equal 8
 
 
+    it 'preserve reaction state after reinit reations', ->
+      spec =
+        'foo':
+          value: 'foo_value'
+        'bar':
+          value: 'bar_value'
+        'test':
+          require: 'bar'
+          init: (bar) ->
+            myTest: 'test_value',
+            myBar: bar
+          reactions:
+            'foo':
+              (test, foo) ->
+                test.myFoo = foo
+                return
+
+      sys.addEntities spec
+
+      expect sys.entities.test
+        .to.deep.equal
+          myTest: 'test_value'
+          myFoo: 'foo_value'
+          myBar: 'bar_value'
+
+      sys.resetEntity 'bar', 'bar_new_value'
+      sys.flush()
+
+      expect sys.entities.test
+        .to.deep.equal
+          myTest: 'test_value'
+          myFoo: 'foo_value'
+          myBar: 'bar_new_value'
+
+
+    it 'calls reactions only once', ->
+      reaction = sinon.stub()
+      spec =
+        'foo':
+          value: 'foo_value'
+        'bar':
+          value: 'bar_value'
+        'baz':
+          value: 'baz_value'
+        'test':
+          require: 'bar'
+          init: (bar) -> 'test_value'
+          reactions:
+            'foo baz ': reaction
+
+      sys.addEntities spec
+
+      expect reaction
+        .to.be.calledOnce
+      reaction.reset()
+
+      sys.resetEntity 'foo', 'foo_new_value'
+      sys.resetEntity 'bar', 'bar_new_value'
+      sys.resetEntity 'baz', 'baz_new_value'
+      sys.flush()
+
+      expect reaction
+        .to.be.calledOnce
+      expect reaction
+        .to.be.calledWith 'test_value', 'foo_new_value', 'baz_new_value'
+
+
+
 
   describe 'actions', ->
 
@@ -287,5 +368,120 @@ describe 'EntitySystem', ->
 
       expect action.update
         .to.be.calledWith 'xVal', 'yVal'
+
+
+  describe 'callbacks', ->
+
+    it 'can be added to sys', ->
+      callback = (foo, bar) -> 'some foo bar operation'
+
+      id = sys.addCallback 'foo bar', callback
+
+      expect id
+        .to.be.a 'string'
+
+      expect sys.callbacks.foo
+        .to.be.instanceof Array
+
+      expect sys.callbacks.bar
+        .to.be.instanceof Array
+
+      expect sys.callbacks.foo
+        .to.contain id
+
+      expect sys.callbacks.bar
+        .to.contain id
+
+      expect sys.actions[id].update
+        .to.have.equal callback
+
+
+    it 'are called on entity change', ->
+      cb = sinon.stub()
+
+      sys.addEntities
+        'foo':
+          init: -> 10
+
+        'bar':
+          require: 'foo'
+          init: (foo) -> foo + 2
+          callback: cb
+
+      sys.updateEntity 'foo', (foo) -> foo - 5
+      sys.flush()
+
+      expect sys.entities.bar
+        .to.equal 7
+
+      expect cb
+        .to.be.calledWith 7
+
+
+    it 'can be more than one', ->
+      cb1 = sinon.stub()
+      cb2 = sinon.stub()
+
+      sys.addValue 'foo', 'foo_value'
+      sys.addCallback 'foo', cb1
+      sys.addCallback 'foo', cb2
+
+      sys.resetEntity 'foo', 'new_foo_value'
+      sys.flush()
+
+      expect cb1
+        .to.be.calledWith 'new_foo_value'
+      expect cb2
+        .to.be.calledWith 'new_foo_value'
+
+
+    it 'is called only once even if registered for many entities', ->
+      cb = sinon.stub()
+
+      sys.addValue 'foo', 'foo_value'
+      sys.addValue 'bar', 'bar_value'
+      sys.addCallback 'foo bar', cb
+
+      sys.resetEntity 'foo', 'new_foo_value'
+      sys.resetEntity 'bar', 'new_bar_value'
+      sys.flush()
+
+      expect cb
+        .to.be.calledOnce
+      expect cb
+        .to.be.calledWith 'new_foo_value', 'new_bar_value'
+
+
+    it 'can be removed', ->
+      cb = sinon.stub()
+
+      sys.addValue 'foo', 'foo_value'
+      id = sys.addCallback 'foo', cb
+
+      sys.resetEntity 'foo', 'new_foo_value'
+      sys.flush()
+
+      expect cb
+        .to.be.called
+
+      cb.reset()
+      sys.removeCallback id
+
+      sys.resetEntity 'foo', 'new_foo_value2'
+      sys.flush()
+
+      expect cb
+        .to.not.be.called
+
+
+  describe 'Entitystring parsing', ->
+
+    it 'parses ids separated by whitespace into an array of ids', ->
+
+      expect sys.processEntityString '  foo  bar '
+        .to.deep.equal ['foo', 'bar']
+
+      expect sys.processEntityString '\nfoo\tbar '
+        .to.deep.equal ['foo', 'bar']
 
 
