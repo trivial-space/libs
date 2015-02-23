@@ -4,29 +4,28 @@ goog.provide 'tslibs.math'
 tslibs.math =
 
   generateUUID: do ->
+    # http://www.broofa.com/Tools/Math.uuid.htm
+    chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split ''
+    uuid = new Array 36
+    rnd = 0
+    r = null
 
-      # http://www.broofa.com/Tools/Math.uuid.htm
-      chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split ''
-      uuid = new Array 36
-      rnd = 0
-      r = null
+    ->
+      i = 0
+      while i < 36
+        if i == 8 or i == 13 or i == 18 or i == 23
+          uuid[i] = '-'
+        else if i is 14
+          uuid[i] = '4'
+        else
+          if rnd <= 0x02
+            rnd = 0x2000000 + ( Math.random() * 0x1000000 ) | 0
+          r = rnd & 0xf
+          rnd = rnd >> 4
+          uuid[i] = chars[if i == 19 then ( r & 0x3 ) | 0x8 else r]
+        i += 1
 
-      ->
-        i = 0
-        while i < 36
-          if i == 8 or i == 13 or i == 18 or i == 23
-            uuid[i] = '-'
-          else if i is 14
-            uuid[i] = '4'
-          else
-            if rnd <= 0x02
-              rnd = 0x2000000 + ( Math.random() * 0x1000000 ) | 0
-            r = rnd & 0xf
-            rnd = rnd >> 4
-            uuid[i] = chars[if i == 19 then ( r & 0x3 ) | 0x8 else r]
-          i += 1
-
-        uuid.join ''
+      uuid.join ''
 
 
   sign: (num) ->
@@ -54,3 +53,8 @@ tslibs.math =
     (Math.random() * 2 - 1) +
     (Math.random() * 2 - 1) +
     (Math.random() * 2 - 1)
+
+
+  degToRad: do ->
+    degreeToRadiansFactor = Math.PI / 180
+    (degrees) -> degrees * degreeToRadiansFactor
