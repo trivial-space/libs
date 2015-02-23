@@ -3,9 +3,9 @@
 Copyright (c) 2013 Thomas Gorny
 The MIT License (see MIT-LICENSE.txt)
  */
-define(["lib/utils/math/vectors"], function(_arg) {
+define(["lib/utils/math/vectors"], function(arg) {
   var add, div, length, mul, sub;
-  add = _arg.add, sub = _arg.sub, mul = _arg.mul, div = _arg.div, length = _arg.length;
+  add = arg.add, sub = arg.sub, mul = arg.mul, div = arg.div, length = arg.length;
   return {
     gravity: function(attractor, accelerator, G) {
       var distance, force, m;
