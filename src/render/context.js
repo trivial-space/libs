@@ -248,6 +248,8 @@ goog.scope(function() {
 
 
     Ctx.prototype.updateSize = function() {
+        this.canvas.width = this.settings.width;
+        this.canvas.height = this.settings.height;
         Ctx.updateRenderTarget(this.gl, this.source, this.settings);
         Ctx.updateRenderTarget(this.gl, this.target, this.settings);
     };
