@@ -1,80 +1,98 @@
 // Karma configuration
 // Generated on Mon Dec 08 2014 23:10:34 GMT+0100 (CET)
 
-module.exports = function(config) {
-  config.set({
+module.exports = function (config) {
+    config.set({
 
-    // base path that will be used to resolve all patterns (eg. files, exclude)
-    basePath: '',
-
-
-    // frameworks to use
-    // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['mocha', 'chai-sinon', 'closure'],
+        // base path that will be used to resolve all patterns (eg. files, exclude)
+        basePath: '',
 
 
-    // list of files / patterns to load in the browser
-    files: [
-        // closure base
-        'custom_modules/closure/closure/goog/base.js',
-
-        // included files - tests
-        'test/run/**/*.js',
-
-        // source files - these are only watched and served
-        {pattern: 'dist/**/*.js', included: false},
-
-        // external deps
-        {pattern: 'dist/deps.js', included: false},
-        {pattern: 'custom_modules/closure/closure/goog/deps.js', included: false},
-        {pattern: 'custom_modules/closure/closure/goog/**/*.js', included: false},
-    ],
-
-    preprocessors: {
-        // tests are preprocessed for dependencies (closure) and for iits
-        'test/run/**/*.js': ['closure'],
-        // source files are preprocessed for dependencies
-        'dist/**/*.js': ['closure'],
-        // external deps
-        'dist/deps.js': ['closure-deps'],
-        // 'custom_modules/closure/closure/goog/deps.js': ['closure-deps']
-    },
-
-    // list of files to exclude
-    exclude: [
-    ],
+        // frameworks to use
+        // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
+        frameworks: ['mocha', 'chai-sinon'],
 
 
-    // test results reporter to use
-    // possible values: 'dots', 'progress'
-    // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['mocha'],
+        // list of files / patterns to load in the browser
+        files: [
+            'spec/**/*-test.js',
+            'spec/**/*-test.coffee'
+        ],
 
 
-    // web server port
-    port: 9876,
+        preprocessors: {
+            // add webpack as preprocessor
+            'spec/**/*': ['webpack']
+        },
 
 
-    // enable / disable colors in the output (reporters and logs)
-    colors: true,
+        webpack: {
+
+            cache: true,
+            debug: true,
+
+            module: {
+                loaders: [
+                    {
+                        exclude: /node_modules/,
+                        loader: 'babel-loader',
+                        test: /\.js$/
+                    }, {
+                        loader: 'coffee-loader',
+                        test: /\.coffee$/
+                    }
+                ]
+            },
+
+            resolve: {
+                extensions: ['', '.js', '.json', '.coffee']
+            }
+        },
 
 
-    // level of logging
-    // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
-    logLevel: config.LOG_INFO,
+        // list of files to exclude
+        exclude: [],
 
 
-    // enable / disable watching file and executing tests whenever any file changes
-    autoWatch: true,
+        // test results reporter to use
+        // possible values: 'dots', 'progress'
+        // available reporters: https://npmjs.org/browse/keyword/karma-reporter
+        reporters: ['mocha'],
 
 
-    // start these browsers
-    // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome'],
+        plugins: [
+            require('karma-webpack'),
+            require('karma-mocha'),
+            require('karma-chai-sinon'),
+            require('karma-chrome-launcher'),
+            require('karma-mocha-reporter')
+        ],
 
 
-    // Continuous Integration mode
-    // if true, Karma captures browsers, runs the tests and exits
-    singleRun: false
-  });
+        // web server port
+        port: 9876,
+
+
+        // enable / disable colors in the output (reporters and logs)
+        colors: true,
+
+
+        // level of logging
+        // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
+        logLevel: config.LOG_INFO,
+
+
+        // enable / disable watching file and executing tests whenever any file changes
+        autoWatch: true,
+
+
+        // start these browsers
+        // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
+        browsers: ['Chrome'],
+
+
+        // Continuous Integration mode
+        // if true, Karma captures browsers, runs the tests and exits
+        singleRun: false
+    });
 };
