@@ -1,4 +1,4 @@
-math = require '../../dev/math/base'
+math = require 'math/base'
 
 
 describe 'sign', ->

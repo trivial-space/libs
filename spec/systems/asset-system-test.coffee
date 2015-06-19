@@ -1,4 +1,4 @@
-AssetSystem = require '../../dev/systems/asset-system'
+AssetSystem = require 'systems/asset-system'
 
 
 describe 'AssetSystem', ->

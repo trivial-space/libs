@@ -1,5 +1,5 @@
 require 'babel-core/polyfill'
-EntitySystem = require '../../dev/systems/entity-system'
+EntitySystem = require 'systems/entity-system'
 
 
 describe 'EntitySystem', ->

@@ -1,5 +1,6 @@
 // Karma configuration
 // Generated on Mon Dec 08 2014 23:10:34 GMT+0100 (CET)
+var path = require('path');
 
 module.exports = function (config) {
     config.set({
@@ -45,7 +46,10 @@ module.exports = function (config) {
             },
 
             resolve: {
-                extensions: ['', '.js', '.json', '.coffee']
+                extensions: ['', '.js', '.json', '.coffee'],
+                root: [
+                    path.resolve(__dirname, "./src")
+                ]
             }
         },
 
