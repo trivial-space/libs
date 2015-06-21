@@ -201,10 +201,11 @@ updateSize = (ctx) ->
 
 renderLayers = (ctx, layerIds) ->
   gl = ctx.gl
+  last = layerIds.length - 1
 
   for layerId, i in layerIds
     layer = ctx.layers[layerId]
-    directRender = i is layerIds.length - 1 # and layer.frameBuffer?
+    directRender = i is last
     renderToTarget = not(directRender or layer.frameBuffer?)
 
     # set rendertarget
@@ -240,11 +241,6 @@ renderLayers = (ctx, layerIds) ->
       tmp = ctx.source
       ctx.source = ctx.target
       ctx.target = tmp
-
-  # unless directRender
-    # gl.bindFramebuffer gl.FRAMEBUFFER, null
-    # gl.viewport 0, 0, ctx.settings.width, ctx.settings.height
-    # renderObject ctx, ctx.objects['_result']
 
   return
 
