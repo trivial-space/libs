@@ -1,48 +1,39 @@
-goog.provide 'tslibs.render.constants'
-goog.require 'goog.webgl'
+
+exports.SOURCE_LAYER = 'source'
 
 
-goog.scope ->
-
-  consts = tslibs.render.constants
-  gl = goog.webgl
-
-
-  consts.SOURCE_LAYER = 'source'
+exports.LayerType =
+  RENDER: 'render'
+  EFFECT: 'effect'
+  STATIC: 'static'
 
 
-  consts.LayerType =
-    RENDER: 'render'
-    EFFECT: 'effect'
-    STATIC: 'static'
+exports.attribType =
+  'f 1': 'FLOAT'
+  'f 2': 'FLOAT'
+  'f 3': 'FLOAT'
+  'f 4': 'FLOAT'
+  'i 1': 'INT'
+  'i 2': 'INT'
+  'i 3': 'INT'
+  'i 4': 'INT'
+  'b 1': 'BYTE'
+  'b 2': 'BYTE'
+  'b 3': 'BYTE'
+  'b 4': 'BYTE'
 
 
-  consts.attribType =
-    'f 1': gl.FLOAT
-    'f 2': gl.FLOAT
-    'f 3': gl.FLOAT
-    'f 4': gl.FLOAT
-    'i 1': gl.INT
-    'i 2': gl.INT
-    'i 3': gl.INT
-    'i 4': gl.INT
-    'b 1': gl.BYTE
-    'b 2': gl.BYTE
-    'b 3': gl.BYTE
-    'b 4': gl.BYTE
-
-
-  consts.attribItemSize =
-    'f 1': 1
-    'f 2': 2
-    'f 3': 3
-    'f 4': 4
-    'i 1': 1
-    'i 2': 2
-    'i 3': 3
-    'i 4': 4
-    'b 1': 1
-    'b 2': 2
-    'b 3': 3
-    'b 4': 4
+exports.attribItemSize =
+  'f 1': 1
+  'f 2': 2
+  'f 3': 3
+  'f 4': 4
+  'i 1': 1
+  'i 2': 2
+  'i 3': 3
+  'i 4': 4
+  'b 1': 1
+  'b 2': 2
+  'b 3': 3
+  'b 4': 4
 
