@@ -7,18 +7,22 @@
     "superagent": "*"
   },
   "devDependencies": {
-    "coffee-loader": "*",
     "babel-loader": "*",
+    "chai": "*",
+    "coffee-loader": "*",
     "karma": "*",
     "karma-chai-sinon": "*",
     "karma-chrome-launcher": "*",
-    "karma-webpack": "*",
+    "karma-firefox-launcher": "^0.1.6",
     "karma-mocha": "*",
-    "karma-phantomjs-launcher": "*",
+    "karma-mocha-reporter": "*",
+    "karma-phantomjs-launcher": "^0.2.0",
+    "karma-safari-launcher": "^0.1.1",
+    "karma-sourcemap-loader": "^0.3.5",
+    "karma-webpack": "*",
     "mocha": "*",
-    "chai": "*",
-    "sinon": "*",
-    "karma-mocha-reporter": "*"
+    "phantomjs": "^1.9.17",
+    "sinon": "*"
   },
   "engines": {
     "node": ">=0.10.0"

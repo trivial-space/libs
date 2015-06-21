@@ -16,14 +16,13 @@ module.exports = function (config) {
 
         // list of files / patterns to load in the browser
         files: [
-            'spec/**/*-test.js',
-            'spec/**/*-test.coffee'
+            'spec/test-main.js'
         ],
 
 
         preprocessors: {
             // add webpack as preprocessor
-            'spec/**/*': ['webpack']
+            'spec/test-main.js': ['webpack', 'sourcemap'] // use this for source maps
         },
 
 
@@ -31,6 +30,8 @@ module.exports = function (config) {
 
             cache: true,
             debug: true,
+            watch: true,
+            devtool: '#cheap-module-eval-source-map',
 
             module: {
                 loaders: [
@@ -54,6 +55,16 @@ module.exports = function (config) {
         },
 
 
+        webpackMiddleware: {
+            // webpack-dev-middleware configuration
+            // i. e.
+            noInfo: true
+        },
+
+
+        browserNoActivityTimeout: 60000, // give webpack more time to build
+
+
         // list of files to exclude
         exclude: [],
 
@@ -64,12 +75,17 @@ module.exports = function (config) {
         reporters: ['mocha'],
 
 
+        // these need to be included explicitly, for webpack to work
         plugins: [
             require('karma-webpack'),
             require('karma-mocha'),
             require('karma-chai-sinon'),
             require('karma-chrome-launcher'),
-            require('karma-mocha-reporter')
+            require('karma-phantomjs-launcher'),
+            require('karma-firefox-launcher'),
+            require('karma-safari-launcher'),
+            require('karma-mocha-reporter'),
+            require('karma-sourcemap-loader')
         ],
 
 
