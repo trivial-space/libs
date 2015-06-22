@@ -61,12 +61,13 @@ addEntity = (sys, name, spec) ->
     entity.constuctor = spec.init
   if spec.require
     entity.dependencies = entityIdsFromNames sys, spec.require
+    updateReactions sys, entity.id, entity.dependencies, entity.init
 
-  initializeEntity sys, entity
+  initEntity sys, entity
   return
 
 
-initializeEntity = (sys, entity) ->
+initEntity = (sys, entity) ->
   if entity.initialValue?
     entity.value = entity.initialValue
   if entity.constuctor?
@@ -75,6 +76,14 @@ initializeEntity = (sys, entity) ->
     entity.value = entity.constuctor.apply null, vals
   return
 
+
+updateReactions = (sys, id, deps, action) ->
+
+
+
+# ===== change management =====
+
+flush = ->
 
 # ===== helper methods =====
 
@@ -108,6 +117,8 @@ module.exports = {
   addValues
   addEntity
   addEntities
+
+  flush
 
   newUid
   processEntityString
