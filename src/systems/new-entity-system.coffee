@@ -13,6 +13,10 @@ set = (sys, name, val) ->
   entity.value = val
 
 
+update = (sys, name, fn) ->
+  set sys, name, fn get sys, name
+
+
 getEntity = (sys, name) ->
   sys.entities[name] or sys.entities[sys.names[name]]
 
@@ -42,13 +46,34 @@ addValues = (sys, values) ->
   return
 
 
+addEntities = (sys, specs) ->
+  for name, spec of specs
+    addEntity sys, name, spec
+  return
+
+
 addEntity = (sys, name, spec) ->
   entity = getOrCreateEntity sys, name
+
   if spec.value
-    entity.value = spec.value
+    entity.initialValue = spec.value
   if spec.init
     entity.constuctor = spec.init
-    entity.value = spec.init()
+  if spec.require
+    entity.dependencies = entityIdsFromNames sys, spec.require
+
+  initializeEntity sys, entity
+  return
+
+
+initializeEntity = (sys, entity) ->
+  if entity.initialValue?
+    entity.value = entity.initialValue
+  if entity.constuctor?
+    deps = entity.dependencies or []
+    vals = deps.map (id) -> get sys, id
+    entity.value = entity.constuctor.apply null, vals
+  return
 
 
 # ===== helper methods =====
@@ -58,16 +83,33 @@ newUid = do ->
   -> id++
 
 
+processEntityString = (es) ->
+  es.trim().split /\s+/
+
+
+entityIdsFromNames = (sys, es) ->
+  processEntityString es
+    .map (name) ->
+      id = sys.names[name]
+      unless id?
+        throw Error "No entity found with the name #{name} in '#{es}'"
+      id
+
+
 # ===== interface =====
 
 module.exports = {
   create
   get
   set
+  update
   getEntity
 
   addValues
   addEntity
+  addEntities
 
   newUid
+  processEntityString
+  entityIdsFromNames
 }

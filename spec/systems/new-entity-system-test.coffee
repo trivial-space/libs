@@ -65,6 +65,15 @@ describe 'New EntitySystem', ->
       .to.contain.all.keys name: 'fufu', value: 'lululu'
 
 
+  it 'updates by function', ->
+    ES.addValues sys, 'foo': 10
+    ES.update sys, 'foo', (x) -> x + 3
+
+    expect ES.get sys, 'foo'
+      .to.equal 13
+
+
+
   describe 'entity specs', ->
 
     it 'can have initial values', ->
@@ -86,45 +95,61 @@ describe 'New EntitySystem', ->
         .to.equal 'newEntity'
 
 
-    xit 'can describe dependencies for init method', ->
-      spec =
-        test:
-          init: (foo, bar) -> foo + bar
-          require: 'foo bar'
-
-      sys.entities = 'foo': 3, 'bar': 5
-
-      sys.addEntities spec
-
-      expect sys.entities.test
-        .to.equal 8
-
-
-    xit 'can be added collectively', ->
-      sys.addEntities
+    it 'can be added collectively', ->
+      ES.addEntities sys,
         foo:
           init: -> 3
         bar:
           init: -> 4
 
-      expect sys.entities
-        .to.deep.equal foo: 3, bar: 4
+      expect ES.get sys, 'foo'
+        .to.equal 3
+      expect ES.get sys, 'bar'
+        .to.equal 4
+
+
+    it 'can describe dependencies for init method', ->
+      spec =
+        test:
+          init: (foo, bar) -> foo + bar
+          require: 'foo bar'
+
+      ES.addValues sys, 'foo': 3, 'bar': 5
+
+      ES.addEntities sys, spec
+
+      expect ES.get sys, 'test'
+        .to.equal 8
 
 
 
-  xdescribe 'entity updates', ->
+  describe 'Entitystring parsing', ->
 
-    it 'by reset', ->
-      sys.addValues 'foo': false
-      sys.resetEntity 'foo', true
-      expect sys.entities.foo
-        .to.be.true
+    it 'parses ids separated by whitespace into an array of ids', ->
+      expect ES.processEntityString '  foo  bar '
+        .to.deep.equal ['foo', 'bar']
+
+      expect ES.processEntityString '\nfoo\tbar '
+        .to.deep.equal ['foo', 'bar']
 
 
-    it 'by update', ->
-      sys.addValues 'foo': 10
-      sys.updateEntity 'foo', (x) -> x + 3
-      expect sys.entities.foo
-        .to.equal 13
+    it 'retrieves entity ids from a entity name string', ->
+      ES.addValues sys, foo: 'fooVal', bar: 'barVal'
 
+      ids = ES.entityIdsFromNames sys, 'foo bar'
+
+      expect ids.length
+        .to.equal 2
+      expect ES.get sys, ids[0]
+        .to.equal 'fooVal'
+      expect ES.get sys, ids[1]
+        .to.equal 'barVal'
+
+
+    it 'throws if no id for name found', ->
+      ES.addValues sys, foo: 'fooVal'
+
+      test = -> ES.entityIdsFromNames sys, 'foo bar'
+      expect test
+        .to.throw /name bar/
 
