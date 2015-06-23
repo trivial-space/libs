@@ -21,7 +21,7 @@ describe 'New EntitySystem', ->
   it 'creates an entity system data structur', ->
 
     expect sys
-      .to.have.all.keys ['entities', 'names']
+      .to.contain.all.keys ['entities', 'names', 'actions']
 
 
   it 'can set and get entity values', ->
@@ -111,7 +111,8 @@ describe 'New EntitySystem', ->
     it 'can describe dependencies for init method', ->
       spec =
         test:
-          init: (foo, bar) -> foo + bar
+          init: (foo, bar) ->
+            foo + bar
           require: 'foo bar'
 
       ES.addValues sys, 'foo': 3, 'bar': 5
@@ -120,38 +121,6 @@ describe 'New EntitySystem', ->
 
       expect ES.get sys, 'test'
         .to.equal 8
-
-
-
-  describe 'Entitystring parsing', ->
-
-    it 'parses ids separated by whitespace into an array of ids', ->
-      expect ES.processEntityString '  foo  bar '
-        .to.deep.equal ['foo', 'bar']
-
-      expect ES.processEntityString '\nfoo\tbar '
-        .to.deep.equal ['foo', 'bar']
-
-
-    it 'retrieves entity ids from a entity name string', ->
-      ES.addValues sys, foo: 'fooVal', bar: 'barVal'
-
-      ids = ES.entityIdsFromNames sys, 'foo bar'
-
-      expect ids.length
-        .to.equal 2
-      expect ES.get sys, ids[0]
-        .to.equal 'fooVal'
-      expect ES.get sys, ids[1]
-        .to.equal 'barVal'
-
-
-    it 'throws if no id for name found', ->
-      ES.addValues sys, foo: 'fooVal'
-
-      test = -> ES.entityIdsFromNames sys, 'foo bar'
-      expect test
-        .to.throw /name bar/
 
 
 
@@ -175,7 +144,7 @@ describe 'New EntitySystem', ->
         .to.equal 11
 
 
-    xit 'can be defined explicitly', ->
+    it 'can be defined explicitly', ->
       spec =
         x:
           init: -> 3
@@ -184,19 +153,19 @@ describe 'New EntitySystem', ->
           reactions:
             x: (foo, x) -> foo + x
 
-      sys.addEntities spec
+      ES.addEntities sys, spec
 
-      expect sys.entities.foo
+      expect ES.get sys, 'foo'
         .to.equal 4
 
-      sys.resetEntity 'x', 5
-      sys.flush()
+      ES.set sys, 'x', 5
+      ES.flush sys
 
-      expect sys.entities.foo
+      expect ES.get sys, 'foo'
         .to.equal 9
 
 
-    xit 'can react on multiple dependencies', ->
+    it 'can react on multiple dependencies', ->
       spec =
         x:
           init: -> 3
@@ -209,9 +178,9 @@ describe 'New EntitySystem', ->
               (test, x, y) ->
                 test + x - y
 
-      sys.addEntities spec
+      ES.addEntities sys, spec
 
-      expect sys.entities.test
+      expect ES.get sys, 'test'
         .to.equal 1
 
 
@@ -380,5 +349,36 @@ describe 'New EntitySystem', ->
       expect reaction
         .to.be.calledWith 'test_value', 'foo_new_value', 'baz_new_value'
 
+
+
+  describe 'Entitystring parsing', ->
+
+    it 'parses ids separated by whitespace into an array of ids', ->
+      expect ES.processEntityString '  foo  bar '
+        .to.deep.equal ['foo', 'bar']
+
+      expect ES.processEntityString '\nfoo\tbar '
+        .to.deep.equal ['foo', 'bar']
+
+
+    it 'retrieves entity ids from a entity name string', ->
+      ES.addValues sys, foo: 'fooVal', bar: 'barVal'
+
+      ids = ES.entityIdsFromNames sys, ['foo', 'bar']
+
+      expect ids.length
+        .to.equal 2
+      expect ES.get sys, ids[0]
+        .to.equal 'fooVal'
+      expect ES.get sys, ids[1]
+        .to.equal 'barVal'
+
+
+    it 'throws if no id for name found', ->
+      ES.addValues sys, foo: 'fooVal'
+
+      test = -> ES.entityIdsFromNames sys, ['foo', 'bar']
+      expect test
+        .to.throw /name bar/
 
 

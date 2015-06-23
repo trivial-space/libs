@@ -31,7 +31,7 @@ module.exports = function (config) {
             cache: true,
             debug: true,
             watch: true,
-            devtool: '#cheap-module-eval-source-map',
+            devtool: '#inline-source-map',
 
             module: {
                 loaders: [

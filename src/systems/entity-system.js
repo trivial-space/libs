@@ -234,7 +234,7 @@ export default class EntitySystem {
             }
         }
 
-        // call all changes and reactio updates
+        // call all changes and reaction updates
         for (let order in process) {
             let actions = process[order];
 

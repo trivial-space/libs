@@ -1,6 +1,7 @@
 create = ->
   entities: {}
   names: {}
+  actions: {}
 
 
 get = (sys, name) ->
@@ -11,6 +12,7 @@ get = (sys, name) ->
 set = (sys, name, val) ->
   entity = getOrCreateEntity sys, name
   entity.value = val
+  propagateChange sys, entity
 
 
 update = (sys, name, fn) ->
@@ -43,13 +45,13 @@ addValues = (sys, values) ->
   for name, val of values
     entity = getOrCreateEntity sys, name
     entity.value = val
-  return
+  sys
 
 
 addEntities = (sys, specs) ->
   for name, spec of specs
     addEntity sys, name, spec
-  return
+  sys
 
 
 addEntity = (sys, name, spec) ->
@@ -57,14 +59,21 @@ addEntity = (sys, name, spec) ->
 
   if spec.value
     entity.initialValue = spec.value
+
   if spec.init
     entity.constuctor = spec.init
-  if spec.require
-    entity.dependencies = entityIdsFromNames sys, spec.require
-    updateReactions sys, entity.id, entity.dependencies, entity.init
+    if spec.require
+      entity.depNames = processEntityString spec.require
+      updateReactions sys, entity, entity.depNames, spec.init
+      entity.dependencies = entityIdsFromNames sys, entity.depNames
+
+  if spec.reactions
+    for rnamesString, reaction of spec.reactions
+      rnames = processEntityString rnamesString
+      updateReactions sys, entity, [name, rnames...], reaction
 
   initEntity sys, entity
-  return
+  sys
 
 
 initEntity = (sys, entity) ->
@@ -74,16 +83,45 @@ initEntity = (sys, entity) ->
     deps = entity.dependencies or []
     vals = deps.map (id) -> get sys, id
     entity.value = entity.constuctor.apply null, vals
-  return
+  sys
 
 
-updateReactions = (sys, id, deps, action) ->
+updateReactions = (sys, entity, depNames, action) ->
+  actionId = newUid()
 
+  for name in depNames
+    if name isnt entity.name
+      depEntity = getOrCreateEntity sys, name
+      depEntity.reactions ?= {}
+      depEntity.reactions[entity.id] = actionId
+
+  sys.actions[actionId] =
+    action: action
+    dependencies: entityIdsFromNames sys, depNames
+  sys
 
 
 # ===== change management =====
 
+applyChange = (sys, entity, deps, fn) ->
+  args = (sys.entities[dep].value for dep in deps)
+  res = fn.apply null, args
+  entity.value = res if res
+  sys
+
+
+propagateChange = (sys, entity)->
+  if entity.reactions?
+    for rid, aid of entity.reactions
+      {dependencies, action} = sys.actions[aid]
+      nextEntity = sys.entities[rid]
+      applyChange sys, nextEntity, dependencies, action
+      propagateChange sys, nextEntity
+  sys
+
+
 flush = ->
+
 
 # ===== helper methods =====
 
@@ -96,13 +134,12 @@ processEntityString = (es) ->
   es.trim().split /\s+/
 
 
-entityIdsFromNames = (sys, es) ->
-  processEntityString es
-    .map (name) ->
-      id = sys.names[name]
-      unless id?
-        throw Error "No entity found with the name #{name} in '#{es}'"
-      id
+entityIdsFromNames = (sys, names) ->
+  names.map (name) ->
+    id = sys.names[name]
+    unless id?
+      throw Error "No entity found with the name #{name} in '#{names.join ' '}'"
+    id
 
 
 # ===== interface =====
