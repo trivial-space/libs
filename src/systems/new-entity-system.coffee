@@ -2,6 +2,7 @@ create = ->
   entities: {}
   names: {}
   actions: {}
+  changes: {}
 
 
 get = (sys, name) ->
@@ -25,7 +26,7 @@ getEntity = (sys, name) ->
 
 createEntity = (sys, name) ->
   id = newUid()
-  entity = { id }
+  entity = {id}
   sys.entities[id] = entity
   if name
     sys.names[name] = id
@@ -51,39 +52,44 @@ addValues = (sys, values) ->
 addEntities = (sys, specs) ->
   for name, spec of specs
     addEntity sys, name, spec
-  sys
+  flush sys
 
 
 addEntity = (sys, name, spec) ->
   entity = getOrCreateEntity sys, name
 
   if spec.value
-    entity.initialValue = spec.value
+    entity.value = spec.value
 
   if spec.init
-    entity.constuctor = spec.init
     if spec.require
       entity.depNames = processEntityString spec.require
-      updateReactions sys, entity, entity.depNames, spec.init
+      entity.constructor = updateReactions sys, entity, entity.depNames, spec.init
       entity.dependencies = entityIdsFromNames sys, entity.depNames
+      sys.actions[entity.constructor].init = true
+    deps = entity.dependencies or []
+    vals = deps.map (id) -> get sys, id
+    entity.value = spec.init.apply null, vals
 
   if spec.reactions
     for rnamesString, reaction of spec.reactions
-      rnames = processEntityString rnamesString
-      updateReactions sys, entity, [name, rnames...], reaction
+      addReaction sys, name, rnamesString, reaction
 
-  initEntity sys, entity
-  sys
+  entity.spec = spec
+
+  propagateChange sys, entity
+  if entity.stateComputations
+    for eid of entity.stateComputations
+      propagateChange sys, sys.entities[eid]
 
 
-initEntity = (sys, entity) ->
-  if entity.initialValue?
-    entity.value = entity.initialValue
-  if entity.constuctor?
-    deps = entity.dependencies or []
-    vals = deps.map (id) -> get sys, id
-    entity.value = entity.constuctor.apply null, vals
-  sys
+addReaction = (sys, name, depString, reaction) ->
+  entity = getEntity sys, name
+  rnames = processEntityString depString
+  rid = updateReactions sys, entity, [name, rnames...], reaction
+  entity.stateComputations ?= {}
+  for rname in rnames
+    entity.stateComputations[sys.names[rname]] = rid
 
 
 updateReactions = (sys, entity, depNames, action) ->
@@ -98,7 +104,7 @@ updateReactions = (sys, entity, depNames, action) ->
   sys.actions[actionId] =
     action: action
     dependencies: entityIdsFromNames sys, depNames
-  sys
+  actionId
 
 
 # ===== change management =====
@@ -110,17 +116,46 @@ applyChange = (sys, entity, deps, fn) ->
   sys
 
 
-propagateChange = (sys, entity)->
+updateChange = (sys, entity, aid, order) ->
+  change = sys.changes[aid] ?=
+    order: order
+    entity: entity
+  change.count = (change.count and change.count + 1) or 1
+  if change.order < order
+    change.order = order
+
+
+propagateChange = (sys, entity, order) ->
   if entity.reactions?
-    for rid, aid of entity.reactions
-      {dependencies, action} = sys.actions[aid]
-      nextEntity = sys.entities[rid]
-      applyChange sys, nextEntity, dependencies, action
-      propagateChange sys, nextEntity
+    order ?= 1
+    for eid, aid of entity.reactions
+      nextEntity = sys.entities[eid]
+      updateChange sys, nextEntity, aid, order
+
+      if sys.actions[aid].init
+        for rid, cid of nextEntity.stateComputations
+          updateChange sys, nextEntity, cid, order
+
+      propagateChange sys, nextEntity, order + 1
   sys
 
 
-flush = ->
+flush = (sys) ->
+  process = {}
+  for aid, change of sys.changes
+    action = sys.actions[aid]
+    step = process[change.order] ?= []
+    unit = {action, entity: change.entity}
+    if action.init
+      step.unshift unit
+    else
+      step.push unit
+
+  for order, actions of process
+    for {action, entity} in actions
+      applyChange sys, entity, action.dependencies, action.action
+
+  sys
 
 
 # ===== helper methods =====

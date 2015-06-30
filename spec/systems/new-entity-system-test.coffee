@@ -21,7 +21,7 @@ describe 'New EntitySystem', ->
   it 'creates an entity system data structur', ->
 
     expect sys
-      .to.contain.all.keys ['entities', 'names', 'actions']
+      .to.contain.all.keys ['entities', 'names', 'actions', 'changes']
 
 
   it 'can set and get entity values', ->
@@ -184,31 +184,6 @@ describe 'New EntitySystem', ->
         .to.equal 1
 
 
-    xit 'properly sets the reactions and reactionDeps properties', ->
-      spec =
-        x:
-          init: ->
-          require: 'foo bar'
-          reactions:
-            'laa': ->
-        y:
-          reactions:
-            'x z': ->
-
-      sys.addEntities spec
-
-      expect sys.reactions['laa']['x']
-        .to.exist
-      expect sys.reactions['foo']['x']
-        .to.exist
-      expect sys.reactions['bar']['x']
-        .to.exist
-      expect sys.reactions['x']['y']
-        .to.exist
-      expect sys.reactions['z']['y']
-        .to.exist
-
-
     xit 'can have extra dependencies that are not reactive', ->
       spec =
         x: init: -> 1
@@ -318,7 +293,7 @@ describe 'New EntitySystem', ->
           myBar: 'bar_new_value'
 
 
-    xit 'calls reactions only once', ->
+    it 'calls reactions only once', ->
       reaction = sinon.stub()
       spec =
         'foo':
@@ -333,16 +308,16 @@ describe 'New EntitySystem', ->
           reactions:
             'foo baz ': reaction
 
-      sys.addEntities spec
+      ES.addEntities sys, spec
 
       expect reaction
         .to.be.calledOnce
       reaction.reset()
 
-      sys.resetEntity 'foo', 'foo_new_value'
-      sys.resetEntity 'bar', 'bar_new_value'
-      sys.resetEntity 'baz', 'baz_new_value'
-      sys.flush()
+      ES.set sys, 'foo', 'foo_new_value'
+      ES.set sys, 'bar', 'bar_new_value'
+      ES.set sys, 'baz', 'baz_new_value'
+      ES.flush sys
 
       expect reaction
         .to.be.calledOnce
