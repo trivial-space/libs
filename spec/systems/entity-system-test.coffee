@@ -1,44 +1,77 @@
-require 'babel-core/polyfill'
-EntitySystem = require 'systems/entity-system'
+ES = require 'systems/entity-system'
 
 
 describe 'EntitySystem', ->
 
   sys = null
 
-
   beforeEach ->
-    sys = new EntitySystem()
+    sys = ES.create()
 
 
-  describe 'constructor', ->
+  it 'has a incrementing function', ->
 
-    it 'creates object with entities, reactions, components, actions', ->
+    id1 = ES.newUid()
+    id2 = ES.newUid()
 
-      expect sys.entities
-        .to.exist
-
-      expect sys.reactions
-        .to.exist
-
-      expect sys.actions
-        .to.exist
-
-      expect sys.callbacks
-        .to.exist
+    expect id2 > id1
+      .to.be.true
 
 
-  describe 'values', ->
+  it 'creates an entity system data structur', ->
 
-    it 'can be added', ->
-      values =
-        x: 100
-        y: 200
+    expect sys
+      .to.contain.all.keys ['entities', 'names', 'actions', 'changes']
 
-      sys.addValues values
 
-      expect sys.entities
-        .to.deep.equal x: 100, y: 200
+  it 'can set and get entity values', ->
+
+    expect Object.keys(sys.entities).length
+      .to.equal 0
+
+    expect ES.get sys, 'newVal'
+      .to.be.undefined
+
+    ES.set sys, 'newVal', 42
+
+    expect Object.keys(sys.entities).length
+      .to.equal 1
+
+    expect ES.get sys, 'newVal'
+      .to.equal 42
+
+
+  it 'can add values', ->
+    values =
+      x: 100
+      y: 200
+
+    ES.addValues sys, values
+
+    expect ES.get sys, 'x'
+      .to.equal 100
+    expect ES.get sys, 'y'
+      .to.equal 200
+
+
+  it 'can retrieve entities', ->
+    ES.set sys, 'fufu', 'lululu'
+
+    entity = ES.getEntity sys, 'fufu'
+
+    expect entity
+      .to.contain.all.keys [ 'id', 'name', 'value' ]
+    expect entity
+      .to.contain.all.keys name: 'fufu', value: 'lululu'
+
+
+  it 'updates by function', ->
+    ES.addValues sys, 'foo': 10
+    ES.update sys, 'foo', (x) -> x + 3
+
+    expect ES.get sys, 'foo'
+      .to.equal 13
+
 
 
   describe 'entity specs', ->
@@ -47,80 +80,67 @@ describe 'EntitySystem', ->
       spec =
         value: 123
 
-      sys.addEntity 'foo', spec
+      ES.addEntity sys, 'foo', spec
 
-      expect sys.entities.foo
+      expect ES.get sys, 'foo'
         .to.equal 123
 
 
     it 'initializes entities programatically', ->
       spec = init: -> "newEntity"
 
-      sys.addEntity 'foo', spec
+      ES.addEntity sys, 'foo', spec
 
-      expect sys.entities.foo
+      expect ES.get sys, 'foo'
         .to.equal 'newEntity'
 
 
-    it 'can describe dependencies for init method', ->
-      spec =
-        test:
-          init: (foo, bar) -> foo + bar
-          require: 'foo bar'
-
-      sys.entities = 'foo': 3, 'bar': 5
-
-      sys.addEntities spec
-
-      expect sys.entities.test
-        .to.equal 8
-
-
     it 'can be added collectively', ->
-      sys.addEntities
+      ES.addEntities sys,
         foo:
           init: -> 3
         bar:
           init: -> 4
 
-      expect sys.entities
-        .to.deep.equal foo: 3, bar: 4
+      expect ES.get sys, 'foo'
+        .to.equal 3
+      expect ES.get sys, 'bar'
+        .to.equal 4
 
 
+    it 'can describe dependencies for init method', ->
+      spec =
+        test:
+          init: (foo, bar) ->
+            foo + bar
+          require: 'foo bar'
 
-  describe 'entity updates', ->
+      ES.addValues sys, 'foo': 3, 'bar': 5
 
-    it 'by reset', ->
-      sys.addValues 'foo': false
-      sys.resetEntity 'foo', true
-      expect sys.entities.foo
-        .to.be.true
+      ES.addEntities sys, spec
 
+      expect ES.get sys, 'test'
+        .to.equal 8
 
-    it 'by update', ->
-      sys.addValues 'foo': 10
-      sys.updateEntity 'foo', (x) -> x + 3
-      expect sys.entities.foo
-        .to.equal 13
 
 
   describe 'reactions', ->
 
     it 'happen on dependency change', ->
-      sys.addEntities
+      ES.addEntities sys,
         'x':
-          init: -> 3
+          value: 3
         'foo':
           require: 'x'
           init: (x) -> x + 1
 
-      expect sys.entities.foo
+      expect ES.get sys, 'foo'
         .to.equal 4
 
-      sys.resetEntity 'x', 10
-      sys.flush()
+      ES.set sys, 'x', 10
+      ES.flush sys
 
-      expect sys.entities.foo
+      expect ES.get sys, 'foo'
         .to.equal 11
 
 
@@ -133,15 +153,15 @@ describe 'EntitySystem', ->
           reactions:
             x: (foo, x) -> foo + x
 
-      sys.addEntities spec
+      ES.addEntities sys, spec
 
-      expect sys.entities.foo
+      expect ES.get sys, 'foo'
         .to.equal 4
 
-      sys.resetEntity 'x', 5
-      sys.flush()
+      ES.set sys, 'x', 5
+      ES.flush sys
 
-      expect sys.entities.foo
+      expect ES.get sys, 'foo'
         .to.equal 9
 
 
@@ -158,35 +178,10 @@ describe 'EntitySystem', ->
               (test, x, y) ->
                 test + x - y
 
-      sys.addEntities spec
+      ES.addEntities sys, spec
 
-      expect sys.entities.test
+      expect ES.get sys, 'test'
         .to.equal 1
-
-
-    it 'properly sets the reactions and reactionDeps properties', ->
-      spec =
-        x:
-          init: ->
-          require: 'foo bar'
-          reactions:
-            'laa': ->
-        y:
-          reactions:
-            'x z': ->
-
-      sys.addEntities spec
-
-      expect sys.reactions['laa']['x']
-        .to.exist
-      expect sys.reactions['foo']['x']
-        .to.exist
-      expect sys.reactions['bar']['x']
-        .to.exist
-      expect sys.reactions['x']['y']
-        .to.exist
-      expect sys.reactions['z']['y']
-        .to.exist
 
 
     it 'can have extra dependencies that are not reactive', ->
@@ -198,25 +193,31 @@ describe 'EntitySystem', ->
             require: 'y'
             update: (z, x, y) -> x + y
 
-      sys.addEntities spec
+      ES.addEntities sys, spec
 
-      expect sys.entities.z
+      expect ES.get sys, 'z'
         .to.equal 3
 
-      sys.resetEntity 'x', 2
-      sys.flush()
+      ES.set sys, 'x', 2
+      ES.flush sys
 
-      expect sys.entities.z
+      expect ES.get sys, 'z'
         .to.equal 4
 
-      sys.resetEntity 'y', 5
-      sys.flush()
+      ES.set sys, 'y', 5
+      ES.flush sys
 
-      expect sys.entities.z
+      expect ES.get sys, 'z'
         .to.equal 4
 
+      ES.set sys, 'x', 3
+      ES.flush sys
 
-    it 'can be stopped by returning false', ->
+      expect ES.get sys, 'z'
+        .to.equal 8
+
+
+    xit 'can be stopped by returning false', ->
       spec =
         x:
           init: -> {value: 4}
@@ -280,18 +281,18 @@ describe 'EntitySystem', ->
                 test.myFoo = foo
                 return
 
-      sys.addEntities spec
+      ES.addEntities sys, spec
 
-      expect sys.entities.test
+      expect ES.get sys, 'test'
         .to.deep.equal
           myTest: 'test_value'
           myFoo: 'foo_value'
           myBar: 'bar_value'
 
-      sys.resetEntity 'bar', 'bar_new_value'
-      sys.flush()
+      ES.set sys, 'bar', 'bar_new_value'
+      ES.flush sys
 
-      expect sys.entities.test
+      expect ES.get sys, 'test'
         .to.deep.equal
           myTest: 'test_value'
           myFoo: 'foo_value'
@@ -313,16 +314,16 @@ describe 'EntitySystem', ->
           reactions:
             'foo baz ': reaction
 
-      sys.addEntities spec
+      ES.addEntities sys, spec
 
       expect reaction
         .to.be.calledOnce
       reaction.reset()
 
-      sys.resetEntity 'foo', 'foo_new_value'
-      sys.resetEntity 'bar', 'bar_new_value'
-      sys.resetEntity 'baz', 'baz_new_value'
-      sys.flush()
+      ES.set sys, 'foo', 'foo_new_value'
+      ES.set sys, 'bar', 'bar_new_value'
+      ES.set sys, 'baz', 'baz_new_value'
+      ES.flush sys
 
       expect reaction
         .to.be.calledOnce
@@ -330,158 +331,57 @@ describe 'EntitySystem', ->
         .to.be.calledWith 'test_value', 'foo_new_value', 'baz_new_value'
 
 
+  it 'can be triggered by a touch', ->
 
+    spec =
+      counter:
+        value: 0
+        reactions:
+          trigger:
+            (counter) -> counter + 1
 
-  describe 'actions', ->
+    ES.addEntities sys, spec
 
-    it 'can be registered', ->
-      action = {}
+    expect ES.get sys, 'counter'
+      .to.equal 1
 
-      sys.addAction 'testAction', action
+    for i in [1..10]
+      ES.touch sys, 'trigger'
+      ES.flush sys
 
-      expect sys.actions.testAction
-        .to.deep.equal action
+    expect ES.get sys, 'counter'
+      .to.equal 11
 
-
-    it 'can be registered collectively', ->
-      actions =
-        action1: 'a1'
-        action2: 'a2'
-
-      sys.addActions actions
-
-      expect sys.actions
-        .to.deep.equal actions
-
-
-    it 'can be executed', ->
-      action =
-        require: 'x y'
-        update: sinon.stub()
-
-      values = x: 'xVal', y: 'yVal'
-
-      sys.addAction 'testAction', action
-      sys.addValues values
-
-      sys.callAction 'testAction'
-
-      expect action.update
-        .to.be.calledWith 'xVal', 'yVal'
-
-
-  describe 'callbacks', ->
-
-    it 'can be added to sys', ->
-      callback = (foo, bar) -> 'some foo bar operation'
-
-      id = sys.addCallback 'foo bar', callback
-
-      expect id
-        .to.be.a 'string'
-
-      expect sys.callbacks.foo
-        .to.be.instanceof Array
-
-      expect sys.callbacks.bar
-        .to.be.instanceof Array
-
-      expect sys.callbacks.foo
-        .to.contain id
-
-      expect sys.callbacks.bar
-        .to.contain id
-
-      expect sys.actions[id].update
-        .to.have.equal callback
-
-
-    it 'are called on entity change', ->
-      cb = sinon.stub()
-
-      sys.addEntities
-        'foo':
-          init: -> 10
-
-        'bar':
-          require: 'foo'
-          init: (foo) -> foo + 2
-          callback: cb
-
-      sys.updateEntity 'foo', (foo) -> foo - 5
-      sys.flush()
-
-      expect sys.entities.bar
-        .to.equal 7
-
-      expect cb
-        .to.be.calledWith 7
-
-
-    it 'can be more than one', ->
-      cb1 = sinon.stub()
-      cb2 = sinon.stub()
-
-      sys.addValue 'foo', 'foo_value'
-      sys.addCallback 'foo', cb1
-      sys.addCallback 'foo', cb2
-
-      sys.resetEntity 'foo', 'new_foo_value'
-      sys.flush()
-
-      expect cb1
-        .to.be.calledWith 'new_foo_value'
-      expect cb2
-        .to.be.calledWith 'new_foo_value'
-
-
-    it 'is called only once even if registered for many entities', ->
-      cb = sinon.stub()
-
-      sys.addValue 'foo', 'foo_value'
-      sys.addValue 'bar', 'bar_value'
-      sys.addCallback 'foo bar', cb
-
-      sys.resetEntity 'foo', 'new_foo_value'
-      sys.resetEntity 'bar', 'new_bar_value'
-      sys.flush()
-
-      expect cb
-        .to.be.calledOnce
-      expect cb
-        .to.be.calledWith 'new_foo_value', 'new_bar_value'
-
-
-    it 'can be removed', ->
-      cb = sinon.stub()
-
-      sys.addValue 'foo', 'foo_value'
-      id = sys.addCallback 'foo', cb
-
-      sys.resetEntity 'foo', 'new_foo_value'
-      sys.flush()
-
-      expect cb
-        .to.be.called
-
-      cb.reset()
-      sys.removeCallback id
-
-      sys.resetEntity 'foo', 'new_foo_value2'
-      sys.flush()
-
-      expect cb
-        .to.not.be.called
 
 
   describe 'Entitystring parsing', ->
 
     it 'parses ids separated by whitespace into an array of ids', ->
-
-      expect EntitySystem.processEntityString '  foo  bar '
+      expect ES.processEntityString '  foo  bar '
         .to.deep.equal ['foo', 'bar']
 
-      expect EntitySystem.processEntityString '\nfoo\tbar '
+      expect ES.processEntityString '\nfoo\tbar '
         .to.deep.equal ['foo', 'bar']
+
+
+    it 'retrieves entity ids from a entity name string', ->
+      ES.addValues sys, foo: 'fooVal', bar: 'barVal'
+
+      ids = ES.entityIdsFromNames sys, ['foo', 'bar']
+
+      expect ids.length
+        .to.equal 2
+      expect ES.get sys, ids[0]
+        .to.equal 'fooVal'
+      expect ES.get sys, ids[1]
+        .to.equal 'barVal'
+
+
+    it 'throws if no id for name found', ->
+      ES.addValues sys, foo: 'fooVal'
+
+      test = -> ES.entityIdsFromNames sys, ['foo', 'bar']
+      expect test
+        .to.throw /name bar/
 
 

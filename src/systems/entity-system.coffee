@@ -20,6 +20,10 @@ update = (sys, name, fn) ->
   set sys, name, fn get sys, name
 
 
+touch = (sys, name) ->
+  propagateChange sys, getEntity sys, name
+
+
 getEntity = (sys, name) ->
   sys.entities[name] or sys.entities[sys.names[name]]
 
@@ -58,7 +62,7 @@ addEntities = (sys, specs) ->
 addEntity = (sys, name, spec) ->
   entity = getOrCreateEntity sys, name
 
-  if spec.value
+  if spec.value?
     entity.value = spec.value
 
   if spec.init
@@ -95,14 +99,19 @@ addReaction = (sys, name, depString, reaction) ->
 updateReactions = (sys, entity, depNames, action) ->
   actionId = newUid()
 
+  if action.require
+    additionalDeps = processEntityString action.require
+    depNames = depNames.concat additionalDeps
+
   for name in depNames
-    if name isnt entity.name
+    if name isnt entity.name and
+        (not additionalDeps or additionalDeps.indexOf(name) < 0)
       depEntity = getOrCreateEntity sys, name
       depEntity.reactions ?= {}
       depEntity.reactions[entity.id] = actionId
 
   sys.actions[actionId] =
-    action: action
+    action: action.update or action
     dependencies: entityIdsFromNames sys, depNames
   actionId
 
@@ -110,9 +119,6 @@ updateReactions = (sys, entity, depNames, action) ->
 # ===== change management =====
 
 applyChange = (sys, entity, deps, fn) ->
-  args = (sys.entities[dep].value for dep in deps)
-  res = fn.apply null, args
-  entity.value = res if res
   sys
 
 
@@ -123,6 +129,7 @@ updateChange = (sys, entity, aid, order) ->
   change.count = (change.count and change.count + 1) or 1
   if change.order < order
     change.order = order
+  return
 
 
 propagateChange = (sys, entity, order) ->
@@ -151,9 +158,13 @@ flush = (sys) ->
     else
       step.push unit
 
+  sys.changes = {}
+
   for order, actions of process
     for {action, entity} in actions
-      applyChange sys, entity, action.dependencies, action.action
+      args = (sys.entities[dep].value for dep in action.dependencies)
+      res = action.action.apply null, args
+      entity.value = res if res
 
   sys
 
@@ -183,6 +194,7 @@ module.exports = {
   create
   get
   set
+  touch
   update
   getEntity
 
@@ -191,6 +203,7 @@ module.exports = {
   addEntities
 
   flush
+  propagateChange
 
   newUid
   processEntityString
