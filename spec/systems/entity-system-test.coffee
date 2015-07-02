@@ -21,7 +21,7 @@ describe 'EntitySystem', ->
   it 'creates an entity system data structur', ->
 
     expect sys
-      .to.contain.all.keys ['entities', 'names', 'actions', 'changes']
+      .to.contain.all.keys ['entities', 'actions', 'changes']
 
 
   it 'can set and get entity values', ->
@@ -60,9 +60,9 @@ describe 'EntitySystem', ->
     entity = ES.getEntity sys, 'fufu'
 
     expect entity
-      .to.contain.all.keys [ 'id', 'name', 'value' ]
+      .to.contain.all.keys [ 'id', 'value' ]
     expect entity
-      .to.contain.all.keys name: 'fufu', value: 'lululu'
+      .to.contain.all.keys id: 'fufu', value: 'lululu'
 
 
   it 'updates by function', ->
@@ -217,53 +217,6 @@ describe 'EntitySystem', ->
         .to.equal 8
 
 
-    xit 'can be stopped by returning false', ->
-      spec =
-        x:
-          init: -> {value: 4}
-        y:
-          init: -> {value: 0}
-          reactions:
-            'x':
-              (y, x) ->
-                y.value = x.value + 1
-                if x.value % 2 == 0
-                  return
-                else
-                  return false
-        z:
-          init: -> {value: 0}
-          reactions:
-            'y':
-              (z, y) ->
-                z.value = y.value + 1
-                return
-
-      sys.addEntities spec
-
-      expect sys.entities.y.value
-        .to.equal 5
-      expect sys.entities.z.value
-        .to.equal 6
-
-      sys.resetEntity 'x', {value: 5}
-      sys.flush()
-
-      expect sys.entities.y.value
-        .to.equal 6
-      expect sys.entities.z.value
-        .to.equal 6
-
-
-      sys.resetEntity 'x', {value: 6}
-      sys.flush()
-
-      expect sys.entities.y.value
-        .to.equal 7
-      expect sys.entities.z.value
-        .to.equal 8
-
-
     it 'preserve reaction state after reinit reations', ->
       spec =
         'foo':
@@ -362,26 +315,3 @@ describe 'EntitySystem', ->
 
       expect ES.processEntityString '\nfoo\tbar '
         .to.deep.equal ['foo', 'bar']
-
-
-    it 'retrieves entity ids from a entity name string', ->
-      ES.addValues sys, foo: 'fooVal', bar: 'barVal'
-
-      ids = ES.entityIdsFromNames sys, ['foo', 'bar']
-
-      expect ids.length
-        .to.equal 2
-      expect ES.get sys, ids[0]
-        .to.equal 'fooVal'
-      expect ES.get sys, ids[1]
-        .to.equal 'barVal'
-
-
-    it 'throws if no id for name found', ->
-      ES.addValues sys, foo: 'fooVal'
-
-      test = -> ES.entityIdsFromNames sys, ['foo', 'bar']
-      expect test
-        .to.throw /name bar/
-
-

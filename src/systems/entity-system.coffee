@@ -1,13 +1,11 @@
 create = ->
   entities: {}
-  names: {}
   actions: {}
   changes: {}
 
 
 get = (sys, name) ->
-  entity = getEntity sys, name
-  entity?.value
+  sys.entities[name]?.value
 
 
 set = (sys, name, val) ->
@@ -21,27 +19,23 @@ update = (sys, name, fn) ->
 
 
 touch = (sys, name) ->
-  propagateChange sys, getEntity sys, name
-
-
-getEntity = (sys, name) ->
-  sys.entities[name] or sys.entities[sys.names[name]]
+  propagateChange sys, sys.entities[name]
 
 
 createEntity = (sys, name) ->
-  id = newUid()
+  id = name or newUid()
   entity = {id}
   sys.entities[id] = entity
-  if name
-    sys.names[name] = id
-    entity.name = name
   entity
 
 
 getOrCreateEntity = (sys, name) ->
-  entity = getEntity sys, name
+  entity = sys.entities[name]
   entity ?= createEntity sys, name
   entity
+
+
+getEntity = (sys, name) -> sys.entities[name]
 
 
 # ===== entity registration =====
@@ -67,10 +61,9 @@ addEntity = (sys, name, spec) ->
 
   if spec.init
     if spec.require
-      entity.depNames = processEntityString spec.require
-      entity.constructor = updateReactions sys, entity, entity.depNames, spec.init
-      entity.dependencies = entityIdsFromNames sys, entity.depNames
-      sys.actions[entity.constructor].init = true
+      entity.dependencies = processEntityString spec.require
+      entity.factory = updateReactions sys, entity, entity.dependencies, spec.init
+      sys.actions[entity.factory].init = true
     deps = entity.dependencies or []
     vals = deps.map (id) -> get sys, id
     entity.value = spec.init.apply null, vals
@@ -88,12 +81,12 @@ addEntity = (sys, name, spec) ->
 
 
 addReaction = (sys, name, depString, reaction) ->
-  entity = getEntity sys, name
+  entity = sys.entities[name]
   rnames = processEntityString depString
   rid = updateReactions sys, entity, [name, rnames...], reaction
   entity.stateComputations ?= {}
   for rname in rnames
-    entity.stateComputations[sys.names[rname]] = rid
+    entity.stateComputations[rname] = rid
 
 
 updateReactions = (sys, entity, depNames, action) ->
@@ -104,7 +97,7 @@ updateReactions = (sys, entity, depNames, action) ->
     depNames = depNames.concat additionalDeps
 
   for name in depNames
-    if name isnt entity.name and
+    if name isnt entity.id and
         (not additionalDeps or additionalDeps.indexOf(name) < 0)
       depEntity = getOrCreateEntity sys, name
       depEntity.reactions ?= {}
@@ -112,7 +105,7 @@ updateReactions = (sys, entity, depNames, action) ->
 
   sys.actions[actionId] =
     action: action.update or action
-    dependencies: entityIdsFromNames sys, depNames
+    dependencies: depNames
   actionId
 
 
@@ -126,7 +119,6 @@ updateChange = (sys, entity, aid, order) ->
   change = sys.changes[aid] ?=
     order: order
     entity: entity
-  change.count = (change.count and change.count + 1) or 1
   if change.order < order
     change.order = order
   return
@@ -134,7 +126,7 @@ updateChange = (sys, entity, aid, order) ->
 
 propagateChange = (sys, entity, order) ->
   if entity.reactions?
-    order ?= 1
+    order or= 1
     for eid, aid of entity.reactions
       nextEntity = sys.entities[eid]
       updateChange sys, nextEntity, aid, order
@@ -151,7 +143,7 @@ flush = (sys) ->
   process = {}
   for aid, change of sys.changes
     action = sys.actions[aid]
-    step = process[change.order] ?= []
+    step = process[change.order] or= []
     unit = {action, entity: change.entity}
     if action.init
       step.unshift unit
@@ -162,9 +154,11 @@ flush = (sys) ->
 
   for order, actions of process
     for {action, entity} in actions
-      args = (sys.entities[dep].value for dep in action.dependencies)
+      args = []
+      for depId, i in action.dependencies
+        args[i] = sys.entities[depId].value
       res = action.action.apply null, args
-      entity.value = res if res
+      entity.value = res if res?
 
   sys
 
@@ -178,14 +172,6 @@ newUid = do ->
 
 processEntityString = (es) ->
   es.trim().split /\s+/
-
-
-entityIdsFromNames = (sys, names) ->
-  names.map (name) ->
-    id = sys.names[name]
-    unless id?
-      throw Error "No entity found with the name #{name} in '#{names.join ' '}'"
-    id
 
 
 # ===== interface =====
@@ -207,5 +193,4 @@ module.exports = {
 
   newUid
   processEntityString
-  entityIdsFromNames
 }

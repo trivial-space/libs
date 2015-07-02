@@ -1,4 +1,5 @@
-ES = require '../../src/systems/entity-system'
+require 'babel/register'
+ES = require '../../src/systems/old-entity-system'
 util = require 'util'
 
 UPDATES = 10000
@@ -7,8 +8,11 @@ inc = (x) -> x + 1
 length = (x) -> x.length
 
 spec =
+  'trigger':
+    value: true
+
   'counter':
-    value: 0
+    init: -> 0
     reactions:
       'trigger': inc
 
@@ -24,14 +28,16 @@ spec =
     init: length
 
 
-sys = ES.addEntities ES.create(), spec
+
+sys = new ES()
+sys.addEntities spec
 # console.log sys
 
 startTime = Date.now()
 
 for foo in [1..UPDATES]
-  ES.touch sys, 'trigger'
-  ES.flush sys
+  sys.propagateChange 'trigger'
+  sys.flush()
 
 duration1 = Date.now() - startTime
 
