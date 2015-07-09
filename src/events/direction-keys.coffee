@@ -11,15 +11,12 @@ DOWN = NAME_PREFIX + 'down'
 
 init = (sys) ->
 
-  forth = false
-  back = false
-  left = false
-  right = false
-  up = false
-  down = false
-
-  document.addEventListener "keyup", onKeyUp, false
-  document.addEventListener "keydown", onKeyDown, false
+  ES.set sys, FORTH, forth = false
+  ES.set sys, BACK, back = false
+  ES.set sys, LEFT, left = false
+  ES.set sys, RIGHT, right = false
+  ES.set sys, UP, up = false
+  ES.set sys, DOWN, down = false
 
 
   onKeyDown = (e) ->
@@ -44,6 +41,8 @@ init = (sys) ->
         unless down
           ES.set sys, DOWN, down = true
 
+    return
+
 
   onKeyUp = (e) ->
     e.preventDefault()
@@ -60,6 +59,11 @@ init = (sys) ->
         ES.set sys, UP, up = false
       when 70
         ES.set sys, DOWN, down = false
+
+    return
+
+  document.addEventListener "keyup", onKeyUp, false
+  document.addEventListener "keydown", onKeyDown, false
 
   return
 

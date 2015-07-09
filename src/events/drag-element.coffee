@@ -7,15 +7,14 @@ DELTA_Y = NAME_PREFIX + 'deltaY'
 
 init = (sys, element = document) ->
 
+  ES.set sys, DELTA_X, deltaX = 0
+  ES.set sys, DELTA_Y, deltaY = 0
+
   _x = 0
   _y = 0
   _dragging = false
   _oldDeltaX = 0
   _oldDeltaY = 0
-
-  element.addEventListener "mousedown", onMouseDown, false
-  document.addEventListener "mousemove", onMouseMove, false
-  document.addEventListener "mouseup", onMouseUp, false
 
 
   onMouseMove = (e) ->
@@ -30,12 +29,14 @@ init = (sys, element = document) ->
         ES.set sys, DELTA_Y, deltaY
       _x = e.screenX
       _y = e.screenY
+    return
 
 
   onMouseUp = () ->
     ES.set sys, DELTA_X, deltaX = _oldDeltaX = 0
     ES.set sys, DELTA_Y, deltaY = _oldDeltaY = 0
     _dragging = false
+    return
 
 
   onMouseDown = (e) ->
@@ -43,6 +44,11 @@ init = (sys, element = document) ->
       _x = e.screenX
       _y = e.screenY
       _dragging = true
+    return
+
+  element.addEventListener "mousedown", onMouseDown, false
+  document.addEventListener "mousemove", onMouseMove, false
+  document.addEventListener "mouseup", onMouseUp, false
 
   return
 

@@ -12,15 +12,9 @@ init = (sys, element = document, options) ->
 
   entityName = 'inputEvent.mouseButton'
 
-  leftButton = false
-  middleButton = false
-  rightButton = false
-
-  element.addEventListener "mousedown", onMouseDown, false
-  document.addEventListener "mouseup", onMouseUp, false
-
-  if enableRightButton
-    element.addEventListener "contextmenu", ((e) -> e.preventDefault()) , false
+  ES.set sys, LEFT_BTN, leftButton = false
+  ES.set sys, MIDDLE_BTN, middleButton = false
+  ES.set sys, RIGHT_BTN, rightButton = false
 
 
   onMouseUp = (e) ->
@@ -31,6 +25,7 @@ init = (sys, element = document, options) ->
       ES.set sys, MIDDLE_BTN, middleButton = false
     if rightButton
       ES.set sys, RIGHT_BTN, rightButton = false
+    return
 
 
   onMouseDown = (e) ->
@@ -42,6 +37,14 @@ init = (sys, element = document, options) ->
         ES.set sys, MIDDLE_BTN, middleButton = true
       when 2
         ES.set sys, RIGHT_BTN, rightButton = true
+    return
+
+
+  element.addEventListener "mousedown", onMouseDown, false
+  document.addEventListener "mouseup", onMouseUp, false
+
+  if enableRightButton
+    element.addEventListener "contextmenu", ((e) -> e.preventDefault()) , false
 
   return
 
