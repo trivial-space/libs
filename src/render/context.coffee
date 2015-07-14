@@ -380,7 +380,14 @@ typedArrayToGLType = (array, gl) ->
 
 
 
-module.exports =
-  create: create
-  init: init
-  renderLayers: renderLayers
+module.exports = {
+  create
+  init
+  initSettings
+  updateObject
+  updateGeometry
+  updateShader
+  updateLayer
+  updateSize
+  renderLayers
+}
