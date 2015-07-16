@@ -3,11 +3,11 @@
 definition =
 
   settings:
+    enable: ["DEPTH_TEST", "CULL_FACE"] # default DEPTH_TEST
     clearBuffers: ["COLOR", "DEPTH"]
     clearColor: [1.0, 1.0, 1.0, 1.0]
-    width: 100
-    height: 200
-
+    # set width and hight with css and call updateSize
+    # after adding the canvas to the dom
 
   shaders:
     "space-color":

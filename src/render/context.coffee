@@ -21,7 +21,6 @@ create = (canvas) ->
     throw Error 'WebGL-Context could not be initialized!'
 
   ctx.gl = gl
-  ctx.canvas = canvas
 
   updateGeometry ctx, '_renderQuad', lib.geometries._renderQuad
   updateShader ctx, '_renderResult', lib.shaders._renderResult
@@ -72,12 +71,13 @@ updateObject = (ctx, id, object) ->
 
 initSettings = (ctx, data) ->
   data or= {}
-  ctx.settings.width = data.width or ctx.canvas.width
-  ctx.settings.height = data.height or ctx.canvas.height
   ctx.settings.clearColor = data.clearColor or [ 0.0, 0.0, 0.0, 1.0 ]
   ctx.settings.minFilter = data.minFilter or 'LINEAR'
   ctx.settings.wrap = data.wrap or 'CLAMP_TO_EDGE'
   ctx.settings.clearBits = makeClear ctx.gl, data.clearBuffers or [ 'DEPTH', 'COLOR' ]
+  ctx.settings.enable = data.enable or ['DEPTH_TEST']
+  for param in ctx.settings.enable
+    ctx.gl.enable ctx.gl[param]
   ctx
 
 
@@ -192,8 +192,12 @@ updatStaticLayer = (ctx, layer, data) ->
 
 
 updateSize = (ctx) ->
-  ctx.canvas.width = ctx.settings.width
-  ctx.canvas.height = ctx.settings.height
+  gl = ctx.gl
+  ctx.settings.width = gl.canvas.clientWidth
+  ctx.settings.height = gl.canvas.clientHeight
+  if gl.canvas.width isnt ctx.settings.width or gl.canvas.height isnt ctx.settings.height
+    gl.canvas.height = ctx.settings.height
+    gl.canvas.width = ctx.settings.width
   updateRenderTarget ctx.gl, ctx.source, ctx.settings
   updateRenderTarget ctx.gl, ctx.target, ctx.settings
   ctx
@@ -212,11 +216,11 @@ renderLayers = (ctx, layerIds) ->
 
     if directRender
       gl.bindFramebuffer gl.FRAMEBUFFER, null
-      gl.viewport 0, 0, ctx.settings.width, ctx.settings.height
+      gl.viewport 0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight
 
     else if renderToTarget
       gl.bindFramebuffer gl.FRAMEBUFFER, ctx.target.frameBuffer
-      gl.viewport 0, 0, ctx.settings.width, ctx.settings.height
+      gl.viewport 0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight
 
     # render to layers own frameBuffer
     else
@@ -226,9 +230,7 @@ renderLayers = (ctx, layerIds) ->
     # render
 
     unless layer.noClear
-      color = layer.clearColor or ctx.settings.clearColor
-      if color
-        gl.clearColor.apply gl, color
+      gl.clearColor.apply gl, layer.clearColor or ctx.settings.clearColor
       gl.clear ctx.settings.clearBits
 
     if layer.type == consts.LayerType.RENDER
@@ -352,7 +354,7 @@ updateRenderTarget = (gl, target, data) ->
 
   err = gl.checkFramebufferStatus gl.FRAMEBUFFER
   unless err is gl.FRAMEBUFFER_COMPLETE
-    console.error 'framebuffer error', e, data
+    console.error 'framebuffer error', err, data
 
   gl.bindFramebuffer gl.FRAMEBUFFER, null
   gl.bindTexture gl.TEXTURE_2D, null
