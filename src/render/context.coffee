@@ -226,8 +226,10 @@ renderLayers = (ctx, layerIds) ->
     # render
 
     unless layer.noClear
-      gl.clearColor.apply gl, ctx.settings.clearColor
-      gl.clear gl.COLOR_BUFFER_BIT
+      color = layer.clearColor or ctx.settings.clearColor
+      if color
+        gl.clearColor.apply gl, color
+      gl.clear ctx.settings.clearBits
 
     if layer.type == consts.LayerType.RENDER
       for id in layer.objects

@@ -24,10 +24,10 @@ definition =
 
   layers:
     "object-layer": # type is one of ["render", "static", "data", "effect"]
-      type: "render" # do an actual webgl rendering into a texture
+      type: consts.LayerType.RENDER # do an actual webgl rendering into a texture
       objects: ["mycube"]
     "full-layer":
-      type: "render"
+      type: consts.LayerType.RENDER
       objects: ["mymesh"]
       clearColor: [1.0, 0.5, 0.0, 1.0]
       flipY: true
@@ -41,10 +41,10 @@ definition =
       height: 100
       noClear: true
     "texture-layer":
-      type: "static" # just make a static texture
+      type: consts.LayerType.STATIC # just make a static texture
       asset: myImage # or video or canvas...
     "effect-layer":
-      type: "effect"
+      type: consts.LayerType.EFFECT
       uniforms:
         "uniform1":
           124

@@ -46,6 +46,10 @@ math = module.exports =
     Math.floor Math.random() * int
 
 
+  randIntInRange: (from, to) ->
+    math.randInt(to - from) + from
+
+
   normalRand: ->
     (Math.random() * 2 - 1) +
     (Math.random() * 2 - 1) +
