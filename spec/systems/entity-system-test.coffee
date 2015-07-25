@@ -309,7 +309,7 @@ describe 'EntitySystem', ->
 
   describe 'actions', ->
 
-    it 'can be added to sys and called', ->
+    it 'can be added to system and called', ->
       ES.addValues sys,
         foo: 3
         bar: 4
@@ -332,7 +332,7 @@ describe 'EntitySystem', ->
 
   describe 'callbacks', ->
 
-    it 'can be added to sys', ->
+    it 'can be added to system', ->
       ES.addValues sys,
         foo: 3
         bar: 4
@@ -376,16 +376,16 @@ describe 'EntitySystem', ->
         .to.be.calledWith 7
 
 
-    xit 'can be more than one', ->
+    it 'can be more than one', ->
       cb1 = sinon.stub()
       cb2 = sinon.stub()
 
-      sys.addValue 'foo', 'foo_value'
-      sys.addCallback 'foo', cb1
-      sys.addCallback 'foo', cb2
+      ES.set sys, 'foo', 'foo_value'
+      ES.addCallback sys, 'foo', cb1
+      ES.addCallback sys, 'foo', cb2
 
-      sys.resetEntity 'foo', 'new_foo_value'
-      sys.flush()
+      ES.set sys, 'foo', 'new_foo_value'
+      ES.flush sys
 
       expect cb1
         .to.be.calledWith 'new_foo_value'
