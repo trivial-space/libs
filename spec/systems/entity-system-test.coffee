@@ -290,7 +290,7 @@ describe 'EntitySystem', ->
       counter:
         value: 0
         reactions:
-          trigger:
+          'trigger':
             (counter) -> counter + 1
 
     ES.addEntities sys, spec
@@ -304,6 +304,141 @@ describe 'EntitySystem', ->
 
     expect ES.get sys, 'counter'
       .to.equal 11
+
+
+
+  describe 'actions', ->
+
+    it 'can be added to sys and called', ->
+      ES.addValues sys,
+        foo: 3
+        bar: 4
+
+      action = (foo, bar) -> "foobar"
+
+      id = ES.addAction sys, 'foo bar', action
+
+      expect id
+        .to.be.a 'string'
+
+      expect sys.actions[id]
+        .to.exist
+
+      expect ES.callAction sys, id
+        .to.equal 'foobar'
+
+
+
+
+  describe 'callbacks', ->
+
+    it 'can be added to sys', ->
+      ES.addValues sys,
+        foo: 3
+        bar: 4
+
+      callback = (foo, bar) -> "foobar"
+
+      id = ES.addCallback sys, 'foo bar', callback
+
+      expect id
+        .to.be.a 'string'
+
+      expect sys.actions[id]
+        .to.exist
+
+      expect ES.callAction sys, id
+        .to.equal 'foobar'
+
+      expect ES.getEntity(sys, 'foo').callbacks.length
+        .to.equal 1
+
+
+    it 'are called on entity change', ->
+      cb = sinon.stub()
+
+      ES.addEntities sys,
+        'foo':
+          init: -> 10
+
+        'bar':
+          require: 'foo'
+          init: (foo) -> foo + 2
+          callback: cb
+
+      ES.update sys, 'foo', (foo) -> foo - 5
+      ES.flush sys
+
+      expect ES.get sys, 'bar'
+        .to.equal 7
+
+      expect cb
+        .to.be.calledWith 7
+
+
+    xit 'can be more than one', ->
+      cb1 = sinon.stub()
+      cb2 = sinon.stub()
+
+      sys.addValue 'foo', 'foo_value'
+      sys.addCallback 'foo', cb1
+      sys.addCallback 'foo', cb2
+
+      sys.resetEntity 'foo', 'new_foo_value'
+      sys.flush()
+
+      expect cb1
+        .to.be.calledWith 'new_foo_value'
+      expect cb2
+        .to.be.calledWith 'new_foo_value'
+
+
+    it 'is called only once even if registered for many entities', ->
+      cb = sinon.stub()
+
+      ES.addValues sys,
+        foo: 'foo_value'
+        bar: 'bar_value'
+
+      ES.addCallback sys, 'foo bar', cb
+
+      ES.set sys, 'foo', 'new_foo_value'
+      ES.set sys, 'bar', 'new_bar_value'
+      ES.flush sys
+
+      expect cb
+        .to.be.calledOnce
+      expect cb
+        .to.be.calledWith 'new_foo_value', 'new_bar_value'
+
+
+    it 'can be removed', ->
+      cb = sinon.stub()
+
+      ES.set sys, 'foo', 'foo_value'
+      id = ES.addCallback sys, 'foo', cb
+
+      ES.set sys, 'foo', 'new_foo_value'
+      ES.flush sys
+
+      expect cb
+        .to.be.called
+
+      cb.reset()
+      ES.removeCallback sys, id
+
+      ES.set sys, 'foo', 'new_foo_value2'
+      ES.flush sys
+
+      expect cb
+        .to.not.be.called
+
+      expect sys.actions[id]
+        .to.not.be.defined
+
+      expect ES.getEntity(sys, 'foo').callbacks.length
+        .to.equal 0
+
 
 
 

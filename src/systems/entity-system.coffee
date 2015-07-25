@@ -72,6 +72,9 @@ addEntity = (sys, name, spec) ->
     for rnamesString, reaction of spec.reactions
       addReaction sys, name, rnamesString, reaction
 
+  if spec.callback
+    addCallback sys, name, spec.callback
+
   entity.spec = spec
 
   propagateChange sys, entity
@@ -90,7 +93,7 @@ addReaction = (sys, name, depString, reaction) ->
 
 
 updateReactions = (sys, entity, depNames, action) ->
-  actionId = newUid()
+  actionId = getReactionName entity.id, depNames
 
   if action.require
     additionalDeps = processEntityString action.require
@@ -109,11 +112,38 @@ updateReactions = (sys, entity, depNames, action) ->
   actionId
 
 
-# ===== change management =====
+addAction = (sys, depString, fn) ->
+  depNames = processEntityString depString
+  actionId = getActionName depNames
+  sys.actions[actionId] =
+    action: fn
+    dependencies: depNames
 
-applyChange = (sys, entity, deps, fn) ->
+  actionId
+
+
+addCallback = (sys, depString, cb) ->
+  sys.calls ?= {}
+  actionId = addAction sys, depString, cb
+
+  for id in sys.actions[actionId].dependencies
+    entity = getOrCreateEntity sys, id
+    entity.callbacks ?= []
+    entity.callbacks.push actionId
+
+  actionId
+
+
+removeCallback = (sys, cid) ->
+  deps = sys.actions[cid].dependencies
+  for id in deps
+    e = sys.entities[id]
+    e.callbacks = e.callbacks.filter (cb) -> cb != cid
+  delete sys.actions[cid]
   sys
 
+
+# ===== change management =====
 
 updateChange = (sys, entity, aid, order) ->
   change = sys.changes[aid] ?=
@@ -136,6 +166,12 @@ propagateChange = (sys, entity, order) ->
           updateChange sys, nextEntity, cid, order
 
       propagateChange sys, nextEntity, order + 1
+
+  # handle callbacks
+  if entity.callbacks and entity.callbacks.length
+    for cid in entity.callbacks
+      sys.calls[cid] = true
+
   sys
 
 
@@ -160,7 +196,19 @@ flush = (sys) ->
       res = action.action.apply null, args
       entity.value = res if res?
 
+  for cid of sys.calls
+    callAction sys, cid
+
+  sys.calls = {}
   sys
+
+
+callAction = (sys, actionId) ->
+  action = sys.actions[actionId]
+  args = []
+  for depId, i in action.dependencies
+    args[i] = sys.entities[depId].value
+  action.action.apply null, args
 
 
 # ===== helper methods =====
@@ -172,6 +220,14 @@ newUid = do ->
 
 processEntityString = (es) ->
   es.trim().split /\s+/
+
+
+getReactionName = (entityName, depNames) ->
+  "R:#{entityName}::" + depNames.join ':'
+
+
+getActionName = (depNames)->
+  'A:' + depNames.join(':') + ':' + newUid()
 
 
 # ===== interface =====
@@ -187,10 +243,17 @@ module.exports = {
   addValues
   addEntity
   addEntities
+  addAction
+  addCallback
+  removeCallback
 
   flush
   propagateChange
+  callAction
 
   newUid
   processEntityString
+
+  getReactionName
+  getActionName
 }
