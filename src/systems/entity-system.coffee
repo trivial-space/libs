@@ -139,6 +139,7 @@ removeCallback = (sys, cid) ->
   for id in deps
     e = sys.entities[id]
     e.callbacks = e.callbacks.filter (cb) -> cb != cid
+  delete sys.calls[cid]
   delete sys.actions[cid]
   sys
 

@@ -425,9 +425,9 @@ describe 'EntitySystem', ->
         .to.be.called
 
       cb.reset()
-      ES.removeCallback sys, id
 
       ES.set sys, 'foo', 'new_foo_value2'
+      ES.removeCallback sys, id
       ES.flush sys
 
       expect cb
