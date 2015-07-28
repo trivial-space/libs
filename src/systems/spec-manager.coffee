@@ -26,6 +26,7 @@ getIdFromNameNamespace = (name, namespace) ->
 getIdFormSpec = (entitySpec) ->
   entitySpec.id or getIdFromNameNamespace entitySpec.name, entitySpec.namespace
 
+
 # ===== interface =====
 
 module.exports = {
