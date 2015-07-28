@@ -1,27 +1,16 @@
 renderer = require 'ts/render/context'
 
 
-updateShader = (name) ->
-  (scene, shader) ->
-    renderer.updateShader scene, name, shader
-
-updateLayer = (name) ->
-  (scene, layer) ->
-    renderer.updateLayer scene, name, layer
-
-updateObject = (name) ->
-  (scene, object) ->
-    renderer.updateObject scene, name, object
-
-updateGeometry = (name) ->
-  (scene, geom) ->
-    renderer.updateGeometry scene, name, geom
+updateHelper = (updateFunction) ->
+  (name) ->
+    (scene, obj) ->
+      updateFn scene, name, obj
 
 
 
-module.exports = {
-  updateShader
-  updateLayer
-  updateObject
-  updateGeometry
-}
+module.exports =
+  updateShader: updateHelper renderer.updateShader
+  updateLayer: updateHelper renderer.updateLayer
+  updateObject: updateHelper renderer.updateObject
+  updateGeometry: updateHelper renderer.updateGeometry
+
