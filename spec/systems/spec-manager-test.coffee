@@ -1,7 +1,7 @@
 Runtime = require 'systems/runtime'
 SSM = require 'systems/spec-manager'
 
-describe.only 'System Specification Manager', ->
+describe 'System Specification Manager', ->
 
   sys = null
 
@@ -165,3 +165,31 @@ describe.only 'System Specification Manager', ->
 
       expect sys.get 'foo'
         .to.equal 50
+
+
+  xdescribe 'createSpec', ->
+
+    it 'generates a spec from a initialized system', ->
+      reaction = (foo) -> foo + 1
+
+      sys.set 'foo', 30
+      sys.set 'bar', 20
+      sys.addReaction reaction, 'bar', ['foo']
+
+      spec = SSM.createSpec sys
+
+      expect spec
+        .to.deep.equal {
+          entities: [
+            id: 'bar'
+            reactions: [
+              triggers: ['foo']
+              procedure: reaction
+            ]
+          ,
+            id: 'foo'
+          ]
+        }
+
+
+
