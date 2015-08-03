@@ -15,6 +15,12 @@ describe 'Entity system object specification parser', ->
       'foo':
         value: 200
 
+      'kuku/foo':
+        value: 1
+
+      'kuku/bar':
+        value: 2
+
       'baz':
         init:
           require: 'foo bar'
@@ -24,7 +30,7 @@ describe 'Entity system object specification parser', ->
           'trigger1 trigger2':
             require: 'biz'
             do: bazReaction
-          'trigger3': bazReaction2
+          'kuku/bar': bazReaction2
 
       'bar':
         init: barInit
@@ -39,9 +45,23 @@ describe 'Entity system object specification parser', ->
       .to.deep.equal {
         entities: [
           id: 'foo'
+          name: 'foo'
+          namespace: ''
           initialValue: 200
         ,
+          id: 'kuku/foo'
+          name: 'foo'
+          namespace: 'kuku'
+          initialValue: 1
+        ,
+          id: 'kuku/bar'
+          name: 'bar'
+          namespace: 'kuku'
+          initialValue: 2
+        ,
           id: 'baz'
+          name: 'baz'
+          namespace: ''
           factory:
             dependencies: ['foo', 'bar']
             procedure: bazInit
@@ -50,11 +70,13 @@ describe 'Entity system object specification parser', ->
             supplements: ['biz']
             procedure: bazReaction
           ,
-            triggers: ['trigger3']
+            triggers: ['kuku/bar']
             procedure: bazReaction2
           ]
         ,
           id: 'bar'
+          name: 'bar'
+          namespace: ''
           factory:
             procedure: barInit
           reactions: [

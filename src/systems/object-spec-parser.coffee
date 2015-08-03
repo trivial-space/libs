@@ -1,3 +1,6 @@
+{entityFromId} = require './spec-manager'
+
+
 parseRequireString = (es) ->
   es.trim().split /\s+/
 
@@ -6,7 +9,7 @@ module.exports.parse = (spec) ->
 
   entities:
     for eid, eSpec of spec
-      e = id: eid
+      e = entityFromId eid
 
       if eSpec.value?
         e.initialValue = eSpec.value

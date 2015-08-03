@@ -1,3 +1,5 @@
+# ===== spec loading =====
+
 loadSpec = (sys, spec) ->
   for entitySpec in spec.entities
     # entities
@@ -27,8 +29,23 @@ getIdFormSpec = (entitySpec) ->
   entitySpec.id or getIdFromNameNamespace entitySpec.name, entitySpec.namespace
 
 
+getNameNamespaceFromId = (id) ->
+  [namespace, name] = id.split '/'
+  unless name
+    name = namespace
+    namespace = ''
+  [name, namespace]
+
+# ===== spec creation =====
+
+entityFromId = (id) ->
+  [name, namespace] = getNameNamespaceFromId id
+  {id, name, namespace}
+
 # ===== interface =====
 
 module.exports = {
   loadSpec
+
+  entityFromId
 }
