@@ -18,12 +18,12 @@ describe 'Entity system object specification parser', ->
       'baz':
         init:
           require: 'foo bar'
-          update: bazInit
+          do: bazInit
 
         reactions:
           'trigger1 trigger2':
             require: 'biz'
-            update: bazReaction
+            do: bazReaction
           'trigger3': bazReaction2
 
       'bar':

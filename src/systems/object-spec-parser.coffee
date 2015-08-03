@@ -12,7 +12,7 @@ module.exports.parse = (spec) ->
         e.initialValue = eSpec.value
 
       if eSpec.init
-        e.factory = procedure: eSpec.init.update or eSpec.init
+        e.factory = procedure: eSpec.init.do or eSpec.init
         deps = eSpec.init.require and parseRequireString eSpec.init.require
         e.factory.dependencies = deps if deps
 
@@ -21,7 +21,7 @@ module.exports.parse = (spec) ->
           for depString, rSpec of eSpec.reactions
             r =
               triggers: parseRequireString depString
-              procedure: rSpec.update or rSpec
+              procedure: rSpec.do or rSpec
             if rSpec.require
               r.supplements = parseRequireString rSpec.require
             r
