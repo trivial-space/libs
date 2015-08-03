@@ -1,5 +1,3 @@
-ES = require '../systems/entity-system'
-
 NAME_PREFIX = 'inputEvent:mouseDrag:'
 DELTA_X = NAME_PREFIX + 'deltaX'
 DELTA_Y = NAME_PREFIX + 'deltaY'
@@ -7,8 +5,8 @@ DELTA_Y = NAME_PREFIX + 'deltaY'
 
 init = (sys, element = document) ->
 
-  ES.set sys, DELTA_X, deltaX = 0
-  ES.set sys, DELTA_Y, deltaY = 0
+  sys.set DELTA_X, deltaX = 0
+  sys.set DELTA_Y, deltaY = 0
 
   _x = 0
   _y = 0
@@ -24,17 +22,17 @@ init = (sys, element = document) ->
       deltaX = _x - e.screenX
       deltaY = _y - e.screenY
       if deltaX != _oldDeltaX
-        ES.set sys, DELTA_X, deltaX
+        sys.set DELTA_X, deltaX
       if deltaY != _oldDeltaY
-        ES.set sys, DELTA_Y, deltaY
+        sys.set DELTA_Y, deltaY
       _x = e.screenX
       _y = e.screenY
     return
 
 
   onMouseUp = () ->
-    ES.set sys, DELTA_X, deltaX = _oldDeltaX = 0
-    ES.set sys, DELTA_Y, deltaY = _oldDeltaY = 0
+    sys.set DELTA_X, deltaX = _oldDeltaX = 0
+    sys.set DELTA_Y, deltaY = _oldDeltaY = 0
     _dragging = false
     return
 

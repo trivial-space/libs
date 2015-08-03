@@ -1,5 +1,3 @@
-ES = require '../systems/entity-system'
-
 NAME_PREFIX = 'inputEvent:mouseButton:'
 LEFT_BTN = NAME_PREFIX + 'leftButton'
 MIDDLE_BTN = NAME_PREFIX + 'middleButton'
@@ -12,19 +10,19 @@ init = (sys, element = document, options) ->
 
   entityName = 'inputEvent.mouseButton'
 
-  ES.set sys, LEFT_BTN, leftButton = false
-  ES.set sys, MIDDLE_BTN, middleButton = false
-  ES.set sys, RIGHT_BTN, rightButton = false
+  sys.set LEFT_BTN, leftButton = false
+  sys.set MIDDLE_BTN, middleButton = false
+  sys.set RIGHT_BTN, rightButton = false
 
 
   onMouseUp = (e) ->
     e.preventDefault()
     if leftButton
-      ES.set sys, LEFT_BTN, leftButton = false
+      sys.set LEFT_BTN, leftButton = false
     if middleButton
-      ES.set sys, MIDDLE_BTN, middleButton = false
+      sys.set MIDDLE_BTN, middleButton = false
     if rightButton
-      ES.set sys, RIGHT_BTN, rightButton = false
+      sys.set RIGHT_BTN, rightButton = false
     return
 
 
@@ -32,11 +30,11 @@ init = (sys, element = document, options) ->
     e.preventDefault()
     switch e.button
       when 0
-        ES.set sys, LEFT_BTN, leftButton = true
+        sys.set LEFT_BTN, leftButton = true
       when 1
-        ES.set sys, MIDDLE_BTN, middleButton = true
+        sys.set MIDDLE_BTN, middleButton = true
       when 2
-        ES.set sys, RIGHT_BTN, rightButton = true
+        sys.set RIGHT_BTN, rightButton = true
     return
 
 
