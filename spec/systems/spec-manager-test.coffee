@@ -81,8 +81,10 @@ describe 'System Specification Manager', ->
       SSM.loadSpec sys,
         entities: [
           id: 'foo'
-          factory:
-            procedure: -> 33
+        ]
+        factories: [
+          receiver: 'foo'
+          procedure: -> 33
         ]
 
       expect sys.get 'foo'
@@ -98,9 +100,11 @@ describe 'System Specification Manager', ->
           initialValue: 22
         ,
           id: 'foo'
-          factory:
-            procedure: (bar) -> bar + 11
-            dependencies: ['baz/bar']
+        ]
+        factories: [
+          receiver: 'foo'
+          procedure: (bar) -> bar + 11
+          dependencies: ['baz/bar']
         ]
 
       expect sys.get 'foo'
@@ -111,20 +115,21 @@ describe 'System Specification Manager', ->
 
       SSM.loadSpec sys,
         entities: [
-          id: 'foo'
-          factory:
-            dependencies: ['baz']
-            procedure: (baz) -> baz + 10
-          reactions: [
-            procedure: (foo, bar) -> foo + bar
-            triggers: ['bar']
-          ]
-        ,
           id: 'bar'
           initialValue: 10
         ,
           id: 'baz'
           initialValue: 20
+        ]
+        factories: [
+          receiver: 'foo'
+          dependencies: ['baz']
+          procedure: (baz) -> baz + 10
+        ]
+        reactions: [
+          receiver: 'foo'
+          triggers: ['bar']
+          procedure: (foo, bar) -> foo + bar
         ]
 
       expect sys.get 'foo'
@@ -137,25 +142,28 @@ describe 'System Specification Manager', ->
         .to.equal 50
 
 
-    it 'initializes system regardless of the entity order', ->
+    it 'can handle objects instead of arrays, with random keys', ->
 
       SSM.loadSpec sys,
-        entities: [
-          id: 'bar'
-          initialValue: 10
-        ,
-          id: 'baz'
-          initialValue: 20
-        ,
-          id: 'foo'
-          factory:
+        entities:
+          'xuxu':
+            id: 'bar'
+            initialValue: 10
+          'random2':
+            id: 'baz'
+            initialValue: 20
+          'random3':
+            id: 'foo'
+        factories:
+          'fufufu':
+            receiver: 'foo'
             dependencies: ['baz']
             procedure: (baz) -> baz + 10
-          reactions: [
-            procedure: (foo, bar) -> foo + bar
+        reactions:
+          'kukuku':
+            receiver: 'foo'
             triggers: ['bar']
-          ]
-        ]
+            procedure: (foo, bar) -> foo + bar
 
       expect sys.get 'foo'
         .to.equal 40

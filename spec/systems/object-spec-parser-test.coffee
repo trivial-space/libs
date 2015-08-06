@@ -1,3 +1,4 @@
+{getReactionId, getFactoryId, ActionTypes} = require 'systems/types'
 parser = require 'systems/object-spec-parser'
 
 
@@ -28,7 +29,7 @@ describe 'Entity system object specification parser', ->
 
         reactions:
           'trigger1 trigger2':
-            require: 'biz'
+            require: 'kuku/foo'
             do: bazReaction
           'kuku/bar': bazReaction2
 
@@ -38,52 +39,83 @@ describe 'Entity system object specification parser', ->
           'foo': barReaction
 
 
-    result = parser.parse spec
-    console.log result.entities
-
-    expect result
-      .to.deep.equal {
-        entities: [
+    expected =
+      entities:
+        'foo':
           id: 'foo'
           name: 'foo'
           namespace: ''
           initialValue: 200
-        ,
+
+        'kuku/foo':
           id: 'kuku/foo'
           name: 'foo'
           namespace: 'kuku'
           initialValue: 1
-        ,
+
+        'kuku/bar':
           id: 'kuku/bar'
           name: 'bar'
           namespace: 'kuku'
           initialValue: 2
-        ,
+
+        'baz':
           id: 'baz'
           name: 'baz'
           namespace: ''
-          factory:
-            dependencies: ['foo', 'bar']
-            procedure: bazInit
-          reactions: [
-            triggers: ['trigger1', 'trigger2']
-            supplements: ['biz']
-            procedure: bazReaction
-          ,
-            triggers: ['kuku/bar']
-            procedure: bazReaction2
-          ]
-        ,
+
+        'bar':
           id: 'bar'
           name: 'bar'
           namespace: ''
-          factory:
-            procedure: barInit
-          reactions: [
-            triggers: ['foo']
-            procedure: barReaction
-          ]
-        ]
-      }
+
+        'trigger1':
+          id: 'trigger1'
+          name: 'trigger1'
+          namespace: ''
+
+        'trigger2':
+          id: 'trigger2'
+          name: 'trigger2'
+          namespace: ''
+
+      factories:
+        "#{getFactoryId 'baz'}":
+          id: "#{getFactoryId 'baz'}"
+          receiver: 'baz'
+          dependencies: ['foo', 'bar']
+          procedure: bazInit
+
+        "#{getFactoryId 'bar'}":
+          id: "#{getFactoryId 'bar'}"
+          receiver: 'bar'
+          procedure: barInit
+
+      reactions:
+        "#{getReactionId 'bar', ['foo']}":
+          id: "#{getReactionId 'bar', ['foo']}"
+          receiver: 'bar'
+          triggers: ['foo']
+          procedure: barReaction
+
+        "#{getReactionId 'baz', ['trigger1', 'trigger2']}":
+          id: "#{getReactionId 'baz', ['trigger1', 'trigger2']}"
+          receiver: 'baz'
+          triggers: ['trigger1', 'trigger2']
+          supplements: ['kuku/foo']
+          procedure: bazReaction
+
+        "#{getReactionId 'baz', ['kuku/bar']}":
+          id: "#{getReactionId 'baz', ['kuku/bar']}"
+          receiver: 'baz'
+          triggers: ['kuku/bar']
+          procedure: bazReaction2
 
 
+    result = parser.parse spec
+    # console.log result.entities
+    # console.log result.factories
+    # console.log result.reactions
+
+    expect result
+      .to.deep.equal

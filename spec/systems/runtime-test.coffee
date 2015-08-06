@@ -46,6 +46,16 @@ describe 'System runtime', ->
       .to.contain.all.keys id: 'fufu', value: 'lululu'
 
 
+  it 'can explicitly add entities with an initial Value', ->
+
+    sys.addEntity
+      id: 'foo'
+      initialValue: 22
+
+    expect sys.get 'foo'
+      .to.equal 22
+
+
   it 'updates by function', ->
 
     sys.set 'foo', 10
@@ -62,7 +72,9 @@ describe 'System runtime', ->
 
       factory = -> "newEntity"
 
-      sys.addFactory factory, 'foo'
+      sys.addFactory
+        procedure: factory
+        receiver: 'foo'
 
       expect sys.get 'foo'
         .to.equal 'newEntity'
@@ -75,7 +87,10 @@ describe 'System runtime', ->
 
       sys.set 'foo', 3
       sys.set 'bar', 5
-      sys.addFactory factory, 'test', ['foo', 'bar']
+      sys.addFactory
+        procedure: factory
+        receiver: 'test'
+        dependencies: ['foo', 'bar']
 
       expect sys.get 'test'
         .to.equal 8
@@ -86,7 +101,10 @@ describe 'System runtime', ->
       init = (x) -> x + 1
 
       sys.set 'x', 3
-      sys.addFactory init, 'foo', ['x']
+      sys.addFactory
+        procedure: init
+        receiver: 'foo'
+        dependencies: ['x']
 
       expect sys.get 'foo'
         .to.equal 4
@@ -105,7 +123,10 @@ describe 'System runtime', ->
       reaction = (foo, x) -> foo + x
       sys.set 'x', 3
       sys.set 'foo', 1
-      sys.addReaction reaction, 'foo', ['x']
+      sys.addReaction
+        procedure: reaction
+        receiver: 'foo'
+        triggers: ['x']
 
       expect sys.get 'foo'
         .to.equal 1
@@ -130,7 +151,11 @@ describe 'System runtime', ->
       reaction = (test, x, y) ->
         test + x - y
 
-      sys.addReaction reaction, 'test', ['x', 'y']
+      sys.addReaction
+        procedure: reaction
+        receiver: 'test'
+        triggers: ['x', 'y']
+
       sys.flush()
 
       expect sys.get 'test'
@@ -141,7 +166,12 @@ describe 'System runtime', ->
 
       sys.set 'x', 1
       sys.set 'y', 2
-      sys.addReaction ((z, x, y) -> x + y),  'z', ['x'], ['y']
+      sys.addReaction
+        procedure: (z, x, y) -> x + y
+        receiver: 'z',
+        triggers: ['x']
+        supplements: ['y']
+
       sys.flush()
 
       expect sys.get 'z'
@@ -177,8 +207,16 @@ describe 'System runtime', ->
         test.myFoo = foo
         return
 
-      sys.addFactory init, 'test', ['bar']
-      sys.addReaction reaction, 'test', ['foo']
+      sys.addFactory
+        procedure: init
+        receiver: 'test'
+        dependencies: ['bar']
+
+      sys.addReaction
+        procedure: reaction
+        receiver: 'test'
+        triggers: ['foo']
+
       sys.flush()
 
       expect sys.get  'test'
@@ -203,8 +241,14 @@ describe 'System runtime', ->
       sys.set 'foo', 'foo_value'
       sys.set 'bar', 'bar_value'
       sys.set 'baz', 'baz_value'
-      sys.addFactory ((bar) -> 'test_value'), 'test', ['bar']
-      sys.addReaction reaction, 'test', ['foo', 'baz']
+      sys.addFactory
+        procedure: (bar) -> 'test_value'
+        receiver: 'test'
+        dependencies: ['bar']
+      sys.addReaction
+        procedure: reaction
+        receiver: 'test'
+        triggers: ['foo', 'baz']
       sys.flush()
 
       expect reaction
@@ -225,7 +269,10 @@ describe 'System runtime', ->
     it 'can be triggered by a touch', ->
 
       sys.set 'counter', 0
-      sys.addReaction ((counter) -> counter + 1), 'counter', ['trigger']
+      sys.addReaction
+        procedure: (counter) -> counter + 1
+        receiver: 'counter'
+        triggers: ['trigger']
       sys.flush()
 
       expect sys.get 'counter'
@@ -248,7 +295,9 @@ describe 'System runtime', ->
 
       action = (foo, bar) -> "foobar#{foo + bar}"
 
-      id = sys.addAction action, ['foo', 'bar']
+      id = sys.addAction
+        procedure: action
+        dependencies: ['foo', 'bar']
 
       expect id
         .to.be.a 'string'
@@ -270,7 +319,9 @@ describe 'System runtime', ->
 
       callback = (foo, bar) -> "foobar"
 
-      id = sys.addCallback callback, ['foo', 'bar']
+      id = sys.addCallback
+        procedure: callback
+        triggers: ['foo', 'bar']
 
       expect id
         .to.be.a 'string'
@@ -292,8 +343,13 @@ describe 'System runtime', ->
       cb = sinon.stub()
 
       sys.set 'foo', 10
-      sys.addFactory ((foo) -> foo + 2), 'bar', ['foo']
-      sys.addCallback cb, ['bar']
+      sys.addFactory
+        procedure: (foo) -> foo + 2
+        receiver: 'bar'
+        dependencies: ['foo']
+      sys.addCallback
+        procedure: cb
+        triggers: ['bar']
 
       sys.update  'foo', (foo) -> foo - 5
       sys.flush()
@@ -311,8 +367,12 @@ describe 'System runtime', ->
       cb2 = sinon.stub()
 
       sys.set 'foo', 'foo_value'
-      sys.addCallback cb1, ['foo']
-      sys.addCallback cb2, ['foo']
+      sys.addCallback
+        procedure: cb1
+        triggers: ['foo']
+      sys.addCallback
+        procedure: cb2
+        triggers: ['foo']
 
       sys.set 'foo', 'new_foo_value'
       sys.flush()
@@ -330,7 +390,9 @@ describe 'System runtime', ->
       sys.set 'foo', 'foo_value'
       sys.set 'bar', 'bar_value'
 
-      sys.addCallback cb, ['foo','bar']
+      sys.addCallback
+        procedure: cb
+        triggers: ['foo','bar']
 
       sys.set  'foo', 'new_foo_value'
       sys.set  'bar', 'new_bar_value'
@@ -346,7 +408,9 @@ describe 'System runtime', ->
 
       cb = sinon.stub()
 
-      id = sys.addCallback cb, ['foo']
+      id = sys.addCallback
+        procedure: cb
+        triggers: ['foo']
       sys.set 'foo', 'foo_value'
       sys.flush()
 
@@ -367,3 +431,30 @@ describe 'System runtime', ->
 
       expect sys.getEntity('foo').callbacks.length
         .to.equal 0
+
+
+    it 'can have supplements', ->
+
+      cb = sinon.stub()
+      sys.set 'foo', 40
+      sys.set 'bar', 50
+
+      sys.addCallback
+        procedure: cb
+        triggers: ['foo']
+        supplements: ['bar']
+
+      sys.flush()
+
+      sys.set 'bar', 5
+      sys.flush()
+
+      expect cb
+        .to.not.be.called
+
+      sys.set 'foo', 4
+      sys.flush()
+
+      expect cb
+        .to.be.calledWith 4, 5
+

@@ -61,7 +61,6 @@ module.exports.create = ->
     aid = setupAction reaction
     entity = getOrCreateEntity reaction.receiver
     updateEntityReactions entity, aid, reaction.triggers
-    # TODO: handle entity influences
     touch depid for depid of entity.dependencies
     aid
 
@@ -135,7 +134,7 @@ module.exports.create = ->
 
 
   getOrCreateEntity = (eid) ->
-    entities[eid] or addEntity eid
+    entities[eid] or addEntity {id: eid}
 
 
   getEntity = (eid) -> entities[eid]

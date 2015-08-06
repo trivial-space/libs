@@ -1,17 +1,5 @@
 # ===== entity system types =====
 
-createEntity = (id, value) ->
-  {
-    id
-    value
-    factory: null
-    dependencies: null
-    influences: null
-    effects: null
-    callbacks: null
-  }
-
-
 ActionTypes = {
   ACTION: "ts.entitysystem/action"
   FACTORY: "ts.entitysystem/factory"
@@ -20,18 +8,34 @@ ActionTypes = {
 }
 
 
-createAction = (procedure, dependencies) ->
+createEntity = ({id, initialValue: value}) ->
   {
-    id: getActionId dependencies
+    id
+    value
+    factory: null
+    dependencies: null
+    effects: null
+    callbacks: null
+  }
+
+
+createAction = ({id, procedure, dependencies}) ->
+  id ?= getActionId dependencies
+
+  {
+    id
     procedure
     dependencies
     type: ActionTypes.ACTION
   }
 
 
-createFactory = (procedure, receiver, dependencies = []) ->
+createFactory = ({id, procedure, receiver, dependencies}) ->
+  dependencies ?= []
+  id ?= getFactoryId receiver
+
   {
-    id: getReactionId receiver, dependencies
+    id
     receiver
     procedure
     dependencies
@@ -39,10 +43,13 @@ createFactory = (procedure, receiver, dependencies = []) ->
   }
 
 
-createReaction = (procedure, receiver, triggers, supplements = []) ->
+createReaction = ({id, procedure, receiver, triggers, supplements}) ->
+  id ?= getReactionId receiver, triggers
+  supplements ?= []
   dependencies = [receiver, triggers..., supplements...]
+
   {
-    id: getReactionId receiver, triggers
+    id
     receiver
     procedure
     dependencies
@@ -52,10 +59,13 @@ createReaction = (procedure, receiver, triggers, supplements = []) ->
   }
 
 
-createCallback = (procedure, triggers, supplements = []) ->
+createCallback = ({id, procedure, triggers, supplements}) ->
+  supplements ?= []
   dependencies = [triggers..., supplements...]
+  id ?= getActionId dependencies
+
   {
-    id: getActionId dependencies
+    id
     procedure
     dependencies
     triggers
@@ -71,6 +81,10 @@ newUid = do ->
   -> id++
 
 
+getFactoryId = (eid) ->
+  "!F:#{eid}"
+
+
 getReactionId = (eid, dependencies) ->
   "!R:#{eid}::" + dependencies.join ':'
 
@@ -79,15 +93,24 @@ getActionId = (dependencies) ->
   '!A:' + dependencies.join(':') + ':' + newUid()
 
 
-parseEntityId = (id) ->
-  [name, namespace] = id.trim().split('/').reverse()
-  {name, namespace}
+getEntityIdFromNameNamespace = (name, namespace) ->
+  return name unless namespace
+  [namespace, name].join '/'
+
+
+getNameNamespaceFromEntityId = (id) ->
+  [namespace, name] = id.split '/'
+  unless name
+    name = namespace
+    namespace = ''
+  [name, namespace]
 
 
 # ===== module interface =====
 
 module.exports = {
   ActionTypes
+
   createEntity
   createAction
   createFactory
@@ -95,6 +118,11 @@ module.exports = {
   createCallback
 
   newUid
+  getFactoryId
+  getReactionId
+  getActionId
+  getNameNamespaceFromEntityId
+  getEntityIdFromNameNamespace
 }
 
 

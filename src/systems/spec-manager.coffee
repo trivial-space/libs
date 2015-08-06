@@ -1,51 +1,37 @@
+{getEntityIdFromNameNamespace, getNameNamespaceFromEntityId} = require './types'
+
 # ===== spec loading =====
 
 loadSpec = (sys, spec) ->
-  for entitySpec in spec.entities
-    # entities
-    id = getIdFormSpec entitySpec
-    sys.set id, entitySpec.initialValue
+  for _, entitySpec of spec.entities
+    entitySpec.id ?= getIdFormSpec entitySpec
+    sys.addEntity entitySpec
 
-    # factories
-    if entitySpec.factory
-      f = entitySpec.factory
-      sys.addFactory f.procedure, id, f.dependencies
+  for _, factorySpec of spec.factories
+    sys.addFactory factorySpec
 
-    # reactions
-    if entitySpec.reactions
-      for rSpec in entitySpec.reactions
-        sys.addReaction rSpec.procedure, id, rSpec.triggers, rSpec.supplements
+  for _, reactionSpec of spec.reactions
+    sys.addReaction reactionSpec
 
   sys.flush()
   return
 
 
-getIdFromNameNamespace = (name, namespace) ->
-  return name unless namespace
-  [namespace, name].join '/'
+getIdFormSpec = ({id, name, namespace}) ->
+  id or getEntityIdFromNameNamespace name, namespace
 
-
-getIdFormSpec = (entitySpec) ->
-  entitySpec.id or getIdFromNameNamespace entitySpec.name, entitySpec.namespace
-
-
-getNameNamespaceFromId = (id) ->
-  [namespace, name] = id.split '/'
-  unless name
-    name = namespace
-    namespace = ''
-  [name, namespace]
 
 # ===== spec creation =====
 
-entityFromId = (id) ->
-  [name, namespace] = getNameNamespaceFromId id
+entitySpecFromId = (id) ->
+  [name, namespace] = getNameNamespaceFromEntityId id
   {id, name, namespace}
+
 
 # ===== interface =====
 
 module.exports = {
   loadSpec
 
-  entityFromId
+  entitySpecFromId
 }
