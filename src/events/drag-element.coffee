@@ -1,6 +1,8 @@
-NAME_PREFIX = 'inputEvent:mouseDrag:'
-DELTA_X = NAME_PREFIX + 'deltaX'
-DELTA_Y = NAME_PREFIX + 'deltaY'
+{getEntityIdFromNameNamespace} = require '../systems/types'
+
+NAMESPACE = 'inputEvent.mouseDrag'
+DELTA_X = getEntityIdFromNameNamespace 'deltaX', NAMESPACE
+DELTA_Y = getEntityIdFromNameNamespace 'deltaY', NAMESPACE
 
 
 init = (sys, element = document) ->
@@ -53,7 +55,7 @@ init = (sys, element = document) ->
 
 module.exports = {
   init
-  NAME_PREFIX
+  NAMESPACE
   DELTA_X
   DELTA_Y
 }

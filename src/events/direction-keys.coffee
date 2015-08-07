@@ -1,10 +1,12 @@
-NAME_PREFIX = 'inputEvent:keyDirection:'
-FORTH = NAME_PREFIX + 'forth'
-BACK = NAME_PREFIX + 'back'
-LEFT = NAME_PREFIX + 'left'
-RIGHT = NAME_PREFIX + 'right'
-UP = NAME_PREFIX + 'up'
-DOWN = NAME_PREFIX + 'down'
+{getEntityIdFromNameNamespace} = require '../systems/types'
+
+NAMESPACE = 'inputEvent.keyDirection'
+FORTH = getEntityIdFromNameNamespace 'forth', NAMESPACE
+BACK = getEntityIdFromNameNamespace 'back', NAMESPACE
+LEFT = getEntityIdFromNameNamespace 'left', NAMESPACE
+RIGHT = getEntityIdFromNameNamespace 'right', NAMESPACE
+UP = getEntityIdFromNameNamespace 'up', NAMESPACE
+DOWN = getEntityIdFromNameNamespace 'down', NAMESPACE
 
 
 init = (sys) ->
@@ -68,7 +70,7 @@ init = (sys) ->
 
 module.exports = {
   init
-  NAME_PREFIX
+  NAMESPACE
   LEFT
   RIGHT
   FORTH

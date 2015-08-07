@@ -1,7 +1,9 @@
-NAME_PREFIX = 'inputEvent:mouseButton:'
-LEFT_BTN = NAME_PREFIX + 'leftButton'
-MIDDLE_BTN = NAME_PREFIX + 'middleButton'
-RIGHT_BTN = NAME_PREFIX + 'rightButton'
+{getEntityIdFromNameNamespace} = require '../systems/types'
+
+NAMESPACE = 'inputEvent.mouseButton'
+LEFT_BTN = getEntityIdFromNameNamespace 'leftButton', NAMESPACE
+MIDDLE_BTN = getEntityIdFromNameNamespace 'middleButton', NAMESPACE
+RIGHT_BTN = getEntityIdFromNameNamespace 'rightButton', NAMESPACE
 
 
 init = (sys, element = document, options) ->
@@ -49,7 +51,7 @@ init = (sys, element = document, options) ->
 
 module.exports = {
   init
-  NAME_PREFIX
+  NAMESPACE
   LEFT_BTN
   MIDDLE_BTN
   RIGHT_BTN
