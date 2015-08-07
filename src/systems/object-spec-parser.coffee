@@ -14,7 +14,7 @@ module.exports.parse = (spec) ->
   processRequireString = (s) ->
     deps = parseRequireString s
     for dep in deps
-      entities[dep] = entitySpecFromId dep
+      entities[dep] ?= entitySpecFromId dep
     deps
 
   for eid, eSpec of spec
@@ -39,6 +39,7 @@ module.exports.parse = (spec) ->
         rid = getReactionId eid, deps
         reaction =
           id: rid
+          receiver: eid
           triggers: deps
           procedure: rSpec.do or rSpec
         if rSpec.require

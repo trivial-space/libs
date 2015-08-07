@@ -118,4 +118,4 @@ describe 'Entity system object specification parser', ->
     # console.log result.reactions
 
     expect result
-      .to.deep.equal
+      .to.deep.equal expected
