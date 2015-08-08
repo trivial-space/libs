@@ -1,4 +1,6 @@
-ES = require '../../src/systems/entity-system'
+Runtime = require '../../src/systems/runtime'
+Mgr = require '../../src/systems/spec-manager'
+Parser = require '../../src/systems/object-spec-parser'
 util = require 'util'
 
 UPDATES = 10000
@@ -20,18 +22,20 @@ spec =
         return
 
   'accLength':
-    require: 'counterAcc'
-    init: length
+    init:
+      require: 'counterAcc'
+      do: length
 
 
-sys = ES.addEntities ES.create(), spec
+sys = Runtime.create()
+Mgr.loadSpec sys, Parser.parse spec
 # console.log sys
 
 startTime = Date.now()
 
 for foo in [1..UPDATES]
-  ES.touch sys, 'trigger'
-  ES.flush sys
+  sys.touch 'trigger'
+  sys.flush()
 
 duration1 = Date.now() - startTime
 
@@ -47,7 +51,7 @@ for foo in [1..UPDATES]
 duration2 = Date.now() - startTime
 
 
-console.log "system: ", sys
+console.log "system state: ", sys.getState()
 console.log "#{UPDATES} ES updates in #{duration1} ms"
 console.log "compared to vanilla js #{duration2} ms"
 
