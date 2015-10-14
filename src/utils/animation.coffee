@@ -13,7 +13,7 @@ animate = (step) ->
   next = ->
     if isPlaying
       newTime = Date.now()
-      step newTime - oldTime
+      step (newTime - oldTime), true
       oldTime = newTime
       requestAnimationFrame next
 
