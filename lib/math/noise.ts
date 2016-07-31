@@ -22,7 +22,7 @@ function grad(hash, x) {
 }
 
 
-function noise1d(x) {
+export function noise1d(x) {
     var X, floorX, u;
     floorX = ~~x;
     X = floorX & 255;
@@ -115,7 +115,7 @@ var grad4 = new Float32Array([
 ]);
 
 
-function noise2d(xin, yin) {
+export function noise2d(xin, yin) {
     var n0 = 0, n1 = 0, n2 = 0; // Noise contributions from the three corners
     // Skew the input space to determine which simplex cell we're in
     var s = (xin + yin) * F2; // Hairy factor for 2D
@@ -173,7 +173,7 @@ function noise2d(xin, yin) {
 
 
 // 3D simplex noise
-function noise3d(xin, yin, zin) {
+export function noise3d(xin, yin, zin) {
     var n0, n1, n2, n3; // Noise contributions from the four corners
     // Skew the input space to determine which simplex cell we're in
     var s = (xin + yin + zin) * F3; // Very nice and simple skew factor for 3D
@@ -296,7 +296,7 @@ function noise3d(xin, yin, zin) {
 
 
 // 4D simplex noise, better simplex rank ordering method 2012-03-09
-function noise4d(x, y, z, w) {
+export function noise4d(x, y, z, w) {
 
     var n0, n1, n2, n3, n4; // Noise contributions from the five corners
     // Skew the (x,y,z,w) space to determine which cell of 24 simplices we're in
@@ -420,7 +420,7 @@ function noise4d(x, y, z, w) {
 }
 
 
-function tileNoise(width, height, dx, dy) {
+export function tileNoise(width, height, dx, dy) {
     var nw, nx, ny, nz, s, t, x, y,
         noise = [];
 
@@ -436,13 +436,4 @@ function tileNoise(width, height, dx, dy) {
         }
     }
     return noise;
-}
-
-
-export default {
-    noise1d,
-    noise2d,
-    noise3d,
-    noise4d,
-    tileNoise
 }
