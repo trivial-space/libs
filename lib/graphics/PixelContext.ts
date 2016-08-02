@@ -9,22 +9,22 @@ export function repeatedPosition(
   imgData: ImageData
 ): Position {
 
-    const w = imgData.width
-    const h = imgData.height
-    if (x >= w) {
-      x -= w;
-    }
-    if (y >= h) {
-      y -= h;
-    }
-    if (x < 0) {
-      x += w;
-    }
-    if (y < 0) {
-      y += h;
-    }
-    return [x, y];
-  };
+  const w = imgData.width
+  const h = imgData.height
+  if (x >= w) {
+    x -= w;
+  }
+  if (y >= h) {
+    y -= h;
+  }
+  if (x < 0) {
+    x += w;
+  }
+  if (y < 0) {
+    y += h;
+  }
+  return [x, y];
+};
 
 
 export function closedPosition(
@@ -32,22 +32,22 @@ export function closedPosition(
   imgData: ImageData
 ): Position {
 
-    const w = imgData.width;
-    const h = imgData.height;
-    if (x < 0) {
-      x = 0;
-    }
-    if (y < 0) {
-      y = 0;
-    }
-    if (x >= w) {
-      x = w;
-    }
-    if (y >= h) {
-      y = h;
-    }
-    return [x, y];
-  };
+  const w = imgData.width;
+  const h = imgData.height;
+  if (x < 0) {
+    x = 0;
+  }
+  if (y < 0) {
+    y = 0;
+  }
+  if (x >= w) {
+    x = w;
+  }
+  if (y >= h) {
+    y = h;
+  }
+  return [x, y];
+};
 
 
 function createPixelContext(
@@ -123,9 +123,8 @@ function createPixelContext(
 
   function mixinColor (color: ColorRGBA) {
     for (let x = 0; x < imgData.width; x++) {
-        for (let y = 0; x < imgData.height; y++) {
-          setColorAt([x, y], mixColors(getColorAt([x, y]), color))
-        }
+      for (let y = 0; x < imgData.height; y++) {
+        setColorAt([x, y], mixColors(getColorAt([x, y]), color))
       }
     }
   }
@@ -170,6 +169,12 @@ function createPixelContext(
     }
     return results;
   };
+
+  return {
+    drawImageAt,
+    getPixelIndex,
+  }
+}
 
 
 export function createCtxFromImg (img, ContextClass) {
