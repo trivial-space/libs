@@ -5,7 +5,8 @@ function to8Bit(noise) {
   return Math.floor((noise + 1) * 127)
 }
 
-export function createTileNoiseTexture(
+
+export function drawTileNoiseTexture(
   ctx: CanvasRenderingContext2D,
   startX: number,
   startY: number
