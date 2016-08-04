@@ -1,4 +1,4 @@
-type Vec = number[]
+export type Vec = number[]
 
 
 export function add (vec1: Vec, vec2: Vec): Vec {
@@ -82,7 +82,8 @@ export function limit (vec: Vec, maxLenght: number): Vec {
 
 
 export function isEqual (vec1: Vec, vec2: Vec): boolean {
-  for (let i = 0; i < vec1.length; i++) {
+  if (vec1.length != vec2.length) return false
+  for (let i in vec1){
     if (vec1[i] !== vec2[i]) {
       return false
     }

@@ -420,20 +420,24 @@ export function noise4d(x, y, z, w) {
 }
 
 
-export function tileNoise(width, height, dx, dy) {
-    var nw, nx, ny, nz, s, t, x, y,
-        noise = [];
+export function tileNoise(
+  width: number,
+  height: number,
+  dx: number,
+  dy: number
+): number[] {
 
-    for (y = 0; y < height; y++) {
-        for (x = 0; x < width; x++) {
-            s = x / width;
-            t = y / height;
-            nx = Math.cos(s * 2 * Math.PI) * dx / (2 * Math.PI);
-            ny = Math.cos(t * 2 * Math.PI) * dy / (2 * Math.PI);
-            nz = Math.sin(s * 2 * Math.PI) * dx / (2 * Math.PI);
-            nw = Math.sin(t * 2 * Math.PI) * dy / (2 * Math.PI);
-            noise.push(noise4d(nx, ny, nz, nw));
-        }
+  const noise = []
+  for (let y = 0; y < height; y++) {
+    for (let x = 0; x < width; x++) {
+      const s = x / width,
+      t = y / height,
+      nx = Math.cos(s * 2 * Math.PI) * dx / (2 * Math.PI),
+      ny = Math.cos(t * 2 * Math.PI) * dy / (2 * Math.PI),
+      nz = Math.sin(s * 2 * Math.PI) * dx / (2 * Math.PI),
+      nw = Math.sin(t * 2 * Math.PI) * dy / (2 * Math.PI)
+      noise.push(noise4d(nx, ny, nz, nw))
     }
-    return noise;
+  }
+  return noise
 }

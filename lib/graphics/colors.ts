@@ -1,4 +1,4 @@
-import {lerp} from '../math/base'
+import {lerp} from '../math/core'
 
 
 export type ColorRGBA = [number, number, number, number]

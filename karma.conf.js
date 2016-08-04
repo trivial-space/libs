@@ -57,19 +57,6 @@ module.exports = function (config) {
         reporters: ['mocha'],
 
 
-        // these need to be included explicitly, for webpack to work
-        plugins: [
-            require('karma-webpack'),
-            require('karma-mocha'),
-            require('karma-chai-sinon'),
-            require('karma-chrome-launcher'),
-            require('karma-firefox-launcher'),
-            require('karma-safari-launcher'),
-            require('karma-mocha-reporter'),
-            require('karma-sourcemap-loader')
-        ],
-
-
         // web server port
         port: 9876,
 

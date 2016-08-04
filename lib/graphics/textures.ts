@@ -18,14 +18,14 @@ export function drawTileNoiseTexture(
         noise2 = tileNoise(width, height, startX * 2.1, startY * 2.1),
         noise3 = tileNoise(width, height, startX * 4.2, startY * 4.2),
         noise4 = tileNoise(width, height, startX * 8.3, startY * 8.3),
-        pixeldata = ctx.getImageData(0, 0, width, height)
+        imgData = ctx.getImageData(0, 0, width, height)
 
   for (let i = 0; i < noise1.length - 1; i++) {
     let i4 = i * 4
-    pixeldata.data[i4] = to8Bit(noise1[i])
-    pixeldata.data[i4 + 1] = to8Bit(noise2[i])
-    pixeldata.data[i4 + 2] = to8Bit(noise3[i])
-    pixeldata.data[i4 + 3] = to8Bit(noise4[i])
+    imgData.data[i4] = to8Bit(noise1[i])
+    imgData.data[i4 + 1] = to8Bit(noise2[i])
+    imgData.data[i4 + 2] = to8Bit(noise3[i])
+    imgData.data[i4 + 3] = to8Bit(noise4[i])
   }
-  ctx.putImageData(pixeldata, 0, 0)
+  ctx.putImageData(imgData, 0, 0)
 }

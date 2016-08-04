@@ -12,12 +12,22 @@ export function sign(num: number): number {
 }
 
 
-export function lerp(start: number, end: number, step: number): number {
+export function lerp(
+  start: number,
+  end: number,
+  step: number
+): number {
+
   return start + step * (end - start)
 }
 
 
-export function clamp(value: number, min: number, max: number): number {
+export function clamp(
+  value: number,
+  min: number,
+  max: number
+): number {
+
   return Math.max(min, Math.min(value, max))
 }
 
@@ -27,7 +37,11 @@ export function randInt(int: number): number {
 }
 
 
-export function randIntInRange(from: number, to: number): number {
+export function randIntInRange(
+  from: number,
+  to: number
+): number {
+
   return randInt(to - from) + from
 }
 
