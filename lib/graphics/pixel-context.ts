@@ -12,19 +12,19 @@ export function repeatedPosition(
   const w = imgData.width
   const h = imgData.height
   if (x >= w) {
-    x -= w;
+    x -= w
   }
   if (y >= h) {
-    y -= h;
+    y -= h
   }
   if (x < 0) {
-    x += w;
+    x += w
   }
   if (y < 0) {
-    y += h;
+    y += h
   }
-  return [x, y];
-};
+  return [x, y]
+}
 
 
 export function closedPosition(
@@ -32,22 +32,22 @@ export function closedPosition(
   imgData: ImageData
 ): Position {
 
-  const w = imgData.width;
-  const h = imgData.height;
+  const w = imgData.width
+  const h = imgData.height
   if (x < 0) {
-    x = 0;
+    x = 0
   }
   if (y < 0) {
-    y = 0;
+    y = 0
   }
   if (x >= w) {
-    x = w;
+    x = w
   }
   if (y >= h) {
-    y = h;
+    y = h
   }
-  return [x, y];
-};
+  return [x, y]
+}
 
 
 function createPixelContext(
@@ -63,7 +63,7 @@ function createPixelContext(
   ): number {
 
     const [x, y] = adjustPos(pos, imgData)
-    return (y * imgData.height + x) * 4;
+    return (y * imgData.height + x) * 4
   }
 
 
@@ -158,8 +158,8 @@ function createPixelContext(
     imgData2: ImageData,
     [x, y]: Position
   ): void {
-    const w = imgData2.width - 1;
-    const h = imgData2.height - 1;
+    const w = imgData2.width - 1
+    const h = imgData2.height - 1
     for (let j = 0; j < h; j++) {
       for (let i = 0; i < w; i++) {
         setColorAt(imgData, [x + i, y + j], getColorAt(imgData2, [i, j]))
@@ -173,8 +173,8 @@ function createPixelContext(
     imgData2: ImageData,
     [x, y]: Position
   ): void {
-    const w = imgData2.width - 1;
-    const h = imgData2.height - 1;
+    const w = imgData2.width - 1
+    const h = imgData2.height - 1
     for (let j = 0; j < h; j++) {
       for (let i = 0; i < w; i++) {
         setColorAt(
@@ -203,10 +203,10 @@ function createPixelContext(
 
 
 export function createImgDataFromImage (img: HTMLImageElement) {
-  const c = document.createElement("canvas");
-  c.width = img.width;
-  c.height = img.height;
-  const ctx = c.getContext("2d");
-  ctx.drawImage(img, 0, 0, img.width, img.height);
-  return ctx.getImageData(0, 0, img.width, img.height);
+  const c = document.createElement("canvas")
+  c.width = img.width
+  c.height = img.height
+  const ctx = c.getContext("2d")
+  ctx.drawImage(img, 0, 0, img.width, img.height)
+  return ctx.getImageData(0, 0, img.width, img.height)
 }
