@@ -1,5 +1,11 @@
-import {plane} from "./geometry/plane"
+import * as flowSourcesAnimation from "./flow/sources/animation";
+import * as flowSourcesDom from "./flow/sources/dom";
 
 export default {
-  geometry: {plane}
+  flow: {
+    sources: {
+      animation: flowSourcesAnimation,
+      dom: flowSourcesDom
+    }
+  }
 }

@@ -1,4 +1,4 @@
-export function fpsAnimator(send) {
+export function fpsAnimation(send) {
   let isPlaying = true,
       oldTime = Date.now(),
       newTime
@@ -20,7 +20,7 @@ export function fpsAnimator(send) {
 }
 
 
-export function animator(send) {
+export function animation(send) {
   let isPlaying = true
 
   function next() {

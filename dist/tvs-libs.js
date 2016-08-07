@@ -1,69 +1,65 @@
-!function(e, r) {
-    "object" == typeof exports && "object" == typeof module ? module.exports = r() : "function" == typeof define && define.amd ? define([], r) : "object" == typeof exports ? exports.tvsLibs = r() : e.tvsLibs = r();
+!function(e, n) {
+    "object" == typeof exports && "object" == typeof module ? module.exports = n() : "function" == typeof define && define.amd ? define([], n) : "object" == typeof exports ? exports.tvsLibs = n() : e.tvsLibs = n();
 }(this, function() {
     return function(e) {
-        function r(o) {
-            if (t[o]) return t[o].exports;
-            var n = t[o] = {
+        function n(i) {
+            if (t[i]) return t[i].exports;
+            var o = t[i] = {
                 exports: {},
-                id: o,
+                id: i,
                 loaded: !1
             };
-            return e[o].call(n.exports, n, n.exports, r), n.loaded = !0, n.exports;
+            return e[i].call(o.exports, o, o.exports, n), o.loaded = !0, o.exports;
         }
         var t = {};
-        return r.m = e, r.c = t, r.p = "", r(0);
-    }([ function(e, r, t) {
+        return n.m = e, n.c = t, n.p = "", n(0);
+    }([ function(e, n, t) {
         "use strict";
-        var o = t(1);
-        Object.defineProperty(r, "__esModule", {
+        var i = t(1), o = t(2);
+        Object.defineProperty(n, "__esModule", {
             value: !0
-        }), r["default"] = {
-            geometry: {
-                plane: o.plane
-            }
-        };
-    }, function(e, r) {
-        "use strict";
-        function t(e, r, t, o) {
-            var n, f, a = e / 2, u = r / 2, i = t || 1, s = o || 1, p = i + 1, l = s + 1, c = e / i, d = r / s, y = new Float32Array(p * l * 3), v = new Float32Array(p * l * 3), b = new Float32Array(p * l * 2), T = 0, x = 0;
-            for (n = 0; n < l; n++) {
-                var A = n * d - u;
-                for (f = 0; f < p; f++) {
-                    var m = f * c - a;
-                    y[T] = m, y[T + 1] = -A, v[T + 2] = 1, b[x] = f / i, b[x + 1] = 1 - n / s, T += 3, 
-                    x += 2;
+        }), n["default"] = {
+            flow: {
+                sources: {
+                    animation: i,
+                    dom: o
                 }
             }
-            T = 0;
-            var w = new (y.length / 3 > 65535 ? Uint32Array : Uint16Array)(i * s * 6);
-            for (n = 0; n < s; n++) for (f = 0; f < i; f++) {
-                var j = f + p * n, C = f + p * (n + 1), I = f + 1 + p * (n + 1), S = f + 1 + p * n;
-                w[T] = j, w[T + 1] = C, w[T + 2] = S, w[T + 3] = C, w[T + 4] = I, w[T + 5] = S, 
-                T += 6;
+        };
+    }, function(e, n) {
+        "use strict";
+        function t(e) {
+            function n() {
+                i && (t = Date.now(), e(t - o), o = t, requestAnimationFrame(n));
             }
-            return {
-                attribs: {
-                    position: {
-                        buffer: y,
-                        storeType: "STATIC"
-                    },
-                    normal: {
-                        buffer: v,
-                        storeType: "STATIC"
-                    },
-                    uv: {
-                        buffer: b,
-                        storeType: "STATIC"
-                    }
-                },
-                elements: {
-                    buffer: w
-                },
-                drawType: "TRIANGLES",
-                itemCount: w.length
+            var t, i = !0, o = Date.now();
+            return n(), function() {
+                i = !1;
             };
         }
-        r.plane = t;
+        function i(e) {
+            function n() {
+                t && (e(), requestAnimationFrame(n));
+            }
+            var t = !0;
+            return n(), function() {
+                t = !1;
+            };
+        }
+        n.fpsAnimation = t, n.animation = i;
+    }, function(e, n) {
+        "use strict";
+        function t(e) {
+            function n() {
+                e({
+                    width: window.innerWidth,
+                    heigth: window.innerHeight
+                });
+            }
+            return window.addEventListener("resize", n), n(), function() {
+                window.removeEventListener("resize", n);
+            };
+        }
+        n.windowSize = t;
     } ]);
 });
