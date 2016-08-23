@@ -15,7 +15,7 @@ export default {
   math: {
     core: mathCore,
     noise: mathNoise,
-    polar: mathCoords,
+    coords: mathCoords,
     vectors: mathVectors
   }
 }
