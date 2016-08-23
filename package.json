@@ -1,8 +1,9 @@
 {
   "name": "tvs-libs",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "trivialspace libs - utility and helper functions",
   "main": "dist/tvs-libs.js",
+  "typings": "lib/index.ts",
   "devDependencies": {
     "@types/chai": "^3.4.30",
     "@types/mocha": "^2.2.29",
