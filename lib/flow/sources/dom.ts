@@ -1,6 +1,6 @@
-export function windowSize (send) {
+export function windowSize (callback) {
   function resize () {
-    send({
+    callback({
       width: window.innerWidth,
       heigth: window.innerHeight
     })

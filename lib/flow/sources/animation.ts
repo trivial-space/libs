@@ -1,4 +1,4 @@
-export function fpsAnimation(send) {
+export function fpsAnimation(callback) {
   let isPlaying = true,
       oldTime = Date.now(),
       newTime
@@ -6,7 +6,7 @@ export function fpsAnimation(send) {
   function next() {
     if (isPlaying) {
       newTime = Date.now()
-      send(newTime - oldTime)
+      callback(newTime - oldTime)
       oldTime = newTime
       requestAnimationFrame(next)
     }
@@ -20,12 +20,12 @@ export function fpsAnimation(send) {
 }
 
 
-export function animation(send) {
+export function animation(callback) {
   let isPlaying = true
 
   function next() {
     if (isPlaying) {
-      send()
+      callback()
       requestAnimationFrame(next)
     }
   }
