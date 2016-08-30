@@ -52,6 +52,7 @@ export function normalRand(): number {
          (Math.random() * 2 - 1)
 }
 
+
 export function degToRad (degrees: number): number {
   return degrees * DEG_TO_RAD_FACTOR
 }
