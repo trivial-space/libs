@@ -63,21 +63,21 @@ export function update({props, state: {view, perspective, rotationX, rotationY, 
   }
 
   if (props.moveForward) {
-    let v = [rotationY[8], rotationY[9], rotationY[10]] as any
+    let v = [rotationY[8], rotationY[9], rotationY[10]]
     vec3.add(position, position, vec3.scale(v, v, -props.moveForward))
     props.moveForward = 0
     needsUpdateView = true
   }
 
   if (props.moveLeft) {
-    let v = [rotationY[0], rotationY[1], rotationY[2]] as any
+    let v = [rotationY[0], rotationY[1], rotationY[2]]
     vec3.add(position, position, vec3.scale(v, v, -props.moveLeft))
     props.moveLeft = 0
     needsUpdateView = true
   }
 
   if (props.moveUp) {
-    let v = [rotationY[4], rotationY[5], rotationY[6]] as any
+    let v = [rotationY[4], rotationY[5], rotationY[6]]
     vec3.add(position, position, vec3.scale(v, v, props.moveUp))
     props.moveUp = 0
     needsUpdateView = true

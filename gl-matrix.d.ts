@@ -5,8 +5,8 @@
 
 declare module "gl-matrix" {
 
-export type mat = Float32Array | Array<number>;
-export type ved = mat;
+export type Mat = Float32Array | number[];
+export type Vec = Mat;
 
 /**
  * @class Common utilities
@@ -14,7 +14,7 @@ export type ved = mat;
  */
 export interface glMatrix {
   EPSILON: number;
-  ARRAY_TYPE: Float32Array | Array<number>;
+  ARRAY_TYPE: Mat;
   RANDOM: () => number;
   ENABLE_SIMD: boolean;
   SIMD_AVAILABLE: boolean;
@@ -53,13 +53,13 @@ export var glMatrix: glMatrix;
  * @class 2 Dimensional Vector
  * @name vec2
  */
-export interface vec2 extends Float32Array {
+export interface vec2 {
   /**
    * Creates a new, empty vec2
    *
    * @returns {vec2} a new 2D vector
    */
-  create(): vec2;
+  create(): Vec;
 
   /**
    * Creates a new vec2 initialized with values from an existing vector
@@ -67,7 +67,7 @@ export interface vec2 extends Float32Array {
    * @param {vec2} a vector to clone
    * @returns {vec2} a new 2D vector
    */
-  clone(a: vec2): vec2;
+  clone(a: Vec): Vec;
 
   /**
    * Creates a new vec2 initialized with the given values
@@ -76,7 +76,7 @@ export interface vec2 extends Float32Array {
    * @param {Number} y Y component
    * @returns {vec2} a new 2D vector
    */
-  fromValues(x: number, y: number): vec2;
+  fromValues(x: number, y: number): Vec;
 
   /**
    * Copy the values from one vec2 to another
@@ -85,7 +85,7 @@ export interface vec2 extends Float32Array {
    * @param {vec2} a the source vector
    * @returns {vec2} out
    */
-  copy(out: vec2, a: vec2): vec2;
+  copy(out: Vec, a: Vec): Vec;
 
   /**
    * Set the components of a vec2 to the given values
@@ -95,7 +95,7 @@ export interface vec2 extends Float32Array {
    * @param {Number} y Y component
    * @returns {vec2} out
    */
-  // set(out: vec2, x: number, y: number): vec2; // not Float32Array compatible
+  set(out: Vec, x: number, y: number): Vec; // not Float32Array compatible
 
   /**
    * Adds two vec2's
@@ -105,7 +105,7 @@ export interface vec2 extends Float32Array {
    * @param {vec2} b the second operand
    * @returns {vec2} out
    */
-  add(out: vec2, a: vec2, b: vec2): vec2;
+  add(out: Vec, a: Vec, b: Vec): Vec;
 
   /**
    * Subtracts vector b from vector a
@@ -115,7 +115,7 @@ export interface vec2 extends Float32Array {
    * @param {vec2} b the second operand
    * @returns {vec2} out
    */
-  subtract(out: vec2, a: vec2, b: vec2): vec2;
+  subtract(out: Vec, a: Vec, b: Vec): Vec;
 
   /**
    * Subtracts vector b from vector a
@@ -125,7 +125,7 @@ export interface vec2 extends Float32Array {
    * @param {vec2} b the second operand
    * @returns {vec2} out
    */
-  sub(out: vec2, a: vec2, b: vec2): vec2;
+  sub(out: Vec, a: Vec, b: Vec): Vec;
 
   /**
    * Multiplies two vec2's
@@ -135,7 +135,7 @@ export interface vec2 extends Float32Array {
    * @param {vec2} b the second operand
    * @returns {vec2} out
    */
-  multiply(out: vec2, a: vec2, b: vec2): vec2;
+  multiply(out: Vec, a: Vec, b: Vec): Vec;
 
   /**
    * Multiplies two vec2's
@@ -145,7 +145,7 @@ export interface vec2 extends Float32Array {
    * @param {vec2} b the second operand
    * @returns {vec2} out
    */
-  mul(out: vec2, a: vec2, b: vec2): vec2;
+  mul(out: Vec, a: Vec, b: Vec): Vec;
 
   /**
    * Divides two vec2's
@@ -155,7 +155,7 @@ export interface vec2 extends Float32Array {
    * @param {vec2} b the second operand
    * @returns {vec2} out
    */
-  divide(out: vec2, a: vec2, b: vec2): vec2;
+  divide(out: Vec, a: Vec, b: Vec): Vec;
 
   /**
    * Divides two vec2's
@@ -165,7 +165,7 @@ export interface vec2 extends Float32Array {
    * @param {vec2} b the second operand
    * @returns {vec2} out
    */
-  div(out: vec2, a: vec2, b: vec2): vec2;
+  div(out: Vec, a: Vec, b: Vec): Vec;
 
   /**
    * Math.ceil the components of a vec2
@@ -174,7 +174,7 @@ export interface vec2 extends Float32Array {
    * @param {vec2} a vector to ceil
    * @returns {vec2} out
    */
-  ceil(out: vec2, a: vec2): vec2;
+  ceil(out: Vec, a: Vec): Vec;
 
   /**
    * Math.floor the components of a vec2
@@ -183,7 +183,7 @@ export interface vec2 extends Float32Array {
    * @param {vec2} a vector to floor
    * @returns {vec2} out
    */
-  floor(out: vec2, a: vec2): vec2;
+  floor(out: Vec, a: Vec): Vec;
 
   /**
    * Returns the minimum of two vec2's
@@ -193,7 +193,7 @@ export interface vec2 extends Float32Array {
    * @param {vec2} b the second operand
    * @returns {vec2} out
    */
-  min(out: vec2, a: vec2, b: vec2): vec2;
+  min(out: Vec, a: Vec, b: Vec): Vec;
 
   /**
    * Returns the maximum of two vec2's
@@ -203,7 +203,7 @@ export interface vec2 extends Float32Array {
    * @param {vec2} b the second operand
    * @returns {vec2} out
    */
-  max(out: vec2, a: vec2, b: vec2): vec2;
+  max(out: Vec, a: Vec, b: Vec): Vec;
 
   /**
    * Math.round the components of a vec2
@@ -212,7 +212,7 @@ export interface vec2 extends Float32Array {
    * @param {vec2} a vector to round
    * @returns {vec2} out
    */
-  round(out: vec2, a: vec2): vec2;
+  round(out: Vec, a: Vec): Vec;
 
   /**
    * Scales a vec2 by a scalar number
@@ -222,7 +222,7 @@ export interface vec2 extends Float32Array {
    * @param {Number} b amount to scale the vector by
    * @returns {vec2} out
    */
-  scale(out: vec2, a: vec2, b: number): vec2;
+  scale(out: Vec, a: Vec, b: number): Vec;
 
   /**
    * Adds two vec2's after scaling the second operand by a scalar value
@@ -233,7 +233,7 @@ export interface vec2 extends Float32Array {
    * @param {Number} scale the amount to scale b by before adding
    * @returns {vec2} out
    */
-  scaleAndAdd(out: vec2, a: vec2, b: vec2, scale: number): vec2;
+  scaleAndAdd(out: Vec, a: Vec, b: Vec, scale: number): Vec;
 
   /**
    * Calculates the euclidian distance between two vec2's
@@ -242,7 +242,7 @@ export interface vec2 extends Float32Array {
    * @param {vec2} b the second operand
    * @returns {Number} distance between a and b
    */
-  distance(a: vec2, b: vec2): number;
+  distance(a: Vec, b: Vec): number;
 
   /**
    * Calculates the euclidian distance between two vec2's
@@ -251,7 +251,7 @@ export interface vec2 extends Float32Array {
    * @param {vec2} b the second operand
    * @returns {Number} distance between a and b
    */
-  dist(a: vec2, b: vec2): number;
+  dist(a: Vec, b: Vec): number;
 
   /**
    * Calculates the squared euclidian distance between two vec2's
@@ -260,7 +260,7 @@ export interface vec2 extends Float32Array {
    * @param {vec2} b the second operand
    * @returns {Number} squared distance between a and b
    */
-  squaredDistance(a: vec2, b: vec2): number;
+  squaredDistance(a: Vec, b: Vec): number;
 
   /**
    * Calculates the squared euclidian distance between two vec2's
@@ -269,7 +269,7 @@ export interface vec2 extends Float32Array {
    * @param {vec2} b the second operand
    * @returns {Number} squared distance between a and b
    */
-  sqrDist(a: vec2, b: vec2): number;
+  sqrDist(a: Vec, b: Vec): number;
 
   /**
    * Calculates the length of a vec2
@@ -277,7 +277,7 @@ export interface vec2 extends Float32Array {
    * @param {vec2} a vector to calculate length of
    * @returns {Number} length of a
    */
-  // length(a: vec2): number; // not Float32Array compatible
+  length(a: Vec): number; // not Float32Array compatible
 
   /**
    * Calculates the length of a vec2
@@ -285,7 +285,7 @@ export interface vec2 extends Float32Array {
    * @param {vec2} a vector to calculate length of
    * @returns {Number} length of a
    */
-  len(a: vec2): number;
+  len(a: Vec): number;
 
   /**
    * Calculates the squared length of a vec2
@@ -293,7 +293,7 @@ export interface vec2 extends Float32Array {
    * @param {vec2} a vector to calculate squared length of
    * @returns {Number} squared length of a
    */
-  squaredLength(a: vec2): number;
+  squaredLength(a: Vec): number;
 
   /**
    * Calculates the squared length of a vec2
@@ -301,7 +301,7 @@ export interface vec2 extends Float32Array {
    * @param {vec2} a vector to calculate squared length of
    * @returns {Number} squared length of a
    */
-  sqrLen(a: vec2): number;
+  sqrLen(a: Vec): number;
 
   /**
    * Negates the components of a vec2
@@ -310,7 +310,7 @@ export interface vec2 extends Float32Array {
    * @param {vec2} a vector to negate
    * @returns {vec2} out
    */
-  negate(out: vec2, a: vec2): vec2;
+  negate(out: Vec, a: Vec): Vec;
 
   /**
    * Returns the inverse of the components of a vec2
@@ -319,7 +319,7 @@ export interface vec2 extends Float32Array {
    * @param {vec2} a vector to invert
    * @returns {vec2} out
    */
-  inverse(out: vec2, a: vec2): vec2;
+  inverse(out: Vec, a: Vec): Vec;
 
   /**
    * Normalize a vec2
@@ -328,7 +328,7 @@ export interface vec2 extends Float32Array {
    * @param {vec2} a vector to normalize
    * @returns {vec2} out
    */
-  normalize(out: vec2, a: vec2): vec2;
+  normalize(out: Vec, a: Vec): Vec;
 
   /**
    * Calculates the dot product of two vec2's
@@ -337,7 +337,7 @@ export interface vec2 extends Float32Array {
    * @param {vec2} b the second operand
    * @returns {Number} dot product of a and b
    */
-  dot(a: vec2, b: vec2): number;
+  dot(a: Vec, b: Vec): number;
 
   /**
    * Computes the cross product of two vec2's
@@ -348,7 +348,7 @@ export interface vec2 extends Float32Array {
    * @param {vec2} b the second operand
    * @returns {vec3} out
    */
-  cross(out: vec3, a: vec2, b: vec2): vec3;
+  cross(out: Vec, a: Vec, b: Vec): Vec;
 
   /**
    * Performs a linear interpolation between two vec2's
@@ -359,7 +359,7 @@ export interface vec2 extends Float32Array {
    * @param {Number} t interpolation amount between the two inputs
    * @returns {vec2} out
    */
-  lerp(out: vec2, a: vec2, b: vec2, t: number): vec2;
+  lerp(out: Vec, a: Vec, b: Vec, t: number): Vec;
 
   /**
    * Generates a random vector with the given scale
@@ -368,7 +368,7 @@ export interface vec2 extends Float32Array {
    * @param {Number} [scale] Length of the resulting vector. If ommitted, a unit vector will be returned
    * @returns {vec2} out
    */
-  random(out: vec2, scale: number): vec2;
+  random(out: Vec, scale: number): Vec;
 
   /**
    * Transforms the vec2 with a mat2
@@ -378,7 +378,7 @@ export interface vec2 extends Float32Array {
    * @param {mat2} m matrix to transform with
    * @returns {vec2} out
    */
-  transformMat2(out: vec2, a: vec2, m: mat2): vec2;
+  transformMat2(out: Vec, a: Vec, m: Mat): Vec;
 
   /**
    * Transforms the vec2 with a mat2d
@@ -388,7 +388,7 @@ export interface vec2 extends Float32Array {
    * @param {mat2d} m matrix to transform with
    * @returns {vec2} out
    */
-  transformMat2d(out: vec2, a: vec2, m: mat2d): vec2;
+  transformMat2d(out: Vec, a: Vec, m: Mat): Vec;
 
   /**
    * Transforms the vec2 with a mat3
@@ -399,7 +399,7 @@ export interface vec2 extends Float32Array {
    * @param {mat3} m matrix to transform with
    * @returns {vec2} out
    */
-  transformMat3(out: vec2, a: vec2, m: mat3): vec2;
+  transformMat3(out: Vec, a: Vec, m: Mat): Vec;
 
   /**
    * Transforms the vec2 with a mat4
@@ -411,7 +411,7 @@ export interface vec2 extends Float32Array {
    * @param {mat4} m matrix to transform with
    * @returns {vec2} out
    */
-  transformMat4(out: vec2, a: vec2, m: mat4): vec2;
+  transformMat4(out: Vec, a: Vec, m: Mat): Vec;
 
   /**
    * Perform some operation over an array of vec2s.
@@ -425,15 +425,15 @@ export interface vec2 extends Float32Array {
    * @returns {Array} a
    * @function
    */
-  // forEach<T>(a: vec2[], stride: number, offset: number, count: number, fn: (a: vec2, b: vec2, arg: T) => void, arg: T): vec2[]; // not Float32Array compatible
+  forEach<T>(a: Vec[], stride: number, offset: number, count: number, fn: (a: Vec, b: Vec, arg: T) => void, arg: T): Vec[]; // not Float32Array compatible
 
   /**
    * Returns a string representation of a vector
    *
-   * @param {vec2} vec vector to represent as a string
+   * @param {vec2} Vec vector to represent as a string
    * @returns {String} string representation of the vector
    */
-  str(a: vec2): string;
+  str(a: Vec): string;
 
   /**
    * Returns whether or not the vectors exactly have the same elements in the same position (when compared with ===)
@@ -442,7 +442,7 @@ export interface vec2 extends Float32Array {
    * @param {vec2} b The second vector.
    * @returns {Boolean} True if the vectors are equal, false otherwise.
    */
-  exactEquals(a: vec2, b: vec2): boolean;
+  exactEquals(a: Vec, b: Vec): boolean;
 
   /**
    * Returns whether or not the vectors have approximately the same elements in the same position.
@@ -451,7 +451,7 @@ export interface vec2 extends Float32Array {
    * @param {vec2} b The second vector.
    * @returns {Boolean} True if the vectors are equal, false otherwise.
    */
-  equals(a: vec2, b: vec2): boolean;
+  equals(a: Vec, b: Vec): boolean;
 }
 export var vec2: vec2;
 
@@ -460,13 +460,13 @@ export var vec2: vec2;
  * @class 3 Dimensional Vector
  * @name vec3
  */
-export interface vec3 extends Float32Array {
+export interface vec3 {
   /**
    * Creates a new, empty vec3
    *
    * @returns {vec3} a new 3D vector
    */
-  create(): vec3;
+  create(): Vec;
 
   /**
    * Creates a new vec3 initialized with values from an existing vector
@@ -474,7 +474,7 @@ export interface vec3 extends Float32Array {
    * @param {vec3} a vector to clone
    * @returns {vec3} a new 3D vector
    */
-  clone(a: vec3): vec3;
+  clone(a: Vec): Vec;
 
   /**
    * Creates a new vec3 initialized with the given values
@@ -484,7 +484,7 @@ export interface vec3 extends Float32Array {
    * @param {Number} z Z component
    * @returns {vec3} a new 3D vector
    */
-  fromValues(x: number, y: number, z: number): vec3;
+  fromValues(x: number, y: number, z: number): Vec;
 
   /**
    * Copy the values from one vec3 to another
@@ -493,7 +493,7 @@ export interface vec3 extends Float32Array {
    * @param {vec3} a the source vector
    * @returns {vec3} out
    */
-  copy(out: vec3, a: vec3): vec3;
+  copy(out: Vec, a: Vec): Vec;
 
   /**
    * Set the components of a vec3 to the given values
@@ -504,7 +504,7 @@ export interface vec3 extends Float32Array {
    * @param {Number} z Z component
    * @returns {vec3} out
    */
-  // set(out: vec3, x: number, y: number, z: number): vec3; // not Float32Array compatible
+  // set(out: Vec, x: number, y: number, z: number): Vec; // not Float32Array compatible
 
   /**
    * Adds two vec3's
@@ -514,7 +514,7 @@ export interface vec3 extends Float32Array {
    * @param {vec3} b the second operand
    * @returns {vec3} out
    */
-  add(out: vec3, a: vec3, b: vec3): vec3;
+  add(out: Vec, a: Vec, b: Vec): Vec;
 
   /**
    * Subtracts vector b from vector a
@@ -524,7 +524,7 @@ export interface vec3 extends Float32Array {
    * @param {vec3} b the second operand
    * @returns {vec3} out
    */
-  subtract(out: vec3, a: vec3, b: vec3): vec3;
+  subtract(out: Vec, a: Vec, b: Vec): Vec;
 
   /**
    * Subtracts vector b from vector a
@@ -534,7 +534,7 @@ export interface vec3 extends Float32Array {
    * @param {vec3} b the second operand
    * @returns {vec3} out
    */
-  sub(out: vec3, a: vec3, b: vec3): vec3;
+  sub(out: Vec, a: Vec, b: Vec): Vec;
 
   /**
    * Multiplies two vec3's
@@ -544,7 +544,7 @@ export interface vec3 extends Float32Array {
    * @param {vec3} b the second operand
    * @returns {vec3} out
    */
-  multiply(out: vec3, a: vec3, b: vec3): vec3;
+  multiply(out: Vec, a: Vec, b: Vec): Vec;
 
   /**
    * Multiplies two vec3's
@@ -554,7 +554,7 @@ export interface vec3 extends Float32Array {
    * @param {vec3} b the second operand
    * @returns {vec3} out
    */
-  mul(out: vec3, a: vec3, b: vec3): vec3;
+  mul(out: Vec, a: Vec, b: Vec): Vec;
 
   /**
    * Divides two vec3's
@@ -564,7 +564,7 @@ export interface vec3 extends Float32Array {
    * @param {vec3} b the second operand
    * @returns {vec3} out
    */
-  divide(out: vec3, a: vec3, b: vec3): vec3;
+  divide(out: Vec, a: Vec, b: Vec): Vec;
 
   /**
    * Divides two vec3's
@@ -574,7 +574,7 @@ export interface vec3 extends Float32Array {
    * @param {vec3} b the second operand
    * @returns {vec3} out
    */
-  div(out: vec3, a: vec3, b: vec3): vec3;
+  div(out: Vec, a: Vec, b: Vec): Vec;
 
   /**
    * Math.ceil the components of a vec3
@@ -583,7 +583,7 @@ export interface vec3 extends Float32Array {
    * @param {vec3} a vector to ceil
    * @returns {vec3} out
    */
-  ceil(out: vec3, a: vec3): vec3;
+  ceil(out: Vec, a: Vec): Vec;
 
   /**
    * Math.floor the components of a vec3
@@ -592,7 +592,7 @@ export interface vec3 extends Float32Array {
    * @param {vec3} a vector to floor
    * @returns {vec3} out
    */
-  floor(out: vec3, a: vec3): vec3;
+  floor(out: Vec, a: Vec): Vec;
 
   /**
    * Returns the minimum of two vec3's
@@ -602,7 +602,7 @@ export interface vec3 extends Float32Array {
    * @param {vec3} b the second operand
    * @returns {vec3} out
    */
-  min(out: vec3, a: vec3, b: vec3): vec3;
+  min(out: Vec, a: Vec, b: Vec): Vec;
 
   /**
    * Returns the maximum of two vec3's
@@ -612,7 +612,7 @@ export interface vec3 extends Float32Array {
    * @param {vec3} b the second operand
    * @returns {vec3} out
    */
-  max(out: vec3, a: vec3, b: vec3): vec3;
+  max(out: Vec, a: Vec, b: Vec): Vec;
 
   /**
    * Math.round the components of a vec3
@@ -621,7 +621,7 @@ export interface vec3 extends Float32Array {
    * @param {vec3} a vector to round
    * @returns {vec3} out
    */
-  round(out: vec3, a: vec3): vec3;
+  round(out: Vec, a: Vec): Vec;
 
   /**
    * Scales a vec3 by a scalar number
@@ -631,7 +631,7 @@ export interface vec3 extends Float32Array {
    * @param {Number} b amount to scale the vector by
    * @returns {vec3} out
    */
-  scale(out: vec3, a: vec3, b: number): vec3;
+  scale(out: Vec, a: Vec, b: number): Vec;
 
   /**
    * Adds two vec3's after scaling the second operand by a scalar value
@@ -642,7 +642,7 @@ export interface vec3 extends Float32Array {
    * @param {Number} scale the amount to scale b by before adding
    * @returns {vec3} out
    */
-  scaleAndAdd(out: vec3, a: vec3, b: vec3, scale: number): vec3;
+  scaleAndAdd(out: Vec, a: Vec, b: Vec, scale: number): Vec;
 
   /**
    * Calculates the euclidian distance between two vec3's
@@ -651,7 +651,7 @@ export interface vec3 extends Float32Array {
    * @param {vec3} b the second operand
    * @returns {Number} distance between a and b
    */
-  distance(a: vec3, b: vec3): number;
+  distance(a: Vec, b: Vec): number;
 
   /**
    * Calculates the euclidian distance between two vec3's
@@ -660,7 +660,7 @@ export interface vec3 extends Float32Array {
    * @param {vec3} b the second operand
    * @returns {Number} distance between a and b
    */
-  dist(a: vec3, b: vec3): number;
+  dist(a: Vec, b: Vec): number;
 
   /**
    * Calculates the squared euclidian distance between two vec3's
@@ -669,7 +669,7 @@ export interface vec3 extends Float32Array {
    * @param {vec3} b the second operand
    * @returns {Number} squared distance between a and b
    */
-  squaredDistance(a: vec3, b: vec3): number;
+  squaredDistance(a: Vec, b: Vec): number;
 
   /**
    * Calculates the squared euclidian distance between two vec3's
@@ -678,7 +678,7 @@ export interface vec3 extends Float32Array {
    * @param {vec3} b the second operand
    * @returns {Number} squared distance between a and b
    */
-  sqrDist(a: vec3, b: vec3): number;
+  sqrDist(a: Vec, b: Vec): number;
 
   /**
    * Calculates the length of a vec3
@@ -686,7 +686,7 @@ export interface vec3 extends Float32Array {
    * @param {vec3} a vector to calculate length of
    * @returns {Number} length of a
    */
-  // length(a: vec3): number; // not Float32Array compatible
+  // length(a: Vec): number; // not Float32Array compatible
 
   /**
    * Calculates the length of a vec3
@@ -694,7 +694,7 @@ export interface vec3 extends Float32Array {
    * @param {vec3} a vector to calculate length of
    * @returns {Number} length of a
    */
-  len(a: vec3): number;
+  len(a: Vec): number;
 
   /**
    * Calculates the squared length of a vec3
@@ -702,7 +702,7 @@ export interface vec3 extends Float32Array {
    * @param {vec3} a vector to calculate squared length of
    * @returns {Number} squared length of a
    */
-  squaredLength(a: vec3): number;
+  squaredLength(a: Vec): number;
 
   /**
    * Calculates the squared length of a vec3
@@ -710,7 +710,7 @@ export interface vec3 extends Float32Array {
    * @param {vec3} a vector to calculate squared length of
    * @returns {Number} squared length of a
    */
-  sqrLen(a: vec3): number;
+  sqrLen(a: Vec): number;
 
   /**
    * Negates the components of a vec3
@@ -719,7 +719,7 @@ export interface vec3 extends Float32Array {
    * @param {vec3} a vector to negate
    * @returns {vec3} out
    */
-  negate(out: vec3, a: vec3): vec3;
+  negate(out: Vec, a: Vec): Vec;
 
   /**
    * Returns the inverse of the components of a vec3
@@ -728,7 +728,7 @@ export interface vec3 extends Float32Array {
    * @param {vec3} a vector to invert
    * @returns {vec3} out
    */
-  inverse(out: vec3, a: vec3): vec3;
+  inverse(out: Vec, a: Vec): Vec;
 
   /**
    * Normalize a vec3
@@ -737,7 +737,7 @@ export interface vec3 extends Float32Array {
    * @param {vec3} a vector to normalize
    * @returns {vec3} out
    */
-  normalize(out: vec3, a: vec3): vec3;
+  normalize(out: Vec, a: Vec): Vec;
 
   /**
    * Calculates the dot product of two vec3's
@@ -746,7 +746,7 @@ export interface vec3 extends Float32Array {
    * @param {vec3} b the second operand
    * @returns {Number} dot product of a and b
    */
-  dot(a: vec3, b: vec3): number;
+  dot(a: Vec, b: Vec): number;
 
   /**
    * Computes the cross product of two vec3's
@@ -756,7 +756,7 @@ export interface vec3 extends Float32Array {
    * @param {vec3} b the second operand
    * @returns {vec3} out
    */
-  cross(out: vec3, a: vec3, b: vec3): vec3;
+  cross(out: Vec, a: Vec, b: Vec): Vec;
 
   /**
    * Performs a linear interpolation between two vec3's
@@ -767,7 +767,7 @@ export interface vec3 extends Float32Array {
    * @param {Number} t interpolation amount between the two inputs
    * @returns {vec3} out
    */
-  lerp(out: vec3, a: vec3, b: vec3, t: number): vec3;
+  lerp(out: Vec, a: Vec, b: Vec, t: number): Vec;
 
   /**
    * Performs a hermite interpolation with two control points
@@ -780,7 +780,7 @@ export interface vec3 extends Float32Array {
    * @param {Number} t interpolation amount between the two inputs
    * @returns {vec3} out
    */
-  hermite(out: vec3, a: vec3, b: vec3, c: vec3, d: vec3, t: number): vec3;
+  hermite(out: Vec, a: Vec, b: Vec, c: Vec, d: Vec, t: number): Vec;
 
   /**
    * Performs a bezier interpolation with two control points
@@ -793,7 +793,7 @@ export interface vec3 extends Float32Array {
    * @param {Number} t interpolation amount between the two inputs
    * @returns {vec3} out
    */
-  bezier(out: vec3, a: vec3, b: vec3, c: vec3, d: vec3, t: number): vec3;
+  bezier(out: Vec, a: Vec, b: Vec, c: Vec, d: Vec, t: number): Vec;
 
   /**
    * Generates a random vector with the given scale
@@ -802,7 +802,7 @@ export interface vec3 extends Float32Array {
    * @param {Number} [scale] Length of the resulting vector. If ommitted, a unit vector will be returned
    * @returns {vec3} out
    */
-  random(out: vec3, scale: number): vec3;
+  random(out: Vec, scale: number): Vec;
 
   /**
    * Transforms the vec3 with a mat4.
@@ -813,7 +813,7 @@ export interface vec3 extends Float32Array {
    * @param {mat4} m matrix to transform with
    * @returns {vec3} out
    */
-  transformMat4(out: vec3, a: vec3, m: mat4): vec3;
+  transformMat4(out: Vec, a: Vec, m: Mat): Vec;
 
   /**
    * Transforms the vec3 with a mat3.
@@ -823,7 +823,7 @@ export interface vec3 extends Float32Array {
    * @param {mat4} m the 3x3 matrix to transform with
    * @returns {vec3} out
    */
-  transformMat3(out: vec3, a: vec3, m: mat4): vec3;
+  transformMat3(out: Vec, a: Vec, m: Mat): Vec;
 
   /**
    * Transforms the vec3 with a quat
@@ -833,7 +833,7 @@ export interface vec3 extends Float32Array {
    * @param {quat} q quaternion to transform with
    * @returns {vec3} out
    */
-  transformQuat(out: vec3, a: vec3, q: quat): vec3;
+  transformQuat(out: Vec, a: Vec, q: quat): Vec;
 
   /**
    * Rotate a 3D vector around the x-axis
@@ -843,7 +843,7 @@ export interface vec3 extends Float32Array {
    * @param {Number} c The angle of rotation
    * @returns {vec3} out
    */
-  rotateX(out: vec3, a: vec3, b: vec3, c: number): vec3;
+  rotateX(out: Vec, a: Vec, b: Vec, c: number): Vec;
 
   /**
    * Rotate a 3D vector around the y-axis
@@ -853,7 +853,7 @@ export interface vec3 extends Float32Array {
    * @param {Number} c The angle of rotation
    * @returns {vec3} out
    */
-  rotateY(out: vec3, a: vec3, b: vec3, c: number): vec3;
+  rotateY(out: Vec, a: Vec, b: Vec, c: number): Vec;
 
   /**
    * Rotate a 3D vector around the z-axis
@@ -863,7 +863,7 @@ export interface vec3 extends Float32Array {
    * @param {Number} c The angle of rotation
    * @returns {vec3} out
    */
-  rotateZ(out: vec3, a: vec3, b: vec3, c: number): vec3;
+  rotateZ(out: Vec, a: Vec, b: Vec, c: number): Vec;
 
   /**
    * Perform some operation over an array of vec3s.
@@ -877,7 +877,7 @@ export interface vec3 extends Float32Array {
    * @returns {Array} a
    * @function
    */
-  // forEach<T>(a: vec3[], stride: number, offset: number, count: number, fn: (a: vec3, b: vec3, arg: T) => void, arg: T): vec3[]; // not Float32Array compatible
+  // forEach<T>(a: Vec[], stride: number, offset: number, count: number, fn: (a: Vec, b: Vec, arg: T) => void, arg: T): Vec[]; // not Float32Array compatible
 
   /**
    * Get the angle between two 3D vectors
@@ -885,15 +885,15 @@ export interface vec3 extends Float32Array {
    * @param {vec3} b The second operand
    * @returns {Number} The angle in radians
    */
-  angle(a: vec3, b: vec3): number;
+  angle(a: Vec, b: Vec): number;
 
   /**
    * Returns a string representation of a vector
    *
-   * @param {vec3} vec vector to represent as a string
+   * @param {vec3} Vec vector to represent as a string
    * @returns {String} string representation of the vector
    */
-  str(a: vec3): string;
+  str(a: Vec): string;
 
   /**
    * Returns whether or not the vectors have exactly the same elements in the same position (when compared with ===)
@@ -902,7 +902,7 @@ export interface vec3 extends Float32Array {
    * @param {vec3} b The second vector.
    * @returns {Boolean} True if the vectors are equal, false otherwise.
    */
-  exactEquals(a: vec3, b: vec3): boolean;
+  exactEquals(a: Vec, b: Vec): boolean;
 
   /**
    * Returns whether or not the vectors have approximately the same elements in the same position.
@@ -911,7 +911,7 @@ export interface vec3 extends Float32Array {
    * @param {vec3} b The second vector.
    * @returns {Boolean} True if the vectors are equal, false otherwise.
    */
-  equals(a: vec3, b: vec3): boolean;
+  equals(a: Vec, b: Vec): boolean;
 }
 export var vec3: vec3;
 
@@ -920,13 +920,13 @@ export var vec3: vec3;
  * @class 4 Dimensional Vector
  * @name vec4
  */
-export interface vec4 extends Float32Array {
+export interface vec4 {
   /**
    * Creates a new, empty vec4
    *
    * @returns {vec4} a new 4D vector
    */
-  create(): vec4;
+  create(): Vec;
 
   /**
    * Creates a new vec4 initialized with values from an existing vector
@@ -934,7 +934,7 @@ export interface vec4 extends Float32Array {
    * @param {vec4} a vector to clone
    * @returns {vec4} a new 4D vector
    */
-  clone(a: vec4): vec4;
+  clone(a: Vec): Vec;
 
   /**
    * Creates a new vec4 initialized with the given values
@@ -945,7 +945,7 @@ export interface vec4 extends Float32Array {
    * @param {Number} w W component
    * @returns {vec4} a new 4D vector
    */
-  fromValues(x: number, y: number, z: number, w: number): vec4;
+  fromValues(x: number, y: number, z: number, w: number): Vec;
 
   /**
    * Copy the values from one vec4 to another
@@ -954,7 +954,7 @@ export interface vec4 extends Float32Array {
    * @param {vec4} a the source vector
    * @returns {vec4} out
    */
-  copy(out: vec4, a: vec4): vec4;
+  copy(out: Vec, a: Vec): Vec;
 
   /**
    * Set the components of a vec4 to the given values
@@ -966,7 +966,7 @@ export interface vec4 extends Float32Array {
    * @param {Number} w W component
    * @returns {vec4} out
    */
-  // set(out: vec4, x: number, y: number, z: number, w: number): vec4; // not Float32Array compatible
+  // set(out: Vec, x: number, y: number, z: number, w: number): Vec; // not Float32Array compatible
 
   /**
    * Adds two vec4's
@@ -976,7 +976,7 @@ export interface vec4 extends Float32Array {
    * @param {vec4} b the second operand
    * @returns {vec4} out
    */
-  add(out: vec4, a: vec4, b: vec4): vec4;
+  add(out: Vec, a: Vec, b: Vec): Vec;
 
   /**
    * Subtracts vector b from vector a
@@ -986,7 +986,7 @@ export interface vec4 extends Float32Array {
    * @param {vec4} b the second operand
    * @returns {vec4} out
    */
-  subtract(out: vec4, a: vec4, b: vec4): vec4;
+  subtract(out: Vec, a: Vec, b: Vec): Vec;
 
   /**
    * Subtracts vector b from vector a
@@ -996,7 +996,7 @@ export interface vec4 extends Float32Array {
    * @param {vec4} b the second operand
    * @returns {vec4} out
    */
-  sub(out: vec4, a: vec4, b: vec4): vec4;
+  sub(out: Vec, a: Vec, b: Vec): Vec;
 
   /**
    * Multiplies two vec4's
@@ -1006,7 +1006,7 @@ export interface vec4 extends Float32Array {
    * @param {vec4} b the second operand
    * @returns {vec4} out
    */
-  multiply(out: vec4, a: vec4, b: vec4): vec4;
+  multiply(out: Vec, a: Vec, b: Vec): Vec;
 
   /**
    * Multiplies two vec4's
@@ -1016,7 +1016,7 @@ export interface vec4 extends Float32Array {
    * @param {vec4} b the second operand
    * @returns {vec4} out
    */
-  mul(out: vec4, a: vec4, b: vec4): vec4;
+  mul(out: Vec, a: Vec, b: Vec): Vec;
 
   /**
    * Divides two vec4's
@@ -1026,7 +1026,7 @@ export interface vec4 extends Float32Array {
    * @param {vec4} b the second operand
    * @returns {vec4} out
    */
-  divide(out: vec4, a: vec4, b: vec4): vec4;
+  divide(out: Vec, a: Vec, b: Vec): Vec;
 
   /**
    * Divides two vec4's
@@ -1036,7 +1036,7 @@ export interface vec4 extends Float32Array {
    * @param {vec4} b the second operand
    * @returns {vec4} out
    */
-  div(out: vec4, a: vec4, b: vec4): vec4;
+  div(out: Vec, a: Vec, b: Vec): Vec;
 
   /**
    * Math.ceil the components of a vec4
@@ -1045,7 +1045,7 @@ export interface vec4 extends Float32Array {
    * @param {vec4} a vector to ceil
    * @returns {vec4} out
    */
-  ceil(out: vec4, a: vec4): vec4;
+  ceil(out: Vec, a: Vec): Vec;
 
   /**
    * Math.floor the components of a vec4
@@ -1054,7 +1054,7 @@ export interface vec4 extends Float32Array {
    * @param {vec4} a vector to floor
    * @returns {vec4} out
    */
-  floor(out: vec4, a: vec4): vec4;
+  floor(out: Vec, a: Vec): Vec;
 
   /**
    * Returns the minimum of two vec4's
@@ -1064,7 +1064,7 @@ export interface vec4 extends Float32Array {
    * @param {vec4} b the second operand
    * @returns {vec4} out
    */
-  min(out: vec4, a: vec4, b: vec4): vec4;
+  min(out: Vec, a: Vec, b: Vec): Vec;
 
   /**
    * Returns the maximum of two vec4's
@@ -1074,7 +1074,7 @@ export interface vec4 extends Float32Array {
    * @param {vec4} b the second operand
    * @returns {vec4} out
    */
-  max(out: vec4, a: vec4, b: vec4): vec4;
+  max(out: Vec, a: Vec, b: Vec): Vec;
 
   /**
    * Math.round the components of a vec4
@@ -1083,7 +1083,7 @@ export interface vec4 extends Float32Array {
    * @param {vec4} a vector to round
    * @returns {vec4} out
    */
-  round(out: vec4, a: vec4): vec4;
+  round(out: Vec, a: Vec): Vec;
 
   /**
    * Scales a vec4 by a scalar number
@@ -1093,7 +1093,7 @@ export interface vec4 extends Float32Array {
    * @param {Number} b amount to scale the vector by
    * @returns {vec4} out
    */
-  scale(out: vec4, a: vec4, b: number): vec4;
+  scale(out: Vec, a: Vec, b: number): Vec;
 
   /**
    * Adds two vec4's after scaling the second operand by a scalar value
@@ -1104,7 +1104,7 @@ export interface vec4 extends Float32Array {
    * @param {Number} scale the amount to scale b by before adding
    * @returns {vec4} out
    */
-  scaleAndAdd(out: vec4, a: vec4, b: vec4, scale: number): vec4;
+  scaleAndAdd(out: Vec, a: Vec, b: Vec, scale: number): Vec;
 
   /**
    * Calculates the euclidian distance between two vec4's
@@ -1113,7 +1113,7 @@ export interface vec4 extends Float32Array {
    * @param {vec4} b the second operand
    * @returns {Number} distance between a and b
    */
-  distance(a: vec4, b: vec4): number;
+  distance(a: Vec, b: Vec): number;
 
   /**
    * Calculates the euclidian distance between two vec4's
@@ -1122,7 +1122,7 @@ export interface vec4 extends Float32Array {
    * @param {vec4} b the second operand
    * @returns {Number} distance between a and b
    */
-  dist(a: vec4, b: vec4): number;
+  dist(a: Vec, b: Vec): number;
 
   /**
    * Calculates the squared euclidian distance between two vec4's
@@ -1131,7 +1131,7 @@ export interface vec4 extends Float32Array {
    * @param {vec4} b the second operand
    * @returns {Number} squared distance between a and b
    */
-  squaredDistance(a: vec4, b: vec4): number;
+  squaredDistance(a: Vec, b: Vec): number;
 
   /**
    * Calculates the squared euclidian distance between two vec4's
@@ -1140,7 +1140,7 @@ export interface vec4 extends Float32Array {
    * @param {vec4} b the second operand
    * @returns {Number} squared distance between a and b
    */
-  sqrDist(a: vec4, b: vec4): number;
+  sqrDist(a: Vec, b: Vec): number;
 
   /**
    * Calculates the length of a vec4
@@ -1148,7 +1148,7 @@ export interface vec4 extends Float32Array {
    * @param {vec4} a vector to calculate length of
    * @returns {Number} length of a
    */
-  // length(a: vec4): number; // not Float32Array compatible
+  // length(a: Vec): number; // not Float32Array compatible
 
   /**
    * Calculates the length of a vec4
@@ -1156,7 +1156,7 @@ export interface vec4 extends Float32Array {
    * @param {vec4} a vector to calculate length of
    * @returns {Number} length of a
    */
-  len(a: vec4): number;
+  len(a: Vec): number;
 
   /**
    * Calculates the squared length of a vec4
@@ -1164,7 +1164,7 @@ export interface vec4 extends Float32Array {
    * @param {vec4} a vector to calculate squared length of
    * @returns {Number} squared length of a
    */
-  squaredLength(a: vec4): number;
+  squaredLength(a: Vec): number;
 
   /**
    * Calculates the squared length of a vec4
@@ -1172,7 +1172,7 @@ export interface vec4 extends Float32Array {
    * @param {vec4} a vector to calculate squared length of
    * @returns {Number} squared length of a
    */
-  sqrLen(a: vec4): number;
+  sqrLen(a: Vec): number;
 
   /**
    * Negates the components of a vec4
@@ -1181,7 +1181,7 @@ export interface vec4 extends Float32Array {
    * @param {vec4} a vector to negate
    * @returns {vec4} out
    */
-  negate(out: vec4, a: vec4): vec4;
+  negate(out: Vec, a: Vec): Vec;
 
   /**
    * Returns the inverse of the components of a vec4
@@ -1190,7 +1190,7 @@ export interface vec4 extends Float32Array {
    * @param {vec4} a vector to invert
    * @returns {vec4} out
    */
-  inverse(out: vec4, a: vec4): vec4;
+  inverse(out: Vec, a: Vec): Vec;
 
   /**
    * Normalize a vec4
@@ -1199,7 +1199,7 @@ export interface vec4 extends Float32Array {
    * @param {vec4} a vector to normalize
    * @returns {vec4} out
    */
-  normalize(out: vec4, a: vec4): vec4;
+  normalize(out: Vec, a: Vec): Vec;
 
   /**
    * Calculates the dot product of two vec4's
@@ -1208,7 +1208,7 @@ export interface vec4 extends Float32Array {
    * @param {vec4} b the second operand
    * @returns {Number} dot product of a and b
    */
-  dot(a: vec4, b: vec4): number;
+  dot(a: Vec, b: Vec): number;
 
   /**
    * Performs a linear interpolation between two vec4's
@@ -1219,7 +1219,7 @@ export interface vec4 extends Float32Array {
    * @param {Number} t interpolation amount between the two inputs
    * @returns {vec4} out
    */
-  lerp(out: vec4, a: vec4, b: vec4, t: number): vec4;
+  lerp(out: Vec, a: Vec, b: Vec, t: number): Vec;
 
   /**
    * Generates a random vector with the given scale
@@ -1228,7 +1228,7 @@ export interface vec4 extends Float32Array {
    * @param {Number} [scale] Length of the resulting vector. If ommitted, a unit vector will be returned
    * @returns {vec4} out
    */
-  random(out: vec4, scale: number): vec4;
+  random(out: Vec, scale: number): Vec;
 
   /**
    * Transforms the vec4 with a mat4.
@@ -1238,7 +1238,7 @@ export interface vec4 extends Float32Array {
    * @param {mat4} m matrix to transform with
    * @returns {vec4} out
    */
-  transformMat4(out: vec4, a: vec4, m: mat4): vec4;
+  transformMat4(out: Vec, a: Vec, m: Mat): Vec;
 
   /**
    * Transforms the vec4 with a quat
@@ -1248,7 +1248,7 @@ export interface vec4 extends Float32Array {
    * @param {quat} q quaternion to transform with
    * @returns {vec4} out
    */
-  transformQuat(out: vec4, a: vec4, q: quat): vec4;
+  transformQuat(out: Vec, a: Vec, q: quat): Vec;
 
   /**
    * Perform some operation over an array of vec4s.
@@ -1262,15 +1262,15 @@ export interface vec4 extends Float32Array {
    * @returns {Array} a
    * @function
    */
-  // forEach<T>(a: vec4[], stride: number, offset: number, count: number, fn: (a: vec4, b: vec4, arg: T) => void, arg: T): vec4[]; // not Float32Array compatible
+  // forEach<T>(a: Vec[], stride: number, offset: number, count: number, fn: (a: Vec, b: Vec, arg: T) => void, arg: T): Vec[]; // not Float32Array compatible
 
   /**
    * Returns a string representation of a vector
    *
-   * @param {vec4} vec vector to represent as a string
+   * @param {vec4} Vec vector to represent as a string
    * @returns {String} string representation of the vector
    */
-  str(a: vec4): string;
+  str(a: Vec): string;
 
   /**
    * Returns whether or not the vectors have exactly the same elements in the same position (when compared with ===)
@@ -1279,7 +1279,7 @@ export interface vec4 extends Float32Array {
    * @param {vec4} b The second vector.
    * @returns {Boolean} True if the vectors are equal, false otherwise.
    */
-  exactEquals(a: vec4, b: vec4): boolean;
+  exactEquals(a: Vec, b: Vec): boolean;
 
   /**
    * Returns whether or not the vectors have approximately the same elements in the same position.
@@ -1288,7 +1288,7 @@ export interface vec4 extends Float32Array {
    * @param {vec4} b The second vector.
    * @returns {Boolean} True if the vectors are equal, false otherwise.
    */
-  equals(a: vec4, b: vec4): boolean;
+  equals(a: Vec, b: Vec): boolean;
 }
 export var vec4: vec4;
 
@@ -1297,13 +1297,13 @@ export var vec4: vec4;
  * @class 2x2 Matrix
  * @name mat2
  */
-export interface mat2 extends Float32Array {
+export interface mat2 {
   /**
    * Creates a new identity mat2
    *
    * @returns {mat2} a new 2x2 matrix
    */
-  create(): mat2;
+  create(): Mat;
 
   /**
    * Creates a new mat2 initialized with values from an existing matrix
@@ -1311,7 +1311,7 @@ export interface mat2 extends Float32Array {
    * @param {mat2} a matrix to clone
    * @returns {mat2} a new 2x2 matrix
    */
-  clone(a: mat2): mat2;
+  clone(a: Mat): Mat;
 
   /**
    * Copy the values from one mat2 to another
@@ -1320,7 +1320,7 @@ export interface mat2 extends Float32Array {
    * @param {mat2} a the source matrix
    * @returns {mat2} out
    */
-  copy(out: mat2, a: mat2): mat2;
+  copy(out: Mat, a: Mat): Mat;
 
   /**
    * Set a mat2 to the identity matrix
@@ -1328,7 +1328,7 @@ export interface mat2 extends Float32Array {
    * @param {mat2} out the receiving matrix
    * @returns {mat2} out
    */
-  identity(out: mat2): mat2;
+  identity(out: Mat): Mat;
 
   /**
    * Create a new mat2 with the given values
@@ -1339,7 +1339,7 @@ export interface mat2 extends Float32Array {
    * @param {Number} m11 Component in column 1, row 1 position (index 3)
    * @returns {mat2} out A new 2x2 matrix
    */
-  fromValues(m00: number, m01: number, m10: number, m11: number): mat2;
+  fromValues(m00: number, m01: number, m10: number, m11: number): Mat;
 
   /**
    * Set the components of a mat2 to the given values
@@ -1351,7 +1351,7 @@ export interface mat2 extends Float32Array {
    * @param {Number} m11 Component in column 1, row 1 position (index 3)
    * @returns {mat2} out
    */
-  // set(out: mat2, m00: number, m01: number, m10: number, m11: number): mat2; // not Float32Array compatible
+  // set(out: Mat, m00: number, m01: number, m10: number, m11: number): Mat; // not Float32Array compatible
 
   /**
    * Transpose the values of a mat2
@@ -1360,7 +1360,7 @@ export interface mat2 extends Float32Array {
    * @param {mat2} a the source matrix
    * @returns {mat2} out
    */
-  transpose(out: mat2, a: mat2): mat2;
+  transpose(out: Mat, a: Mat): Mat;
 
   /**
    * Inverts a mat2
@@ -1369,7 +1369,7 @@ export interface mat2 extends Float32Array {
    * @param {mat2} a the source matrix
    * @returns {mat2} out
    */
-  invert(out: mat2, a: mat2): mat2;
+  invert(out: Mat, a: Mat): Mat;
 
   /**
    * Calculates the adjugate of a mat2
@@ -1378,7 +1378,7 @@ export interface mat2 extends Float32Array {
    * @param {mat2} a the source matrix
    * @returns {mat2} out
    */
-  adjoint(out: mat2, a: mat2): mat2;
+  adjoint(out: Mat, a: Mat): Mat;
 
   /**
    * Calculates the determinant of a mat2
@@ -1386,7 +1386,7 @@ export interface mat2 extends Float32Array {
    * @param {mat2} a the source matrix
    * @returns {Number} determinant of a
    */
-  determinant(a: mat2): number;
+  determinant(a: Mat): number;
 
   /**
    * Multiplies two mat2's
@@ -1396,7 +1396,7 @@ export interface mat2 extends Float32Array {
    * @param {mat2} b the second operand
    * @returns {mat2} out
    */
-  multiply(out: mat2, a: mat2, b: mat2): mat2;
+  multiply(out: Mat, a: Mat, b: Mat): Mat;
 
   /**
    * Multiplies two mat2's
@@ -1406,7 +1406,7 @@ export interface mat2 extends Float32Array {
    * @param {mat2} b the second operand
    * @returns {mat2} out
    */
-  mul(out: mat2, a: mat2, b: mat2): mat2;
+  mul(out: Mat, a: Mat, b: Mat): Mat;
 
   /**
    * Rotates a mat2 by the given angle
@@ -1416,7 +1416,7 @@ export interface mat2 extends Float32Array {
    * @param {Number} rad the angle to rotate the matrix by
    * @returns {mat2} out
    */
-  rotate(out: mat2, a: mat2, rad: number): mat2;
+  rotate(out: Mat, a: Mat, rad: number): Mat;
 
   /**
    * Scales the mat2 by the dimensions in the given vec2
@@ -1426,7 +1426,7 @@ export interface mat2 extends Float32Array {
    * @param {vec2} v the vec2 to scale the matrix by
    * @returns {mat2} out
    **/
-  scale(out: mat2, a: mat2, v: vec2): mat2;
+  scale(out: Mat, a: Mat, v: Vec): Mat;
 
   /**
    * Creates a matrix from a given angle
@@ -1439,28 +1439,28 @@ export interface mat2 extends Float32Array {
    * @param {Number} rad the angle to rotate the matrix by
    * @returns {mat2} out
    */
-  fromRotation(out: mat2, rad: number): mat2;
+  fromRotation(out: Mat, rad: number): Mat;
 
   /**
    * Creates a matrix from a vector scaling
    * This is equivalent to (but much faster than):
    *
    *     mat2.identity(dest);
-   *     mat2.scale(dest, dest, vec);
+   *     mat2.scale(dest, dest, Vec);
    *
    * @param {mat2} out mat2 receiving operation result
    * @param {vec2} v Scaling vector
    * @returns {mat2} out
    */
-  fromScaling(out: mat2, v: vec2): mat2;
+  fromScaling(out: Mat, v: Vec): Mat;
 
   /**
    * Returns a string representation of a mat2
    *
-   * @param {mat2} mat matrix to represent as a string
+   * @param {mat2} Mat matrix to represent as a string
    * @returns {String} string representation of the matrix
    */
-  str(a: mat2): string;
+  str(a: Mat): string;
 
   /**
    * Returns Frobenius norm of a mat2
@@ -1468,7 +1468,7 @@ export interface mat2 extends Float32Array {
    * @param {mat2} a the matrix to calculate Frobenius norm of
    * @returns {Number} Frobenius norm
    */
-  frob(a: mat2): number;
+  frob(a: Mat): number;
 
   /**
    * Returns L, D and U matrices (Lower triangular, Diagonal and Upper triangular) by factorizing the input matrix
@@ -1477,7 +1477,7 @@ export interface mat2 extends Float32Array {
    * @param {mat2} U the upper triangular matrix
    * @param {mat2} a the input matrix to factorize
    */
-  LDU(L: mat2, D: mat2, U: mat2, a: mat2): mat2[];
+  LDU(L: Mat, D: Mat, U: Mat, a: Mat): Mat[];
 
   /**
    * Adds two mat2's
@@ -1487,7 +1487,7 @@ export interface mat2 extends Float32Array {
    * @param {mat2} b the second operand
    * @returns {mat2} out
    */
-  add(out: mat2, a: mat2, b: mat2): mat2;
+  add(out: Mat, a: Mat, b: Mat): Mat;
 
   /**
    * Subtracts matrix b from matrix a
@@ -1497,7 +1497,7 @@ export interface mat2 extends Float32Array {
    * @param {mat2} b the second operand
    * @returns {mat2} out
    */
-  subtract(out: mat2, a: mat2, b: mat2): mat2;
+  subtract(out: Mat, a: Mat, b: Mat): Mat;
 
   /**
    * Subtracts matrix b from matrix a
@@ -1507,7 +1507,7 @@ export interface mat2 extends Float32Array {
    * @param {mat2} b the second operand
    * @returns {mat2} out
    */
-  sub(out: mat2, a: mat2, b: mat2): mat2;
+  sub(out: Mat, a: Mat, b: Mat): Mat;
 
   /**
    * Returns whether or not the matrices have exactly the same elements in the same position (when compared with ===)
@@ -1516,7 +1516,7 @@ export interface mat2 extends Float32Array {
    * @param {mat2} b The second matrix.
    * @returns {Boolean} True if the matrices are equal, false otherwise.
    */
-  exactEquals(a: mat2, b: mat2): boolean;
+  exactEquals(a: Mat, b: Mat): boolean;
 
   /**
    * Returns whether or not the matrices have approximately the same elements in the same position.
@@ -1525,7 +1525,7 @@ export interface mat2 extends Float32Array {
    * @param {mat2} b The second matrix.
    * @returns {Boolean} True if the matrices are equal, false otherwise.
    */
-  equals(a: mat2, b: mat2): boolean;
+  equals(a: Mat, b: Mat): boolean;
 
   /**
    * Multiply each element of the matrix by a scalar.
@@ -1535,7 +1535,7 @@ export interface mat2 extends Float32Array {
    * @param {Number} b amount to scale the matrix's elements by
    * @returns {mat2} out
    */
-  multiplyScalar(out: mat2, a: mat2, b: number): mat2;
+  multiplyScalar(out: Mat, a: Mat, b: number): Mat;
 
   /**
    * Adds two mat2's after multiplying each element of the second operand by a scalar value.
@@ -1546,7 +1546,7 @@ export interface mat2 extends Float32Array {
    * @param {Number} scale the amount to scale b's elements by before adding
    * @returns {mat2} out
    */
-  multiplyScalarAndAdd(out: mat2, a: mat2, b: mat2, scale: number): mat2;
+  multiplyScalarAndAdd(out: Mat, a: Mat, b: Mat, scale: number): Mat;
 }
 export var mat2: mat2;
 
@@ -1569,13 +1569,13 @@ export var mat2: mat2;
  * </pre>
  * The last row is ignored so the array is shorter and operations are faster.
  */
-export interface mat2d extends Float32Array {
+export interface mat2d {
   /**
    * Creates a new identity mat2d
    *
    * @returns {mat2d} a new 2x3 matrix
    */
-  create(): mat2d;
+  create(): Mat;
 
   /**
    * Creates a new mat2d initialized with values from an existing matrix
@@ -1583,7 +1583,7 @@ export interface mat2d extends Float32Array {
    * @param {mat2d} a matrix to clone
    * @returns {mat2d} a new 2x3 matrix
    */
-  clone(a: mat2d): mat2d;
+  clone(a: Mat): Mat;
 
   /**
    * Copy the values from one mat2d to another
@@ -1592,7 +1592,7 @@ export interface mat2d extends Float32Array {
    * @param {mat2d} a the source matrix
    * @returns {mat2d} out
    */
-  copy(out: mat2d, a: mat2d): mat2d;
+  copy(out: Mat, a: Mat): Mat;
 
   /**
    * Set a mat2d to the identity matrix
@@ -1600,7 +1600,7 @@ export interface mat2d extends Float32Array {
    * @param {mat2d} out the receiving matrix
    * @returns {mat2d} out
    */
-  identity(out: mat2d): mat2d;
+  identity(out: Mat): Mat;
 
   /**
    * Create a new mat2d with the given values
@@ -1613,7 +1613,7 @@ export interface mat2d extends Float32Array {
    * @param {Number} ty Component TY (index 5)
    * @returns {mat2d} A new mat2d
    */
-  fromValues(a: number, b: number, c: number, d: number, tx: number, ty: number): mat2d;
+  fromValues(a: number, b: number, c: number, d: number, tx: number, ty: number): Mat;
 
   /**
    * Set the components of a mat2d to the given values
@@ -1627,7 +1627,7 @@ export interface mat2d extends Float32Array {
    * @param {Number} ty Component TY (index 5)
    * @returns {mat2d} out
    */
-  // set(out: mat2d, a: number, b: number, c: number, d: number, tx: number, ty: number): mat2d; // not Float32Array compatible
+  // set(out: Mat, a: number, b: number, c: number, d: number, tx: number, ty: number): Mat; // not Float32Array compatible
 
   /**
    * Inverts a mat2d
@@ -1636,7 +1636,7 @@ export interface mat2d extends Float32Array {
    * @param {mat2d} a the source matrix
    * @returns {mat2d} out
    */
-  invert(out: mat2d, a: mat2d): mat2d;
+  invert(out: Mat, a: Mat): Mat;
 
   /**
    * Calculates the determinant of a mat2d
@@ -1644,7 +1644,7 @@ export interface mat2d extends Float32Array {
    * @param {mat2d} a the source matrix
    * @returns {Number} determinant of a
    */
-  determinant(a: mat2d): number;
+  determinant(a: Mat): number;
 
   /**
    * Multiplies two mat2d's
@@ -1654,7 +1654,7 @@ export interface mat2d extends Float32Array {
    * @param {mat2d} b the second operand
    * @returns {mat2d} out
    */
-  multiply(out: mat2d, a: mat2d, b: mat2d): mat2d;
+  multiply(out: Mat, a: Mat, b: Mat): Mat;
 
   /**
    * Multiplies two mat2d's
@@ -1664,7 +1664,7 @@ export interface mat2d extends Float32Array {
    * @param {mat2d} b the second operand
    * @returns {mat2d} out
    */
-  mul(out: mat2d, a: mat2d, b: mat2d): mat2d;
+  mul(out: Mat, a: Mat, b: Mat): Mat;
 
   /**
    * Rotates a mat2d by the given angle
@@ -1674,7 +1674,7 @@ export interface mat2d extends Float32Array {
    * @param {Number} rad the angle to rotate the matrix by
    * @returns {mat2d} out
    */
-  rotate(out: mat2d, a: mat2d, rad: number): mat2d;
+  rotate(out: Mat, a: Mat, rad: number): Mat;
 
   /**
    * Scales the mat2d by the dimensions in the given vec2
@@ -1684,7 +1684,7 @@ export interface mat2d extends Float32Array {
    * @param {vec2} v the vec2 to scale the matrix by
    * @returns {mat2d} out
    **/
-  scale(out: mat2d, a: mat2d, v: vec2): mat2d;
+  scale(out: Mat, a: Mat, v: Vec): Mat;
 
   /**
    * Translates the mat2d by the dimensions in the given vec2
@@ -1694,7 +1694,7 @@ export interface mat2d extends Float32Array {
    * @param {vec2} v the vec2 to translate the matrix by
    * @returns {mat2d} out
    **/
-  translate(out: mat2d, a: mat2d, v: vec2): mat2d;
+  translate(out: Mat, a: Mat, v: Vec): Mat;
 
   /**
    * Creates a matrix from a given angle
@@ -1707,33 +1707,33 @@ export interface mat2d extends Float32Array {
    * @param {Number} rad the angle to rotate the matrix by
    * @returns {mat2d} out
    */
-  fromRotation(out: mat2d, rad: number): mat2d;
+  fromRotation(out: Mat, rad: number): Mat;
 
   /**
    * Creates a matrix from a vector scaling
    * This is equivalent to (but much faster than):
    *
    *     mat2d.identity(dest);
-   *     mat2d.scale(dest, dest, vec);
+   *     mat2d.scale(dest, dest, Vec);
    *
    * @param {mat2d} out mat2d receiving operation result
    * @param {vec2} v Scaling vector
    * @returns {mat2d} out
    */
-  fromScaling(out: mat2d, v: vec2): mat2d;
+  fromScaling(out: Mat, v: Vec): Mat;
 
   /**
    * Creates a matrix from a vector translation
    * This is equivalent to (but much faster than):
    *
    *     mat2d.identity(dest);
-   *     mat2d.translate(dest, dest, vec);
+   *     mat2d.translate(dest, dest, Vec);
    *
    * @param {mat2d} out mat2d receiving operation result
    * @param {vec2} v Translation vector
    * @returns {mat2d} out
    */
-  fromTranslation(out: mat2d, v: vec2): mat2d;
+  fromTranslation(out: Mat, v: Vec): Mat;
 
   /**
    * Returns a string representation of a mat2d
@@ -1741,7 +1741,7 @@ export interface mat2d extends Float32Array {
    * @param {mat2d} a matrix to represent as a string
    * @returns {String} string representation of the matrix
    */
-  str(a: mat2d): string;
+  str(a: Mat): string;
 
   /**
    * Returns Frobenius norm of a mat2d
@@ -1749,7 +1749,7 @@ export interface mat2d extends Float32Array {
    * @param {mat2d} a the matrix to calculate Frobenius norm of
    * @returns {Number} Frobenius norm
    */
-  frob(a: mat2d): number;
+  frob(a: Mat): number;
 
   /**
    * Adds two mat2d's
@@ -1759,7 +1759,7 @@ export interface mat2d extends Float32Array {
    * @param {mat2d} b the second operand
    * @returns {mat2d} out
    */
-  add(out: mat2d, a: mat2d, b: mat2d): mat2d;
+  add(out: Mat, a: Mat, b: Mat): Mat;
 
   /**
    * Subtracts matrix b from matrix a
@@ -1769,7 +1769,7 @@ export interface mat2d extends Float32Array {
    * @param {mat2d} b the second operand
    * @returns {mat2d} out
    */
-  subtract(out: mat2d, a: mat2d, b: mat2d): mat2d;
+  subtract(out: Mat, a: Mat, b: Mat): Mat;
 
   /**
    * Subtracts matrix b from matrix a
@@ -1779,7 +1779,7 @@ export interface mat2d extends Float32Array {
    * @param {mat2d} b the second operand
    * @returns {mat2d} out
    */
-  sub(out: mat2d, a: mat2d, b: mat2d): mat2d;
+  sub(out: Mat, a: Mat, b: Mat): Mat;
 
   /**
    * Multiply each element of the matrix by a scalar.
@@ -1789,7 +1789,7 @@ export interface mat2d extends Float32Array {
    * @param {Number} b amount to scale the matrix's elements by
    * @returns {mat2d} out
    */
-  multiplyScalar(out: mat2d, a: mat2d, b: number): mat2d;
+  multiplyScalar(out: Mat, a: Mat, b: number): Mat;
 
   /**
    * Adds two mat2d's after multiplying each element of the second operand by a scalar value.
@@ -1800,7 +1800,7 @@ export interface mat2d extends Float32Array {
    * @param {Number} scale the amount to scale b's elements by before adding
    * @returns {mat2d} out
    */
-  multiplyScalarAndAdd(out: mat2d, a: mat2d, b: mat2d, scale: number): mat2d;
+  multiplyScalarAndAdd(out: Mat, a: Mat, b: Mat, scale: number): Mat;
 
   /**
    * Returns whether or not the matrices have exactly the same elements in the same position (when compared with ===)
@@ -1809,7 +1809,7 @@ export interface mat2d extends Float32Array {
    * @param {mat2d} b The second matrix.
    * @returns {Boolean} True if the matrices are equal, false otherwise.
    */
-  exactEquals(a: mat2d, b: mat2d): boolean;
+  exactEquals(a: Mat, b: Mat): boolean;
 
   /**
    * Returns whether or not the matrices have approximately the same elements in the same position.
@@ -1818,7 +1818,7 @@ export interface mat2d extends Float32Array {
    * @param {mat2d} b The second matrix.
    * @returns {Boolean} True if the matrices are equal, false otherwise.
    */
-  equals(a: mat2d, b: mat2d): boolean;
+  equals(a: Mat, b: Mat): boolean;
 }
 export var mat2d: mat2d;
 
@@ -1827,13 +1827,13 @@ export var mat2d: mat2d;
  * @class 3x3 Matrix
  * @name mat3
  */
-export interface mat3 extends Float32Array {
+export interface mat3 {
   /**
    * Creates a new identity mat3
    *
    * @returns {mat3} a new 3x3 matrix
    */
-  create(): mat3;
+  create(): Mat;
 
   /**
    * Copies the upper-left 3x3 values into the given mat3.
@@ -1842,7 +1842,7 @@ export interface mat3 extends Float32Array {
    * @param {mat4} a   the source 4x4 matrix
    * @returns {mat3} out
    */
-  fromMat4(out: mat3, a: mat4): mat3;
+  fromMat4(out: Mat, a: Mat): Mat;
 
   /**
    * Creates a new mat3 initialized with values from an existing matrix
@@ -1850,7 +1850,7 @@ export interface mat3 extends Float32Array {
    * @param {mat3} a matrix to clone
    * @returns {mat3} a new 3x3 matrix
    */
-  clone(a: mat3): mat3;
+  clone(a: Mat): Mat;
 
   /**
    * Copy the values from one mat3 to another
@@ -1859,7 +1859,7 @@ export interface mat3 extends Float32Array {
    * @param {mat3} a the source matrix
    * @returns {mat3} out
    */
-  copy(out: mat3, a: mat3): mat3;
+  copy(out: Mat, a: Mat): Mat;
 
   /**
    * Create a new mat3 with the given values
@@ -1875,7 +1875,7 @@ export interface mat3 extends Float32Array {
    * @param {Number} m22 Component in column 2, row 2 position (index 8)
    * @returns {mat3} A new mat3
    */
-  fromValues(m00: number, m01: number, m02: number, m10: number, m11: number, m12: number, m20: number, m21: number, m22: number): mat3;
+  fromValues(m00: number, m01: number, m02: number, m10: number, m11: number, m12: number, m20: number, m21: number, m22: number): Mat;
 
   /**
    * Set the components of a mat3 to the given values
@@ -1892,7 +1892,7 @@ export interface mat3 extends Float32Array {
    * @param {Number} m22 Component in column 2, row 2 position (index 8)
    * @returns {mat3} out
    */
-  // set(out: mat3, m00: number, m01: number, m02: number, m10: number, m11: number, m12: number, m20: number, m21: number, m22: number): mat3; // not Float32Array compatible
+  // set(out: Mat, m00: number, m01: number, m02: number, m10: number, m11: number, m12: number, m20: number, m21: number, m22: number): Mat; // not Float32Array compatible
 
   /**
    * Set a mat3 to the identity matrix
@@ -1900,7 +1900,7 @@ export interface mat3 extends Float32Array {
    * @param {mat3} out the receiving matrix
    * @returns {mat3} out
    */
-  identity(out: mat3): mat3;
+  identity(out: Mat): Mat;
 
   /**
    * Transpose the values of a mat3
@@ -1909,7 +1909,7 @@ export interface mat3 extends Float32Array {
    * @param {mat3} a the source matrix
    * @returns {mat3} out
    */
-  transpose(out: mat3, a: mat3): mat3;
+  transpose(out: Mat, a: Mat): Mat;
 
   /**
    * Inverts a mat3
@@ -1918,7 +1918,7 @@ export interface mat3 extends Float32Array {
    * @param {mat3} a the source matrix
    * @returns {mat3} out
    */
-  invert(out: mat3, a: mat3): mat3;
+  invert(out: Mat, a: Mat): Mat;
 
   /**
    * Calculates the adjugate of a mat3
@@ -1927,7 +1927,7 @@ export interface mat3 extends Float32Array {
    * @param {mat3} a the source matrix
    * @returns {mat3} out
    */
-  adjoint(out: mat3, a: mat3): mat3;
+  adjoint(out: Mat, a: Mat): Mat;
 
   /**
    * Calculates the determinant of a mat3
@@ -1935,7 +1935,7 @@ export interface mat3 extends Float32Array {
    * @param {mat3} a the source matrix
    * @returns {Number} determinant of a
    */
-  determinant(a: mat3): number;
+  determinant(a: Mat): number;
 
   /**
    * Multiplies two mat3's
@@ -1945,7 +1945,7 @@ export interface mat3 extends Float32Array {
    * @param {mat3} b the second operand
    * @returns {mat3} out
    */
-  multiply(out: mat3, a: mat3, b: mat3): mat3;
+  multiply(out: Mat, a: Mat, b: Mat): Mat;
 
   /**
    * Multiplies two mat3's
@@ -1955,7 +1955,7 @@ export interface mat3 extends Float32Array {
    * @param {mat3} b the second operand
    * @returns {mat3} out
    */
-  mul(out: mat3, a: mat3, b: mat3): mat3;
+  mul(out: Mat, a: Mat, b: Mat): Mat;
 
   /**
    * Translate a mat3 by the given vector
@@ -1965,7 +1965,7 @@ export interface mat3 extends Float32Array {
    * @param {vec2} v vector to translate by
    * @returns {mat3} out
    */
-  translate(out: mat3, a: mat3, v: vec2): mat3;
+  translate(out: Mat, a: Mat, v: Vec): Mat;
 
   /**
    * Rotates a mat3 by the given angle
@@ -1975,7 +1975,7 @@ export interface mat3 extends Float32Array {
    * @param {Number} rad the angle to rotate the matrix by
    * @returns {mat3} out
    */
-  rotate(out: mat3, a: mat3, rad: number): mat3;
+  rotate(out: Mat, a: Mat, rad: number): Mat;
 
   /**
    * Scales the mat3 by the dimensions in the given vec2
@@ -1985,20 +1985,20 @@ export interface mat3 extends Float32Array {
    * @param {vec2} v the vec2 to scale the matrix by
    * @returns {mat3} out
    **/
-  scale(out: mat3, a: mat3, v: vec2): mat3;
+  scale(out: Mat, a: Mat, v: Vec): Mat;
 
   /**
    * Creates a matrix from a vector translation
    * This is equivalent to (but much faster than):
    *
    *     mat3.identity(dest);
-   *     mat3.translate(dest, dest, vec);
+   *     mat3.translate(dest, dest, Vec);
    *
    * @param {mat3} out mat3 receiving operation result
    * @param {vec2} v Translation vector
    * @returns {mat3} out
    */
-  fromTranslation(out: mat3, v: vec2): mat3;
+  fromTranslation(out: Mat, v: Vec): Mat;
 
   /**
    * Creates a matrix from a given angle
@@ -2011,20 +2011,20 @@ export interface mat3 extends Float32Array {
    * @param {Number} rad the angle to rotate the matrix by
    * @returns {mat3} out
    */
-  fromRotation(out: mat3, rad: number): mat3;
+  fromRotation(out: Mat, rad: number): Mat;
 
   /**
    * Creates a matrix from a vector scaling
    * This is equivalent to (but much faster than):
    *
    *     mat3.identity(dest);
-   *     mat3.scale(dest, dest, vec);
+   *     mat3.scale(dest, dest, Vec);
    *
    * @param {mat3} out mat3 receiving operation result
    * @param {vec2} v Scaling vector
    * @returns {mat3} out
    */
-  fromScaling(out: mat3, v: vec2): mat3;
+  fromScaling(out: Mat, v: Vec): Mat;
 
   /**
    * Copies the values from a mat2d into a mat3
@@ -2033,7 +2033,7 @@ export interface mat3 extends Float32Array {
    * @param {mat2d} a the matrix to copy
    * @returns {mat3} out
    **/
-  fromMat2d(out: mat3, a: mat2d): mat3;
+  fromMat2d(out: Mat, a: Mat): Mat;
 
   /**
   * Calculates a 3x3 matrix from the given quaternion
@@ -2043,7 +2043,7 @@ export interface mat3 extends Float32Array {
   *
   * @returns {mat3} out
   */
-  fromQuat(out: mat3, q: quat): mat3;
+  fromQuat(out: Mat, q: quat): Mat;
 
   /**
   * Calculates a 3x3 normal matrix (transpose inverse) from the 4x4 matrix
@@ -2053,15 +2053,15 @@ export interface mat3 extends Float32Array {
   *
   * @returns {mat3} out
   */
-  normalFromMat4(out: mat3, a: mat4): mat3;
+  normalFromMat4(out: Mat, a: Mat): Mat;
 
   /**
    * Returns a string representation of a mat3
    *
-   * @param {mat3} mat matrix to represent as a string
+   * @param {mat3} Mat matrix to represent as a string
    * @returns {String} string representation of the matrix
    */
-  str(a: mat3): string;
+  str(a: Mat): string;
 
   /**
    * Returns Frobenius norm of a mat3
@@ -2069,7 +2069,7 @@ export interface mat3 extends Float32Array {
    * @param {mat3} a the matrix to calculate Frobenius norm of
    * @returns {Number} Frobenius norm
    */
-  frob(a: mat3): number;
+  frob(a: Mat): number;
 
   /**
    * Adds two mat3's
@@ -2079,7 +2079,7 @@ export interface mat3 extends Float32Array {
    * @param {mat3} b the second operand
    * @returns {mat3} out
    */
-  add(out: mat3, a: mat3, b: mat3): mat3;
+  add(out: Mat, a: Mat, b: Mat): Mat;
 
   /**
    * Subtracts matrix b from matrix a
@@ -2089,7 +2089,7 @@ export interface mat3 extends Float32Array {
    * @param {mat3} b the second operand
    * @returns {mat3} out
    */
-  subtract(out: mat3, a: mat3, b: mat3): mat3;
+  subtract(out: Mat, a: Mat, b: Mat): Mat;
 
   /**
    * Subtracts matrix b from matrix a
@@ -2099,7 +2099,7 @@ export interface mat3 extends Float32Array {
    * @param {mat3} b the second operand
    * @returns {mat3} out
    */
-  sub(out: mat3, a: mat3, b: mat3): mat3;
+  sub(out: Mat, a: Mat, b: Mat): Mat;
 
   /**
    * Multiply each element of the matrix by a scalar.
@@ -2109,7 +2109,7 @@ export interface mat3 extends Float32Array {
    * @param {Number} b amount to scale the matrix's elements by
    * @returns {mat3} out
    */
-  multiplyScalar(out: mat3, a: mat3, b: number): mat3;
+  multiplyScalar(out: Mat, a: Mat, b: number): Mat;
 
   /**
    * Adds two mat3's after multiplying each element of the second operand by a scalar value.
@@ -2120,7 +2120,7 @@ export interface mat3 extends Float32Array {
    * @param {Number} scale the amount to scale b's elements by before adding
    * @returns {mat3} out
    */
-  multiplyScalarAndAdd(out: mat3, a: mat3, b: mat3, scale: number): mat3;
+  multiplyScalarAndAdd(out: Mat, a: Mat, b: Mat, scale: number): Mat;
 
   /**
    * Returns whether or not the matrices have approximately the same elements in the same position.
@@ -2129,7 +2129,7 @@ export interface mat3 extends Float32Array {
    * @param {mat3} b The second matrix.
    * @returns {Boolean} True if the matrices are equal, false otherwise.
    */
-  equals(a: mat3, b: mat3): boolean;
+  equals(a: Mat, b: Mat): boolean;
 }
 export var mat3: mat3;
 
@@ -2138,13 +2138,13 @@ export var mat3: mat3;
  * @class 4x4 Matrix
  * @name mat4
  */
-export interface mat4 extends Float32Array {
+export interface mat4 {
   /**
    * Creates a new identity mat4
    *
    * @returns {mat4} a new 4x4 matrix
    */
-  create(): mat4;
+  create(): Mat;
 
   /**
    * Creates a new mat4 initialized with values from an existing matrix
@@ -2152,7 +2152,7 @@ export interface mat4 extends Float32Array {
    * @param {mat4} a matrix to clone
    * @returns {mat4} a new 4x4 matrix
    */
-  clone(a: mat4): mat4;
+  clone(a: Mat): Mat;
 
   /**
    * Copy the values from one mat4 to another
@@ -2161,7 +2161,7 @@ export interface mat4 extends Float32Array {
    * @param {mat4} a the source matrix
    * @returns {mat4} out
    */
-  copy(out: mat4, a: mat4): mat4;
+  copy(out: Mat, a: Mat): Mat;
 
   /**
    * Create a new mat4 with the given values
@@ -2184,7 +2184,7 @@ export interface mat4 extends Float32Array {
    * @param {Number} m33 Component in column 3, row 3 position (index 15)
    * @returns {mat4} A new mat4
    */
-  fromValues(m00: number, m01: number, m02: number, m03: number, m10: number, m11: number, m12: number, m13: number, m20: number, m21: number, m22: number, m23: number, m30: number, m31: number, m32: number, m33: number): mat4;
+  fromValues(m00: number, m01: number, m02: number, m03: number, m10: number, m11: number, m12: number, m13: number, m20: number, m21: number, m22: number, m23: number, m30: number, m31: number, m32: number, m33: number): Mat;
 
   /**
    * Set the components of a mat4 to the given values
@@ -2208,7 +2208,7 @@ export interface mat4 extends Float32Array {
    * @param {Number} m33 Component in column 3, row 3 position (index 15)
    * @returns {mat4} out
    */
-  // set(out: mat4, m00: number, m01: number, m02: number, m03: number, m10: number, m11: number, m12: number, m13: number, m20: number, m21: number, m22: number, m23: number, m30: number, m31: number, m32: number, m33: number): mat4; // not Float32Array compatible
+  // set(out: Mat, m00: number, m01: number, m02: number, m03: number, m10: number, m11: number, m12: number, m13: number, m20: number, m21: number, m22: number, m23: number, m30: number, m31: number, m32: number, m33: number): Mat; // not Float32Array compatible
 
   /**
    * Set a mat4 to the identity matrix
@@ -2216,7 +2216,7 @@ export interface mat4 extends Float32Array {
    * @param {mat4} out the receiving matrix
    * @returns {mat4} out
    */
-  identity(out: mat4): mat4;
+  identity(out: Mat): Mat;
 
   /**
    * Transpose the values of a mat4 using SIMD
@@ -2225,7 +2225,7 @@ export interface mat4 extends Float32Array {
    * @param {mat4} a the source matrix
    * @returns {mat4} out
    */
-  transpose(out: mat4, a: mat4): mat4;
+  transpose(out: Mat, a: Mat): Mat;
 
   /**
    * Inverts a mat4 using SIMD
@@ -2234,7 +2234,7 @@ export interface mat4 extends Float32Array {
    * @param {mat4} a the source matrix
    * @returns {mat4} out
    */
-  invert(out: mat4, a: mat4): mat4;
+  invert(out: Mat, a: Mat): Mat;
 
   /**
    * Calculates the adjugate of a mat4 using SIMD
@@ -2243,7 +2243,7 @@ export interface mat4 extends Float32Array {
    * @param {mat4} a the source matrix
    * @returns {mat4} out
    */
-  adjoint(out: mat4, a: mat4): mat4;
+  adjoint(out: Mat, a: Mat): Mat;
 
   /**
    * Calculates the determinant of a mat4
@@ -2251,7 +2251,7 @@ export interface mat4 extends Float32Array {
    * @param {mat4} a the source matrix
    * @returns {Number} determinant of a
    */
-  determinant(a: mat4): number;
+  determinant(a: Mat): number;
 
   /**
    * Multiplies two mat4's explicitly not using SIMD
@@ -2261,7 +2261,7 @@ export interface mat4 extends Float32Array {
    * @param {mat4} b the second operand
    * @returns {mat4} out
    */
-  multiply(out: mat4, a: mat4, b: mat4): mat4;
+  multiply(out: Mat, a: Mat, b: Mat): Mat;
 
   /**
    * Multiplies two mat4's explicitly not using SIMD
@@ -2271,7 +2271,7 @@ export interface mat4 extends Float32Array {
    * @param {mat4} b the second operand
    * @returns {mat4} out
    */
-  mul(out: mat4, a: mat4, b: mat4): mat4;
+  mul(out: Mat, a: Mat, b: Mat): Mat;
 
   /**
    * Translates a mat4 by the given vector using SIMD
@@ -2281,7 +2281,7 @@ export interface mat4 extends Float32Array {
    * @param {vec3} v vector to translate by
    * @returns {mat4} out
    */
-  translate(out: mat4, a: mat4, v: vec3): mat4;
+  translate(out: Mat, a: Mat, v: Vec): Mat;
 
   /**
    * Scales the mat4 by the dimensions in the given vec3 using vectorization
@@ -2291,7 +2291,7 @@ export interface mat4 extends Float32Array {
    * @param {vec3} v the vec3 to scale the matrix by
    * @returns {mat4} out
    **/
-  scale(out: mat4, a: mat4, v: vec3): mat4;
+  scale(out: Mat, a: Mat, v: Vec): Mat;
 
   /**
    * Rotates a mat4 by the given angle around the given axis
@@ -2302,7 +2302,7 @@ export interface mat4 extends Float32Array {
    * @param {vec3} axis the axis to rotate around
    * @returns {mat4} out
    */
-  rotate(out: mat4, a: mat4, rad: number, axis: vec3): mat4;
+  rotate(out: Mat, a: Mat, rad: number, axis: Vec): Mat;
 
   /**
    * Rotates a matrix by the given angle around the X axis using SIMD
@@ -2312,7 +2312,7 @@ export interface mat4 extends Float32Array {
    * @param {Number} rad the angle to rotate the matrix by
    * @returns {mat4} out
    */
-  rotateX(out: mat4, a: mat4, rad: number): mat4;
+  rotateX(out: Mat, a: Mat, rad: number): Mat;
 
   /**
    * Rotates a matrix by the given angle around the Y axis using SIMD
@@ -2322,7 +2322,7 @@ export interface mat4 extends Float32Array {
    * @param {Number} rad the angle to rotate the matrix by
    * @returns {mat4} out
    */
-  rotateY(out: mat4, a: mat4, rad: number): mat4;
+  rotateY(out: Mat, a: Mat, rad: number): Mat;
 
   /**
    * Rotates a matrix by the given angle around the Z axis using SIMD
@@ -2332,33 +2332,33 @@ export interface mat4 extends Float32Array {
    * @param {Number} rad the angle to rotate the matrix by
    * @returns {mat4} out
    */
-  rotateZ(out: mat4, a: mat4, rad: number): mat4;
+  rotateZ(out: Mat, a: Mat, rad: number): Mat;
 
   /**
    * Creates a matrix from a vector translation
    * This is equivalent to (but much faster than):
    *
    *     mat4.identity(dest);
-   *     mat4.translate(dest, dest, vec);
+   *     mat4.translate(dest, dest, Vec);
    *
    * @param {mat4} out mat4 receiving operation result
    * @param {vec3} v Translation vector
    * @returns {mat4} out
    */
-  fromTranslation(out: mat4, v: vec3): mat4;
+  fromTranslation(out: Mat, v: Vec): Mat;
 
   /**
    * Creates a matrix from a vector scaling
    * This is equivalent to (but much faster than):
    *
    *     mat4.identity(dest);
-   *     mat4.scale(dest, dest, vec);
+   *     mat4.scale(dest, dest, Vec);
    *
    * @param {mat4} out mat4 receiving operation result
    * @param {vec3} v Scaling vector
    * @returns {mat4} out
    */
-  fromScaling(out: mat4, v: vec3): mat4;
+  fromScaling(out: Mat, v: Vec): Mat;
 
   /**
    * Creates a matrix from a given angle around a given axis
@@ -2372,7 +2372,7 @@ export interface mat4 extends Float32Array {
    * @param {vec3} axis the axis to rotate around
    * @returns {mat4} out
    */
-  fromRotation(out: mat4, rad: number, axis: vec3): mat4;
+  fromRotation(out: Mat, rad: number, axis: Vec): Mat;
 
   /**
    * Creates a matrix from the given angle around the X axis
@@ -2385,7 +2385,7 @@ export interface mat4 extends Float32Array {
    * @param {Number} rad the angle to rotate the matrix by
    * @returns {mat4} out
    */
-  fromXRotation(out: mat4, rad: number): mat4;
+  fromXRotation(out: Mat, rad: number): Mat;
 
   /**
    * Creates a matrix from the given angle around the Y axis
@@ -2398,7 +2398,7 @@ export interface mat4 extends Float32Array {
    * @param {Number} rad the angle to rotate the matrix by
    * @returns {mat4} out
    */
-  fromYRotation(out: mat4, rad: number): mat4;
+  fromYRotation(out: Mat, rad: number): Mat;
 
   /**
    * Creates a matrix from the given angle around the Z axis
@@ -2411,14 +2411,14 @@ export interface mat4 extends Float32Array {
    * @param {Number} rad the angle to rotate the matrix by
    * @returns {mat4} out
    */
-  fromZRotation(out: mat4, rad: number): mat4;
+  fromZRotation(out: Mat, rad: number): Mat;
 
   /**
    * Creates a matrix from a quaternion rotation and vector translation
    * This is equivalent to (but much faster than):
    *
    *     mat4.identity(dest);
-   *     mat4.translate(dest, vec);
+   *     mat4.translate(dest, Vec);
    *     var quatMat = mat4.create();
    *     quat4.toMat4(quat, quatMat);
    *     mat4.multiply(dest, quatMat);
@@ -2428,7 +2428,7 @@ export interface mat4 extends Float32Array {
    * @param {vec3} v Translation vector
    * @returns {mat4} out
    */
-  fromRotationTranslation(out: mat4, q: quat, v: vec3): mat4;
+  fromRotationTranslation(out: Mat, q: quat, v: Vec): Mat;
 
   /**
    * Returns the translation vector component of a transformation
@@ -2436,10 +2436,10 @@ export interface mat4 extends Float32Array {
    *  the returned vector will be the same as the translation vector
    *  originally supplied.
    * @param  {vec3} out Vector to receive translation component
-   * @param  {mat4} mat Matrix to be decomposed (input)
+   * @param  {mat4} Mat Matrix to be decomposed (input)
    * @return {vec3} out
    */
-  getTranslation(out: vec3, mat: mat4): vec3;
+  getTranslation(out: Vec, Mat: Mat): Vec;
 
   /**
    * Returns a quaternion representing the rotational component
@@ -2447,17 +2447,17 @@ export interface mat4 extends Float32Array {
    *  fromRotationTranslation, the returned quaternion will be the
    *  same as the quaternion originally supplied.
    * @param {quat} out Quaternion to receive the rotation component
-   * @param {mat4} mat Matrix to be decomposed (input)
+   * @param {mat4} Mat Matrix to be decomposed (input)
    * @return {quat} out
    */
-  getRotation(out: quat, mat: mat4): quat;
+  getRotation(out: quat, Mat: Mat): quat;
 
   /**
    * Creates a matrix from a quaternion rotation, vector translation and vector scale
    * This is equivalent to (but much faster than):
    *
    *     mat4.identity(dest);
-   *     mat4.translate(dest, vec);
+   *     mat4.translate(dest, Vec);
    *     var quatMat = mat4.create();
    *     quat4.toMat4(quat, quatMat);
    *     mat4.multiply(dest, quatMat);
@@ -2469,14 +2469,14 @@ export interface mat4 extends Float32Array {
    * @param {vec3} s Scaling vector
    * @returns {mat4} out
    */
-  fromRotationTranslationScale(out: mat4, q: quat, v: vec3, s: vec3): mat4;
+  fromRotationTranslationScale(out: Mat, q: quat, v: Vec, s: Vec): Mat;
 
   /**
    * Creates a matrix from a quaternion rotation, vector translation and vector scale, rotating and scaling around the given origin
    * This is equivalent to (but much faster than):
    *
    *     mat4.identity(dest);
-   *     mat4.translate(dest, vec);
+   *     mat4.translate(dest, Vec);
    *     mat4.translate(dest, origin);
    *     var quatMat = mat4.create();
    *     quat4.toMat4(quat, quatMat);
@@ -2491,7 +2491,7 @@ export interface mat4 extends Float32Array {
    * @param {vec3} o The origin vector around which to scale and rotate
    * @returns {mat4} out
    */
-  fromRotationTranslationScaleOrigin(out: mat4, q: quat, v: vec3, s: vec3, o: vec3): mat4;
+  fromRotationTranslationScaleOrigin(out: Mat, q: quat, v: Vec, s: Vec, o: Vec): Mat;
 
   /**
    * Calculates a 4x4 matrix from the given quaternion
@@ -2501,7 +2501,7 @@ export interface mat4 extends Float32Array {
    *
    * @returns {mat4} out
    */
-  fromQuat(out: mat4, q: quat): mat4;
+  fromQuat(out: Mat, q: quat): Mat;
 
   /**
    * Generates a frustum matrix with the given bounds
@@ -2515,7 +2515,7 @@ export interface mat4 extends Float32Array {
    * @param {Number} far Far bound of the frustum
    * @returns {mat4} out
    */
-  frustum(out: mat4, left: number, right: number, bottom: number, top: number, near: number, far: number): mat4;
+  frustum(out: Mat, left: number, right: number, bottom: number, top: number, near: number, far: number): Mat;
 
   /**
    * Generates a perspective projection matrix with the given bounds
@@ -2527,7 +2527,7 @@ export interface mat4 extends Float32Array {
    * @param {number} far Far bound of the frustum
    * @returns {mat4} out
    */
-  perspective(out: mat4, fovy: number, aspect: number, near: number, far: number): mat4;
+  perspective(out: Mat, fovy: number, aspect: number, near: number, far: number): Mat;
 
   /**
    * Generates a perspective projection matrix with the given field of view.
@@ -2540,7 +2540,7 @@ export interface mat4 extends Float32Array {
    * @param {number} far Far bound of the frustum
    * @returns {mat4} out
    */
-  perspectiveFromFieldOfView(out: mat4, fov: {upDegrees: number, downDegrees: number, leftDegrees: number, rightDegrees: number}, near: number, far: number): mat4;
+  perspectiveFromFieldOfView(out: Mat, fov: {upDegrees: number, downDegrees: number, leftDegrees: number, rightDegrees: number}, near: number, far: number): Mat;
 
   /**
    * Generates a orthogonal projection matrix with the given bounds
@@ -2554,7 +2554,7 @@ export interface mat4 extends Float32Array {
    * @param {number} far Far bound of the frustum
    * @returns {mat4} out
    */
-  ortho(out: mat4, left: number, right: number, bottom: number, top: number, near: number, far: number): mat4;
+  ortho(out: Mat, left: number, right: number, bottom: number, top: number, near: number, far: number): Mat;
 
   /**
    * Generates a look-at matrix with the given eye position, focal point, and up axis
@@ -2565,15 +2565,15 @@ export interface mat4 extends Float32Array {
    * @param {vec3} up vec3 pointing up
    * @returns {mat4} out
    */
-  lookAt(out: mat4, eye: vec3, center: vec3, up: vec3): mat4;
+  lookAt(out: Mat, eye: Vec, center: Vec, up: Vec): Mat;
 
   /**
    * Returns a string representation of a mat4
    *
-   * @param {mat4} mat matrix to represent as a string
+   * @param {mat4} Mat matrix to represent as a string
    * @returns {String} string representation of the matrix
    */
-  str(a: mat4): string;
+  str(a: Mat): string;
 
   /**
    * Returns Frobenius norm of a mat4
@@ -2581,7 +2581,7 @@ export interface mat4 extends Float32Array {
    * @param {mat4} a the matrix to calculate Frobenius norm of
    * @returns {Number} Frobenius norm
    */
-  frob(a: mat4): number;
+  frob(a: Mat): number;
 
   /**
    * Adds two mat4's
@@ -2591,7 +2591,7 @@ export interface mat4 extends Float32Array {
    * @param {mat4} b the second operand
    * @returns {mat4} out
    */
-  add(out: mat4, a: mat4, b: mat4): mat4;
+  add(out: Mat, a: Mat, b: Mat): Mat;
 
   /**
    * Subtracts matrix b from matrix a
@@ -2601,7 +2601,7 @@ export interface mat4 extends Float32Array {
    * @param {mat4} b the second operand
    * @returns {mat4} out
    */
-  subtract(out: mat4, a: mat4, b: mat4): mat4;
+  subtract(out: Mat, a: Mat, b: Mat): Mat;
 
   /**
    * Subtracts matrix b from matrix a
@@ -2611,7 +2611,7 @@ export interface mat4 extends Float32Array {
    * @param {mat4} b the second operand
    * @returns {mat4} out
    */
-  sub(out: mat4, a: mat4, b: mat4): mat4;
+  sub(out: Mat, a: Mat, b: Mat): Mat;
 
   /**
    * Multiply each element of the matrix by a scalar.
@@ -2621,7 +2621,7 @@ export interface mat4 extends Float32Array {
    * @param {Number} b amount to scale the matrix's elements by
    * @returns {mat4} out
    */
-  multiplyScalar(out: mat4, a: mat4, b: number): mat4;
+  multiplyScalar(out: Mat, a: Mat, b: number): Mat;
 
   /**
    * Adds two mat4's after multiplying each element of the second operand by a scalar value.
@@ -2632,7 +2632,7 @@ export interface mat4 extends Float32Array {
    * @param {Number} scale the amount to scale b's elements by before adding
    * @returns {mat4} out
    */
-  multiplyScalarAndAdd(out: mat4, a: mat4, b: mat4, scale: number): mat4;
+  multiplyScalarAndAdd(out: Mat, a: Mat, b: Mat, scale: number): Mat;
 
   /**
    * Returns whether or not the matrices have exactly the same elements in the same position (when compared with ===)
@@ -2641,7 +2641,7 @@ export interface mat4 extends Float32Array {
    * @param {mat4} b The second matrix.
    * @returns {Boolean} True if the matrices are equal, false otherwise.
    */
-  exactEquals(a: mat4, b: mat4): boolean;
+  exactEquals(a: Mat, b: Mat): boolean;
 
   /**
    * Returns whether or not the matrices have approximately the same elements in the same position.
@@ -2650,7 +2650,7 @@ export interface mat4 extends Float32Array {
    * @param {mat4} b The second matrix.
    * @returns {Boolean} True if the matrices are equal, false otherwise.
    */
-  equals(a: mat4, b: mat4): boolean;
+  equals(a: Mat, b: Mat): boolean;
 }
 export var mat4: mat4;
 
@@ -2659,7 +2659,7 @@ export var mat4: mat4;
  * @class Quaternion
  * @name quat
  */
-export interface quat extends Float32Array {
+export interface quat {
   /**
    * Creates a new identity quat
    *
@@ -2678,7 +2678,7 @@ export interface quat extends Float32Array {
    * @param {vec3} b the destination vector
    * @returns {quat} out
    */
-  rotationTo(out: quat, a: vec3, b: vec3): quat;
+  rotationTo(out: quat, a: Vec, b: Vec): quat;
 
   /**
    * Sets the specified quaternion with values corresponding to the given
@@ -2690,7 +2690,7 @@ export interface quat extends Float32Array {
    * @param {vec3} up    the vector representing the local "up" direction
    * @returns {quat} out
    */
-  setAxes(out: vec3, view: vec3, right: vec3, up: quat): quat;
+  setAxes(out: Vec, view: Vec, right: Vec, up: quat): quat;
 
   /**
    * Creates a new quat initialized with values from an existing quaternion
@@ -2753,7 +2753,7 @@ export interface quat extends Float32Array {
    * @param {Number} rad the angle in radians
    * @returns {quat} out
    **/
-  setAxisAngle(out: quat, axis: vec3, rad: number): quat;
+  setAxisAngle(out: quat, axis: Vec, rad: number): quat;
 
   /**
    * Gets the rotation axis and angle for a given
@@ -2768,7 +2768,7 @@ export interface quat extends Float32Array {
    * @param  {quat} q     Quaternion to be decomposed
    * @return {Number}     Angle, in radians, of the rotation
    */
-  getAxisAngle(out_axis: vec3, q: quat): number;
+  getAxisAngle(out_axis: Vec, q: quat): number;
 
   /**
    * Adds two quat's
@@ -2975,12 +2975,12 @@ export interface quat extends Float32Array {
    * @returns {quat} out
    * @function
    */
-  fromMat3(out: quat, m: mat3): quat;
+  fromMat3(out: quat, m: Mat): quat;
 
   /**
    * Returns a string representation of a quatenion
    *
-   * @param {quat} vec vector to represent as a string
+   * @param {quat} Vec vector to represent as a string
    * @returns {String} string representation of the vector
    */
   str(a: quat): string;
