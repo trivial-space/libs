@@ -1,22 +1,23 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "es6",
     "lib": ["es6", "dom"],
-    "module": "commonjs",
+    "module": "es6",
+    "allowJs": false,
+    "sourceMap": true,
     "moduleResolution": "node",
-    "isolatedModules": false,
-    "declaration": false,
-    "noImplicitUseStrict": false,
+    "declaration": true,
     "removeComments": true,
     "preserveConstEnums": true,
-    "suppressImplicitAnyIndexErrors": true
+    "outDir": "lib"
   },
+  "files": ["src/index.ts", "gl-matrix.d.ts"],
   "exclude": [
     "node_modules",
     "spec"
   ],
   "compileOnSave": false,
-  "buildOnSave": false,
+  "buildOnSave": true,
   "atom": {
     "rewriteTsconfig": false
   }

@@ -4,7 +4,7 @@ var path = require('path'),
 
 module.exports = {
 
-  entry: path.resolve(__dirname, "./lib/index.ts"),
+  entry: path.resolve(__dirname, "./lib/index.js"),
 
   output: {
     path: path.resolve(__dirname, "./dist"),
@@ -15,21 +15,23 @@ module.exports = {
 
   module: {
     loaders: [
-      { test: /\.tsx?$/, loader: 'ts-loader' }
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'babel',
+        query: {
+          presets: ['es2015']
+        }
+      }
     ]
   },
 
-  resolve: {
-    // Add `.ts` and `.tsx` as a resolvable extension.
-    extensions: ['', '.json', '.ts', '.tsx', '.js', '.coffee'],
-    root: [
-      path.resolve(__dirname, "./lib")
-    ]
-  },
+  devtool: "source-map",
+  debug: true,
 
   plugins: [
     new webpack.optimize.UglifyJsPlugin({
-      beautify: true
+      beautify: false
     })
   ]
 }

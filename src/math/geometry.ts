@@ -1,20 +1,20 @@
-import {Vec, Mat, vec3, fvec3, vec4, mat4} from './gl-matrix'
+import {GLVec, GLMat, vec3, fvec3, vec4, mat4} from './gl-matrix'
 
 
 export function planeFromNormalAndCoplanarPoint(
-  n: Vec,
-  point: Vec
-): Vec {
+  n: GLVec,
+  point: GLVec
+): GLVec {
   const d = -vec3.dot(n, point)
   return vec4.fromValues(n[0], n[1], n[2], d)
 }
 
 
 export function planeFromThreeCoplanarPoints(
-  p1: Vec,
-  p2: Vec,
-  p3: Vec
-): Vec {
+  p1: GLVec,
+  p2: GLVec,
+  p3: GLVec
+): GLVec {
   return planeFromNormalAndCoplanarPoint(
     normalFromThreeCoplanarPoints(p1, p2, p3), p1
   )
@@ -22,10 +22,10 @@ export function planeFromThreeCoplanarPoints(
 
 
 export function normalFromThreeCoplanarPoints(
-  p1: Vec,
-  p2: Vec,
-  p3: Vec
-): Vec {
+  p1: GLVec,
+  p2: GLVec,
+  p3: GLVec
+): GLVec {
   const n = fvec3.cross(fvec3.sub(p3, p2), fvec3.sub(p1, p2))
   return vec3.normalize(n, n)
 }
@@ -44,7 +44,7 @@ http://khayyam.kaplinski.com/2011/09/reflective-water-with-glsl-part-i.html
 https://www.opengl.org/discussion_boards/showthread.php/147784-Mirror-Matrices
 */
 
-export function mirrorMatrixFromPlane(plane: Vec): Mat {
+export function mirrorMatrixFromPlane(plane: GLVec): GLMat {
   let [a, b, c, d] = plane as number[]
 
   return mat4.fromValues(
