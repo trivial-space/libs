@@ -14,3 +14,14 @@ export function windowSize (callback) {
     window.removeEventListener('resize', resize)
   }
 }
+
+
+export function windowSizeObserver() {
+  const state = {
+    size: null
+  }
+
+  const destroy = windowSize(s => state.size = s)
+
+  return { state, destroy }
+}
