@@ -8,3 +8,5 @@ export declare function grey(scale: number, alpha: number): ColorRGBA;
 export declare function colorRgbaToCSS([r, g, b, a]: ColorRGBA): string;
 export declare function intToFloat(color: Color): Color;
 export declare function floatToInt(color: Color): Color;
+export declare function hexToRgb(hex: number): ColorRGB;
+export declare function hexStringToRgb(s: string): ColorRGB;

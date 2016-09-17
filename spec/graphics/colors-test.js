@@ -38,16 +38,18 @@ describe('graphics colors', function() {
 
   describe('hexToRgb', function() {
 
-    xit('converts a integer to a rgb color', function() {
+    it('converts a integer to a rgb color', function() {
       expect(colors.hexToRgb(0x2334af)).to.deep.equal([0x23, 0x34, 0xaf])
     })
   })
 
 
-  describe('hexToRgba', function() {
+  describe('hexStringToRgb', function() {
 
-    xit('converts a integer to a rgba color', function() {
-      expect(colors.hexToRgba(0x2334af31)).to.deep.equal([0x23, 0x34, 0xaf, 0x31])
+    it('converts a hex string to a rgb color', function() {
+      expect(colors.hexStringToRgb("#2334af")).to.deep.equal([0x23, 0x34, 0xaf])
+      expect(colors.hexStringToRgb("2334af")).to.deep.equal([0x23, 0x34, 0xaf])
     })
   })
+
 })

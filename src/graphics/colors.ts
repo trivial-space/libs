@@ -52,3 +52,20 @@ export function intToFloat(color: Color): Color {
 export function floatToInt(color: Color): Color {
   return color.map(v => Math.floor(v * 255)) as Color
 }
+
+
+export function hexToRgb(hex: number): ColorRGB {
+  hex = Math.floor( hex )
+
+  let r = ( hex >> 16 & 255 ),
+      g = ( hex >> 8 & 255 ),
+      b = ( hex & 255 )
+
+  return [r, g, b]
+}
+
+
+export function hexStringToRgb(s: string): ColorRGB {
+  const a = s.split('#')
+  return hexToRgb(parseInt(a[a.length - 1], 16))
+}
