@@ -3,7 +3,7 @@ export const generateUUID = (function() {
   const uuid = new Array(36)
 
   let rnd = 0,
-      r = null
+      r = 0
 
   return function() {
     let i = 0

@@ -2,7 +2,7 @@ export type Vec = number[] | Float32Array
 
 
 export function add (vec1: Vec, vec2: Vec): number[] {
-  const results = []
+  const results: number[] = []
   for (let i = 0; i < vec1.length; i++) {
     results[i] = vec1[i] + vec2[i]
   }
@@ -11,7 +11,7 @@ export function add (vec1: Vec, vec2: Vec): number[] {
 
 
 export function addScalar (vec: Vec, scalar: number): number[] {
-  const results = []
+  const results: number[] = []
   for (let i = 0; i < vec.length; i++) {
     results[i] = vec[i] + scalar
   }
@@ -20,7 +20,7 @@ export function addScalar (vec: Vec, scalar: number): number[] {
 
 
 export function sub (vec1: Vec, vec2: Vec): number[] {
-  const results = []
+  const results: number[] = []
   for (let i = 0; i < vec1.length; i++) {
     results[i] = vec1[i] - vec2[i]
   }
@@ -29,7 +29,7 @@ export function sub (vec1: Vec, vec2: Vec): number[] {
 
 
 export function subScalar (vec: Vec, scalar: number): number[] {
-  const results = []
+  const results: number[] = []
   for (let i = 0; i < vec.length; i++) {
     results[i] = vec[i] - scalar
   }
@@ -38,7 +38,7 @@ export function subScalar (vec: Vec, scalar: number): number[] {
 
 
 export function mul (vec: Vec, scalar: number): number[] {
-  const results = []
+  const results: number[] = []
   for (let i = 0; i < vec.length; i++) {
     results[i] = vec[i] * scalar
   }
@@ -47,13 +47,11 @@ export function mul (vec: Vec, scalar: number): number[] {
 
 
 export function div (vec: Vec, scalar: number): number[] {
-  if (scalar) {
-    const results = []
-    for (let i = 0; i < vec.length; i++) {
-      results[i] = vec[i] / scalar
-    }
-    return results
+  const results: number[] = []
+  for (let i = 0; i < vec.length; i++) {
+    results[i] = vec[i] / scalar
   }
+  return results
 }
 
 

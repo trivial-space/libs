@@ -296,7 +296,7 @@ export function noise3d(xin, yin, zin) {
 
 
 // 4D simplex noise, better simplex rank ordering method 2012-03-09
-export function noise4d(x, y, z, w) {
+export function noise4d(x: number, y: number, z: number, w: number) {
 
     var n0, n1, n2, n3, n4; // Noise contributions from the five corners
     // Skew the (x,y,z,w) space to determine which cell of 24 simplices we're in
@@ -427,15 +427,15 @@ export function tileNoise(
   dy: number
 ): number[] {
 
-  const noise = []
+  const noise: number[] = []
   for (let y = 0; y < height; y++) {
     for (let x = 0; x < width; x++) {
       const s = x / width,
-      t = y / height,
-      nx = Math.cos(s * 2 * Math.PI) * dx / (2 * Math.PI),
-      ny = Math.cos(t * 2 * Math.PI) * dy / (2 * Math.PI),
-      nz = Math.sin(s * 2 * Math.PI) * dx / (2 * Math.PI),
-      nw = Math.sin(t * 2 * Math.PI) * dy / (2 * Math.PI)
+            t = y / height,
+            nx = Math.cos(s * 2 * Math.PI) * dx / (2 * Math.PI),
+            ny = Math.cos(t * 2 * Math.PI) * dy / (2 * Math.PI),
+            nz = Math.sin(s * 2 * Math.PI) * dx / (2 * Math.PI),
+            nw = Math.sin(t * 2 * Math.PI) * dy / (2 * Math.PI)
       noise.push(noise4d(nx, ny, nz, nw))
     }
   }

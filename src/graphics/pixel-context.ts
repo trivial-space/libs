@@ -207,6 +207,8 @@ export function createImgDataFromImage (img: HTMLImageElement) {
   c.width = img.width
   c.height = img.height
   const ctx = c.getContext("2d")
-  ctx.drawImage(img, 0, 0, img.width, img.height)
-  return ctx.getImageData(0, 0, img.width, img.height)
+  if (ctx) {
+    ctx.drawImage(img, 0, 0, img.width, img.height)
+    return ctx.getImageData(0, 0, img.width, img.height)
+  }
 }

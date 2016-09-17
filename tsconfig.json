@@ -3,7 +3,7 @@
     "target": "es6",
     "lib": ["es6", "dom"],
     "module": "es6",
-    "allowJs": false,
+    "strictNullChecks": true,
     "sourceMap": true,
     "moduleResolution": "node",
     "declaration": true,
@@ -11,10 +11,8 @@
     "preserveConstEnums": true,
     "outDir": "lib"
   },
-  "files": ["src/index.ts", "gl-matrix.d.ts"],
-  "exclude": [
-    "node_modules",
-    "spec"
+  "files": [
+    "src/index.ts"
   ],
   "compileOnSave": false,
   "buildOnSave": true,
