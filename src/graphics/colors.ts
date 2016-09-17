@@ -3,6 +3,7 @@ import {lerp} from '../math/core'
 
 export type ColorRGBA = [number, number, number, number]
 export type ColorRGB = [number, number, number]
+export type Color = ColorRGB | ColorRGBA
 
 
 export const BLACK = [0, 0, 0, 255]
@@ -40,4 +41,14 @@ export function colorRgbaToCSS(
 ): string {
 
   return "rgba(" + r + ", " + g + ", " + b + ", " + (a / 255) + ")"
+}
+
+
+export function intToFloat(color: Color): Color {
+  return color.map(v => v / 255) as Color
+}
+
+
+export function floatToInt(color: Color): Color {
+  return color.map(v => Math.floor(v * 255)) as Color
 }

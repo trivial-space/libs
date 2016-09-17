@@ -11,6 +11,7 @@ describe('math coords', function() {
     expect(cartesianToPolar2D([0, -100])).to.deep.equal([100, -Math.PI / 2])
   })
 
+
   it('polarToCartesian2D', function() {
     expect(polarToCartesian2D([100, 0])).to.deep.equal([100, 0])
 

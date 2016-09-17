@@ -10,6 +10,9 @@ import * as eventsKey from "./events/keyboard"
 import * as eventsMouse from "./events/mouse"
 import * as utilsString from "./utils/string"
 import * as utilsAnimation from "./utils/animation"
+import * as graphicsColors from "./graphics/colors"
+import * as graphicsTextures from "./graphics/textures"
+import * as graphicsPixesls from "./graphics/pixel-context"
 
 
 export const math = {
@@ -40,4 +43,11 @@ export const utils = {
 }
 
 
-export default { math, vr, events, utils }
+export const graphics = {
+  colors: graphicsColors,
+  pixels: graphicsPixesls,
+  textures: graphicsTextures
+}
+
+
+export default { math, vr, events, utils, graphics }

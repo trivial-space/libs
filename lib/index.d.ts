@@ -10,6 +10,9 @@ import * as eventsKey from "./events/keyboard";
 import * as eventsMouse from "./events/mouse";
 import * as utilsString from "./utils/string";
 import * as utilsAnimation from "./utils/animation";
+import * as graphicsColors from "./graphics/colors";
+import * as graphicsTextures from "./graphics/textures";
+import * as graphicsPixesls from "./graphics/pixel-context";
 export declare const math: {
     core: typeof mathCore;
     noise: typeof mathNoise;
@@ -29,6 +32,11 @@ export declare const events: {
 export declare const utils: {
     animation: typeof utilsAnimation;
     string: typeof utilsString;
+};
+export declare const graphics: {
+    colors: typeof graphicsColors;
+    pixels: typeof graphicsPixesls;
+    textures: typeof graphicsTextures;
 };
 declare var _default: {
     math: {
@@ -50,6 +58,11 @@ declare var _default: {
     utils: {
         animation: typeof utilsAnimation;
         string: typeof utilsString;
+    };
+    graphics: {
+        colors: typeof graphicsColors;
+        pixels: typeof graphicsPixesls;
+        textures: typeof graphicsTextures;
     };
 };
 export default _default;

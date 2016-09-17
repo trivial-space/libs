@@ -1,7 +1,7 @@
 export declare function windowSize(callback: any): () => void;
 export declare function windowSizeObserver(): {
     state: {
-        size: any;
+        size: null;
     };
     destroy: () => void;
 };
