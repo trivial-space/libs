@@ -57,6 +57,11 @@ module.exports = function (config) {
     reporters: ['mocha'],
 
 
+    mochaReporter: {
+        showDiff: true
+    },
+
+
     // web server port
     port: 9876,
 
