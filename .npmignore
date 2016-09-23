@@ -1,0 +1,10 @@
+.idea
+.DS_Store
+node_modules
+spec
+src
+.git
+.tern-project
+karma.conf.js
+webpack.config.js
+tsconfig.json
