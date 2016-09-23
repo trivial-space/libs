@@ -6,6 +6,8 @@
     "strictNullChecks": true,
     "sourceMap": true,
     "moduleResolution": "node",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "declaration": true,
     "removeComments": true,
     "preserveConstEnums": true,
@@ -14,8 +16,8 @@
   "files": [
     "src/index.ts"
   ],
-  "compileOnSave": false,
-  "buildOnSave": true,
+  "compileOnSave": true,
+  "buildOnSave": false,
   "atom": {
     "rewriteTsconfig": false
   }
