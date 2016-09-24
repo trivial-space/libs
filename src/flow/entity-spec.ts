@@ -6,6 +6,7 @@ import {Entity, Graph, Process, Procedure, Meta, Ports, PortType} from "./types"
 export interface EntitySpec {
   value?: any
   stream?: ProcessSpec
+  streams?: ProcessSpec[]
   json?: string
   isEvent?: boolean
   meta?: Meta
@@ -158,6 +159,17 @@ export function processEntitySpec (
 
   if (spec.stream) {
     graph = mergeGraphs(graph, processProcessSpec(eid, spec.stream, path))
+  }
+
+  if (spec.streams) {
+    graph = spec.streams
+      .map(pSpec => processProcessSpec(eid, pSpec, path))
+      .map((graph, i) => {
+        graph.processes[0].id += i + 1
+        graph.arcs.forEach(a => a.process += i + 1)
+        return graph
+      })
+      .reduce(mergeGraphs, graph)
   }
 
   graph.entities.push(entity)

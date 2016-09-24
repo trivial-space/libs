@@ -2,6 +2,7 @@ import { Graph, Procedure, Meta } from "./types";
 export interface EntitySpec {
     value?: any;
     stream?: ProcessSpec;
+    streams?: ProcessSpec[];
     json?: string;
     isEvent?: boolean;
     meta?: Meta;

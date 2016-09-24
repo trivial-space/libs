@@ -214,7 +214,49 @@ describe('flow entitySpec', function () {
           port: "e1"
         }]
       })
+    })
 
+
+    it('from entity with multiple streams', function() {
+      const p1 = () => {}
+      const p2 = () => {}
+
+      const spec = {
+        streams: [{
+          do: p1
+        }, {
+          do: p2,
+          vals: {
+            e1: "H entity1",
+            e2: "A"
+          }
+        }]
+      }
+
+      expect(processEntitySpec("entity2", spec)).to.eql({
+        entities: [{
+          id: "entity2",
+        }],
+        processes: [{
+          id: "entity2-stream1",
+          procedure: p1
+        }, {
+          id: "entity2-stream2",
+          procedure: p2,
+          ports: {e1: "HOT", e2: "ACCUMULATOR"}
+        }],
+        arcs: [{
+          process: "entity2-stream1",
+          entity: "entity2"
+        }, {
+          process: "entity2-stream2",
+          entity: "entity2"
+        }, {
+          entity: "entity1",
+          process: "entity2-stream2",
+          port: "e1"
+        }]
+      })
     })
   })
 
