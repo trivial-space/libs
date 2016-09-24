@@ -50,7 +50,7 @@ export function closedPosition(
 }
 
 
-function createPixelContext(
+export function createPixelContext(
   adjustPos: (pos: Position, imgData: ImageData) => Position
 ) {
 

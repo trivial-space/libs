@@ -3,7 +3,7 @@ import * as glMatrix from 'gl-matrix'
 const v3 = glMatrix.vec3
 
 type V = glMatrix.GLVec
-type M = glMatrix.GLVec
+//type M = glMatrix.GLVec
 
 export const fvec3 = {
   add: (a: V, b: V) => v3.add(v3.create(), a, b),

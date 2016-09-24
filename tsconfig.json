@@ -11,13 +11,14 @@
     "declaration": true,
     "removeComments": true,
     "preserveConstEnums": true,
-    "outDir": "lib"
+    "outDir": "lib",
+    "rootDir": "src"
   },
   "files": [
     "src/index.ts"
   ],
-  "compileOnSave": true,
-  "buildOnSave": false,
+  "compileOnSave": false,
+  "buildOnSave": true,
   "atom": {
     "rewriteTsconfig": false
   }
