@@ -56,7 +56,9 @@ export function processProcessSpec (
   path?: string
 ): Graph {
 
-  if (path) eid = mergePath(eid, path)
+  if (path) {
+    eid = mergePath(eid, path)
+  }
 
   const pid = eid + processNameSuffix
 
