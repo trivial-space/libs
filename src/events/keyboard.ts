@@ -117,14 +117,17 @@ export const Keys = {
 }
 
 
-export function keyboard(callback: (val: any) => void, opts: any = {}) {
+export type KeyState = {[key: number]: number}
+
+
+export function keyboard(callback: (val: KeyState) => void, opts: any = {}) {
 
 
   const {
     element = window
   } = opts
 
-  const pressed = {}
+  const pressed: KeyState = {}
 
   function onKeydown(event) {
     pressed[event.keyCode] = Date.now()
@@ -146,16 +149,24 @@ export function keyboard(callback: (val: any) => void, opts: any = {}) {
 }
 
 
-export function keyboardObserver(opts?: any) {
+export interface KeyObserver {
+  Keys: typeof Keys
+  state: {
+    pressed: {[keyCode: number]: number}
+  }
+  destroy: () => void
+}
 
-  const observer = {
+export function keyboardObserver(opts?: any): KeyObserver {
+
+  const observer: KeyObserver = {
     Keys,
-    state: null,
+    state: {pressed: {}},
     destroy: () => {}
   }
 
-  function callback (state) {
-    observer.state = state
+  function callback (pressed) {
+    observer.state.pressed = pressed
   }
 
   observer.destroy = keyboard(callback, opts)

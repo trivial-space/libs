@@ -5,7 +5,16 @@ export const Buttons = {
 }
 
 
-export function mouse(callback: (val: any) => void, opts: any = {}) {
+export interface MouseState {
+  pressed: {[btn: number]: number}
+  dragDelta: {
+    x: number,
+    y: number
+  }
+}
+
+
+export function mouse(callback: (val: MouseState) => void, opts: any = {}) {
 
   const {
     element = document,
@@ -84,15 +93,25 @@ export function mouse(callback: (val: any) => void, opts: any = {}) {
 }
 
 
-export function mouseObserver(opts: any = {}) {
+export interface MouseObserver {
+  Buttons: typeof Buttons,
+  state: MouseState,
+  destroy: () => void
+}
 
-  const observer = {
+
+export function mouseObserver(opts: any = {}): MouseObserver {
+
+  const observer: MouseObserver = {
     Buttons,
-    state: null,
+    state: {
+      pressed: {},
+      dragDelta: { x: 0, y: 0 }
+    },
     destroy: () => {}
   }
 
-  function callback (state) {
+  function callback (state: MouseState) {
     observer.state = state
   }
 

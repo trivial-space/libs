@@ -1,7 +1,12 @@
-export declare function windowSize(callback: any): () => void;
-export declare function windowSizeObserver(): {
+export interface WindowSizeState {
+    width: number;
+    height: number;
+}
+export declare function windowSize(callback: (s: WindowSizeState) => void): () => void;
+export interface WindowSizeObserver {
     state: {
-        size: null;
+        size: WindowSizeState;
     };
     destroy: () => void;
-};
+}
+export declare function windowSizeObserver(): WindowSizeObserver;
