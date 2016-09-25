@@ -5,15 +5,17 @@ export const Buttons = {
 }
 
 
-export function mouseObserver(opts: any = {}) {
+export function mouse(callback: (val: any) => void, opts: any = {}) {
 
   const {
     element = document,
     enableRightButton
   } = opts
 
-  const pressed = {}
-  const dragDelta = { x: 0, y: 0 }
+  const state = {
+    pressed: {},
+    dragDelta: { x: 0, y: 0 }
+  }
 
   let x = 0,
       y = 0,
@@ -22,31 +24,38 @@ export function mouseObserver(opts: any = {}) {
 
   function onMouseDown (e: MouseEvent) {
 
-    pressed[e.button] = Date.now()
+    state.pressed[e.button] = Date.now()
 
     if (e.button === Buttons.LEFT) {
       x = e.clientX
       y = e.clientY
       dragging = true
     }
+
+    callback(state)
   }
 
 
   function onMouseUp(e: MouseEvent) {
 
-    delete pressed[e.button]
+    delete state.pressed[e.button]
 
-    dragDelta.x = 0
-    dragDelta.y = 0
+    state.dragDelta.x = 0
+    state.dragDelta.y = 0
+
     dragging = false
+
+    callback(state)
   }
 
 
   function onMouseMove(e: MouseEvent) {
     if (dragging) {
-      dragDelta.x = x - e.clientX
-      dragDelta.y = y - e.clientY
+      state.dragDelta.x = x - e.clientX
+      state.dragDelta.y = y - e.clientY
     }
+
+    callback(state)
   }
 
 
@@ -64,7 +73,7 @@ export function mouseObserver(opts: any = {}) {
   }
 
 
-  function destroy() {
+  return function destroy() {
     element.removeEventListener("mousedown", onMouseDown)
     document.removeEventListener("mousemove", onMouseMove)
     document.removeEventListener("mouseup", onMouseUp)
@@ -72,15 +81,22 @@ export function mouseObserver(opts: any = {}) {
       element.removeEventListener("contextmenu", preventDefault)
     }
   }
+}
 
 
-  return {
+export function mouseObserver(opts: any = {}) {
+
+  const observer = {
     Buttons,
-    state: {
-      pressed,
-      dragDelta
-    },
-    destroy
+    state: null,
+    destroy: () => {}
   }
 
+  function callback (state) {
+    observer.state = state
+  }
+
+  observer.destroy = mouse(callback, opts)
+
+  return observer
 }

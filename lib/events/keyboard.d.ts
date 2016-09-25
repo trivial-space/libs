@@ -115,6 +115,7 @@ export declare const Keys: {
     QUOTE: number;
     META: number;
 };
+export declare function keyboard(callback: (val: any) => void, opts?: any): () => void;
 export declare function keyboardObserver(opts?: any): {
     Keys: {
         0: number;
@@ -233,8 +234,6 @@ export declare function keyboardObserver(opts?: any): {
         QUOTE: number;
         META: number;
     };
-    state: {
-        pressed: {};
-    };
+    state: null;
     destroy: () => void;
 };

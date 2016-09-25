@@ -117,7 +117,8 @@ export const Keys = {
 }
 
 
-export function keyboardObserver(opts: any = {}) {
+export function keyboard(callback: (val: any) => void, opts: any = {}) {
+
 
   const {
     element = window
@@ -127,25 +128,37 @@ export function keyboardObserver(opts: any = {}) {
 
   function onKeydown(event) {
     pressed[event.keyCode] = Date.now()
+    callback(pressed)
   }
 
   function onKeyup(event) {
     delete pressed[event.keyCode]
+    callback(pressed)
   }
 
   element.addEventListener('keyup', onKeyup, false)
   element.addEventListener('keydown', onKeydown, false)
 
-  function destroy() {
+  return function stop() {
     element.removeEventListener('keyup', onKeyup)
     element.removeEventListener('keydown', onKeydown)
   }
+}
 
-  return {
+
+export function keyboardObserver(opts?: any) {
+
+  const observer = {
     Keys,
-    state: {
-      pressed
-    },
-    destroy
+    state: null,
+    destroy: () => {}
   }
+
+  function callback (state) {
+    observer.state = state
+  }
+
+  observer.destroy = keyboard(callback, opts)
+
+  return observer
 }
