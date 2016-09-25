@@ -14,7 +14,7 @@ export declare type Ports = {
 };
 export declare type Procedure = (ports: {
     [portId: string]: any;
-}, send?: (val: any) => void) => () => void | void;
+}, send?: (val: any) => void) => any;
 export interface Process {
     id?: string;
     ports?: Ports;

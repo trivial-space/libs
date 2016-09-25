@@ -1,6 +1,6 @@
 import { Graph, Procedure, Meta } from "./types";
 export interface EntitySpec {
-    value?: any;
+    val?: any;
     stream?: ProcessSpec;
     streams?: ProcessSpec[];
     json?: string;
@@ -9,7 +9,7 @@ export interface EntitySpec {
 }
 export interface ProcessSpec {
     do: Procedure;
-    vals?: {
+    deps?: {
         [portId: string]: string;
     };
     autostart?: boolean;

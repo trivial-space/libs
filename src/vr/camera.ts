@@ -25,9 +25,9 @@ export function create(opts = {}) {
       props.near,
       props.far
     ),
-    rotationX:  mat4.create(),
-    rotationY:  mat4.create(),
-    position:  [0, 0, 0]
+    rotationX: mat4.create(),
+    rotationY: mat4.create(),
+    position: [0, 0, 0]
   }
 
   return { props, state }

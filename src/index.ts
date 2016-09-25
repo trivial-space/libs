@@ -1,19 +1,20 @@
-import * as mathCore from "./math/core"
-import * as mathCoords from "./math/coords"
-import * as mathNoise from "./math/noise"
-import * as mathVectors from "./math/vectors"
-import * as mathLinAlg from "./math/gl-matrix"
-import * as mathGeometry from "./math/geometry"
-import * as vrCamera from "./vr/camera"
-import * as eventsDom from "./events/dom"
-import * as eventsKey from "./events/keyboard"
-import * as eventsMouse from "./events/mouse"
-import * as utilsString from "./utils/string"
-import * as utilsAnimation from "./utils/animation"
-import * as graphicsColors from "./graphics/colors"
-import * as graphicsTextures from "./graphics/textures"
-import * as graphicsPixesls from "./graphics/pixel-context"
-import * as flowEntitySpec from "./flow/entity-spec"
+import * as mathCore from './math/core'
+import * as mathCoords from './math/coords'
+import * as mathNoise from './math/noise'
+import * as mathVectors from './math/vectors'
+import * as mathLinAlg from './math/gl-matrix'
+import * as mathGeometry from './math/geometry'
+import * as vrCamera from './vr/camera'
+import * as vrFlowCamera from './vr/flow-camera'
+import * as eventsDom from './events/dom'
+import * as eventsKey from './events/keyboard'
+import * as eventsMouse from './events/mouse'
+import * as utilsString from './utils/string'
+import * as utilsAnimation from './utils/animation'
+import * as graphicsColors from './graphics/colors'
+import * as graphicsTextures from './graphics/textures'
+import * as graphicsPixesls from './graphics/pixel-context'
+import * as flowEntitySpec from './flow/entity-spec'
 
 
 export const math = {
@@ -27,7 +28,8 @@ export const math = {
 
 
 export const vr = {
-  camera: vrCamera
+  camera: vrCamera,
+  flowCamera: vrFlowCamera
 }
 
 

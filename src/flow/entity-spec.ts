@@ -4,7 +4,7 @@ import {Entity, Graph, Process, Procedure, Meta, Ports, PortType} from "./types"
 // ===== types =====
 
 export interface EntitySpec {
-  value?: any
+  val?: any
   stream?: ProcessSpec
   streams?: ProcessSpec[]
   json?: string
@@ -15,7 +15,7 @@ export interface EntitySpec {
 
 export interface ProcessSpec {
   do: Procedure
-  vals?: {[portId: string]: string}
+  deps?: {[portId: string]: string}
   autostart?: boolean
   async?: boolean
   meta?: Meta
@@ -36,7 +36,7 @@ const portTypeMap = {
 }
 
 
-function parseValsString(str: string) {
+function parseDepsString(str: string) {
   const [type, eid] = str.split(' ')
 
   const portType: PortType = portTypeMap[type] as PortType
@@ -88,11 +88,11 @@ export function processProcessSpec (
     process.meta = spec.meta
   }
 
-  if (spec.vals) {
+  if (spec.deps) {
     process.ports = {} as Ports
 
-    for (let portId in spec.vals) {
-      const port = parseValsString(spec.vals[portId])
+    for (let portId in spec.deps) {
+      const port = parseDepsString(spec.deps[portId])
       process.ports[portId] = port.type
       if (port.eid) {
 
@@ -143,8 +143,8 @@ export function processEntitySpec (
 
   const entity: Entity = { id }
 
-  if (spec.value) {
-    entity.value = spec.value
+  if (spec.val) {
+    entity.value = spec.val
   }
 
   if (spec.json) {

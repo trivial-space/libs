@@ -53,11 +53,11 @@ describe('flow entitySpec', function () {
     })
 
 
-    it('from process spec with vals', function () {
+    it('from process spec with deps', function () {
       const p = ({e1, e2, e3}) => e1 + e2 + e3
 
       const spec = {
-        vals: {
+        deps: {
           e1: "H entity1",
           e3: "C entity3",
           e2: "A"
@@ -97,7 +97,7 @@ describe('flow entitySpec', function () {
       const p = ({e2, e3}) => e2 + e3
 
       const spec = {
-        vals: {
+        deps: {
           e2: "H entity2",
           e3: "C #entity3",
         },
@@ -139,7 +139,7 @@ describe('flow entitySpec', function () {
 
     it('from entity spec with value', function () {
 
-      const spec = { value: 10 }
+      const spec = { val: 10 }
 
       expect(processEntitySpec("e1", spec)).to.deep.equal({
         entities: [{
@@ -154,7 +154,7 @@ describe('flow entitySpec', function () {
 
     it('takes an optional path parameter', function () {
 
-      const spec = { value: 10 }
+      const spec = { val: 10 }
 
       expect(processEntitySpec("e1", spec, "fuu.bar")).to.deep.equal({
         entities: [{
@@ -189,7 +189,7 @@ describe('flow entitySpec', function () {
 
       const spec = {
         stream: {
-          vals: {
+          deps: {
             e1: "H entity1"
           },
           do: p
@@ -226,7 +226,7 @@ describe('flow entitySpec', function () {
           do: p1
         }, {
           do: p2,
-          vals: {
+          deps: {
             e1: "H entity1",
             e2: "A"
           }
@@ -269,7 +269,7 @@ describe('flow entitySpec', function () {
     it('from entity spec with value', function () {
 
       const spec = {
-        entity1: { value: 10 },
+        entity1: { val: 10 },
       }
 
       expect(toGraph(spec)).to.deep.equal({
@@ -289,7 +289,7 @@ describe('flow entitySpec', function () {
       const spec = {
         entity2: {
           stream: {
-            vals: {
+            deps: {
               e1: "H entity1"
             },
             do: p
@@ -324,7 +324,7 @@ describe('flow entitySpec', function () {
       const spec = {
         entity2: {
           stream: {
-            vals: {
+            deps: {
               e1: "H #entity1"
             },
             do: p

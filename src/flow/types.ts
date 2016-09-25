@@ -19,7 +19,7 @@ export type Ports = {[portId: string]: PortType}
 export type Procedure = (
   ports: { [portId: string]: any },
   send?: (val: any) => void
-) => () => void | void
+) => any
 
 
 export interface Process {
