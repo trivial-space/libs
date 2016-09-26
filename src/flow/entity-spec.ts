@@ -96,8 +96,9 @@ export function processProcessSpec (
       process.ports[portId] = port.type
       if (port.eid) {
 
-        if (path && port.eid.indexOf('#') === 0 ) {
-          port.eid = mergePath(port.eid.substr(1), path)
+        if (port.eid.indexOf('#') === 0 ) {
+          const depId = port.eid.substr(1)
+          port.eid = path ? mergePath(depId, path) : depId
         }
 
         graph.arcs.push({

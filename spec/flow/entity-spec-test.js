@@ -127,7 +127,37 @@ describe('flow entitySpec', function () {
           port: "e3"
         }]
       })
+    })
 
+
+    it('removes hash when no path is given', function() {
+      const p = () => {}
+
+      const spec = {
+        deps: {
+          e1: "C #entity1",
+        },
+        do: p
+      }
+
+      expect(processProcessSpec("e2", spec)).to.deep.equal({
+        entities: [],
+        processes: [{
+          id: "e2-stream",
+          procedure: p,
+          ports: {
+            e1: "COLD"
+          }
+        }],
+        arcs: [{
+          process: "e2-stream",
+          entity: "e2"
+        }, {
+          entity: "entity1",
+          process: "e2-stream",
+          port: "e1"
+        }]
+      })
     })
   })
 
