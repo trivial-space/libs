@@ -11,13 +11,11 @@ export declare const camera: {
     'props.far': {
         val: number;
     };
-    'props.rotateX': {
+    'props.rotationX': {
         val: number;
-        isEvent: boolean;
     };
-    'props.rotateY': {
+    'props.rotationY': {
         val: number;
-        isEvent: boolean;
     };
     'props.moveForward': {
         val: number;
@@ -32,14 +30,17 @@ export declare const camera: {
         isEvent: boolean;
     };
     'perspective': {
+        val: Float32Array | number[];
         stream: {
             deps: {
                 fovy: string;
                 aspect: string;
                 near: string;
                 far: string;
+                mat: string;
             };
-            do: ({fovy, aspect, near, far}: {
+            do: ({mat, fovy, aspect, near, far}: {
+                mat: any;
                 fovy: any;
                 aspect: any;
                 near: any;
@@ -57,7 +58,7 @@ export declare const camera: {
             do: ({m, rotX}: {
                 m: any;
                 rotX: any;
-            }) => any;
+            }) => Float32Array | number[];
         };
     };
     'rotationY': {
@@ -70,7 +71,7 @@ export declare const camera: {
             do: ({m, rotY}: {
                 m: any;
                 rotY: any;
-            }) => any;
+            }) => Float32Array | number[];
         };
     };
     'position': {

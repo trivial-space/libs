@@ -16,11 +16,11 @@ describe('flow entitySpec', function () {
       expect(processProcessSpec("e", spec)).to.deep.equal({
         entities: [],
         processes: [{
-          id: "e-stream",
+          id: "eStream",
           procedure: p,
         }],
         arcs: [{
-          process: "e-stream",
+          process: "eStream",
           entity: "e"
         }]
       })
@@ -39,14 +39,14 @@ describe('flow entitySpec', function () {
       expect(processProcessSpec("e", spec)).to.deep.equal({
         entities: [],
         processes: [{
-          id: "e-stream",
+          id: "eStream",
           procedure: p,
           autostart: true,
           async: true,
           meta: {foo: "foo"}
         }],
         arcs: [{
-          process: "e-stream",
+          process: "eStream",
           entity: "e"
         }]
       })
@@ -68,7 +68,7 @@ describe('flow entitySpec', function () {
       expect(processProcessSpec("entity2", spec)).to.deep.equal({
         entities: [],
         processes: [{
-          id: "entity2-stream",
+          id: "entity2Stream",
           procedure: p,
           ports: {
             e1: "HOT",
@@ -77,17 +77,41 @@ describe('flow entitySpec', function () {
           }
         }],
         arcs: [{
-          process: "entity2-stream",
+          process: "entity2Stream",
           entity: "entity2"
         }, {
           entity: "entity1",
-          process: "entity2-stream",
+          process: "entity2Stream",
           port: "e1"
         }, {
           entity: "entity3",
-          process: "entity2-stream",
+          process: "entity2Stream",
           port: "e3"
         }]
+      })
+    })
+
+
+    it('can have lower case port types', function () {
+      const p = ({e1, e2, e3}) => e1 + e2 + e3
+
+      const spec = {
+        deps: {
+          e1: "h entity1",
+          e3: "c entity3",
+          e2: "a"
+        },
+        do: p
+      }
+
+      expect(processProcessSpec("entity2", spec).processes[0]).to.deep.equal({
+        id: "entity2Stream",
+        procedure: p,
+        ports: {
+          e1: "HOT",
+          e2: "ACCUMULATOR",
+          e3: "COLD"
+        }
       })
     })
 
@@ -107,7 +131,7 @@ describe('flow entitySpec', function () {
       expect(processProcessSpec("entity1", spec, "some.namespace")).to.deep.equal({
         entities: [],
         processes: [{
-          id: "some.namespace.entity1-stream",
+          id: "some.namespace.entity1Stream",
           procedure: p,
           ports: {
             e2: "HOT",
@@ -115,15 +139,15 @@ describe('flow entitySpec', function () {
           }
         }],
         arcs: [{
-          process: "some.namespace.entity1-stream",
+          process: "some.namespace.entity1Stream",
           entity: "some.namespace.entity1"
         }, {
           entity: "entity2",
-          process: "some.namespace.entity1-stream",
+          process: "some.namespace.entity1Stream",
           port: "e2"
         }, {
           entity: "some.namespace.entity3",
-          process: "some.namespace.entity1-stream",
+          process: "some.namespace.entity1Stream",
           port: "e3"
         }]
       })
@@ -143,18 +167,18 @@ describe('flow entitySpec', function () {
       expect(processProcessSpec("e2", spec)).to.deep.equal({
         entities: [],
         processes: [{
-          id: "e2-stream",
+          id: "e2Stream",
           procedure: p,
           ports: {
             e1: "COLD"
           }
         }],
         arcs: [{
-          process: "e2-stream",
+          process: "e2Stream",
           entity: "e2"
         }, {
           entity: "entity1",
-          process: "e2-stream",
+          process: "e2Stream",
           port: "e1"
         }]
       })
@@ -175,6 +199,31 @@ describe('flow entitySpec', function () {
         entities: [{
           id: "e1",
           value: 10
+        }],
+        processes: [],
+        arcs: []
+      })
+    })
+
+
+    it('from entity spec with falsy value', function () {
+
+      const spec = { val: 0 }
+      const spec2 = { val: false }
+
+      expect(processEntitySpec("e1", spec)).to.deep.equal({
+        entities: [{
+          id: "e1",
+          value: 0
+        }],
+        processes: [],
+        arcs: []
+      })
+
+      expect(processEntitySpec("e2", spec2)).to.deep.equal({
+        entities: [{
+          id: "e2",
+          value: false
         }],
         processes: [],
         arcs: []
@@ -231,16 +280,16 @@ describe('flow entitySpec', function () {
           id: "entity2",
         }],
         processes: [{
-          id: "entity2-stream",
+          id: "entity2Stream",
           procedure: p,
           ports: {e1: "HOT"}
         }],
         arcs: [{
-          process: "entity2-stream",
+          process: "entity2Stream",
           entity: "entity2"
         }, {
           entity: "entity1",
-          process: "entity2-stream",
+          process: "entity2Stream",
           port: "e1"
         }]
       })
@@ -268,22 +317,22 @@ describe('flow entitySpec', function () {
           id: "entity2",
         }],
         processes: [{
-          id: "entity2-stream1",
+          id: "entity2Stream1",
           procedure: p1
         }, {
-          id: "entity2-stream2",
+          id: "entity2Stream2",
           procedure: p2,
           ports: {e1: "HOT", e2: "ACCUMULATOR"}
         }],
         arcs: [{
-          process: "entity2-stream1",
+          process: "entity2Stream1",
           entity: "entity2"
         }, {
-          process: "entity2-stream2",
+          process: "entity2Stream2",
           entity: "entity2"
         }, {
           entity: "entity1",
-          process: "entity2-stream2",
+          process: "entity2Stream2",
           port: "e1"
         }]
       })
@@ -332,16 +381,16 @@ describe('flow entitySpec', function () {
           id: "entity2",
         }],
         processes: [{
-          id: "entity2-stream",
+          id: "entity2Stream",
           procedure: p,
           ports: {e1: "HOT"}
         }],
         arcs: [{
-          process: "entity2-stream",
+          process: "entity2Stream",
           entity: "entity2"
         }, {
           entity: "entity1",
-          process: "entity2-stream",
+          process: "entity2Stream",
           port: "e1"
         }]
       })
@@ -367,16 +416,16 @@ describe('flow entitySpec', function () {
           id: "path.entity2",
         }],
         processes: [{
-          id: "path.entity2-stream",
+          id: "path.entity2Stream",
           procedure: p,
           ports: {e1: "HOT"}
         }],
         arcs: [{
-          process: "path.entity2-stream",
+          process: "path.entity2Stream",
           entity: "path.entity2"
         }, {
           entity: "path.entity1",
-          process: "path.entity2-stream",
+          process: "path.entity2Stream",
           port: "e1"
         }]
       })

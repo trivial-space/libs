@@ -27,7 +27,7 @@ export type Spec = { [id: string]: EntitySpec }
 
 // ===== Api =====
 
-const processNameSuffix = "-stream"
+const processNameSuffix = "Stream"
 
 const portTypeMap = {
   H: "HOT",
@@ -39,7 +39,7 @@ const portTypeMap = {
 function parseDepsString(str: string) {
   const [type, eid] = str.split(' ')
 
-  const portType: PortType = portTypeMap[type] as PortType
+  const portType: PortType = portTypeMap[type.toUpperCase()] as PortType
 
   return { type: portType, eid }
 }
@@ -144,7 +144,7 @@ export function processEntitySpec (
 
   const entity: Entity = { id }
 
-  if (spec.val) {
+  if (spec.val != null) {
     entity.value = spec.val
   }
 
