@@ -14,7 +14,6 @@ import * as utilsAnimation from './utils/animation'
 import * as graphicsColors from './graphics/colors'
 import * as graphicsTextures from './graphics/textures'
 import * as graphicsPixesls from './graphics/pixel-context'
-import * as flowEntitySpec from './flow/entity-spec'
 
 
 export const math = {
@@ -53,9 +52,4 @@ export const graphics = {
 }
 
 
-export const flow = {
-  entitySpec: flowEntitySpec
-}
-
-
-export default { math, vr, events, utils, graphics, flow }
+export default { math, vr, events, utils, graphics }

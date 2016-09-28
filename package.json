@@ -1,6 +1,6 @@
 {
   "name": "tvs-libs",
-  "version": "0.2.9",
+  "version": "0.3.0",
   "description": "trivialspace libs - utility and helper functions",
   "main": "dist/tvs-libs.js",
   "esnext:main": "lib/index.js",

@@ -1,8 +1,7 @@
 import {mat4, vec3} from '../math/gl-matrix'
-import {Spec} from '../flow/entity-spec'
 
 
-export const camera: Spec = {
+export const camera = {
   'props.fovy': { val: Math.PI * 0.6 },
   'props.aspect': { val: window.innerWidth / window.innerHeight },
   'props.near': { val: 0.1 },

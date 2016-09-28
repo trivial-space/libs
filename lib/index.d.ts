@@ -14,7 +14,6 @@ import * as utilsAnimation from './utils/animation';
 import * as graphicsColors from './graphics/colors';
 import * as graphicsTextures from './graphics/textures';
 import * as graphicsPixesls from './graphics/pixel-context';
-import * as flowEntitySpec from './flow/entity-spec';
 export declare const math: {
     core: typeof mathCore;
     noise: typeof mathNoise;
@@ -40,9 +39,6 @@ export declare const graphics: {
     colors: typeof graphicsColors;
     pixels: typeof graphicsPixesls;
     textures: typeof graphicsTextures;
-};
-export declare const flow: {
-    entitySpec: typeof flowEntitySpec;
 };
 declare var _default: {
     math: {
@@ -70,9 +66,6 @@ declare var _default: {
         colors: typeof graphicsColors;
         pixels: typeof graphicsPixesls;
         textures: typeof graphicsTextures;
-    };
-    flow: {
-        entitySpec: typeof flowEntitySpec;
     };
 };
 export default _default;
