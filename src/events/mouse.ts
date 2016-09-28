@@ -83,6 +83,7 @@ export function mouse(callback: (val: MouseState) => void, opts: any = {}) {
     element.addEventListener("contextmenu", preventDefault)
   }
 
+  callback(state)
 
   return function destroy() {
     element.removeEventListener("mousedown", onMouseDown)
@@ -106,10 +107,7 @@ export function mouseObserver(opts: any = {}): MouseObserver {
 
   const observer: MouseObserver = {
     Buttons,
-    state: {
-      pressed: {},
-      dragDelta: { x: 0, y: 0 }
-    },
+    state: {} as MouseState,
     destroy: () => {}
   }
 

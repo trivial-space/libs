@@ -24,7 +24,7 @@
         Object.defineProperty(a, "__esModule", {
             value: !0
         }), a.flow = a.graphics = a.utils = a.events = a.vr = a.math = void 0;
-        var e = r(1), o = n(e), u = r(2), i = n(u), l = r(4), s = n(l), c = r(3), M = n(c), f = r(5), h = n(f), d = r(17), v = n(d), m = r(18), S = n(m), I = r(19), x = n(I), D = r(20), F = n(D), p = r(21), b = n(p), w = r(22), E = n(w), y = r(23), A = n(y), P = r(24), z = n(P), g = r(25), O = n(g), L = r(26), R = n(L), _ = r(27), N = n(_), T = r(28), Y = n(T), q = a.math = {
+        var e = r(1), o = n(e), u = r(2), i = n(u), l = r(4), s = n(l), c = r(3), M = n(c), f = r(5), h = n(f), d = r(17), v = n(d), m = r(18), S = n(m), I = r(19), x = n(I), D = r(20), F = n(D), p = r(21), b = n(p), w = r(22), E = n(w), A = r(23), y = n(A), P = r(24), z = n(P), g = r(25), O = n(g), L = r(26), R = n(L), _ = r(27), N = n(_), T = r(28), Y = n(T), q = a.math = {
             core: o,
             noise: s,
             coords: i,
@@ -40,7 +40,7 @@
             keyboard: b
         }, j = a.utils = {
             animation: z,
-            string: A
+            string: y
         }, X = a.graphics = {
             colors: O,
             pixels: N,
@@ -163,10 +163,10 @@
         function u(t, a) {
             var r, n, e = 0, o = 0, u = 0, i = (t + a) * h, l = Math.floor(t + i), s = Math.floor(a + i), c = (l + s) * d, M = l - c, f = s - c, v = t - M, m = a - f;
             v > m ? (r = 1, n = 0) : (r = 0, n = 1);
-            var S = v - r + d, I = m - n + d, x = v - 1 + 2 * d, b = m - 1 + 2 * d, w = 255 & l, E = 255 & s, y = .5 - v * v - m * m;
-            if (y >= 0) {
-                var A = 3 * F[w + D[E]];
-                y *= y, e = y * y * (p[A] * v + p[A + 1] * m);
+            var S = v - r + d, I = m - n + d, x = v - 1 + 2 * d, b = m - 1 + 2 * d, w = 255 & l, E = 255 & s, A = .5 - v * v - m * m;
+            if (A >= 0) {
+                var y = 3 * F[w + D[E]];
+                A *= A, e = A * A * (p[y] * v + p[y + 1] * m);
             }
             var P = .5 - S * S - I * I;
             if (P >= 0) {
@@ -181,15 +181,15 @@
             return 70 * (e + o + u);
         }
         function i(t, a, r) {
-            var n, e, o, u, i, l, s, c, M, f, h = (t + a + r) * v, d = Math.floor(t + h), S = Math.floor(a + h), I = Math.floor(r + h), x = (d + S + I) * m, b = d - x, w = S - x, E = I - x, y = t - b, A = a - w, P = r - E;
-            y >= A ? A >= P ? (i = 1, l = 0, s = 0, c = 1, M = 1, f = 0) : y >= P ? (i = 1, 
-            l = 0, s = 0, c = 1, M = 0, f = 1) : (i = 0, l = 0, s = 1, c = 1, M = 0, f = 1) : A < P ? (i = 0, 
-            l = 0, s = 1, c = 0, M = 1, f = 1) : y < P ? (i = 0, l = 1, s = 0, c = 0, M = 1, 
+            var n, e, o, u, i, l, s, c, M, f, h = (t + a + r) * v, d = Math.floor(t + h), S = Math.floor(a + h), I = Math.floor(r + h), x = (d + S + I) * m, b = d - x, w = S - x, E = I - x, A = t - b, y = a - w, P = r - E;
+            A >= y ? y >= P ? (i = 1, l = 0, s = 0, c = 1, M = 1, f = 0) : A >= P ? (i = 1, 
+            l = 0, s = 0, c = 1, M = 0, f = 1) : (i = 0, l = 0, s = 1, c = 1, M = 0, f = 1) : y < P ? (i = 0, 
+            l = 0, s = 1, c = 0, M = 1, f = 1) : A < P ? (i = 0, l = 1, s = 0, c = 0, M = 1, 
             f = 1) : (i = 0, l = 1, s = 0, c = 1, M = 1, f = 0);
-            var z = y - i + m, g = A - l + m, O = P - s + m, L = y - c + 2 * m, R = A - M + 2 * m, _ = P - f + 2 * m, N = y - 1 + 3 * m, T = A - 1 + 3 * m, Y = P - 1 + 3 * m, q = 255 & d, U = 255 & S, C = 255 & I, j = .6 - y * y - A * A - P * P;
+            var z = A - i + m, g = y - l + m, O = P - s + m, L = A - c + 2 * m, R = y - M + 2 * m, _ = P - f + 2 * m, N = A - 1 + 3 * m, T = y - 1 + 3 * m, Y = P - 1 + 3 * m, q = 255 & d, U = 255 & S, C = 255 & I, j = .6 - A * A - y * y - P * P;
             if (j < 0) n = 0; else {
                 var X = 3 * F[q + D[U + D[C]]];
-                j *= j, n = j * j * (p[X] * y + p[X + 1] * A + p[X + 2] * P);
+                j *= j, n = j * j * (p[X] * A + p[X + 1] * y + p[X + 2] * P);
             }
             var H = .6 - z * z - g * g - O * O;
             if (H < 0) e = 0; else {
@@ -209,17 +209,17 @@
             return 32 * (n + e + o + u);
         }
         function l(t, a, r, n) {
-            var e, o, u, i, l, s = (t + a + r + n) * S, c = Math.floor(t + s), M = Math.floor(a + s), f = Math.floor(r + s), h = Math.floor(n + s), d = (c + M + f + h) * I, v = c - d, m = M - d, x = f - d, F = h - d, p = t - v, w = a - m, E = r - x, y = n - F, A = 0, P = 0, z = 0, g = 0;
-            p > w ? A++ : P++, p > E ? A++ : z++, p > y ? A++ : g++, w > E ? P++ : z++, w > y ? P++ : g++, 
-            E > y ? z++ : g++;
+            var e, o, u, i, l, s = (t + a + r + n) * S, c = Math.floor(t + s), M = Math.floor(a + s), f = Math.floor(r + s), h = Math.floor(n + s), d = (c + M + f + h) * I, v = c - d, m = M - d, x = f - d, F = h - d, p = t - v, w = a - m, E = r - x, A = n - F, y = 0, P = 0, z = 0, g = 0;
+            p > w ? y++ : P++, p > E ? y++ : z++, p > A ? y++ : g++, w > E ? P++ : z++, w > A ? P++ : g++, 
+            E > A ? z++ : g++;
             var O, L, R, _, N, T, Y, q, U, C, j, X;
-            O = A >= 3 ? 1 : 0, L = P >= 3 ? 1 : 0, R = z >= 3 ? 1 : 0, _ = g >= 3 ? 1 : 0, 
-            N = A >= 2 ? 1 : 0, T = P >= 2 ? 1 : 0, Y = z >= 2 ? 1 : 0, q = g >= 2 ? 1 : 0, 
-            U = A >= 1 ? 1 : 0, C = P >= 1 ? 1 : 0, j = z >= 1 ? 1 : 0, X = g >= 1 ? 1 : 0;
-            var H = p - O + I, V = w - L + I, B = E - R + I, k = y - _ + I, K = p - N + 2 * I, W = w - T + 2 * I, Z = E - Y + 2 * I, Q = y - q + 2 * I, G = p - U + 3 * I, J = w - C + 3 * I, $ = E - j + 3 * I, tt = y - X + 3 * I, at = p - 1 + 4 * I, rt = w - 1 + 4 * I, nt = E - 1 + 4 * I, et = y - 1 + 4 * I, ot = 255 & c, ut = 255 & M, it = 255 & f, lt = 255 & h, st = .6 - p * p - w * w - E * E - y * y;
+            O = y >= 3 ? 1 : 0, L = P >= 3 ? 1 : 0, R = z >= 3 ? 1 : 0, _ = g >= 3 ? 1 : 0, 
+            N = y >= 2 ? 1 : 0, T = P >= 2 ? 1 : 0, Y = z >= 2 ? 1 : 0, q = g >= 2 ? 1 : 0, 
+            U = y >= 1 ? 1 : 0, C = P >= 1 ? 1 : 0, j = z >= 1 ? 1 : 0, X = g >= 1 ? 1 : 0;
+            var H = p - O + I, V = w - L + I, B = E - R + I, k = A - _ + I, K = p - N + 2 * I, W = w - T + 2 * I, Z = E - Y + 2 * I, Q = A - q + 2 * I, G = p - U + 3 * I, J = w - C + 3 * I, $ = E - j + 3 * I, tt = A - X + 3 * I, at = p - 1 + 4 * I, rt = w - 1 + 4 * I, nt = E - 1 + 4 * I, et = A - 1 + 4 * I, ot = 255 & c, ut = 255 & M, it = 255 & f, lt = 255 & h, st = .6 - p * p - w * w - E * E - A * A;
             if (st < 0) e = 0; else {
                 var ct = D[ot + D[ut + D[it + D[lt]]]] % 32 * 4;
-                st *= st, e = st * st * (b[ct] * p + b[ct + 1] * w + b[ct + 2] * E + b[ct + 3] * y);
+                st *= st, e = st * st * (b[ct] * p + b[ct + 1] * w + b[ct + 2] * E + b[ct + 3] * A);
             }
             var Mt = .6 - H * H - V * V - B * B - k * k;
             if (Mt < 0) o = 0; else {
@@ -522,10 +522,10 @@
             return t[0] = 1 - M - d, t[3] = c - S, t[6] = f + m, t[1] = c + S, t[4] = 1 - s - d, 
             t[7] = h - v, t[2] = f - m, t[5] = h + v, t[8] = 1 - s - M, t;
         }, e.normalFromMat4 = function(t, a) {
-            var r = a[0], n = a[1], e = a[2], o = a[3], u = a[4], i = a[5], l = a[6], s = a[7], c = a[8], M = a[9], f = a[10], h = a[11], d = a[12], v = a[13], m = a[14], S = a[15], I = r * i - n * u, x = r * l - e * u, D = r * s - o * u, F = n * l - e * i, p = n * s - o * i, b = e * s - o * l, w = c * v - M * d, E = c * m - f * d, y = c * S - h * d, A = M * m - f * v, P = M * S - h * v, z = f * S - h * m, g = I * z - x * P + D * A + F * y - p * E + b * w;
-            return g ? (g = 1 / g, t[0] = (i * z - l * P + s * A) * g, t[1] = (l * y - u * z - s * E) * g, 
-            t[2] = (u * P - i * y + s * w) * g, t[3] = (e * P - n * z - o * A) * g, t[4] = (r * z - e * y + o * E) * g, 
-            t[5] = (n * y - r * P - o * w) * g, t[6] = (v * b - m * p + S * F) * g, t[7] = (m * D - d * b - S * x) * g, 
+            var r = a[0], n = a[1], e = a[2], o = a[3], u = a[4], i = a[5], l = a[6], s = a[7], c = a[8], M = a[9], f = a[10], h = a[11], d = a[12], v = a[13], m = a[14], S = a[15], I = r * i - n * u, x = r * l - e * u, D = r * s - o * u, F = n * l - e * i, p = n * s - o * i, b = e * s - o * l, w = c * v - M * d, E = c * m - f * d, A = c * S - h * d, y = M * m - f * v, P = M * S - h * v, z = f * S - h * m, g = I * z - x * P + D * y + F * A - p * E + b * w;
+            return g ? (g = 1 / g, t[0] = (i * z - l * P + s * y) * g, t[1] = (l * A - u * z - s * E) * g, 
+            t[2] = (u * P - i * A + s * w) * g, t[3] = (e * P - n * z - o * y) * g, t[4] = (r * z - e * A + o * E) * g, 
+            t[5] = (n * A - r * P - o * w) * g, t[6] = (v * b - m * p + S * F) * g, t[7] = (m * D - d * b - S * x) * g, 
             t[8] = (d * p - v * D + S * I) * g, t) : null;
         }, e.str = function(t) {
             return "mat3(" + t[0] + ", " + t[1] + ", " + t[2] + ", " + t[3] + ", " + t[4] + ", " + t[5] + ", " + t[6] + ", " + t[7] + ", " + t[8] + ")";
@@ -603,12 +603,12 @@
             M = SIMD.Float32x4.shuffle(u, i, 1, 3, 5, 7), SIMD.Float32x4.store(t, 8, c), SIMD.Float32x4.store(t, 12, M), 
             t;
         }, e.transpose = n.USE_SIMD ? e.SIMD.transpose : e.scalar.transpose, e.scalar.invert = function(t, a) {
-            var r = a[0], n = a[1], e = a[2], o = a[3], u = a[4], i = a[5], l = a[6], s = a[7], c = a[8], M = a[9], f = a[10], h = a[11], d = a[12], v = a[13], m = a[14], S = a[15], I = r * i - n * u, x = r * l - e * u, D = r * s - o * u, F = n * l - e * i, p = n * s - o * i, b = e * s - o * l, w = c * v - M * d, E = c * m - f * d, y = c * S - h * d, A = M * m - f * v, P = M * S - h * v, z = f * S - h * m, g = I * z - x * P + D * A + F * y - p * E + b * w;
-            return g ? (g = 1 / g, t[0] = (i * z - l * P + s * A) * g, t[1] = (e * P - n * z - o * A) * g, 
-            t[2] = (v * b - m * p + S * F) * g, t[3] = (f * p - M * b - h * F) * g, t[4] = (l * y - u * z - s * E) * g, 
-            t[5] = (r * z - e * y + o * E) * g, t[6] = (m * D - d * b - S * x) * g, t[7] = (c * b - f * D + h * x) * g, 
-            t[8] = (u * P - i * y + s * w) * g, t[9] = (n * y - r * P - o * w) * g, t[10] = (d * p - v * D + S * I) * g, 
-            t[11] = (M * D - c * p - h * I) * g, t[12] = (i * E - u * A - l * w) * g, t[13] = (r * A - n * E + e * w) * g, 
+            var r = a[0], n = a[1], e = a[2], o = a[3], u = a[4], i = a[5], l = a[6], s = a[7], c = a[8], M = a[9], f = a[10], h = a[11], d = a[12], v = a[13], m = a[14], S = a[15], I = r * i - n * u, x = r * l - e * u, D = r * s - o * u, F = n * l - e * i, p = n * s - o * i, b = e * s - o * l, w = c * v - M * d, E = c * m - f * d, A = c * S - h * d, y = M * m - f * v, P = M * S - h * v, z = f * S - h * m, g = I * z - x * P + D * y + F * A - p * E + b * w;
+            return g ? (g = 1 / g, t[0] = (i * z - l * P + s * y) * g, t[1] = (e * P - n * z - o * y) * g, 
+            t[2] = (v * b - m * p + S * F) * g, t[3] = (f * p - M * b - h * F) * g, t[4] = (l * A - u * z - s * E) * g, 
+            t[5] = (r * z - e * A + o * E) * g, t[6] = (m * D - d * b - S * x) * g, t[7] = (c * b - f * D + h * x) * g, 
+            t[8] = (u * P - i * A + s * w) * g, t[9] = (n * A - r * P - o * w) * g, t[10] = (d * p - v * D + S * I) * g, 
+            t[11] = (M * D - c * p - h * I) * g, t[12] = (i * E - u * y - l * w) * g, t[13] = (r * y - n * E + e * w) * g, 
             t[14] = (v * x - d * F - m * I) * g, t[15] = (c * F - M * x + f * I) * g, t) : null;
         }, e.SIMD.invert = function(t, a) {
             var r, n, e, o, u, i, l, s, c, M, f = SIMD.Float32x4.load(a, 0), h = SIMD.Float32x4.load(a, 4), d = SIMD.Float32x4.load(a, 8), v = SIMD.Float32x4.load(a, 12);
@@ -680,8 +680,8 @@
             SIMD.Float32x4.store(t, 0, M), SIMD.Float32x4.store(t, 4, f), SIMD.Float32x4.store(t, 8, h), 
             SIMD.Float32x4.store(t, 12, d), t;
         }, e.adjoint = n.USE_SIMD ? e.SIMD.adjoint : e.scalar.adjoint, e.determinant = function(t) {
-            var a = t[0], r = t[1], n = t[2], e = t[3], o = t[4], u = t[5], i = t[6], l = t[7], s = t[8], c = t[9], M = t[10], f = t[11], h = t[12], d = t[13], v = t[14], m = t[15], S = a * u - r * o, I = a * i - n * o, x = a * l - e * o, D = r * i - n * u, F = r * l - e * u, p = n * l - e * i, b = s * d - c * h, w = s * v - M * h, E = s * m - f * h, y = c * v - M * d, A = c * m - f * d, P = M * m - f * v;
-            return S * P - I * A + x * y + D * E - F * w + p * b;
+            var a = t[0], r = t[1], n = t[2], e = t[3], o = t[4], u = t[5], i = t[6], l = t[7], s = t[8], c = t[9], M = t[10], f = t[11], h = t[12], d = t[13], v = t[14], m = t[15], S = a * u - r * o, I = a * i - n * o, x = a * l - e * o, D = r * i - n * u, F = r * l - e * u, p = n * l - e * i, b = s * d - c * h, w = s * v - M * h, E = s * m - f * h, A = c * v - M * d, y = c * m - f * d, P = M * m - f * v;
+            return S * P - I * y + x * A + D * E - F * w + p * b;
         }, e.SIMD.multiply = function(t, a, r) {
             var n = SIMD.Float32x4.load(a, 0), e = SIMD.Float32x4.load(a, 4), o = SIMD.Float32x4.load(a, 8), u = SIMD.Float32x4.load(a, 12), i = SIMD.Float32x4.load(r, 0), l = SIMD.Float32x4.add(SIMD.Float32x4.mul(SIMD.Float32x4.swizzle(i, 0, 0, 0, 0), n), SIMD.Float32x4.add(SIMD.Float32x4.mul(SIMD.Float32x4.swizzle(i, 1, 1, 1, 1), e), SIMD.Float32x4.add(SIMD.Float32x4.mul(SIMD.Float32x4.swizzle(i, 2, 2, 2, 2), o), SIMD.Float32x4.mul(SIMD.Float32x4.swizzle(i, 3, 3, 3, 3), u))));
             SIMD.Float32x4.store(t, 0, l);
@@ -732,16 +732,16 @@
             o = SIMD.Float32x4.load(a, 8), SIMD.Float32x4.store(t, 8, SIMD.Float32x4.mul(o, SIMD.Float32x4.swizzle(u, 2, 2, 2, 2))), 
             t[12] = a[12], t[13] = a[13], t[14] = a[14], t[15] = a[15], t;
         }, e.scale = n.USE_SIMD ? e.SIMD.scale : e.scalar.scale, e.rotate = function(t, a, r, e) {
-            var o, u, i, l, s, c, M, f, h, d, v, m, S, I, x, D, F, p, b, w, E, y, A, P, z = e[0], g = e[1], O = e[2], L = Math.sqrt(z * z + g * g + O * O);
+            var o, u, i, l, s, c, M, f, h, d, v, m, S, I, x, D, F, p, b, w, E, A, y, P, z = e[0], g = e[1], O = e[2], L = Math.sqrt(z * z + g * g + O * O);
             return Math.abs(L) < n.EPSILON ? null : (L = 1 / L, z *= L, g *= L, O *= L, o = Math.sin(r), 
             u = Math.cos(r), i = 1 - u, l = a[0], s = a[1], c = a[2], M = a[3], f = a[4], h = a[5], 
             d = a[6], v = a[7], m = a[8], S = a[9], I = a[10], x = a[11], D = z * z * i + u, 
             F = g * z * i + O * o, p = O * z * i - g * o, b = z * g * i - O * o, w = g * g * i + u, 
-            E = O * g * i + z * o, y = z * O * i + g * o, A = g * O * i - z * o, P = O * O * i + u, 
+            E = O * g * i + z * o, A = z * O * i + g * o, y = g * O * i - z * o, P = O * O * i + u, 
             t[0] = l * D + f * F + m * p, t[1] = s * D + h * F + S * p, t[2] = c * D + d * F + I * p, 
             t[3] = M * D + v * F + x * p, t[4] = l * b + f * w + m * E, t[5] = s * b + h * w + S * E, 
-            t[6] = c * b + d * w + I * E, t[7] = M * b + v * w + x * E, t[8] = l * y + f * A + m * P, 
-            t[9] = s * y + h * A + S * P, t[10] = c * y + d * A + I * P, t[11] = M * y + v * A + x * P, 
+            t[6] = c * b + d * w + I * E, t[7] = M * b + v * w + x * E, t[8] = l * A + f * y + m * P, 
+            t[9] = s * A + h * y + S * P, t[10] = c * A + d * y + I * P, t[11] = M * A + v * y + x * P, 
             a !== t && (t[12] = a[12], t[13] = a[13], t[14] = a[14], t[15] = a[15]), t);
         }, e.scalar.rotateX = function(t, a, r) {
             var n = Math.sin(r), e = Math.cos(r), o = a[4], u = a[5], i = a[6], l = a[7], s = a[8], c = a[9], M = a[10], f = a[11];
@@ -837,11 +837,11 @@
             t[9] = (v - S) * p, t[10] = (1 - (M + d)) * p, t[11] = 0, t[12] = r[0], t[13] = r[1], 
             t[14] = r[2], t[15] = 1, t;
         }, e.fromRotationTranslationScaleOrigin = function(t, a, r, n, e) {
-            var o = a[0], u = a[1], i = a[2], l = a[3], s = o + o, c = u + u, M = i + i, f = o * s, h = o * c, d = o * M, v = u * c, m = u * M, S = i * M, I = l * s, x = l * c, D = l * M, F = n[0], p = n[1], b = n[2], w = e[0], E = e[1], y = e[2];
+            var o = a[0], u = a[1], i = a[2], l = a[3], s = o + o, c = u + u, M = i + i, f = o * s, h = o * c, d = o * M, v = u * c, m = u * M, S = i * M, I = l * s, x = l * c, D = l * M, F = n[0], p = n[1], b = n[2], w = e[0], E = e[1], A = e[2];
             return t[0] = (1 - (v + S)) * F, t[1] = (h + D) * F, t[2] = (d - x) * F, t[3] = 0, 
             t[4] = (h - D) * p, t[5] = (1 - (f + S)) * p, t[6] = (m + I) * p, t[7] = 0, t[8] = (d + x) * b, 
-            t[9] = (m - I) * b, t[10] = (1 - (f + v)) * b, t[11] = 0, t[12] = r[0] + w - (t[0] * w + t[4] * E + t[8] * y), 
-            t[13] = r[1] + E - (t[1] * w + t[5] * E + t[9] * y), t[14] = r[2] + y - (t[2] * w + t[6] * E + t[10] * y), 
+            t[9] = (m - I) * b, t[10] = (1 - (f + v)) * b, t[11] = 0, t[12] = r[0] + w - (t[0] * w + t[4] * E + t[8] * A), 
+            t[13] = r[1] + E - (t[1] * w + t[5] * E + t[9] * A), t[14] = r[2] + A - (t[2] * w + t[6] * E + t[10] * A), 
             t[15] = 1, t;
         }, e.fromQuat = function(t, a) {
             var r = a[0], n = a[1], e = a[2], o = a[3], u = r + r, i = n + n, l = e + e, s = r * u, c = n * u, M = n * i, f = e * u, h = e * i, d = e * l, v = o * u, m = o * i, S = o * l;
@@ -909,8 +909,8 @@
         }, e.exactEquals = function(t, a) {
             return t[0] === a[0] && t[1] === a[1] && t[2] === a[2] && t[3] === a[3] && t[4] === a[4] && t[5] === a[5] && t[6] === a[6] && t[7] === a[7] && t[8] === a[8] && t[9] === a[9] && t[10] === a[10] && t[11] === a[11] && t[12] === a[12] && t[13] === a[13] && t[14] === a[14] && t[15] === a[15];
         }, e.equals = function(t, a) {
-            var r = t[0], e = t[1], o = t[2], u = t[3], i = t[4], l = t[5], s = t[6], c = t[7], M = t[8], f = t[9], h = t[10], d = t[11], v = t[12], m = t[13], S = t[14], I = t[15], x = a[0], D = a[1], F = a[2], p = a[3], b = a[4], w = a[5], E = a[6], y = a[7], A = a[8], P = a[9], z = a[10], g = a[11], O = a[12], L = a[13], R = a[14], _ = a[15];
-            return Math.abs(r - x) <= n.EPSILON * Math.max(1, Math.abs(r), Math.abs(x)) && Math.abs(e - D) <= n.EPSILON * Math.max(1, Math.abs(e), Math.abs(D)) && Math.abs(o - F) <= n.EPSILON * Math.max(1, Math.abs(o), Math.abs(F)) && Math.abs(u - p) <= n.EPSILON * Math.max(1, Math.abs(u), Math.abs(p)) && Math.abs(i - b) <= n.EPSILON * Math.max(1, Math.abs(i), Math.abs(b)) && Math.abs(l - w) <= n.EPSILON * Math.max(1, Math.abs(l), Math.abs(w)) && Math.abs(s - E) <= n.EPSILON * Math.max(1, Math.abs(s), Math.abs(E)) && Math.abs(c - y) <= n.EPSILON * Math.max(1, Math.abs(c), Math.abs(y)) && Math.abs(M - A) <= n.EPSILON * Math.max(1, Math.abs(M), Math.abs(A)) && Math.abs(f - P) <= n.EPSILON * Math.max(1, Math.abs(f), Math.abs(P)) && Math.abs(h - z) <= n.EPSILON * Math.max(1, Math.abs(h), Math.abs(z)) && Math.abs(d - g) <= n.EPSILON * Math.max(1, Math.abs(d), Math.abs(g)) && Math.abs(v - O) <= n.EPSILON * Math.max(1, Math.abs(v), Math.abs(O)) && Math.abs(m - L) <= n.EPSILON * Math.max(1, Math.abs(m), Math.abs(L)) && Math.abs(S - R) <= n.EPSILON * Math.max(1, Math.abs(S), Math.abs(R)) && Math.abs(I - _) <= n.EPSILON * Math.max(1, Math.abs(I), Math.abs(_));
+            var r = t[0], e = t[1], o = t[2], u = t[3], i = t[4], l = t[5], s = t[6], c = t[7], M = t[8], f = t[9], h = t[10], d = t[11], v = t[12], m = t[13], S = t[14], I = t[15], x = a[0], D = a[1], F = a[2], p = a[3], b = a[4], w = a[5], E = a[6], A = a[7], y = a[8], P = a[9], z = a[10], g = a[11], O = a[12], L = a[13], R = a[14], _ = a[15];
+            return Math.abs(r - x) <= n.EPSILON * Math.max(1, Math.abs(r), Math.abs(x)) && Math.abs(e - D) <= n.EPSILON * Math.max(1, Math.abs(e), Math.abs(D)) && Math.abs(o - F) <= n.EPSILON * Math.max(1, Math.abs(o), Math.abs(F)) && Math.abs(u - p) <= n.EPSILON * Math.max(1, Math.abs(u), Math.abs(p)) && Math.abs(i - b) <= n.EPSILON * Math.max(1, Math.abs(i), Math.abs(b)) && Math.abs(l - w) <= n.EPSILON * Math.max(1, Math.abs(l), Math.abs(w)) && Math.abs(s - E) <= n.EPSILON * Math.max(1, Math.abs(s), Math.abs(E)) && Math.abs(c - A) <= n.EPSILON * Math.max(1, Math.abs(c), Math.abs(A)) && Math.abs(M - y) <= n.EPSILON * Math.max(1, Math.abs(M), Math.abs(y)) && Math.abs(f - P) <= n.EPSILON * Math.max(1, Math.abs(f), Math.abs(P)) && Math.abs(h - z) <= n.EPSILON * Math.max(1, Math.abs(h), Math.abs(z)) && Math.abs(d - g) <= n.EPSILON * Math.max(1, Math.abs(d), Math.abs(g)) && Math.abs(v - O) <= n.EPSILON * Math.max(1, Math.abs(v), Math.abs(O)) && Math.abs(m - L) <= n.EPSILON * Math.max(1, Math.abs(m), Math.abs(L)) && Math.abs(S - R) <= n.EPSILON * Math.max(1, Math.abs(S), Math.abs(R)) && Math.abs(I - _) <= n.EPSILON * Math.max(1, Math.abs(I), Math.abs(_));
         }, t.exports = e;
     }, function(t, a, r) {
         var n = r(7), e = r(10), o = r(13), u = r(14), i = {};
@@ -1654,7 +1654,7 @@
             }
             var n = arguments.length <= 1 || void 0 === arguments[1] ? {} : arguments[1], e = n.element, o = void 0 === e ? window : e, u = {};
             return o.addEventListener("keyup", r, !1), o.addEventListener("keydown", a, !1), 
-            function() {
+            t(u), function() {
                 o.removeEventListener("keyup", r), o.removeEventListener("keydown", a);
             };
         }
@@ -1817,7 +1817,7 @@
             }, M = 0, f = 0, h = !1;
             return l.addEventListener("mousedown", a), document.addEventListener("mouseup", r), 
             document.addEventListener("mousemove", n), s && l.addEventListener("contextmenu", o), 
-            function() {
+            t(c), function() {
                 l.removeEventListener("mousedown", a), document.removeEventListener("mousemove", n), 
                 document.removeEventListener("mouseup", r), s && l.removeEventListener("contextmenu", o);
             };
@@ -1828,13 +1828,7 @@
             }
             var a = arguments.length <= 0 || void 0 === arguments[0] ? {} : arguments[0], n = {
                 Buttons: e,
-                state: {
-                    pressed: {},
-                    dragDelta: {
-                        x: 0,
-                        y: 0
-                    }
-                },
+                state: {},
                 destroy: function() {}
             };
             return n.destroy = r(t, a), n;

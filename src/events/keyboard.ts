@@ -142,6 +142,8 @@ export function keyboard(callback: (val: KeyState) => void, opts: any = {}) {
   element.addEventListener('keyup', onKeyup, false)
   element.addEventListener('keydown', onKeydown, false)
 
+  callback(pressed)
+
   return function stop() {
     element.removeEventListener('keyup', onKeyup)
     element.removeEventListener('keydown', onKeydown)
@@ -161,11 +163,11 @@ export function keyboardObserver(opts?: any): KeyObserver {
 
   const observer: KeyObserver = {
     Keys,
-    state: {pressed: {}},
+    state: {pressed: {} as KeyState},
     destroy: () => {}
   }
 
-  function callback (pressed) {
+  function callback (pressed: KeyState) {
     observer.state.pressed = pressed
   }
 
