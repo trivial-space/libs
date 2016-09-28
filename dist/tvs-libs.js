@@ -1502,7 +1502,7 @@
                 val: window.innerWidth / window.innerHeight
             },
             "props.near": {
-                val: 0
+                val: .1
             },
             "props.far": {
                 val: 1e3
