@@ -23,35 +23,38 @@
         }
         Object.defineProperty(a, "__esModule", {
             value: !0
-        }), a.graphics = a.utils = a.events = a.vr = a.math = void 0;
-        var e = r(1), o = n(e), u = r(2), l = n(u), i = r(4), s = n(i), M = r(3), c = n(M), f = r(5), h = n(f), d = r(17), v = n(d), m = r(18), S = n(m), I = r(19), x = n(I), D = r(20), F = n(D), p = r(21), b = n(p), w = r(22), E = n(w), A = r(23), P = n(A), y = r(24), z = n(y), g = r(25), L = n(g), O = r(26), R = n(O), _ = r(27), N = n(_), T = a.math = {
+        }), a.flow = a.graphics = a.utils = a.events = a.vr = a.math = void 0;
+        var e = r(1), o = n(e), u = r(2), l = n(u), i = r(4), s = n(i), M = r(3), c = n(M), f = r(5), h = n(f), d = r(17), v = n(d), m = r(18), S = n(m), I = r(19), x = n(I), D = r(20), F = n(D), p = r(21), b = n(p), w = r(22), E = n(w), A = r(23), P = n(A), y = r(24), z = n(y), g = r(25), O = n(g), L = r(26), R = n(L), _ = r(27), N = n(_), T = r(28), Y = n(T), q = a.math = {
             core: o,
             noise: s,
             coords: l,
             vectors: c,
             linAlg: h,
             geometry: v
-        }, Y = a.vr = {
+        }, U = a.vr = {
             camera: S,
             flowCamera: x
-        }, q = a.events = {
+        }, j = a.events = {
             dom: F,
             mouse: E,
             keyboard: b
-        }, U = a.utils = {
+        }, C = a.utils = {
             animation: z,
             string: P
-        }, C = a.graphics = {
-            colors: L,
+        }, X = a.graphics = {
+            colors: O,
             pixels: N,
             textures: R
+        }, H = a.flow = {
+            tree: Y
         };
         a["default"] = {
-            math: T,
-            vr: Y,
-            events: q,
-            utils: U,
-            graphics: C
+            math: q,
+            vr: U,
+            events: j,
+            utils: C,
+            graphics: X,
+            flow: H
         };
     }, function(t, a) {
         "use strict";
@@ -172,8 +175,8 @@
             }
             var g = .5 - x * x - b * b;
             if (g >= 0) {
-                var L = 3 * F[w + 1 + D[E + 1]];
-                g *= g, u = g * g * (p[L] * x + p[L + 1] * b);
+                var O = 3 * F[w + 1 + D[E + 1]];
+                g *= g, u = g * g * (p[O] * x + p[O + 1] * b);
             }
             return 70 * (e + o + u);
         }
@@ -183,25 +186,25 @@
             i = 0, s = 0, M = 1, c = 0, f = 1) : (l = 0, i = 0, s = 1, M = 1, c = 0, f = 1) : P < y ? (l = 0, 
             i = 0, s = 1, M = 0, c = 1, f = 1) : A < y ? (l = 0, i = 1, s = 0, M = 0, c = 1, 
             f = 1) : (l = 0, i = 1, s = 0, M = 1, c = 1, f = 0);
-            var z = A - l + m, g = P - i + m, L = y - s + m, O = A - M + 2 * m, R = P - c + 2 * m, _ = y - f + 2 * m, N = A - 1 + 3 * m, T = P - 1 + 3 * m, Y = y - 1 + 3 * m, q = 255 & d, U = 255 & S, C = 255 & I, j = .6 - A * A - P * P - y * y;
-            if (j < 0) n = 0; else {
-                var X = 3 * F[q + D[U + D[C]]];
-                j *= j, n = j * j * (p[X] * A + p[X + 1] * P + p[X + 2] * y);
+            var z = A - l + m, g = P - i + m, O = y - s + m, L = A - M + 2 * m, R = P - c + 2 * m, _ = y - f + 2 * m, N = A - 1 + 3 * m, T = P - 1 + 3 * m, Y = y - 1 + 3 * m, q = 255 & d, U = 255 & S, j = 255 & I, C = .6 - A * A - P * P - y * y;
+            if (C < 0) n = 0; else {
+                var X = 3 * F[q + D[U + D[j]]];
+                C *= C, n = C * C * (p[X] * A + p[X + 1] * P + p[X + 2] * y);
             }
-            var H = .6 - z * z - g * g - L * L;
+            var H = .6 - z * z - g * g - O * O;
             if (H < 0) e = 0; else {
-                var V = 3 * F[q + l + D[U + i + D[C + s]]];
-                H *= H, e = H * H * (p[V] * z + p[V + 1] * g + p[V + 2] * L);
+                var V = 3 * F[q + l + D[U + i + D[j + s]]];
+                H *= H, e = H * H * (p[V] * z + p[V + 1] * g + p[V + 2] * O);
             }
-            var B = .6 - O * O - R * R - _ * _;
+            var B = .6 - L * L - R * R - _ * _;
             if (B < 0) o = 0; else {
-                var K = 3 * F[q + M + D[U + c + D[C + f]]];
-                B *= B, o = B * B * (p[K] * O + p[K + 1] * R + p[K + 2] * _);
+                var k = 3 * F[q + M + D[U + c + D[j + f]]];
+                B *= B, o = B * B * (p[k] * L + p[k + 1] * R + p[k + 2] * _);
             }
-            var k = .6 - N * N - T * T - Y * Y;
-            if (k < 0) u = 0; else {
-                var W = 3 * F[q + 1 + D[U + 1 + D[C + 1]]];
-                k *= k, u = k * k * (p[W] * N + p[W + 1] * T + p[W + 2] * Y);
+            var K = .6 - N * N - T * T - Y * Y;
+            if (K < 0) u = 0; else {
+                var W = 3 * F[q + 1 + D[U + 1 + D[j + 1]]];
+                K *= K, u = K * K * (p[W] * N + p[W + 1] * T + p[W + 2] * Y);
             }
             return 32 * (n + e + o + u);
         }
@@ -209,28 +212,28 @@
             var e, o, u, l, i, s = (t + a + r + n) * S, M = Math.floor(t + s), c = Math.floor(a + s), f = Math.floor(r + s), h = Math.floor(n + s), d = (M + c + f + h) * I, v = M - d, m = c - d, x = f - d, F = h - d, p = t - v, w = a - m, E = r - x, A = n - F, P = 0, y = 0, z = 0, g = 0;
             p > w ? P++ : y++, p > E ? P++ : z++, p > A ? P++ : g++, w > E ? y++ : z++, w > A ? y++ : g++, 
             E > A ? z++ : g++;
-            var L, O, R, _, N, T, Y, q, U, C, j, X;
-            L = P >= 3 ? 1 : 0, O = y >= 3 ? 1 : 0, R = z >= 3 ? 1 : 0, _ = g >= 3 ? 1 : 0, 
+            var O, L, R, _, N, T, Y, q, U, j, C, X;
+            O = P >= 3 ? 1 : 0, L = y >= 3 ? 1 : 0, R = z >= 3 ? 1 : 0, _ = g >= 3 ? 1 : 0, 
             N = P >= 2 ? 1 : 0, T = y >= 2 ? 1 : 0, Y = z >= 2 ? 1 : 0, q = g >= 2 ? 1 : 0, 
-            U = P >= 1 ? 1 : 0, C = y >= 1 ? 1 : 0, j = z >= 1 ? 1 : 0, X = g >= 1 ? 1 : 0;
-            var H = p - L + I, V = w - O + I, B = E - R + I, K = A - _ + I, k = p - N + 2 * I, W = w - T + 2 * I, Z = E - Y + 2 * I, Q = A - q + 2 * I, G = p - U + 3 * I, J = w - C + 3 * I, $ = E - j + 3 * I, tt = A - X + 3 * I, at = p - 1 + 4 * I, rt = w - 1 + 4 * I, nt = E - 1 + 4 * I, et = A - 1 + 4 * I, ot = 255 & M, ut = 255 & c, lt = 255 & f, it = 255 & h, st = .6 - p * p - w * w - E * E - A * A;
+            U = P >= 1 ? 1 : 0, j = y >= 1 ? 1 : 0, C = z >= 1 ? 1 : 0, X = g >= 1 ? 1 : 0;
+            var H = p - O + I, V = w - L + I, B = E - R + I, k = A - _ + I, K = p - N + 2 * I, W = w - T + 2 * I, Z = E - Y + 2 * I, Q = A - q + 2 * I, G = p - U + 3 * I, J = w - j + 3 * I, $ = E - C + 3 * I, tt = A - X + 3 * I, at = p - 1 + 4 * I, rt = w - 1 + 4 * I, nt = E - 1 + 4 * I, et = A - 1 + 4 * I, ot = 255 & M, ut = 255 & c, lt = 255 & f, it = 255 & h, st = .6 - p * p - w * w - E * E - A * A;
             if (st < 0) e = 0; else {
                 var Mt = D[ot + D[ut + D[lt + D[it]]]] % 32 * 4;
                 st *= st, e = st * st * (b[Mt] * p + b[Mt + 1] * w + b[Mt + 2] * E + b[Mt + 3] * A);
             }
-            var ct = .6 - H * H - V * V - B * B - K * K;
+            var ct = .6 - H * H - V * V - B * B - k * k;
             if (ct < 0) o = 0; else {
-                var ft = D[ot + L + D[ut + O + D[lt + R + D[it + _]]]] % 32 * 4;
-                ct *= ct, o = ct * ct * (b[ft] * H + b[ft + 1] * V + b[ft + 2] * B + b[ft + 3] * K);
+                var ft = D[ot + O + D[ut + L + D[lt + R + D[it + _]]]] % 32 * 4;
+                ct *= ct, o = ct * ct * (b[ft] * H + b[ft + 1] * V + b[ft + 2] * B + b[ft + 3] * k);
             }
-            var ht = .6 - k * k - W * W - Z * Z - Q * Q;
+            var ht = .6 - K * K - W * W - Z * Z - Q * Q;
             if (ht < 0) u = 0; else {
                 var dt = D[ot + N + D[ut + T + D[lt + Y + D[it + q]]]] % 32 * 4;
-                ht *= ht, u = ht * ht * (b[dt] * k + b[dt + 1] * W + b[dt + 2] * Z + b[dt + 3] * Q);
+                ht *= ht, u = ht * ht * (b[dt] * K + b[dt + 1] * W + b[dt + 2] * Z + b[dt + 3] * Q);
             }
             var vt = .6 - G * G - J * J - $ * $ - tt * tt;
             if (vt < 0) l = 0; else {
-                var mt = D[ot + U + D[ut + C + D[lt + j + D[it + X]]]] % 32 * 4;
+                var mt = D[ot + U + D[ut + j + D[lt + C + D[it + X]]]] % 32 * 4;
                 vt *= vt, l = vt * vt * (b[mt] * G + b[mt + 1] * J + b[mt + 2] * $ + b[mt + 3] * tt);
             }
             var St = .6 - at * at - rt * rt - nt * nt - et * et;
@@ -729,12 +732,12 @@
             o = SIMD.Float32x4.load(a, 8), SIMD.Float32x4.store(t, 8, SIMD.Float32x4.mul(o, SIMD.Float32x4.swizzle(u, 2, 2, 2, 2))), 
             t[12] = a[12], t[13] = a[13], t[14] = a[14], t[15] = a[15], t;
         }, e.scale = n.USE_SIMD ? e.SIMD.scale : e.scalar.scale, e.rotate = function(t, a, r, e) {
-            var o, u, l, i, s, M, c, f, h, d, v, m, S, I, x, D, F, p, b, w, E, A, P, y, z = e[0], g = e[1], L = e[2], O = Math.sqrt(z * z + g * g + L * L);
-            return Math.abs(O) < n.EPSILON ? null : (O = 1 / O, z *= O, g *= O, L *= O, o = Math.sin(r), 
+            var o, u, l, i, s, M, c, f, h, d, v, m, S, I, x, D, F, p, b, w, E, A, P, y, z = e[0], g = e[1], O = e[2], L = Math.sqrt(z * z + g * g + O * O);
+            return Math.abs(L) < n.EPSILON ? null : (L = 1 / L, z *= L, g *= L, O *= L, o = Math.sin(r), 
             u = Math.cos(r), l = 1 - u, i = a[0], s = a[1], M = a[2], c = a[3], f = a[4], h = a[5], 
             d = a[6], v = a[7], m = a[8], S = a[9], I = a[10], x = a[11], D = z * z * l + u, 
-            F = g * z * l + L * o, p = L * z * l - g * o, b = z * g * l - L * o, w = g * g * l + u, 
-            E = L * g * l + z * o, A = z * L * l + g * o, P = g * L * l - z * o, y = L * L * l + u, 
+            F = g * z * l + O * o, p = O * z * l - g * o, b = z * g * l - O * o, w = g * g * l + u, 
+            E = O * g * l + z * o, A = z * O * l + g * o, P = g * O * l - z * o, y = O * O * l + u, 
             t[0] = i * D + f * F + m * p, t[1] = s * D + h * F + S * p, t[2] = M * D + d * F + I * p, 
             t[3] = c * D + v * F + x * p, t[4] = i * b + f * w + m * E, t[5] = s * b + h * w + S * E, 
             t[6] = M * b + d * w + I * E, t[7] = c * b + v * w + x * E, t[8] = i * A + f * P + m * y, 
@@ -906,8 +909,8 @@
         }, e.exactEquals = function(t, a) {
             return t[0] === a[0] && t[1] === a[1] && t[2] === a[2] && t[3] === a[3] && t[4] === a[4] && t[5] === a[5] && t[6] === a[6] && t[7] === a[7] && t[8] === a[8] && t[9] === a[9] && t[10] === a[10] && t[11] === a[11] && t[12] === a[12] && t[13] === a[13] && t[14] === a[14] && t[15] === a[15];
         }, e.equals = function(t, a) {
-            var r = t[0], e = t[1], o = t[2], u = t[3], l = t[4], i = t[5], s = t[6], M = t[7], c = t[8], f = t[9], h = t[10], d = t[11], v = t[12], m = t[13], S = t[14], I = t[15], x = a[0], D = a[1], F = a[2], p = a[3], b = a[4], w = a[5], E = a[6], A = a[7], P = a[8], y = a[9], z = a[10], g = a[11], L = a[12], O = a[13], R = a[14], _ = a[15];
-            return Math.abs(r - x) <= n.EPSILON * Math.max(1, Math.abs(r), Math.abs(x)) && Math.abs(e - D) <= n.EPSILON * Math.max(1, Math.abs(e), Math.abs(D)) && Math.abs(o - F) <= n.EPSILON * Math.max(1, Math.abs(o), Math.abs(F)) && Math.abs(u - p) <= n.EPSILON * Math.max(1, Math.abs(u), Math.abs(p)) && Math.abs(l - b) <= n.EPSILON * Math.max(1, Math.abs(l), Math.abs(b)) && Math.abs(i - w) <= n.EPSILON * Math.max(1, Math.abs(i), Math.abs(w)) && Math.abs(s - E) <= n.EPSILON * Math.max(1, Math.abs(s), Math.abs(E)) && Math.abs(M - A) <= n.EPSILON * Math.max(1, Math.abs(M), Math.abs(A)) && Math.abs(c - P) <= n.EPSILON * Math.max(1, Math.abs(c), Math.abs(P)) && Math.abs(f - y) <= n.EPSILON * Math.max(1, Math.abs(f), Math.abs(y)) && Math.abs(h - z) <= n.EPSILON * Math.max(1, Math.abs(h), Math.abs(z)) && Math.abs(d - g) <= n.EPSILON * Math.max(1, Math.abs(d), Math.abs(g)) && Math.abs(v - L) <= n.EPSILON * Math.max(1, Math.abs(v), Math.abs(L)) && Math.abs(m - O) <= n.EPSILON * Math.max(1, Math.abs(m), Math.abs(O)) && Math.abs(S - R) <= n.EPSILON * Math.max(1, Math.abs(S), Math.abs(R)) && Math.abs(I - _) <= n.EPSILON * Math.max(1, Math.abs(I), Math.abs(_));
+            var r = t[0], e = t[1], o = t[2], u = t[3], l = t[4], i = t[5], s = t[6], M = t[7], c = t[8], f = t[9], h = t[10], d = t[11], v = t[12], m = t[13], S = t[14], I = t[15], x = a[0], D = a[1], F = a[2], p = a[3], b = a[4], w = a[5], E = a[6], A = a[7], P = a[8], y = a[9], z = a[10], g = a[11], O = a[12], L = a[13], R = a[14], _ = a[15];
+            return Math.abs(r - x) <= n.EPSILON * Math.max(1, Math.abs(r), Math.abs(x)) && Math.abs(e - D) <= n.EPSILON * Math.max(1, Math.abs(e), Math.abs(D)) && Math.abs(o - F) <= n.EPSILON * Math.max(1, Math.abs(o), Math.abs(F)) && Math.abs(u - p) <= n.EPSILON * Math.max(1, Math.abs(u), Math.abs(p)) && Math.abs(l - b) <= n.EPSILON * Math.max(1, Math.abs(l), Math.abs(b)) && Math.abs(i - w) <= n.EPSILON * Math.max(1, Math.abs(i), Math.abs(w)) && Math.abs(s - E) <= n.EPSILON * Math.max(1, Math.abs(s), Math.abs(E)) && Math.abs(M - A) <= n.EPSILON * Math.max(1, Math.abs(M), Math.abs(A)) && Math.abs(c - P) <= n.EPSILON * Math.max(1, Math.abs(c), Math.abs(P)) && Math.abs(f - y) <= n.EPSILON * Math.max(1, Math.abs(f), Math.abs(y)) && Math.abs(h - z) <= n.EPSILON * Math.max(1, Math.abs(h), Math.abs(z)) && Math.abs(d - g) <= n.EPSILON * Math.max(1, Math.abs(d), Math.abs(g)) && Math.abs(v - O) <= n.EPSILON * Math.max(1, Math.abs(v), Math.abs(O)) && Math.abs(m - L) <= n.EPSILON * Math.max(1, Math.abs(m), Math.abs(L)) && Math.abs(S - R) <= n.EPSILON * Math.max(1, Math.abs(S), Math.abs(R)) && Math.abs(I - _) <= n.EPSILON * Math.max(1, Math.abs(I), Math.abs(_));
         }, t.exports = e;
     }, function(t, a, r) {
         var n = r(7), e = r(10), o = r(13), u = r(14), l = {};
@@ -2065,6 +2068,73 @@
         }();
         a.repeatedPosition = n, a.closedPosition = e, a.createPixelContext = o, a.createImgDataFromImage = u;
         var i = r(25);
+    }, function(t, a) {
+        "use strict";
+        function r(t) {
+            function a(t) {
+                return function() {
+                    for (var a in this) "function" == typeof this[a][t] && this[a][t]();
+                };
+            }
+            function r(t) {
+                var r = arguments.length <= 1 || void 0 === arguments[1] ? {} : arguments[1], n = t.split(".");
+                return n.reduce(function(t, r) {
+                    return t[r] = t[r] || {
+                        reset: a("reset"),
+                        watch: a("watch"),
+                        unwatch: a("unwatch")
+                    };
+                }, r);
+            }
+            function n(a) {
+                var n = t.getGraph(), e = n.entities, o = n.arcs;
+                return Object.keys(e).reduce(function(a, n) {
+                    var u = r(n, a), l = e[n], i = o.filter(function(t) {
+                        return t.entity = n && !t.port;
+                    }).map(function(t) {
+                        return t.process;
+                    });
+                    return u.id = n, Object.defineProperty(u, "val", {
+                        get: function() {
+                            return t.get(n);
+                        },
+                        set: function(a) {
+                            return t.set(n, a);
+                        }
+                    }), u.update = function(a) {
+                        t.update(n, a);
+                    }, u.reset = function() {
+                        null != l.value ? t.set(n, l.value) : null != l.json && t.set(n, JSON.parse(l.json));
+                    }, u.watch = function() {
+                        t.on(n, function(t) {
+                            return console.log(n, t);
+                        });
+                    }, u.unwatch = function() {
+                        t.off(n);
+                    }, u.streams = {}, i.forEach(function(a) {
+                        var r = a.split(".").pop();
+                        u.streams[r] = {
+                            start: function() {
+                                t.start(a);
+                            },
+                            stop: function() {
+                                t.stop(a);
+                            }
+                        };
+                    }), a;
+                }, a);
+            }
+            var e = {
+                update: function() {
+                    for (var t in this) "update" !== t && delete this[t];
+                    n(this);
+                }
+            };
+            return n(e);
+        }
+        Object.defineProperty(a, "__esModule", {
+            value: !0
+        }), a.create = r;
     } ]);
 });
 //# sourceMappingURL=tvs-libs.js.map

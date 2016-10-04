@@ -14,6 +14,7 @@ import * as utilsAnimation from './utils/animation'
 import * as graphicsColors from './graphics/colors'
 import * as graphicsTextures from './graphics/textures'
 import * as graphicsPixesls from './graphics/pixel-context'
+import * as flowTree from './flow/tree'
 
 
 export const math = {
@@ -52,4 +53,9 @@ export const graphics = {
 }
 
 
-export default { math, vr, events, utils, graphics }
+export const flow = {
+  tree: flowTree
+}
+
+
+export default { math, vr, events, utils, graphics, flow}
