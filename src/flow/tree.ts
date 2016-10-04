@@ -29,7 +29,8 @@ export function create(flow) {
       .reduce((obj, eid) => {
         const e: any = createObject(eid, obj)
         const entity = entities[eid]
-        const streamIds = arcs
+        const streamIds = Object.keys(arcs)
+          .map(k => arcs[k])
           .filter(a => a.entity = eid && !a.port)
           .map(a => a.process)
 

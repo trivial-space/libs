@@ -2089,7 +2089,9 @@
             function n(a) {
                 var n = t.getGraph(), e = n.entities, o = n.arcs;
                 return Object.keys(e).reduce(function(a, n) {
-                    var u = r(n, a), l = e[n], i = o.filter(function(t) {
+                    var u = r(n, a), l = e[n], i = Object.keys(o).map(function(t) {
+                        return o[t];
+                    }).filter(function(t) {
                         return t.entity = n && !t.port;
                     }).map(function(t) {
                         return t.process;
