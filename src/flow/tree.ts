@@ -31,7 +31,7 @@ export function create(flow) {
         const entity = entities[eid]
         const streamIds = Object.keys(arcs)
           .map(k => arcs[k])
-          .filter(a => a.entity = eid && !a.port)
+          .filter(a => a.entity == eid && !a.port)
           .map(a => a.process)
 
         e.id = eid

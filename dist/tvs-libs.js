@@ -2092,7 +2092,7 @@
                     var u = r(n, a), l = e[n], i = Object.keys(o).map(function(t) {
                         return o[t];
                     }).filter(function(t) {
-                        return t.entity = n && !t.port;
+                        return t.entity == n && !t.port;
                     }).map(function(t) {
                         return t.process;
                     });
