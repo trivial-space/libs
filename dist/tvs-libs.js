@@ -2087,42 +2087,41 @@
                 }, r);
             }
             function n(a) {
-                var n = t.getGraph(), e = n.entities, o = n.arcs;
+                var n = t.getGraph(), e = n.entities, o = n.arcs, u = n.processes;
                 return Object.keys(e).reduce(function(a, n) {
-                    var u = r(n, a), l = e[n], i = Object.keys(o).map(function(t) {
+                    var l = r(n, a), i = e[n], s = Object.keys(o).map(function(t) {
                         return o[t];
                     }).filter(function(t) {
                         return t.entity == n && !t.port;
                     }).map(function(t) {
                         return t.process;
                     });
-                    return u.id = n, Object.defineProperty(u, "val", {
+                    return l.id = n, Object.defineProperty(l, "val", {
                         get: function() {
                             return t.get(n);
                         },
                         set: function(a) {
                             return t.set(n, a);
                         }
-                    }), u.update = function(a) {
+                    }), l.update = function(a) {
                         t.update(n, a);
-                    }, u.reset = function() {
-                        null != l.value ? t.set(n, l.value) : null != l.json && t.set(n, JSON.parse(l.json));
-                    }, u.watch = function() {
+                    }, l.reset = function() {
+                        null != i.value ? t.set(n, i.value) : null != i.json && t.set(n, JSON.parse(i.json));
+                    }, l.watch = function() {
                         t.on(n, function(t) {
                             return console.log(n, t);
                         });
-                    }, u.unwatch = function() {
+                    }, l.unwatch = function() {
                         t.off(n);
-                    }, u.streams = {}, i.forEach(function(a) {
+                    }, l.streams = {}, s.forEach(function(a) {
                         var r = a.split(".").pop();
-                        u.streams[r] = {
+                        l.streams[r] = {
                             start: function() {
                                 t.start(a);
-                            },
-                            stop: function() {
-                                t.stop(a);
                             }
-                        };
+                        }, u[a].async && (l.streams[r].stop = function() {
+                            t.stop(a);
+                        });
                     }), a;
                 }, a);
             }

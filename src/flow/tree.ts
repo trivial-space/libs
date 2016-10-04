@@ -23,7 +23,7 @@ export function create(flow) {
   function createTree(root) {
 
     const graph = flow.getGraph()
-    const {entities, arcs} = graph
+    const {entities, arcs, processes} = graph
 
     return Object.keys(entities)
       .reduce((obj, eid) => {
@@ -61,7 +61,9 @@ export function create(flow) {
           const name = p.split('.').pop() as string
           e.streams[name] = {
             start: function() { flow.start(p) },
-            stop: function() { flow.stop(p) }
+          }
+          if (processes[p].async) {
+            e.streams[name].stop = function() { flow.stop(p) }
           }
         })
 
