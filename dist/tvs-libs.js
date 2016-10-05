@@ -2115,13 +2115,13 @@
                         t.off(n);
                     }, l.streams = {}, s.forEach(function(a) {
                         var r = a.split(".").pop();
-                        l.streams[r] = {
+                        r && (l.streams[r] = {
                             start: function() {
                                 t.start(a);
                             }
                         }, u[a].async && (l.streams[r].stop = function() {
                             t.stop(a);
-                        });
+                        }));
                     }), a;
                 }, a);
             }
