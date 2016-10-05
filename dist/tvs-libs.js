@@ -1528,7 +1528,7 @@
             perspective: {
                 val: n.mat4.create(),
                 stream: {
-                    deps: {
+                    "with": {
                         fovy: "H #props.fovy",
                         aspect: "H #props.aspect",
                         near: "H #props.near",
@@ -1544,7 +1544,7 @@
             rotationX: {
                 val: n.mat4.create(),
                 stream: {
-                    deps: {
+                    "with": {
                         m: "A",
                         rotX: "H #props.rotationX"
                     },
@@ -1557,7 +1557,7 @@
             rotationY: {
                 val: n.mat4.create(),
                 stream: {
-                    deps: {
+                    "with": {
                         m: "A",
                         rotY: "H #props.rotationY"
                     },
@@ -1570,7 +1570,7 @@
             position: {
                 val: [ 0, 0, 0 ],
                 stream: {
-                    deps: {
+                    "with": {
                         p: "A",
                         forward: "H #props.moveForward",
                         left: "H #props.moveLeft",
@@ -1598,7 +1598,7 @@
             view: {
                 val: n.mat4.create(),
                 stream: {
-                    deps: {
+                    "with": {
                         view: "A",
                         rotY: "H #rotationY",
                         rotX: "H #rotationX",

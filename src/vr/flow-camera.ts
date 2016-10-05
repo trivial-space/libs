@@ -1,7 +1,9 @@
 import {mat4, vec3} from '../math/gl-matrix'
+import {Spec} from 'tvs-flow/lib/utils/entity-spec'
 
 
-export const camera = {
+export const camera: Spec = {
+
   'props.fovy': { val: Math.PI * 0.6 },
   'props.aspect': { val: window.innerWidth / window.innerHeight },
   'props.near': { val: 0.1 },
@@ -14,10 +16,11 @@ export const camera = {
   'props.moveLeft': { val: 0, isEvent: true },
   'props.moveUp': { val: 0, isEvent: true },
 
+
   'perspective': {
     val: mat4.create(),
     stream: {
-      deps: {
+      with: {
         fovy: 'H #props.fovy',
         aspect: 'H #props.aspect',
         near: 'H #props.near',
@@ -26,22 +29,25 @@ export const camera = {
       do: ({mat, fovy, aspect, near, far}) =>
         mat4.perspective(mat, fovy, aspect, near, far) } },
 
+
   'rotationX': {
     val: mat4.create(),
     stream: {
-      deps: { m: 'A', rotX: 'H #props.rotationX' },
+      with: { m: 'A', rotX: 'H #props.rotationX' },
       do: ({m, rotX}) => mat4.fromXRotation(m, rotX) } },
+
 
   'rotationY': {
     val: mat4.create(),
     stream: {
-      deps: { m: 'A', rotY: 'H #props.rotationY' },
+      with: { m: 'A', rotY: 'H #props.rotationY' },
       do: ({m, rotY}) => mat4.fromYRotation(m, rotY) } },
+
 
   'position': {
     val: [0, 0, 0],
     stream: {
-      deps: {
+      with: {
         p: 'A',
         forward: 'H #props.moveForward',
         left: 'H #props.moveLeft',
@@ -67,20 +73,23 @@ export const camera = {
         return p
       } } },
 
+
   'view': {
     val: mat4.create(),
     stream: {
-      deps: {
+      with: {
         view: 'A',
         rotY: 'H #rotationY',
         rotX: 'H #rotationX',
         pos: 'H #position' },
       do: ({view, rotY, rotX, pos}) => {
+
         mat4.fromTranslation(view, pos)
         mat4.multiply(view, view, rotY)
         mat4.multiply(view, view, rotX)
         mat4.invert(view, view)
         return view
+
       } } } }
 
 
