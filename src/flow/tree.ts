@@ -1,6 +1,9 @@
-export function create(flow) {
+import {Runtime} from 'tvs-flow/lib/runtime-types'
 
-  function callAll(name) {
+
+export function create(flow: Runtime) {
+
+  function callAll(name: string) {
     return function() {
       for(let key in this) {
         if (typeof this[key][name] === 'function') {
@@ -58,12 +61,14 @@ export function create(flow) {
 
         e.streams = {}
         streamIds.forEach((p: string) => {
-          const name = p.split('.').pop() as string
-          e.streams[name] = {
-            start: function() { flow.start(p) },
-          }
-          if (processes[p].async) {
-            e.streams[name].stop = function() { flow.stop(p) }
+          const name = p.split('.').pop()
+          if (name) {
+            e.streams[name] = {
+              start: function() { flow.start(p) },
+            }
+            if (processes[p].async) {
+              e.streams[name].stop = function() { flow.stop(p) }
+            }
           }
         })
 
