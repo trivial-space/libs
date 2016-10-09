@@ -1408,7 +1408,7 @@
         }
         function u(t) {
             var a = l(t, 4), r = a[0], n = a[1], e = a[2], o = a[3];
-            return i.mat4.fromValues(1 - 2 * r * r, -2 * r * n, -2 * r * e, -2 * r * o, -2 * n * r, 1 - 2 * n * n, -2 * n * e, -2 * n * o, -2 * e * r, -2 * e * n, 1 - 2 * e * e, -2 * e * o, 0, 0, 0, 1);
+            return i.mat4.fromValues(1 - 2 * r * r, -2 * r * n, -2 * r * e, 0, -2 * r * n, 1 - 2 * n * n, -2 * n * e, 0, -2 * r * e, -2 * n * e, 1 - 2 * e * e, 0, -2 * r * o, -2 * n * o, -2 * e * o, 1);
         }
         Object.defineProperty(a, "__esModule", {
             value: !0
