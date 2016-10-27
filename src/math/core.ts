@@ -47,9 +47,7 @@ export function randIntInRange(
 
 
 export function normalRand(): number {
-  return (Math.random() * 2 - 1) +
-         (Math.random() * 2 - 1) +
-         (Math.random() * 2 - 1)
+  return (Math.random() + Math.random() + Math.random()) / 3
 }
 
 
