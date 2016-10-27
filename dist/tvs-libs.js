@@ -74,7 +74,7 @@
             return o(a - t) + t;
         }
         function l() {
-            return 2 * Math.random() - 1 + (2 * Math.random() - 1) + (2 * Math.random() - 1);
+            return (Math.random() + Math.random() + Math.random()) / 3;
         }
         function i(t) {
             return t * s;
@@ -1529,10 +1529,10 @@
                 val: n.mat4.create(),
                 stream: {
                     "with": {
-                        fovy: "H #props.fovy",
-                        aspect: "H #props.aspect",
-                        near: "H #props.near",
-                        far: "H #props.far",
+                        fovy: "H .props.fovy",
+                        aspect: "H .props.aspect",
+                        near: "H .props.near",
+                        far: "H .props.far",
                         mat: "A"
                     },
                     "do": function(t) {
@@ -1546,7 +1546,7 @@
                 stream: {
                     "with": {
                         m: "A",
-                        rotX: "H #props.rotationX"
+                        rotX: "H .props.rotationX"
                     },
                     "do": function(t) {
                         var a = t.m, r = t.rotX;
@@ -1559,7 +1559,7 @@
                 stream: {
                     "with": {
                         m: "A",
-                        rotY: "H #props.rotationY"
+                        rotY: "H .props.rotationY"
                     },
                     "do": function(t) {
                         var a = t.m, r = t.rotY;
@@ -1572,10 +1572,10 @@
                 stream: {
                     "with": {
                         p: "A",
-                        forward: "H #props.moveForward",
-                        left: "H #props.moveLeft",
-                        up: "H #props.moveUp",
-                        rot: "C #rotationY"
+                        forward: "H .props.moveForward",
+                        left: "H .props.moveLeft",
+                        up: "H .props.moveUp",
+                        rot: "C .rotationY"
                     },
                     "do": function(t) {
                         var a = t.p, r = t.forward, e = t.left, o = t.up, u = t.rot;
@@ -1600,9 +1600,9 @@
                 stream: {
                     "with": {
                         view: "A",
-                        rotY: "H #rotationY",
-                        rotX: "H #rotationX",
-                        pos: "H #position"
+                        rotY: "H .rotationY",
+                        rotX: "H .rotationX",
+                        pos: "H .position"
                     },
                     "do": function(t) {
                         var a = t.view, r = t.rotY, e = t.rotX, o = t.pos;

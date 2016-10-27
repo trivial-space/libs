@@ -21,10 +21,10 @@ export const camera: Spec = {
     val: mat4.create(),
     stream: {
       with: {
-        fovy: 'H #props.fovy',
-        aspect: 'H #props.aspect',
-        near: 'H #props.near',
-        far: 'H #props.far',
+        fovy: 'H .props.fovy',
+        aspect: 'H .props.aspect',
+        near: 'H .props.near',
+        far: 'H .props.far',
         mat: 'A' },
       do: ({mat, fovy, aspect, near, far}) =>
         mat4.perspective(mat, fovy, aspect, near, far) } },
@@ -33,14 +33,14 @@ export const camera: Spec = {
   'rotationX': {
     val: mat4.create(),
     stream: {
-      with: { m: 'A', rotX: 'H #props.rotationX' },
+      with: { m: 'A', rotX: 'H .props.rotationX' },
       do: ({m, rotX}) => mat4.fromXRotation(m, rotX) } },
 
 
   'rotationY': {
     val: mat4.create(),
     stream: {
-      with: { m: 'A', rotY: 'H #props.rotationY' },
+      with: { m: 'A', rotY: 'H .props.rotationY' },
       do: ({m, rotY}) => mat4.fromYRotation(m, rotY) } },
 
 
@@ -49,10 +49,10 @@ export const camera: Spec = {
     stream: {
       with: {
         p: 'A',
-        forward: 'H #props.moveForward',
-        left: 'H #props.moveLeft',
-        up: 'H #props.moveUp',
-        rot: 'C #rotationY' },
+        forward: 'H .props.moveForward',
+        left: 'H .props.moveLeft',
+        up: 'H .props.moveUp',
+        rot: 'C .rotationY' },
       do: ({p, forward, left, up, rot}) => {
 
         if (forward) {
@@ -79,9 +79,9 @@ export const camera: Spec = {
     stream: {
       with: {
         view: 'A',
-        rotY: 'H #rotationY',
-        rotX: 'H #rotationX',
-        pos: 'H #position' },
+        rotY: 'H .rotationY',
+        rotX: 'H .rotationX',
+        pos: 'H .position' },
       do: ({view, rotY, rotX, pos}) => {
 
         mat4.fromTranslation(view, pos)
