@@ -1802,8 +1802,7 @@
                 delete M.pressed[a.button], M.dragDelta.x = 0, M.dragDelta.y = 0, h = !1, t(M);
             }
             function n(a) {
-                h && (M.dragDelta.x = c - a.clientX, M.dragDelta.y = f - a.clientY, c = a.clientX, 
-                f = a.clientY, t(M));
+                h && (M.dragDelta.x = c - a.clientX, M.dragDelta.y = f - a.clientY, t(M));
             }
             function o(t) {
                 t.preventDefault();

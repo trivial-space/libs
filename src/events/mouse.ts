@@ -62,8 +62,6 @@ export function mouse(callback: (val: MouseState) => void, opts: any = {}) {
     if (dragging) {
       state.dragDelta.x = x - e.clientX
       state.dragDelta.y = y - e.clientY
-      x = e.clientX
-      y = e.clientY
 
       callback(state)
     }
