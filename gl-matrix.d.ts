@@ -3003,6 +3003,6 @@ export interface quat {
    */
   equals(a: GLVec, b: GLVec): boolean;
 }
-export var quat: GLVec;
+export var quat: quat;
 
 }
