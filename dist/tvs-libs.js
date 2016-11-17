@@ -203,8 +203,8 @@
             }
             var K = .6 - N * N - T * T - Y * Y;
             if (K < 0) u = 0; else {
-                var W = 3 * F[q + 1 + D[U + 1 + D[j + 1]]];
-                K *= K, u = K * K * (p[W] * N + p[W + 1] * T + p[W + 2] * Y);
+                var Q = 3 * F[q + 1 + D[U + 1 + D[j + 1]]];
+                K *= K, u = K * K * (p[Q] * N + p[Q + 1] * T + p[Q + 2] * Y);
             }
             return 32 * (n + e + o + u);
         }
@@ -216,7 +216,7 @@
             O = P >= 3 ? 1 : 0, L = y >= 3 ? 1 : 0, R = z >= 3 ? 1 : 0, _ = g >= 3 ? 1 : 0, 
             N = P >= 2 ? 1 : 0, T = y >= 2 ? 1 : 0, Y = z >= 2 ? 1 : 0, q = g >= 2 ? 1 : 0, 
             U = P >= 1 ? 1 : 0, j = y >= 1 ? 1 : 0, C = z >= 1 ? 1 : 0, X = g >= 1 ? 1 : 0;
-            var H = p - O + I, V = w - L + I, B = E - R + I, k = A - _ + I, K = p - N + 2 * I, W = w - T + 2 * I, Z = E - Y + 2 * I, Q = A - q + 2 * I, G = p - U + 3 * I, J = w - j + 3 * I, $ = E - C + 3 * I, tt = A - X + 3 * I, at = p - 1 + 4 * I, rt = w - 1 + 4 * I, nt = E - 1 + 4 * I, et = A - 1 + 4 * I, ot = 255 & M, ut = 255 & c, lt = 255 & f, it = 255 & h, st = .6 - p * p - w * w - E * E - A * A;
+            var H = p - O + I, V = w - L + I, B = E - R + I, k = A - _ + I, K = p - N + 2 * I, Q = w - T + 2 * I, W = E - Y + 2 * I, Z = A - q + 2 * I, G = p - U + 3 * I, J = w - j + 3 * I, $ = E - C + 3 * I, tt = A - X + 3 * I, at = p - 1 + 4 * I, rt = w - 1 + 4 * I, nt = E - 1 + 4 * I, et = A - 1 + 4 * I, ot = 255 & M, ut = 255 & c, lt = 255 & f, it = 255 & h, st = .6 - p * p - w * w - E * E - A * A;
             if (st < 0) e = 0; else {
                 var Mt = D[ot + D[ut + D[lt + D[it]]]] % 32 * 4;
                 st *= st, e = st * st * (b[Mt] * p + b[Mt + 1] * w + b[Mt + 2] * E + b[Mt + 3] * A);
@@ -226,10 +226,10 @@
                 var ft = D[ot + O + D[ut + L + D[lt + R + D[it + _]]]] % 32 * 4;
                 ct *= ct, o = ct * ct * (b[ft] * H + b[ft + 1] * V + b[ft + 2] * B + b[ft + 3] * k);
             }
-            var ht = .6 - K * K - W * W - Z * Z - Q * Q;
+            var ht = .6 - K * K - Q * Q - W * W - Z * Z;
             if (ht < 0) u = 0; else {
                 var dt = D[ot + N + D[ut + T + D[lt + Y + D[it + q]]]] % 32 * 4;
-                ht *= ht, u = ht * ht * (b[dt] * K + b[dt + 1] * W + b[dt + 2] * Z + b[dt + 3] * Q);
+                ht *= ht, u = ht * ht * (b[dt] * K + b[dt + 1] * Q + b[dt + 2] * W + b[dt + 3] * Z);
             }
             var vt = .6 - G * G - J * J - $ * $ - tt * tt;
             if (vt < 0) l = 0; else {
@@ -1396,24 +1396,36 @@
     }, function(t, a, r) {
         "use strict";
         function n(t, a) {
-            var r = -i.vec3.dot(t, a);
-            return i.vec4.fromValues(t[0], t[1], t[2], r);
+            var r = -c.vec3.dot(t, a);
+            return c.vec4.fromValues(t[0], t[1], t[2], r);
         }
         function e(t, a, r) {
             return n(o(t, a, r), t);
         }
         function o(t, a, r) {
-            var n = i.fvec3.cross(i.fvec3.sub(r, a), i.fvec3.sub(t, a));
-            return i.vec3.normalize(n, n);
+            var n = c.fvec3.cross(c.fvec3.sub(r, a), c.fvec3.sub(t, a));
+            return c.vec3.normalize(n, n);
         }
         function u(t) {
-            var a = l(t, 4), r = a[0], n = a[1], e = a[2], o = a[3];
-            return i.mat4.fromValues(1 - 2 * r * r, -2 * r * n, -2 * r * e, 0, -2 * r * n, 1 - 2 * n * n, -2 * n * e, 0, -2 * r * e, -2 * n * e, 1 - 2 * e * e, 0, -2 * r * o, -2 * n * o, -2 * e * o, 1);
+            var a = M(t, 4), r = a[0], n = a[1], e = a[2], o = a[3];
+            return c.mat4.fromValues(1 - 2 * r * r, -2 * r * n, -2 * r * e, 0, -2 * r * n, 1 - 2 * n * n, -2 * n * e, 0, -2 * r * e, -2 * n * e, 1 - 2 * e * e, 0, -2 * r * o, -2 * n * o, -2 * e * o, 1);
+        }
+        function l(t) {
+            var a = arguments.length <= 1 || void 0 === arguments[1] ? [] : arguments[1];
+            return t *= .5, a[0] = 0, a[1] = Math.sin(t), a[2] = 0, a[3] = Math.cos(t), a;
+        }
+        function i(t) {
+            var a = arguments.length <= 1 || void 0 === arguments[1] ? [] : arguments[1];
+            return t *= .5, a[0] = Math.sin(t), a[1] = 0, a[2] = 0, a[3] = Math.cos(t), a;
+        }
+        function s(t) {
+            var a = arguments.length <= 1 || void 0 === arguments[1] ? [] : arguments[1];
+            return t *= .5, a[0] = 0, a[1] = 0, a[2] = Math.sin(t), a[3] = Math.cos(t), a;
         }
         Object.defineProperty(a, "__esModule", {
             value: !0
         });
-        var l = function() {
+        var M = function() {
             function t(t, a) {
                 var r = [], n = !0, e = !1, o = void 0;
                 try {
@@ -1437,8 +1449,8 @@
             };
         }();
         a.planeFromNormalAndCoplanarPoint = n, a.planeFromThreeCoplanarPoints = e, a.normalFromThreeCoplanarPoints = o, 
-        a.mirrorMatrixFromPlane = u;
-        var i = r(5);
+        a.mirrorMatrixFromPlane = u, a.getYawQuat = l, a.getPitchQuat = i, a.getRollQuat = s;
+        var c = r(5);
     }, function(t, a, r) {
         "use strict";
         function n() {
