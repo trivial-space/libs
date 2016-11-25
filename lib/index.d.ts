@@ -6,11 +6,13 @@ import * as mathLinAlg from './math/gl-matrix';
 import * as mathGeometry from './math/geometry';
 import * as vrCamera from './vr/camera';
 import * as vrFlowCamera from './vr/flow-camera';
+import * as vrFlowUtils from './vr/flow-utils';
 import * as eventsDom from './events/dom';
 import * as eventsKey from './events/keyboard';
 import * as eventsMouse from './events/mouse';
 import * as utilsString from './utils/string';
 import * as utilsAnimation from './utils/animation';
+import * as utilsSequence from './utils/sequence';
 import * as graphicsColors from './graphics/colors';
 import * as graphicsTextures from './graphics/textures';
 import * as graphicsPixesls from './graphics/pixel-context';
@@ -26,6 +28,7 @@ export declare const math: {
 export declare const vr: {
     camera: typeof vrCamera;
     flowCamera: typeof vrFlowCamera;
+    flowUtils: typeof vrFlowUtils;
 };
 export declare const events: {
     dom: typeof eventsDom;
@@ -35,6 +38,7 @@ export declare const events: {
 export declare const utils: {
     animation: typeof utilsAnimation;
     string: typeof utilsString;
+    seq: typeof utilsSequence;
 };
 export declare const graphics: {
     colors: typeof graphicsColors;
@@ -56,6 +60,7 @@ declare var _default: {
     vr: {
         camera: typeof vrCamera;
         flowCamera: typeof vrFlowCamera;
+        flowUtils: typeof vrFlowUtils;
     };
     events: {
         dom: typeof eventsDom;
@@ -65,6 +70,7 @@ declare var _default: {
     utils: {
         animation: typeof utilsAnimation;
         string: typeof utilsString;
+        seq: typeof utilsSequence;
     };
     graphics: {
         colors: typeof graphicsColors;

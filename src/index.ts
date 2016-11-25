@@ -6,11 +6,13 @@ import * as mathLinAlg from './math/gl-matrix'
 import * as mathGeometry from './math/geometry'
 import * as vrCamera from './vr/camera'
 import * as vrFlowCamera from './vr/flow-camera'
+import * as vrFlowUtils from './vr/flow-utils'
 import * as eventsDom from './events/dom'
 import * as eventsKey from './events/keyboard'
 import * as eventsMouse from './events/mouse'
 import * as utilsString from './utils/string'
 import * as utilsAnimation from './utils/animation'
+import * as utilsSequence from './utils/sequence'
 import * as graphicsColors from './graphics/colors'
 import * as graphicsTextures from './graphics/textures'
 import * as graphicsPixesls from './graphics/pixel-context'
@@ -29,7 +31,8 @@ export const math = {
 
 export const vr = {
   camera: vrCamera,
-  flowCamera: vrFlowCamera
+  flowCamera: vrFlowCamera,
+  flowUtils: vrFlowUtils
 }
 
 
@@ -42,7 +45,8 @@ export const events = {
 
 export const utils = {
   animation: utilsAnimation,
-  string: utilsString
+  string: utilsString,
+  seq: utilsSequence
 }
 
 
