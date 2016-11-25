@@ -1,96 +1,57 @@
-import {mat4, vec3} from '../math/gl-matrix'
-import {Spec} from 'tvs-flow/lib/utils/entity-spec'
+import {mat4} from '../math/gl-matrix'
+import {EntityFactory, EntityRef} from 'tvs-flow/lib/utils/entity-reference'
 
 
-export const camera: Spec = {
+export function makePerspective(
+  entity: EntityFactory,
+  canvasSize: EntityRef,
+  fovyValue = Math.PI * 0.5,
+  nearValue = 0.1,
+  farValue = 1000,
+) {
 
-  'props.fovy': { val: Math.PI * 0.6 },
-  'props.aspect': { val: window.innerWidth / window.innerHeight },
-  'props.near': { val: 0.1 },
-  'props.far': { val: 1000 },
-
-  'props.rotationX': { val: 0 },
-  'props.rotationY': { val: 0 },
-
-  'props.moveForward': { val: 0, isEvent: true },
-  'props.moveLeft': { val: 0, isEvent: true },
-  'props.moveUp': { val: 0, isEvent: true },
+  const fovy = entity(fovyValue)
+  const near = entity(nearValue)
+  const far = entity(farValue)
 
 
-  'perspective': {
-    val: mat4.create(),
-    stream: {
+  const aspect = entity(1)
+    .stream({
       with: {
-        fovy: 'H .props.fovy',
-        aspect: 'H .props.aspect',
-        near: 'H .props.near',
-        far: 'H .props.far',
-        mat: 'A' },
-      do: ({mat, fovy, aspect, near, far}) =>
-        mat4.perspective(mat, fovy, aspect, near, far) } },
+        size: canvasSize.HOT,
+      },
+      do: ({size}) => size.width / size.height
+    })
 
 
-  'rotationX': {
-    val: mat4.create(),
-    stream: {
-      with: { m: 'A', rotX: 'H .props.rotationX' },
-      do: ({m, rotX}) => mat4.fromXRotation(m, rotX) } },
-
-
-  'rotationY': {
-    val: mat4.create(),
-    stream: {
-      with: { m: 'A', rotY: 'H .props.rotationY' },
-      do: ({m, rotY}) => mat4.fromYRotation(m, rotY) } },
-
-
-  'position': {
-    val: [0, 0, 0],
-    stream: {
+  const perspective = entity(mat4.create())
+    .stream({
+      id: 'updatePosition',
       with: {
-        p: 'A',
-        forward: 'H .props.moveForward',
-        left: 'H .props.moveLeft',
-        up: 'H .props.moveUp',
-        rot: 'C .rotationY' },
-      do: ({p, forward, left, up, rot}) => {
-
-        if (forward) {
-          let v = [rot[8], rot[9], rot[10]]
-          vec3.add(p, p, vec3.scale(v, v, -forward))
-        }
-
-        if (left) {
-          let v = [rot[0], rot[1], rot[2]]
-          vec3.add(p, p, vec3.scale(v, v, -left))
-        }
-
-        if (up) {
-          let v = [rot[4], rot[5], rot[6]]
-          vec3.add(p, p, vec3.scale(v, v, up))
-        }
-
-        return p
-      } } },
+        m: entity.SELF,
+        near: near.HOT,
+        far: far.HOT,
+        fovy: fovy.HOT,
+        aspect: aspect.HOT
+      },
+      do: ({m, near, far, fovy, aspect}) => mat4.perspective(m, fovy, aspect, near, far)
+    })
 
 
-  'view': {
-    val: mat4.create(),
-    stream: {
-      with: {
-        view: 'A',
-        rotY: 'H .rotationY',
-        rotX: 'H .rotationX',
-        pos: 'H .position' },
-      do: ({view, rotY, rotX, pos}) => {
-
-        mat4.fromTranslation(view, pos)
-        mat4.multiply(view, view, rotY)
-        mat4.multiply(view, view, rotX)
-        mat4.invert(view, view)
-        return view
-
-      } } } }
+  return {
+    fovy, near, far, aspect, perspective
+  }
+}
 
 
-export default camera
+// TODO: make quaternion implementation
+export function makeFirstPersonView (
+  entity: EntityFactory,
+  position?: EntityRef,
+  yaw?: EntityRef,
+  pitch?: EntityRef
+) {
+    position = position || entity([0, 0, 0])
+    yaw = yaw || entity(0)
+    pitch = pitch || entity(0)
+}
