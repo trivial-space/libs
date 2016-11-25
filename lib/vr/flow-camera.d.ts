@@ -1,5 +1,5 @@
 import { EntityFactory, EntityRef } from 'tvs-flow/lib/utils/entity-reference';
-export declare function makePerspective(entity: EntityFactory, canvasSize: EntityRef, fovyValue?: number, nearValue?: number, farValue?: number): {
+export declare function makePerspective(entity: EntityFactory, canvasSize: EntityRef, fovy?: EntityRef, near?: EntityRef, far?: EntityRef): {
     fovy: EntityRef;
     near: EntityRef;
     far: EntityRef;

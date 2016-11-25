@@ -5,14 +5,14 @@ import {EntityFactory, EntityRef} from 'tvs-flow/lib/utils/entity-reference'
 export function makePerspective(
   entity: EntityFactory,
   canvasSize: EntityRef,
-  fovyValue = Math.PI * 0.5,
-  nearValue = 0.1,
-  farValue = 1000,
+  fovy?: EntityRef,
+  near?: EntityRef,
+  far?: EntityRef
 ) {
 
-  const fovy = entity(fovyValue)
-  const near = entity(nearValue)
-  const far = entity(farValue)
+  fovy = fovy || entity(Math.PI * 0.5)
+  near = near || entity(0.1)
+  far = far || entity(1000)
 
 
   const aspect = entity(1)
