@@ -54,4 +54,8 @@ export function makeFirstPersonView (
     position = position || entity([0, 0, 0])
     yaw = yaw || entity(0)
     pitch = pitch || entity(0)
+
+    const view = entity(mat4.create())
+
+    return { position, yaw, pitch, view }
 }

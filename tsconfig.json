@@ -10,13 +10,12 @@
     "noUnusedParameters": true,
     "declaration": true,
     "removeComments": true,
-    "preserveConstEnums": true,
-    "outDir": "lib",
-    "rootDir": "src"
+    "preserveConstEnums": true
   },
   "files": [
-    "src/index.ts"
+    "lib/index.ts"
   ],
+  "exclude": ["node_modules"],
   "compileOnSave": true,
   "buildOnSave": false,
   "atom": {

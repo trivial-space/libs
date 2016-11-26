@@ -6,4 +6,9 @@ export declare function makePerspective(entity: EntityFactory, canvasSize: Entit
     aspect: EntityRef;
     perspective: EntityRef;
 };
-export declare function makeFirstPersonView(entity: EntityFactory, position?: EntityRef, yaw?: EntityRef, pitch?: EntityRef): void;
+export declare function makeFirstPersonView(entity: EntityFactory, position?: EntityRef, yaw?: EntityRef, pitch?: EntityRef): {
+    position: EntityRef;
+    yaw: EntityRef;
+    pitch: EntityRef;
+    view: EntityRef;
+};
