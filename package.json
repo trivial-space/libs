@@ -2,10 +2,16 @@
   "name": "tvs-libs",
   "version": "0.4.1",
   "description": "trivialspace libs - utility and helper functions",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/trivial-space/libs.git"
+  },
+  "author": "Thomas Gorny",
+  "license": "MIT",
   "main": "dist/tvs-libs.js",
   "esnext:main": "lib/index.js",
   "jsnext:main": "lib/index.js",
-  "typings": "lib/index.d.ts",
+  "types": "lib/index.d.ts",
   "devDependencies": {
     "@types/chai": "^3.4.30",
     "@types/mocha": "^2.2.29",

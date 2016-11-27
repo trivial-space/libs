@@ -1,13 +1,14 @@
-import {mat4} from '../math/gl-matrix'
+import {mat4, quat, GLVec} from '../math/gl-matrix'
 import {EntityFactory, EntityRef} from 'tvs-flow/lib/utils/entity-reference'
+import {getYawQuat, getPitchQuat} from '../math/geometry'
 
 
 export function makePerspective(
   entity: EntityFactory,
-  canvasSize: EntityRef,
-  fovy?: EntityRef,
-  near?: EntityRef,
-  far?: EntityRef
+  canvasSize: EntityRef<{width: number, height: number}>,
+  fovy?: EntityRef<number>,
+  near?: EntityRef<number>,
+  far?: EntityRef<number>
 ) {
 
   fovy = fovy || entity(Math.PI * 0.5)
@@ -44,18 +45,54 @@ export function makePerspective(
 }
 
 
-// TODO: make quaternion implementation
 export function makeFirstPersonView (
   entity: EntityFactory,
-  position?: EntityRef,
-  yaw?: EntityRef,
-  pitch?: EntityRef
+  position?: EntityRef<GLVec>,
+  yaw?: EntityRef<number>,
+  pitch?: EntityRef<number>
 ) {
+
     position = position || entity([0, 0, 0])
     yaw = yaw || entity(0)
     pitch = pitch || entity(0)
 
-    const view = entity(mat4.create())
+    const yawQuat = entity(quat.create())
+      .stream({
+        with: {
+          q: entity.SELF,
+          angle: yaw.HOT
+        },
+        do: ({q, angle}) => getYawQuat(angle, q)
+      })
 
-    return { position, yaw, pitch, view }
+    const pitchQuat = entity(quat.create())
+      .stream({
+        with: {
+          q: entity.SELF,
+          angle: pitch.HOT
+        },
+        do: ({q, angle}) => getPitchQuat(angle, q)
+      })
+
+    const rotationQuat = entity(quat.create())
+      .stream({
+        with: {
+          q: entity.SELF,
+          yaw: yawQuat.HOT,
+          pitch: pitchQuat.HOT
+        },
+        do: ({q, yaw, pitch}) => quat.multiply(q, yaw, pitch)
+      })
+
+    const view = entity(mat4.create())
+      .stream({
+        with: {
+          m: entity.SELF,
+          rot: rotationQuat.HOT,
+          pos: position.HOT
+        },
+        do: ({m, pos, rot}) => mat4.fromRotationTranslation(m, rot, pos)
+      })
+
+    return { position, yaw, pitch, view, yawQuat, pitchQuat, rotationQuat }
 }

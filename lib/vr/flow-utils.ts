@@ -1,14 +1,15 @@
 import {EntityFactory, EntityRef} from 'tvs-flow/lib/utils/entity-reference'
-import {renderer} from 'tvs-renderer'
+import {WindowSizeState} from '../events/dom'
+import {renderer, Context} from 'tvs-renderer'
 
 
-export function makeContext(entity: EntityFactory, windowSizeEntity: EntityRef) {
+export function makeContext(entity: EntityFactory, windowSizeEntity: EntityRef<WindowSizeState>) {
 
 
-  const context = entity(renderer.create())
+  const context = entity<Context>(renderer.create())
 
 
-  const canvas = entity()
+  const canvas = entity<HTMLCanvasElement>()
     .stream({
       async: true,
       autostart: true,
@@ -29,7 +30,7 @@ export function makeContext(entity: EntityFactory, windowSizeEntity: EntityRef) 
     })
 
 
-  const canvasSize = entity()
+  const canvasSize = entity<{width: number, height: number}>()
     .stream({
       with: {
         w: windowSizeEntity.HOT,
