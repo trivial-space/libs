@@ -10,7 +10,11 @@
     "noUnusedParameters": true,
     "declaration": true,
     "removeComments": true,
-    "preserveConstEnums": true
+    "preserveConstEnums": true,
+    "baseUrl": ".",
+    "paths": {
+      "*": ["*", "../*"]
+    }
   },
   "files": [
     "lib/index.ts"

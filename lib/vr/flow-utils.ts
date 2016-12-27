@@ -1,6 +1,7 @@
 import {EntityFactory, EntityRef} from 'tvs-flow/lib/utils/entity-reference'
 import {WindowSizeState} from '../events/dom'
-import {renderer, Context} from 'tvs-renderer'
+import * as renderer from 'tvs-renderer/lib/renderer'
+import {Context} from 'tvs-renderer/lib/renderer-types'
 
 
 export function makeContext(entity: EntityFactory, windowSizeEntity: EntityRef<WindowSizeState>) {
