@@ -56,7 +56,7 @@ export function mirrorMatrixFromPlane(plane: GLVec): GLMat {
 }
 
 
-export function getYawQuat(rotYAngle: number, quat: GLVec = []): GLVec {
+export function getYawQuat(quat: GLVec, rotYAngle: number): GLVec {
   rotYAngle *= 0.5
   quat[0] = 0
   quat[1] = Math.sin(rotYAngle)
@@ -66,7 +66,7 @@ export function getYawQuat(rotYAngle: number, quat: GLVec = []): GLVec {
 }
 
 
-export function getPitchQuat(rotXAngle: number, quat: GLVec = []): GLVec {
+export function getPitchQuat(quat: GLVec, rotXAngle: number): GLVec {
   rotXAngle *= 0.5
   quat[0] = Math.sin(rotXAngle)
   quat[1] = 0
@@ -76,7 +76,7 @@ export function getPitchQuat(rotXAngle: number, quat: GLVec = []): GLVec {
 }
 
 
-export function getRollQuat(rotZAngle: number, quat: GLVec = []): GLVec {
+export function getRollQuat(quat: GLVec, rotZAngle: number): GLVec {
   rotZAngle *= 0.5
   quat[0] = 0
   quat[1] = 0

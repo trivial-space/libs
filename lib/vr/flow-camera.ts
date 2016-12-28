@@ -4,40 +4,34 @@ import {getYawQuat, getPitchQuat} from '../math/geometry'
 
 
 export function makePerspective(
-  entity: EntityFactory,
+  {val}: EntityFactory,
   canvasSize: EntityRef<{width: number, height: number}>,
   fovy?: EntityRef<number>,
   near?: EntityRef<number>,
   far?: EntityRef<number>
 ) {
 
-  fovy = fovy || entity(Math.PI * 0.5)
-  near = near || entity(0.1)
-  far = far || entity(1000)
+  fovy = fovy || val(Math.PI * 0.5)
+  near = near || val(0.1)
+  far = far || val(1000)
 
+  const aspect = val(1)
+    .react(
+      [canvasSize.HOT],
+      size => size.width / size.height
+    )
 
-  const aspect = entity(1)
-    .stream({
-      with: {
-        size: canvasSize.HOT,
-      },
-      do: ({size}) => size.width / size.height
-    })
-
-
-  const perspective = entity(mat4.create())
-    .stream({
-      id: 'updatePosition',
-      with: {
-        m: entity.SELF,
-        near: near.HOT,
-        far: far.HOT,
-        fovy: fovy.HOT,
-        aspect: aspect.HOT
-      },
-      do: ({m, near, far, fovy, aspect}) => mat4.perspective(m, fovy, aspect, near, far)
-    })
-
+  const perspective = val(mat4.create())
+    .react(
+      'updatePosition',
+      [
+        fovy.HOT,
+        aspect.HOT,
+        near.HOT,
+        far.HOT
+      ],
+      mat4.perspective
+    )
 
   return {
     fovy, near, far, aspect, perspective
@@ -46,53 +40,39 @@ export function makePerspective(
 
 
 export function makeFirstPersonView (
-  entity: EntityFactory,
+  {val}: EntityFactory,
   position?: EntityRef<GLVec>,
   yaw?: EntityRef<number>,
   pitch?: EntityRef<number>
 ) {
 
-    position = position || entity([0, 0, 0])
-    yaw = yaw || entity(0)
-    pitch = pitch || entity(0)
+    position = position || val([0, 0, 0])
+    yaw = yaw || val(0)
+    pitch = pitch || val(0)
 
-    const yawQuat = entity(quat.create())
-      .stream({
-        with: {
-          q: entity.SELF,
-          angle: yaw.HOT
-        },
-        do: ({q, angle}) => getYawQuat(angle, q)
-      })
+    const yawQuat = val(quat.create())
+      .react(
+        [yaw.HOT],
+        getYawQuat
+      )
 
-    const pitchQuat = entity(quat.create())
-      .stream({
-        with: {
-          q: entity.SELF,
-          angle: pitch.HOT
-        },
-        do: ({q, angle}) => getPitchQuat(angle, q)
-      })
+    const pitchQuat = val(quat.create())
+      .react(
+        [pitch.HOT],
+        getPitchQuat
+      )
 
-    const rotationQuat = entity(quat.create())
-      .stream({
-        with: {
-          q: entity.SELF,
-          yaw: yawQuat.HOT,
-          pitch: pitchQuat.HOT
-        },
-        do: ({q, yaw, pitch}) => quat.multiply(q, yaw, pitch)
-      })
+    const rotationQuat = val(quat.create())
+      .react(
+        [yawQuat.HOT, pitchQuat.HOT],
+        quat.multiply
+      )
 
-    const view = entity(mat4.create())
-      .stream({
-        with: {
-          m: entity.SELF,
-          rot: rotationQuat.HOT,
-          pos: position.HOT
-        },
-        do: ({m, pos, rot}) => mat4.fromRotationTranslation(m, rot, pos)
-      })
+    const view = val(mat4.create())
+      .react(
+        [rotationQuat.HOT, position.HOT],
+        mat4.fromRotationTranslation
+      )
 
     return { position, yaw, pitch, view, yawQuat, pitchQuat, rotationQuat }
 }

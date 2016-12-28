@@ -4,56 +4,42 @@ import * as renderer from 'tvs-renderer/lib/renderer'
 import {Context} from 'tvs-renderer/lib/renderer-types'
 
 
-export function makeContext(entity: EntityFactory, windowSizeEntity: EntityRef<WindowSizeState>) {
+export function makeContext({val, stream, asyncStreamStart}: EntityFactory, windowSizeEntity: EntityRef<WindowSizeState>) {
 
 
-  const context = entity<Context>(renderer.create())
+  const context = val<Context>(renderer.create())
 
 
-  const canvas = entity<HTMLCanvasElement>()
-    .stream({
-      async: true,
-      autostart: true,
-      with: {
-        ctx: context.COLD
-      },
-      do: ({ctx}, send) => {
+  const canvas = asyncStreamStart<HTMLCanvasElement>(
+    [context.COLD],
+    (send, ctx) => {
 
-        const canvas = ctx.gl.canvas
-        document.body.appendChild(canvas)
+      const canvas = ctx.gl.canvas
+      document.body.appendChild(canvas)
 
-        send(canvas)
+      send(canvas)
 
-        return () => {
-          document.body.removeChild(canvas)
-        }
+      return () => {
+        document.body.removeChild(canvas)
       }
+    }
+  )
+
+
+  const canvasSize = stream(
+    [canvas.HOT, windowSizeEntity.HOT],
+    (canvas: HTMLCanvasElement) => ({
+      width: canvas ? canvas.clientWidth : window.innerWidth,
+      height: canvas ? canvas.clientHeight : window.innerHeight
     })
+  )
 
 
-  const canvasSize = entity<{width: number, height: number}>()
-    .stream({
-      with: {
-        w: windowSizeEntity.HOT,
-        canvas: canvas.HOT
-      },
-      do: ({canvas}) => {
-        return {
-          width: canvas ? canvas.clientWidth : window.innerWidth,
-          height: canvas ? canvas.clientHeight : window.innerHeight
-        }
-      }
-    })
-
-
-  context.stream({
-    id: 'updateSize',
-    with: {
-      ctx: entity.SELF,
-      size: canvasSize.HOT
-    },
-    do: ({ctx}) => renderer.updateSize(ctx)
-  })
+  context.react(
+    'updateSize',
+    [canvasSize.HOT],
+    ctx => renderer.updateSize(ctx)
+  )
 
 
   return { context, canvas, canvasSize }
