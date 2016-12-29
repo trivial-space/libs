@@ -18,7 +18,7 @@ export function makePerspective(
   const aspect = val(1)
     .react(
       [canvasSize.HOT],
-      size => size.width / size.height
+      (self, size) => size ? size.width / size.height : self
     )
 
   const perspective = val(mat4.create())

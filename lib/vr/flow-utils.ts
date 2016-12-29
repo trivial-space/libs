@@ -7,12 +7,12 @@ import {Context} from 'tvs-renderer/lib/renderer-types'
 export function makeContext({val, stream, asyncStreamStart}: EntityFactory, windowSizeEntity: EntityRef<WindowSizeState>) {
 
 
-  const context = val<Context>(renderer.create())
+  const context = val(renderer.create())
 
 
   const canvas = asyncStreamStart<HTMLCanvasElement>(
     [context.COLD],
-    (send, ctx) => {
+    (send, ctx: Context) => {
 
       const canvas = ctx.gl.canvas
       document.body.appendChild(canvas)
