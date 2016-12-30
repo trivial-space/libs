@@ -31,7 +31,7 @@ export function makePerspective(
     )
 
   return {
-    fovy, near, far, aspect, perspective
+    fovy, aspect, near, far, perspective
   }
 }
 
@@ -68,5 +68,5 @@ export function makeFirstPersonView (
         mat4.fromRotationTranslation
       )
 
-    return { position, yaw, pitch, view, yawQuat, pitchQuat, rotationQuat }
+    return { position, yaw, pitch, yawQuat, pitchQuat, rotationQuat, view }
 }

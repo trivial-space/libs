@@ -4,17 +4,17 @@ export declare function makePerspective({val}: EntityFactory, canvasSize: Entity
     height: number;
 }>): {
     fovy: EntityRef<number>;
+    aspect: EntityRef<number>;
     near: EntityRef<number>;
     far: EntityRef<number>;
-    aspect: EntityRef<number>;
     perspective: EntityRef<Float32Array | number[]>;
 };
 export declare function makeFirstPersonView({val}: EntityFactory): {
     position: EntityRef<number[]>;
     yaw: EntityRef<number>;
     pitch: EntityRef<number>;
-    view: EntityRef<Float32Array | number[]>;
     yawQuat: EntityRef<Float32Array | number[]>;
     pitchQuat: EntityRef<Float32Array | number[]>;
     rotationQuat: EntityRef<Float32Array | number[]>;
+    view: EntityRef<Float32Array | number[]>;
 };

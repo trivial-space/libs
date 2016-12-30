@@ -38,7 +38,7 @@ export function makeContext({val, stream, asyncStreamStart}: EntityFactory, wind
   context.react(
     'updateSize',
     [canvasSize.HOT],
-    ctx => renderer.updateSize(ctx)
+    renderer.updateSize
   )
 
 
