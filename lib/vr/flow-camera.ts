@@ -58,7 +58,7 @@ export function makeFirstPersonView (
 
     const rotationQuat = val(quat.create())
       .react(
-        [yawQuat.HOT, pitchQuat.HOT],
+        [pitchQuat.HOT, yawQuat.HOT],
         quat.multiply
       )
 
