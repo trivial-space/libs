@@ -29,8 +29,8 @@ export function makeContext({val, stream, asyncStreamStart}: EntityFactory, wind
   const canvasSize = stream(
     [canvas.HOT, windowSizeEntity.HOT],
     (canvas: HTMLCanvasElement) => ({
-      width: canvas ? canvas.clientWidth : window.innerWidth,
-      height: canvas ? canvas.clientHeight : window.innerHeight
+      width: canvas.clientWidth,
+      height: canvas.clientHeight
     })
   )
 
