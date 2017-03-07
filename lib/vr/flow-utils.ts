@@ -1,10 +1,10 @@
-import {EntityFactory, EntityRef} from 'tvs-flow/lib/utils/entity-reference'
+import { EntityRef, val, asyncStreamStart, stream } from 'tvs-flow/lib/utils/entity-reference'
 import {WindowSizeState} from '../events/dom'
 import * as renderer from 'tvs-renderer/lib/renderer'
 import {Context} from 'tvs-renderer/lib/renderer-types'
 
 
-export function makeContext({val, stream, asyncStreamStart}: EntityFactory, windowSizeEntity: EntityRef<WindowSizeState>) {
+export function makeContext(windowSizeEntity: EntityRef<WindowSizeState>) {
 
 
   const context = val(renderer.create())

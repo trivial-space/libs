@@ -1,12 +1,9 @@
 import {mat4, quat} from '../math/gl-matrix'
-import {EntityFactory, EntityRef} from 'tvs-flow/lib/utils/entity-reference'
+import { EntityRef, val } from 'tvs-flow/lib/utils/entity-reference'
 import {getYawQuat, getPitchQuat} from '../math/geometry'
 
 
-export function makePerspective(
-  {val}: EntityFactory,
-  canvasSize: EntityRef<{width: number, height: number}>
-) {
+export function makePerspective(canvasSize: EntityRef<{width: number, height: number}>) {
 
   const fovy = val(Math.PI * 0.6)
   const near = val(0.1)
@@ -36,9 +33,7 @@ export function makePerspective(
 }
 
 
-export function makeFirstPersonView (
-  {val}: EntityFactory,
-) {
+export function makeFirstPersonView () {
 
     const position = val([0, 0, 0])
     const yaw = val(0)
