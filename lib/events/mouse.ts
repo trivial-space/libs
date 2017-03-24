@@ -6,11 +6,12 @@ export const Buttons = {
 
 
 export interface MouseState {
-  pressed: {[btn: number]: number}
+  pressed: {[btn: number]: MouseEvent}
   dragDelta: {
     x: number,
-    y: number
-  }
+    y: number,
+    event?: MouseEvent
+  },
 }
 
 
@@ -21,7 +22,7 @@ export function mouse(callback: (val: MouseState) => void, opts: any = {}) {
     enableRightButton
   } = opts
 
-  const state = {
+  const state: MouseState = {
     pressed: {},
     dragDelta: { x: 0, y: 0 }
   }
@@ -33,7 +34,7 @@ export function mouse(callback: (val: MouseState) => void, opts: any = {}) {
 
   function onMouseDown (e: MouseEvent) {
 
-    state.pressed[e.button] = Date.now()
+    state.pressed[e.button] = e
 
     if (e.button === Buttons.LEFT) {
       x = e.clientX
@@ -48,6 +49,7 @@ export function mouse(callback: (val: MouseState) => void, opts: any = {}) {
   function onMouseUp(e: MouseEvent) {
 
     delete state.pressed[e.button]
+    delete state.dragDelta.event
 
     state.dragDelta.x = 0
     state.dragDelta.y = 0
@@ -60,6 +62,9 @@ export function mouse(callback: (val: MouseState) => void, opts: any = {}) {
 
   function onMouseMove(e: MouseEvent) {
     if (dragging) {
+
+      state.dragDelta.event = e
+
       state.dragDelta.x = x - e.clientX
       state.dragDelta.y = y - e.clientY
       x = e.clientX

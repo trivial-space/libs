@@ -12,7 +12,7 @@ export function mouse(callback, opts) {
     };
     var x = 0, y = 0, dragging = false;
     function onMouseDown(e) {
-        state.pressed[e.button] = Date.now();
+        state.pressed[e.button] = e;
         if (e.button === Buttons.LEFT) {
             x = e.clientX;
             y = e.clientY;
@@ -22,6 +22,7 @@ export function mouse(callback, opts) {
     }
     function onMouseUp(e) {
         delete state.pressed[e.button];
+        delete state.dragDelta.event;
         state.dragDelta.x = 0;
         state.dragDelta.y = 0;
         dragging = false;
@@ -29,6 +30,7 @@ export function mouse(callback, opts) {
     }
     function onMouseMove(e) {
         if (dragging) {
+            state.dragDelta.event = e;
             state.dragDelta.x = x - e.clientX;
             state.dragDelta.y = y - e.clientY;
             x = e.clientX;

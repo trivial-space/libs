@@ -5,11 +5,12 @@ export declare const Buttons: {
 };
 export interface MouseState {
     pressed: {
-        [btn: number]: number;
+        [btn: number]: MouseEvent;
     };
     dragDelta: {
         x: number;
         y: number;
+        event?: MouseEvent;
     };
 }
 export declare function mouse(callback: (val: MouseState) => void, opts?: any): () => void;
