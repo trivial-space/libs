@@ -1,4 +1,4 @@
-import {Runtime} from 'tvs-flow/lib/runtime-types'
+import {Runtime} from 'tvs-flow/dist/lib/runtime-types'
 
 
 export function create(flow: Runtime) {

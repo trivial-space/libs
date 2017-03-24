@@ -1,13 +1,4 @@
-var path = require('path'),
-    webpackConf = require('./webpack.config')
-
-
-let webpack = Object.assign({}, {
-  cache: true,
-  debug: true,
-  watch: true,
-  devtool: '#inline-source-map',
-}, webpackConf)
+const webpack = require('./webpack.config')
 
 
 module.exports = function (config) {
@@ -34,7 +25,11 @@ module.exports = function (config) {
     },
 
 
-    webpack: webpack,
+    webpack: {
+      module: webpack.module,
+      resolve: webpack.resolve,
+      devtool: 'inline-source-map',
+    },
 
 
     webpackMiddleware: {

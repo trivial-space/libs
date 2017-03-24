@@ -1,37 +1,44 @@
-var path = require('path'),
-    webpack = require('webpack')
+const {resolve} = require('path')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 
 module.exports = {
 
-  entry: path.resolve(__dirname, "./lib/index.js"),
+  entry: resolve(__dirname, "lib", "index.ts"),
 
   output: {
-    path: path.resolve(__dirname, "./dist"),
+    path: resolve(__dirname, "dist"),
     filename: "tvs-libs.js",
     library: 'tvsLibs',
     libraryTarget: "umd"
   },
 
   module: {
-    loaders: [
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        loader: 'babel',
-        query: {
-          presets: ['es2015']
+    rules: [{
+      test: /\.ts$/,
+      exclude: /node_modules/,
+      loader: 'ts-loader',
+      options: {
+        compilerOptions: {
+          "outDir": "",
+          "declaration": false
         }
       }
+    }]
+  },
+
+  resolve: {
+    extensions: ['.ts', '.js', '.json'],
+    modules: [
+      'node_modules',
+      resolve(__dirname, "lib")
     ]
   },
 
-  devtool: "source-map",
-  debug: true,
-
   plugins: [
-    new webpack.optimize.UglifyJsPlugin({
+    new UglifyJsPlugin({
       beautify: true
     })
   ]
 }
+

@@ -1,5 +1,5 @@
 import {mat4, quat} from '../math/gl-matrix'
-import { EntityRef, val } from 'tvs-flow/lib/utils/entity-reference'
+import { EntityRef, val } from 'tvs-flow/dist/lib/utils/entity-reference'
 import {getYawQuat, getPitchQuat} from '../math/geometry'
 
 

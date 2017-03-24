@@ -1,7 +1,7 @@
-import { EntityRef, val, asyncStreamStart, stream } from 'tvs-flow/lib/utils/entity-reference'
+import { EntityRef, val, asyncStreamStart, stream } from 'tvs-flow/dist/lib/utils/entity-reference'
 import {WindowSizeState} from '../events/dom'
-import * as renderer from 'tvs-renderer/lib/renderer'
-import {Context} from 'tvs-renderer/lib/renderer-types'
+import * as renderer from 'tvs-renderer/dist/lib/renderer'
+import {Context} from 'tvs-renderer/dist/lib/renderer-types'
 
 
 export function makeContext(windowSizeEntity: EntityRef<WindowSizeState>) {
