@@ -22,7 +22,7 @@ export function animateWithTPF(callback: (tps: number) => void) {
 }
 
 
-// ===== stopable animation function with time per frame
+// ===== stopable animation function without time per frame
 
 export function animate(callback: () => void) {
   let isRunning = true

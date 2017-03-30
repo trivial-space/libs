@@ -10,7 +10,7 @@ export function doTimes(
   count: number,
   fn: (i: number) => void
 ): void {
-  for (let j = 0; j < count; j++) { fn(j) }
+  for (let i = 0; i < count; i++) { fn(i) }
 }
 
 
