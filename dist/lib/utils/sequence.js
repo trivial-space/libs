@@ -3,8 +3,8 @@ export function pick(arr) {
     return arr[randInt(arr.length)];
 }
 export function doTimes(count, fn) {
-    for (var j = 0; j < count; j++) {
-        fn(j);
+    for (var i = 0; i < count; i++) {
+        fn(i);
     }
 }
 export function yieldTimes(count, fn) {
