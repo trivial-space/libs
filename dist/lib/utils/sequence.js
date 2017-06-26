@@ -1,5 +1,5 @@
 import { randInt } from '../math/core';
-export function pick(arr) {
+export function pickRandom(arr) {
     return arr[randInt(arr.length)];
 }
 export function doTimes(count, fn) {

@@ -10,7 +10,7 @@ export declare function create(opts?: {}): {
         moveForward: number;
         moveLeft: number;
         moveUp: number;
-    } & {};
+    };
     state: {
         view: number[] | Float32Array;
         perspective: number[] | Float32Array;

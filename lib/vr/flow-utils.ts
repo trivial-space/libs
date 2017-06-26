@@ -1,20 +1,16 @@
-import { EntityRef, val, asyncStreamStart, stream } from 'tvs-flow/dist/lib/utils/entity-reference'
-import {WindowSizeState} from '../events/dom'
-import * as renderer from 'tvs-renderer/dist/lib/renderer'
-import {Context} from 'tvs-renderer/dist/lib/renderer-types'
+import { EntityRef, asyncStreamStart, stream } from 'tvs-flow/dist/lib/utils/entity-reference'
+import { WindowSizeState } from '../events/dom'
+import { create } from 'tvs-renderer/dist/lib/painter'
+import { getContext } from 'tvs-renderer/dist/lib/utils/context'
 
 
-export function makeContext(windowSizeEntity: EntityRef<WindowSizeState>) {
-
-
-  const context = val(renderer.create())
-
+export function makePainterCanvas (windowSizeEntity: EntityRef<WindowSizeState>) {
 
   const canvas = asyncStreamStart<HTMLCanvasElement>(
-    [context.COLD],
-    (send, ctx: Context) => {
+    null,
+    (send) => {
 
-      const canvas = ctx.gl.canvas
+      const canvas = document.createElement('canvas')
       document.body.appendChild(canvas)
 
       send(canvas)
@@ -25,6 +21,9 @@ export function makeContext(windowSizeEntity: EntityRef<WindowSizeState>) {
     }
   )
 
+  const gl = stream([canvas.HOT], getContext)
+
+  const painter = stream([gl.HOT], create)
 
   const canvasSize = stream(
     [canvas.HOT, windowSizeEntity.HOT],
@@ -34,13 +33,15 @@ export function makeContext(windowSizeEntity: EntityRef<WindowSizeState>) {
     })
   )
 
-
-  context.react(
-    'updateSize',
+  painter.react(
     [canvasSize.HOT],
-    renderer.updateSize
+    (p, _) => {
+      p.resize()
+      return p
+    },
+    'updateSize',
   )
 
 
-  return { context, canvas, canvasSize }
+  return { context, gl, canvasSize }
 }

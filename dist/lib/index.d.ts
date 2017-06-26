@@ -48,7 +48,7 @@ export declare const graphics: {
 export declare const flow: {
     tree: typeof flowTree;
 };
-declare var _default: {
+declare const _default: {
     math: {
         core: typeof mathCore;
         noise: typeof mathNoise;

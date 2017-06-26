@@ -1,7 +1,7 @@
 import {randInt} from '../math/core'
 
 
-export function pick<T>(arr: T[]): T {
+export function pickRandom<T>(arr: T[]): T {
   return arr[randInt(arr.length)]
 }
 

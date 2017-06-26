@@ -8,12 +8,12 @@ export function makePerspective(canvasSize) {
     var aspect = val(1)
         .react([canvasSize.HOT], function (self, size) { return size ? size.width / size.height : self; });
     var perspective = val(mat4.create())
-        .react('updatePosition', [
+        .react([
         fovy.HOT,
         aspect.HOT,
         near.HOT,
         far.HOT
-    ], mat4.perspective);
+    ], mat4.perspective, 'updatePosition');
     return {
         fovy: fovy, aspect: aspect, near: near, far: far, perspective: perspective
     };

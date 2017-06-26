@@ -2,19 +2,17 @@
 
 export function animateWithTPF(callback: (tps: number) => void) {
   let isRunning = true,
-      oldTime = Date.now(),
-      newTime
+      oldTime
 
-  function next() {
+  function next(newTime) {
     if (isRunning) {
-      newTime = Date.now()
-      callback(newTime - oldTime)
+      callback(newTime - (oldTime || newTime))
       oldTime = newTime
       requestAnimationFrame(next)
     }
   }
 
-  next()
+  requestAnimationFrame(next)
 
   return function stopAnimation() {
     isRunning = false
@@ -34,7 +32,7 @@ export function animate(callback: () => void) {
     }
   }
 
-  next()
+  requestAnimationFrame(next)
 
   return function stopAnimation() {
     isRunning = false

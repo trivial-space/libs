@@ -1,14 +1,13 @@
 export function animateWithTPF(callback) {
-    var isRunning = true, oldTime = Date.now(), newTime;
-    function next() {
+    var isRunning = true, oldTime;
+    function next(newTime) {
         if (isRunning) {
-            newTime = Date.now();
-            callback(newTime - oldTime);
+            callback(newTime - (oldTime || newTime));
             oldTime = newTime;
             requestAnimationFrame(next);
         }
     }
-    next();
+    requestAnimationFrame(next);
     return function stopAnimation() {
         isRunning = false;
     };
@@ -21,7 +20,7 @@ export function animate(callback) {
             requestAnimationFrame(next);
         }
     }
-    next();
+    requestAnimationFrame(next);
     return function stopAnimation() {
         isRunning = false;
     };
