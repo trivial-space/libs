@@ -60,7 +60,7 @@
     }, function(t, r, e) {
         "use strict";
         function n(t) {
-            return H[t].bindPoint;
+            return k[t].bindPoint;
         }
         function a(t, r) {
             return function(e) {
@@ -198,12 +198,12 @@
         function R(t) {
             return null === t.Type;
         }
-        function N(t, r, e) {
+        function w(t, r, e) {
             return function(n) {
                 t.bindBuffer(t.ARRAY_BUFFER, n.buffer), t.enableVertexAttribArray(r), t.vertexAttribPointer(r, e.itemSize, V.c.FLOAT, n.normalize || !1, n.stride || 0, n.offset || 0);
             };
         }
-        function w(t, r, e) {
+        function N(t, r, e) {
             return function(n) {
                 t.bindBuffer(t.ARRAY_BUFFER, n.buffer), t.enableVertexAttribArray(r), t.vertexAttribIPointer(r, e.itemSize, V.c.INT, n.stride || 0, n.offset || 0);
             };
@@ -212,7 +212,7 @@
             var n = e.size, a = e.count;
             return function(e) {
                 t.bindBuffer(t.ARRAY_BUFFER, e.buffer);
-                for (var o = n, u = o / a, i = H[V.c.FLOAT], s = i.size * o, c = e.normalize || !1, l = e.offset || 0, f = s / a, M = 0; M < a; ++M) t.enableVertexAttribArray(r + M), 
+                for (var o = n, u = o / a, i = k[V.c.FLOAT], s = i.size * o, c = e.normalize || !1, l = e.offset || 0, f = s / a, M = 0; M < a; ++M) t.enableVertexAttribArray(r + M), 
                 t.vertexAttribPointer(r + M, u, V.c.FLOAT, c, s, l + f * M);
             };
         }
@@ -223,7 +223,7 @@
                 var i = u.name;
                 if ("[0]" === i.substr(-3) && (i = i.substr(0, i.length - 3)), r) {
                     var s = function(r, n) {
-                        var a = t.getUniformLocation(r, n.name), o = n.size > 1 && "[0]" === n.name.substr(-3), u = n.type, i = H[u];
+                        var a = t.getUniformLocation(r, n.name), o = n.size > 1 && "[0]" === n.name.substr(-3), u = n.type, i = k[u];
                         if (!i) throw "unknown type: 0x" + u.toString(16);
                         if (null != a) {
                             var s;
@@ -303,6 +303,13 @@
             }
         }
         function B(t, r) {
+            t.deleteFramebuffer(r.frameBuffer), t.deleteRenderbuffer(r.depthBuffer);
+            for (var e = 0, n = r.textures; e < n.length; e++) {
+                var a = n[e];
+                t.deleteTexture(a);
+            }
+        }
+        function Y(t, r) {
             if (r.enable) for (var e = 0, n = r.enable; e < n.length; e++) {
                 var a = n[e];
                 t.enable(a);
@@ -317,7 +324,7 @@
             null != r.depthMask && t.depthMask(r.depthMask), r.clearColor && t.clearColor.apply(t, r.clearColor), 
             null != r.clearDepth && t.clearDepth(r.clearDepth), null != r.clearBits && t.clear(r.clearBits);
         }
-        function Y(t, r) {
+        function q(t, r) {
             if (r.enable) for (var e = 0, n = r.enable; e < n.length; e++) {
                 var a = n[e];
                 t.disable(a);
@@ -327,284 +334,284 @@
                 t.enable(a);
             }
         }
-        r.c = P, r.b = L, r.d = z, r.f = U, r.g = C, r.a = B, r.e = Y;
-        var q, G, X, V = e(13), H = (q = {}, q[V.c.FLOAT] = {
+        r.c = P, r.b = L, r.e = z, r.g = U, r.h = C, r.d = B, r.a = Y, r.f = q;
+        var G, X, H, V = e(13), k = (G = {}, G[V.c.FLOAT] = {
             Type: Float32Array,
             size: 4,
             setter: a,
             arraySetter: o
-        }, q[V.c.FLOAT_VEC2] = {
+        }, G[V.c.FLOAT_VEC2] = {
             Type: Float32Array,
             size: 8,
             setter: u
-        }, q[V.c.FLOAT_VEC3] = {
+        }, G[V.c.FLOAT_VEC3] = {
             Type: Float32Array,
             size: 12,
             setter: i
-        }, q[V.c.FLOAT_VEC4] = {
+        }, G[V.c.FLOAT_VEC4] = {
             Type: Float32Array,
             size: 16,
             setter: s
-        }, q[V.c.INT] = {
+        }, G[V.c.INT] = {
             Type: Int32Array,
             size: 4,
             setter: c,
             arraySetter: l
-        }, q[V.c.INT_VEC2] = {
+        }, G[V.c.INT_VEC2] = {
             Type: Int32Array,
             size: 8,
             setter: f
-        }, q[V.c.INT_VEC3] = {
+        }, G[V.c.INT_VEC3] = {
             Type: Int32Array,
             size: 12,
             setter: M
-        }, q[V.c.INT_VEC4] = {
+        }, G[V.c.INT_VEC4] = {
             Type: Int32Array,
             size: 16,
             setter: d
-        }, q[V.c.UNSIGNED_INT] = {
+        }, G[V.c.UNSIGNED_INT] = {
             Type: Uint32Array,
             size: 4,
             setter: h,
             arraySetter: S
-        }, q[V.c.UNSIGNED_INT_VEC2] = {
+        }, G[V.c.UNSIGNED_INT_VEC2] = {
             Type: Uint32Array,
             size: 8,
             setter: m
-        }, q[V.c.UNSIGNED_INT_VEC3] = {
+        }, G[V.c.UNSIGNED_INT_VEC3] = {
             Type: Uint32Array,
             size: 12,
             setter: v
-        }, q[V.c.UNSIGNED_INT_VEC4] = {
+        }, G[V.c.UNSIGNED_INT_VEC4] = {
             Type: Uint32Array,
             size: 16,
             setter: I
-        }, q[V.c.BOOL] = {
+        }, G[V.c.BOOL] = {
             Type: Uint32Array,
             size: 4,
             setter: c,
             arraySetter: l
-        }, q[V.c.BOOL_VEC2] = {
+        }, G[V.c.BOOL_VEC2] = {
             Type: Uint32Array,
             size: 8,
             setter: f
-        }, q[V.c.BOOL_VEC3] = {
+        }, G[V.c.BOOL_VEC3] = {
             Type: Uint32Array,
             size: 12,
             setter: M
-        }, q[V.c.BOOL_VEC4] = {
+        }, G[V.c.BOOL_VEC4] = {
             Type: Uint32Array,
             size: 16,
             setter: d
-        }, q[V.c.FLOAT_MAT2] = {
+        }, G[V.c.FLOAT_MAT2] = {
             Type: Float32Array,
             size: 16,
             setter: D
-        }, q[V.c.FLOAT_MAT3] = {
+        }, G[V.c.FLOAT_MAT3] = {
             Type: Float32Array,
             size: 36,
             setter: F
-        }, q[V.c.FLOAT_MAT4] = {
+        }, G[V.c.FLOAT_MAT4] = {
             Type: Float32Array,
             size: 64,
             setter: x
-        }, q[V.c.FLOAT_MAT2X3] = {
+        }, G[V.c.FLOAT_MAT2X3] = {
             Type: Float32Array,
             size: 24,
             setter: E
-        }, q[V.c.FLOAT_MAT2X4] = {
+        }, G[V.c.FLOAT_MAT2X4] = {
             Type: Float32Array,
             size: 32,
             setter: T
-        }, q[V.c.FLOAT_MAT3X2] = {
+        }, G[V.c.FLOAT_MAT3X2] = {
             Type: Float32Array,
             size: 24,
             setter: p
-        }, q[V.c.FLOAT_MAT3X4] = {
+        }, G[V.c.FLOAT_MAT3X4] = {
             Type: Float32Array,
             size: 48,
             setter: A
-        }, q[V.c.FLOAT_MAT4X2] = {
+        }, G[V.c.FLOAT_MAT4X2] = {
             Type: Float32Array,
             size: 32,
             setter: _
-        }, q[V.c.FLOAT_MAT4X3] = {
+        }, G[V.c.FLOAT_MAT4X3] = {
             Type: Float32Array,
             size: 48,
             setter: b
-        }, q[V.c.SAMPLER_2D] = {
+        }, G[V.c.SAMPLER_2D] = {
             Type: null,
             size: 0,
             setter: y,
             arraySetter: g,
             bindPoint: V.c.TEXTURE_2D
-        }, q[V.c.SAMPLER_CUBE] = {
+        }, G[V.c.SAMPLER_CUBE] = {
             Type: null,
             size: 0,
             setter: y,
             arraySetter: g,
             bindPoint: V.c.TEXTURE_CUBE_MAP
-        }, q[V.c.SAMPLER_3D] = {
+        }, G[V.c.SAMPLER_3D] = {
             Type: null,
             size: 0,
             setter: y,
             arraySetter: g,
             bindPoint: V.c.TEXTURE_3D
-        }, q[V.c.SAMPLER_2D_SHADOW] = {
+        }, G[V.c.SAMPLER_2D_SHADOW] = {
             Type: null,
             size: 0,
             setter: y,
             arraySetter: g,
             bindPoint: V.c.TEXTURE_2D
-        }, q[V.c.SAMPLER_2D_ARRAY] = {
+        }, G[V.c.SAMPLER_2D_ARRAY] = {
             Type: null,
             size: 0,
             setter: y,
             arraySetter: g,
             bindPoint: V.c.TEXTURE_2D_ARRAY
-        }, q[V.c.SAMPLER_2D_ARRAY_SHADOW] = {
+        }, G[V.c.SAMPLER_2D_ARRAY_SHADOW] = {
             Type: null,
             size: 0,
             setter: y,
             arraySetter: g,
             bindPoint: V.c.TEXTURE_2D_ARRAY
-        }, q[V.c.SAMPLER_CUBE_SHADOW] = {
+        }, G[V.c.SAMPLER_CUBE_SHADOW] = {
             Type: null,
             size: 0,
             setter: y,
             arraySetter: g,
             bindPoint: V.c.TEXTURE_CUBE_MAP
-        }, q[V.c.INT_SAMPLER_2D] = {
+        }, G[V.c.INT_SAMPLER_2D] = {
             Type: null,
             size: 0,
             setter: y,
             arraySetter: g,
             bindPoint: V.c.TEXTURE_2D
-        }, q[V.c.INT_SAMPLER_3D] = {
+        }, G[V.c.INT_SAMPLER_3D] = {
             Type: null,
             size: 0,
             setter: y,
             arraySetter: g,
             bindPoint: V.c.TEXTURE_3D
-        }, q[V.c.INT_SAMPLER_CUBE] = {
+        }, G[V.c.INT_SAMPLER_CUBE] = {
             Type: null,
             size: 0,
             setter: y,
             arraySetter: g,
             bindPoint: V.c.TEXTURE_CUBE_MAP
-        }, q[V.c.INT_SAMPLER_2D_ARRAY] = {
+        }, G[V.c.INT_SAMPLER_2D_ARRAY] = {
             Type: null,
             size: 0,
             setter: y,
             arraySetter: g,
             bindPoint: V.c.TEXTURE_2D_ARRAY
-        }, q[V.c.UNSIGNED_INT_SAMPLER_2D] = {
+        }, G[V.c.UNSIGNED_INT_SAMPLER_2D] = {
             Type: null,
             size: 0,
             setter: y,
             arraySetter: g,
             bindPoint: V.c.TEXTURE_2D
-        }, q[V.c.UNSIGNED_INT_SAMPLER_3D] = {
+        }, G[V.c.UNSIGNED_INT_SAMPLER_3D] = {
             Type: null,
             size: 0,
             setter: y,
             arraySetter: g,
             bindPoint: V.c.TEXTURE_3D
-        }, q[V.c.UNSIGNED_INT_SAMPLER_CUBE] = {
+        }, G[V.c.UNSIGNED_INT_SAMPLER_CUBE] = {
             Type: null,
             size: 0,
             setter: y,
             arraySetter: g,
             bindPoint: V.c.TEXTURE_CUBE_MAP
-        }, q[V.c.UNSIGNED_INT_SAMPLER_2D_ARRAY] = {
+        }, G[V.c.UNSIGNED_INT_SAMPLER_2D_ARRAY] = {
             Type: null,
             size: 0,
             setter: y,
             arraySetter: g,
             bindPoint: V.c.TEXTURE_2D_ARRAY
-        }, q), j = (G = {}, G[V.c.FLOAT] = {
-            size: 4,
-            setter: N,
-            itemSize: 1
-        }, G[V.c.FLOAT_VEC2] = {
-            size: 8,
-            setter: N,
-            itemSize: 2
-        }, G[V.c.FLOAT_VEC3] = {
-            size: 12,
-            setter: N,
-            itemSize: 3
-        }, G[V.c.FLOAT_VEC4] = {
-            size: 16,
-            setter: N,
-            itemSize: 4
-        }, G[V.c.INT] = {
+        }, G), j = (X = {}, X[V.c.FLOAT] = {
             size: 4,
             setter: w,
             itemSize: 1
-        }, G[V.c.INT_VEC2] = {
+        }, X[V.c.FLOAT_VEC2] = {
             size: 8,
             setter: w,
             itemSize: 2
-        }, G[V.c.INT_VEC3] = {
+        }, X[V.c.FLOAT_VEC3] = {
             size: 12,
             setter: w,
             itemSize: 3
-        }, G[V.c.INT_VEC4] = {
+        }, X[V.c.FLOAT_VEC4] = {
             size: 16,
             setter: w,
             itemSize: 4
-        }, G[V.c.UNSIGNED_INT] = {
+        }, X[V.c.INT] = {
             size: 4,
-            setter: w,
+            setter: N,
             itemSize: 1
-        }, G[V.c.UNSIGNED_INT_VEC2] = {
+        }, X[V.c.INT_VEC2] = {
             size: 8,
-            setter: w,
+            setter: N,
             itemSize: 2
-        }, G[V.c.UNSIGNED_INT_VEC3] = {
+        }, X[V.c.INT_VEC3] = {
             size: 12,
-            setter: w,
+            setter: N,
             itemSize: 3
-        }, G[V.c.UNSIGNED_INT_VEC4] = {
+        }, X[V.c.INT_VEC4] = {
             size: 16,
-            setter: w,
+            setter: N,
             itemSize: 4
-        }, G[V.c.BOOL] = {
+        }, X[V.c.UNSIGNED_INT] = {
             size: 4,
-            setter: w,
+            setter: N,
             itemSize: 1
-        }, G[V.c.BOOL_VEC2] = {
+        }, X[V.c.UNSIGNED_INT_VEC2] = {
             size: 8,
-            setter: w,
+            setter: N,
             itemSize: 2
-        }, G[V.c.BOOL_VEC3] = {
+        }, X[V.c.UNSIGNED_INT_VEC3] = {
             size: 12,
-            setter: w,
+            setter: N,
             itemSize: 3
-        }, G[V.c.BOOL_VEC4] = {
+        }, X[V.c.UNSIGNED_INT_VEC4] = {
             size: 16,
-            setter: w,
+            setter: N,
             itemSize: 4
-        }, G[V.c.FLOAT_MAT2] = {
+        }, X[V.c.BOOL] = {
+            size: 4,
+            setter: N,
+            itemSize: 1
+        }, X[V.c.BOOL_VEC2] = {
+            size: 8,
+            setter: N,
+            itemSize: 2
+        }, X[V.c.BOOL_VEC3] = {
+            size: 12,
+            setter: N,
+            itemSize: 3
+        }, X[V.c.BOOL_VEC4] = {
+            size: 16,
+            setter: N,
+            itemSize: 4
+        }, X[V.c.FLOAT_MAT2] = {
             size: 4,
             setter: O,
             count: 2
-        }, G[V.c.FLOAT_MAT3] = {
+        }, X[V.c.FLOAT_MAT3] = {
             size: 9,
             setter: O,
             count: 3
-        }, G[V.c.FLOAT_MAT4] = {
+        }, X[V.c.FLOAT_MAT4] = {
             size: 16,
             setter: O,
             count: 4
-        }, G);
-        X = {}, X[V.c.BYTE] = Int8Array, X[V.c.UNSIGNED_BYTE] = Uint8Array, X[V.c.SHORT] = Int16Array, 
-        X[V.c.UNSIGNED_SHORT] = Uint16Array, X[V.c.INT] = Int32Array, X[V.c.UNSIGNED_INT] = Uint32Array, 
-        X[V.c.FLOAT] = Float32Array, X[V.c.UNSIGNED_SHORT_4_4_4_4] = Uint16Array, X[V.c.UNSIGNED_SHORT_5_5_5_1] = Uint16Array, 
-        X[V.c.UNSIGNED_SHORT_5_6_5] = Uint16Array, X[V.c.HALF_FLOAT] = Uint16Array, X[V.c.UNSIGNED_INT_2_10_10_10_REV] = Uint32Array, 
-        X[V.c.UNSIGNED_INT_10F_11F_11F_REV] = Uint32Array, X[V.c.UNSIGNED_INT_5_9_9_9_REV] = Uint32Array, 
-        X[V.c.FLOAT_32_UNSIGNED_INT_24_8_REV] = Uint32Array, X[V.c.UNSIGNED_INT_24_8] = Uint32Array;
+        }, X);
+        H = {}, H[V.c.BYTE] = Int8Array, H[V.c.UNSIGNED_BYTE] = Uint8Array, H[V.c.SHORT] = Int16Array, 
+        H[V.c.UNSIGNED_SHORT] = Uint16Array, H[V.c.INT] = Int32Array, H[V.c.UNSIGNED_INT] = Uint32Array, 
+        H[V.c.FLOAT] = Float32Array, H[V.c.UNSIGNED_SHORT_4_4_4_4] = Uint16Array, H[V.c.UNSIGNED_SHORT_5_5_5_1] = Uint16Array, 
+        H[V.c.UNSIGNED_SHORT_5_6_5] = Uint16Array, H[V.c.HALF_FLOAT] = Uint16Array, H[V.c.UNSIGNED_INT_2_10_10_10_REV] = Uint32Array, 
+        H[V.c.UNSIGNED_INT_10F_11F_11F_REV] = Uint32Array, H[V.c.UNSIGNED_INT_5_9_9_9_REV] = Uint32Array, 
+        H[V.c.FLOAT_32_UNSIGNED_INT_24_8_REV] = Uint32Array, H[V.c.UNSIGNED_INT_24_8] = Uint32Array;
     }, function(t, r, e) {
         "use strict";
         function n(t) {
@@ -713,8 +720,8 @@
             }
             var R = .5 - D * D - F * F;
             if (R >= 0) {
-                var N = 3 * E[T + 1 + x[_ + 1]];
-                R *= R, u = R * R * (p[N] * D + p[N + 1] * F);
+                var w = 3 * E[T + 1 + x[_ + 1]];
+                R *= R, u = R * R * (p[w] * D + p[w + 1] * F);
             }
             return 70 * (a + o + u);
         }
@@ -724,25 +731,25 @@
             s = 0, c = 0, l = 1, f = 0, M = 1) : (i = 0, s = 0, c = 1, l = 1, f = 0, M = 1) : b < y ? (i = 0, 
             s = 0, c = 1, l = 0, f = 1, M = 1) : A < y ? (i = 0, s = 1, c = 0, l = 0, f = 1, 
             M = 1) : (i = 0, s = 1, c = 0, l = 1, f = 1, M = 0);
-            var g = A - i + v, R = b - s + v, N = y - c + v, w = A - l + 2 * v, O = b - f + 2 * v, P = y - M + 2 * v, L = A - 1 + 3 * v, z = b - 1 + 3 * v, U = y - 1 + 3 * v, C = 255 & h, B = 255 & S, Y = 255 & I, q = .6 - A * A - b * b - y * y;
+            var g = A - i + v, R = b - s + v, w = y - c + v, N = A - l + 2 * v, O = b - f + 2 * v, P = y - M + 2 * v, L = A - 1 + 3 * v, z = b - 1 + 3 * v, U = y - 1 + 3 * v, C = 255 & h, B = 255 & S, Y = 255 & I, q = .6 - A * A - b * b - y * y;
             if (q < 0) n = 0; else {
                 var G = 3 * E[C + x[B + x[Y]]];
                 q *= q, n = q * q * (p[G] * A + p[G + 1] * b + p[G + 2] * y);
             }
-            var X = .6 - g * g - R * R - N * N;
+            var X = .6 - g * g - R * R - w * w;
             if (X < 0) a = 0; else {
-                var V = 3 * E[C + i + x[B + s + x[Y + c]]];
-                X *= X, a = X * X * (p[V] * g + p[V + 1] * R + p[V + 2] * N);
+                var H = 3 * E[C + i + x[B + s + x[Y + c]]];
+                X *= X, a = X * X * (p[H] * g + p[H + 1] * R + p[H + 2] * w);
             }
-            var H = .6 - w * w - O * O - P * P;
-            if (H < 0) o = 0; else {
-                var j = 3 * E[C + l + x[B + f + x[Y + M]]];
-                H *= H, o = H * H * (p[j] * w + p[j + 1] * O + p[j + 2] * P);
+            var V = .6 - N * N - O * O - P * P;
+            if (V < 0) o = 0; else {
+                var k = 3 * E[C + l + x[B + f + x[Y + M]]];
+                V *= V, o = V * V * (p[k] * N + p[k + 1] * O + p[k + 2] * P);
             }
-            var k = .6 - L * L - z * z - U * U;
-            if (k < 0) u = 0; else {
+            var j = .6 - L * L - z * z - U * U;
+            if (j < 0) u = 0; else {
                 var W = 3 * E[C + 1 + x[B + 1 + x[Y + 1]]];
-                k *= k, u = k * k * (p[W] * L + p[W + 1] * z + p[W + 2] * U);
+                j *= j, u = j * j * (p[W] * L + p[W + 1] * z + p[W + 2] * U);
             }
             return 32 * (n + a + o + u);
         }
@@ -750,24 +757,24 @@
             var a, o, u, i, s, c = (t + r + e + n) * I, l = Math.floor(t + c), f = Math.floor(r + c), M = Math.floor(e + c), d = Math.floor(n + c), h = (l + f + M + d) * D, S = l - h, m = f - h, v = M - h, F = d - h, E = t - S, p = r - m, _ = e - v, A = n - F, b = 0, y = 0, g = 0, R = 0;
             E > p ? b++ : y++, E > _ ? b++ : g++, E > A ? b++ : R++, p > _ ? y++ : g++, p > A ? y++ : R++, 
             _ > A ? g++ : R++;
-            var N, w, O, P, L, z, U, C, B, Y, q, G;
-            N = b >= 3 ? 1 : 0, w = y >= 3 ? 1 : 0, O = g >= 3 ? 1 : 0, P = R >= 3 ? 1 : 0, 
+            var w, N, O, P, L, z, U, C, B, Y, q, G;
+            w = b >= 3 ? 1 : 0, N = y >= 3 ? 1 : 0, O = g >= 3 ? 1 : 0, P = R >= 3 ? 1 : 0, 
             L = b >= 2 ? 1 : 0, z = y >= 2 ? 1 : 0, U = g >= 2 ? 1 : 0, C = R >= 2 ? 1 : 0, 
             B = b >= 1 ? 1 : 0, Y = y >= 1 ? 1 : 0, q = g >= 1 ? 1 : 0, G = R >= 1 ? 1 : 0;
-            var X = E - N + D, V = p - w + D, H = _ - O + D, j = A - P + D, k = E - L + 2 * D, W = p - z + 2 * D, Q = _ - U + 2 * D, K = A - C + 2 * D, Z = E - B + 3 * D, J = p - Y + 3 * D, $ = _ - q + 3 * D, tt = A - G + 3 * D, rt = E - 1 + 4 * D, et = p - 1 + 4 * D, nt = _ - 1 + 4 * D, at = A - 1 + 4 * D, ot = 255 & l, ut = 255 & f, it = 255 & M, st = 255 & d, ct = .6 - E * E - p * p - _ * _ - A * A;
+            var X = E - w + D, H = p - N + D, V = _ - O + D, k = A - P + D, j = E - L + 2 * D, W = p - z + 2 * D, Q = _ - U + 2 * D, K = A - C + 2 * D, Z = E - B + 3 * D, J = p - Y + 3 * D, $ = _ - q + 3 * D, tt = A - G + 3 * D, rt = E - 1 + 4 * D, et = p - 1 + 4 * D, nt = _ - 1 + 4 * D, at = A - 1 + 4 * D, ot = 255 & l, ut = 255 & f, it = 255 & M, st = 255 & d, ct = .6 - E * E - p * p - _ * _ - A * A;
             if (ct < 0) a = 0; else {
                 var lt = x[ot + x[ut + x[it + x[st]]]] % 32 * 4;
                 ct *= ct, a = ct * ct * (T[lt] * E + T[lt + 1] * p + T[lt + 2] * _ + T[lt + 3] * A);
             }
-            var ft = .6 - X * X - V * V - H * H - j * j;
+            var ft = .6 - X * X - H * H - V * V - k * k;
             if (ft < 0) o = 0; else {
-                var Mt = x[ot + N + x[ut + w + x[it + O + x[st + P]]]] % 32 * 4;
-                ft *= ft, o = ft * ft * (T[Mt] * X + T[Mt + 1] * V + T[Mt + 2] * H + T[Mt + 3] * j);
+                var Mt = x[ot + w + x[ut + N + x[it + O + x[st + P]]]] % 32 * 4;
+                ft *= ft, o = ft * ft * (T[Mt] * X + T[Mt + 1] * H + T[Mt + 2] * V + T[Mt + 3] * k);
             }
-            var dt = .6 - k * k - W * W - Q * Q - K * K;
+            var dt = .6 - j * j - W * W - Q * Q - K * K;
             if (dt < 0) u = 0; else {
                 var ht = x[ot + L + x[ut + z + x[it + U + x[st + C]]]] % 32 * 4;
-                dt *= dt, u = dt * dt * (T[ht] * k + T[ht + 1] * W + T[ht + 2] * Q + T[ht + 3] * K);
+                dt *= dt, u = dt * dt * (T[ht] * j + T[ht + 1] * W + T[ht + 2] * Q + T[ht + 3] * K);
             }
             var St = .6 - Z * Z - J * J - $ * $ - tt * tt;
             if (St < 0) i = 0; else {
@@ -1252,10 +1259,12 @@
             return null != t && (n.dependencies = t), "string" == typeof e ? n.processId = e : n.pidSuffix = f, 
             n;
         }
-        r.c = o, e.d(r, "b", function() {
+        r.d = o, e.d(r, "c", function() {
             return d;
         }), e.d(r, "a", function() {
             return h;
+        }), e.d(r, "b", function() {
+            return S;
         });
         var i = e(26), s = e(27), c = e(12), l = this && this.__assign || Object.assign || function(t) {
             for (var r, e = 1, n = arguments.length; e < n; e++) {
@@ -1266,6 +1275,10 @@
         }, f = "Stream", M = "Reaction", d = function(t, r, e) {
             return a(u(t, r, e));
         }, h = function(t, r, e) {
+            return a(l({}, u(t, r, e), {
+                async: !0
+            }));
+        }, S = function(t, r, e) {
             return a(l({}, u(t, r, e), {
                 async: !0,
                 autostart: !0
@@ -1797,12 +1810,12 @@
             o = SIMD.Float32x4.load(r, 8), SIMD.Float32x4.store(t, 8, SIMD.Float32x4.mul(o, SIMD.Float32x4.swizzle(u, 2, 2, 2, 2))), 
             t[12] = r[12], t[13] = r[13], t[14] = r[14], t[15] = r[15], t;
         }, a.scale = n.USE_SIMD ? a.SIMD.scale : a.scalar.scale, a.rotate = function(t, r, e, a) {
-            var o, u, i, s, c, l, f, M, d, h, S, m, v, I, D, F, x, E, p, T, _, A, b, y, g = a[0], R = a[1], N = a[2], w = Math.sqrt(g * g + R * R + N * N);
-            return Math.abs(w) < n.EPSILON ? null : (w = 1 / w, g *= w, R *= w, N *= w, o = Math.sin(e), 
+            var o, u, i, s, c, l, f, M, d, h, S, m, v, I, D, F, x, E, p, T, _, A, b, y, g = a[0], R = a[1], w = a[2], N = Math.sqrt(g * g + R * R + w * w);
+            return Math.abs(N) < n.EPSILON ? null : (N = 1 / N, g *= N, R *= N, w *= N, o = Math.sin(e), 
             u = Math.cos(e), i = 1 - u, s = r[0], c = r[1], l = r[2], f = r[3], M = r[4], d = r[5], 
             h = r[6], S = r[7], m = r[8], v = r[9], I = r[10], D = r[11], F = g * g * i + u, 
-            x = R * g * i + N * o, E = N * g * i - R * o, p = g * R * i - N * o, T = R * R * i + u, 
-            _ = N * R * i + g * o, A = g * N * i + R * o, b = R * N * i - g * o, y = N * N * i + u, 
+            x = R * g * i + w * o, E = w * g * i - R * o, p = g * R * i - w * o, T = R * R * i + u, 
+            _ = w * R * i + g * o, A = g * w * i + R * o, b = R * w * i - g * o, y = w * w * i + u, 
             t[0] = s * F + M * x + m * E, t[1] = c * F + d * x + v * E, t[2] = l * F + h * x + I * E, 
             t[3] = f * F + S * x + D * E, t[4] = s * p + M * T + m * _, t[5] = c * p + d * T + v * _, 
             t[6] = l * p + h * T + I * _, t[7] = f * p + S * T + D * _, t[8] = s * A + M * b + m * y, 
@@ -1974,8 +1987,8 @@
         }, a.exactEquals = function(t, r) {
             return t[0] === r[0] && t[1] === r[1] && t[2] === r[2] && t[3] === r[3] && t[4] === r[4] && t[5] === r[5] && t[6] === r[6] && t[7] === r[7] && t[8] === r[8] && t[9] === r[9] && t[10] === r[10] && t[11] === r[11] && t[12] === r[12] && t[13] === r[13] && t[14] === r[14] && t[15] === r[15];
         }, a.equals = function(t, r) {
-            var e = t[0], a = t[1], o = t[2], u = t[3], i = t[4], s = t[5], c = t[6], l = t[7], f = t[8], M = t[9], d = t[10], h = t[11], S = t[12], m = t[13], v = t[14], I = t[15], D = r[0], F = r[1], x = r[2], E = r[3], p = r[4], T = r[5], _ = r[6], A = r[7], b = r[8], y = r[9], g = r[10], R = r[11], N = r[12], w = r[13], O = r[14], P = r[15];
-            return Math.abs(e - D) <= n.EPSILON * Math.max(1, Math.abs(e), Math.abs(D)) && Math.abs(a - F) <= n.EPSILON * Math.max(1, Math.abs(a), Math.abs(F)) && Math.abs(o - x) <= n.EPSILON * Math.max(1, Math.abs(o), Math.abs(x)) && Math.abs(u - E) <= n.EPSILON * Math.max(1, Math.abs(u), Math.abs(E)) && Math.abs(i - p) <= n.EPSILON * Math.max(1, Math.abs(i), Math.abs(p)) && Math.abs(s - T) <= n.EPSILON * Math.max(1, Math.abs(s), Math.abs(T)) && Math.abs(c - _) <= n.EPSILON * Math.max(1, Math.abs(c), Math.abs(_)) && Math.abs(l - A) <= n.EPSILON * Math.max(1, Math.abs(l), Math.abs(A)) && Math.abs(f - b) <= n.EPSILON * Math.max(1, Math.abs(f), Math.abs(b)) && Math.abs(M - y) <= n.EPSILON * Math.max(1, Math.abs(M), Math.abs(y)) && Math.abs(d - g) <= n.EPSILON * Math.max(1, Math.abs(d), Math.abs(g)) && Math.abs(h - R) <= n.EPSILON * Math.max(1, Math.abs(h), Math.abs(R)) && Math.abs(S - N) <= n.EPSILON * Math.max(1, Math.abs(S), Math.abs(N)) && Math.abs(m - w) <= n.EPSILON * Math.max(1, Math.abs(m), Math.abs(w)) && Math.abs(v - O) <= n.EPSILON * Math.max(1, Math.abs(v), Math.abs(O)) && Math.abs(I - P) <= n.EPSILON * Math.max(1, Math.abs(I), Math.abs(P));
+            var e = t[0], a = t[1], o = t[2], u = t[3], i = t[4], s = t[5], c = t[6], l = t[7], f = t[8], M = t[9], d = t[10], h = t[11], S = t[12], m = t[13], v = t[14], I = t[15], D = r[0], F = r[1], x = r[2], E = r[3], p = r[4], T = r[5], _ = r[6], A = r[7], b = r[8], y = r[9], g = r[10], R = r[11], w = r[12], N = r[13], O = r[14], P = r[15];
+            return Math.abs(e - D) <= n.EPSILON * Math.max(1, Math.abs(e), Math.abs(D)) && Math.abs(a - F) <= n.EPSILON * Math.max(1, Math.abs(a), Math.abs(F)) && Math.abs(o - x) <= n.EPSILON * Math.max(1, Math.abs(o), Math.abs(x)) && Math.abs(u - E) <= n.EPSILON * Math.max(1, Math.abs(u), Math.abs(E)) && Math.abs(i - p) <= n.EPSILON * Math.max(1, Math.abs(i), Math.abs(p)) && Math.abs(s - T) <= n.EPSILON * Math.max(1, Math.abs(s), Math.abs(T)) && Math.abs(c - _) <= n.EPSILON * Math.max(1, Math.abs(c), Math.abs(_)) && Math.abs(l - A) <= n.EPSILON * Math.max(1, Math.abs(l), Math.abs(A)) && Math.abs(f - b) <= n.EPSILON * Math.max(1, Math.abs(f), Math.abs(b)) && Math.abs(M - y) <= n.EPSILON * Math.max(1, Math.abs(M), Math.abs(y)) && Math.abs(d - g) <= n.EPSILON * Math.max(1, Math.abs(d), Math.abs(g)) && Math.abs(h - R) <= n.EPSILON * Math.max(1, Math.abs(h), Math.abs(R)) && Math.abs(S - w) <= n.EPSILON * Math.max(1, Math.abs(S), Math.abs(w)) && Math.abs(m - N) <= n.EPSILON * Math.max(1, Math.abs(m), Math.abs(N)) && Math.abs(v - O) <= n.EPSILON * Math.max(1, Math.abs(v), Math.abs(O)) && Math.abs(I - P) <= n.EPSILON * Math.max(1, Math.abs(I), Math.abs(P));
         }, t.exports = a;
     }, function(t, r, e) {
         var n = e(0), a = e(7), o = e(8), u = e(9), i = {};
@@ -2272,7 +2285,7 @@
     }, function(t, r, e) {
         "use strict";
         function n(t) {
-            var r = u.c(.6 * Math.PI), e = u.c(.1), n = u.c(1e3), a = u.c(1).react([ t.HOT ], function(t, r) {
+            var r = u.d(.6 * Math.PI), e = u.d(.1), n = u.d(1e3), a = u.d(1).react([ t.HOT ], function(t, r) {
                 return r ? r.width / r.height : t;
             });
             return {
@@ -2280,11 +2293,11 @@
                 aspect: a,
                 near: e,
                 far: n,
-                perspective: u.c(o.mat4.create()).react([ r.HOT, a.HOT, e.HOT, n.HOT ], o.mat4.perspective, "updatePosition")
+                perspective: u.d(o.mat4.create()).react([ r.HOT, a.HOT, e.HOT, n.HOT ], o.mat4.perspective, "updatePosition")
             };
         }
         function a() {
-            var t = u.c([ 0, 0, 0 ]), r = u.c(0), e = u.c(0), n = u.c(o.quat.create()).react([ r.HOT ], i.getYawQuat), a = u.c(o.quat.create()).react([ e.HOT ], i.getPitchQuat), s = u.c(o.quat.create()).react([ a.HOT, n.HOT ], o.quat.multiply);
+            var t = u.d([ 0, 0, 0 ]), r = u.d(0), e = u.d(0), n = u.d(o.quat.create()).react([ r.HOT ], i.getYawQuat), a = u.d(o.quat.create()).react([ e.HOT ], i.getPitchQuat), s = u.d(o.quat.create()).react([ a.HOT, n.HOT ], o.quat.multiply);
             return {
                 position: t,
                 yaw: r,
@@ -2292,7 +2305,7 @@
                 yawQuat: n,
                 pitchQuat: a,
                 rotationQuat: s,
-                view: u.c(o.mat4.create()).react([ s.HOT, t.HOT ], o.mat4.fromRotationTranslation)
+                view: u.d(o.mat4.create()).react([ s.HOT, t.HOT ], o.mat4.fromRotationTranslation)
             };
         }
         Object.defineProperty(r, "__esModule", {
@@ -2384,29 +2397,77 @@
     }, function(t, r, e) {
         "use strict";
         function n(t) {
-            var r = a.a(null, function(t) {
+            var r = f.b(null, function(t) {
                 var r = document.createElement("canvas");
                 return document.body.appendChild(r), t(r), function() {
                     document.body.removeChild(r);
                 };
-            }), e = a.b([ r.HOT ], u.a), n = a.b([ e.HOT ], o.a), i = a.b([ r.HOT, t.HOT ], function(t) {
+            }), e = f.c([ r.HOT ], d.a), n = f.a([ e.HOT ], function(t, r) {
+                var e = M.a(r);
+                return t(e), e.destroy;
+            }), a = f.c([ r.HOT, t.HOT ], function(t) {
                 return {
                     width: t.clientWidth,
                     height: t.clientHeight
                 };
             });
-            return n.react([ i.HOT ], function(t, r) {
+            return n.react([ a.HOT ], function(t, r) {
                 return t.resize(), t;
             }, "updateSize"), {
-                context: context,
+                canvas: r,
+                painter: n,
                 gl: e,
-                canvasSize: i
+                canvasSize: a
             };
+        }
+        function a(t) {
+            return f.a([ t.HOT ], function(t, r) {
+                var e = r.createShade();
+                return t(e), e.destroy;
+            });
+        }
+        function o(t) {
+            return f.a([ t.HOT ], function(t, r) {
+                var e = r.createForm();
+                return t(e), e.destroy;
+            });
+        }
+        function u(t) {
+            return f.a([ t.HOT ], function(t, r) {
+                var e = r.createSketch();
+                return t(e), e.destroy;
+            });
+        }
+        function i(t) {
+            return f.a([ t.HOT ], function(t, r) {
+                var e = r.createFlatSketch();
+                return t(e), e.destroy;
+            });
+        }
+        function s(t) {
+            return f.a([ t.HOT ], function(t, r) {
+                var e = r.createStaticLayer();
+                return t(e), e.destroy;
+            });
+        }
+        function c(t) {
+            return f.a([ t.HOT ], function(t, r) {
+                var e = r.createDrawingLayer();
+                return t(e), e.destroy;
+            });
+        }
+        function l(t) {
+            return f.a([ t.HOT ], function(t, r) {
+                var e = r.createEffectLayer();
+                return t(e), e.destroy;
+            });
         }
         Object.defineProperty(r, "__esModule", {
             value: !0
-        }), r.makePainterCanvas = n;
-        var a = e(11), o = e(30), u = e(14);
+        }), r.makePainterCanvas = n, r.makeShadeEntity = a, r.makeFormEntity = o, r.makeSketchEntity = u, 
+        r.makeFlatSketchEntity = i, r.makeStaticLayerEntity = s, r.makeDrawingLayerEntity = c, 
+        r.makeEffectLayerEntity = l;
+        var f = e(11), M = e(30), d = e(14);
     }, function(t, r, e) {
         "use strict";
         function n(t) {
@@ -2422,10 +2483,18 @@
                     r.width = a.width, r.height = a.height, r.textureConfig = {
                         count: 1,
                         type: t.UNSIGNED_BYTE
-                    }, d.g(t, r, S.c);
+                    }, d.h(t, r, S.c);
                 }), o;
             };
-            return i(1, !0), {
+            i(1, !0);
+            var v = function() {
+                u.destroy();
+                for (var e = 0, n = r; e < n.length; e++) {
+                    var a = n[e];
+                    d.d(t, a);
+                }
+            };
+            return {
                 gl: t,
                 updateDrawSettings: function(r) {
                     return d.a(t, m({}, e, r));
@@ -2458,7 +2527,8 @@
                     for (var e = [], n = 0; n < arguments.length; n++) e[n] = arguments[n];
                     return s(t, e, r, u);
                 },
-                resize: i
+                resize: i,
+                destroy: v
             };
         }
         function a(t, r, e, n) {
@@ -2468,7 +2538,7 @@
                 var h = M[f];
                 o(t, r, e, h);
             } else o(t, r, e, s);
-            l && d.e(t, l);
+            l && d.f(t, l);
         }
         function o(t, r, e, n) {
             n && i(r.shade, n, e), r.form.elements && null != r.form.elements.glType ? (t.bindBuffer(t.ELEMENT_ARRAY_BUFFER, r.form.elements.buffer), 
@@ -2502,7 +2572,7 @@
                     } else a(t, n, null, {
                         source: i.texture()
                     });
-                    i.data.drawSettings && d.e(t, i.data.drawSettings), c && (e[0] = s, e[1] = u);
+                    i.data.drawSettings && d.f(t, i.data.drawSettings), c && (e[0] = s, e[1] = u);
                 };
                 if (Array.isArray(i.uniforms)) for (var c = o + i.uniforms.length - 1, l = 0; l < i.uniforms.length; l++) {
                     var f = u + l === c;
@@ -2539,11 +2609,11 @@
                     null == r.elements && (r.elements = {
                         buffer: t.createBuffer(),
                         glType: null
-                    }), r.elements.glType = a.d(i), t.bindBuffer(t.ELEMENT_ARRAY_BUFFER, r.elements.buffer), 
+                    }), r.elements.glType = a.e(i), t.bindBuffer(t.ELEMENT_ARRAY_BUFFER, r.elements.buffer), 
                     t.bufferData(t.ELEMENT_ARRAY_BUFFER, i, t[(e.elements.storeType || "STATIC") + "_DRAW"]);
                 }
                 return r;
-            }, r.delete = function() {
+            }, r.destroy = function() {
                 for (var e in r.attribs) t.deleteBuffer(r.attribs[e].buffer);
                 return r.elements && t.deleteBuffer(r.elements.buffer), r;
             }, r;
@@ -2571,9 +2641,8 @@
                 }
                 return r.uniformSetters = o.c(t, r.program), r.attributeSetters = o.b(t, r.program), 
                 r.fragSource = n, r.vertSource = u, r;
-            }, r.delete = function() {
-                return t.deleteProgram(r.program), t.deleteShader(r.frag), t.deleteShader(r.vert), 
-                r;
+            }, r.destroy = function() {
+                t.deleteProgram(r.program), t.deleteShader(r.frag), t.deleteShader(r.vert);
             }, r;
         }
         function a(t) {
@@ -2590,21 +2659,23 @@
             return t.update = function(r) {
                 return r.drawSettings && (t.drawSettings = r.drawSettings), r.form && (t.form = r.form), 
                 r.shade && (t.shade = r.shade), r.uniforms && (t.uniforms = r.uniforms), t;
+            }, t.destroy = function() {
+                t.form.destroy(), t.shade.destroy();
             }, t;
         }
         r.a = n;
     }, function(t, r, e) {
         "use strict";
         function n(t) {
-            var r = {};
-            r.textures = [], r.data = {}, r.texture = function(t) {
-                return void 0 === t && (t = 0), r.textures[t];
-            };
-            var e = t.createTexture();
-            return e && r.textures.push(e), r.update = function(e) {
-                return t.bindTexture(t.TEXTURE_2D, r.textures[0]), o.f(t, e, r.data), e.asset && t.texImage2D(t.TEXTURE_2D, 0, t.RGBA, t.RGBA, t.UNSIGNED_BYTE, e.asset), 
-                e.minFilter && e.minFilter.indexOf("MIPMAP") > 0 && t.generateMipmap(t.TEXTURE_2D), 
-                t.bindTexture(t.TEXTURE_2D, null), Object.assign(r.data, e), r;
+            var r = {}, e = t.createTexture();
+            return r.textures = [ e ], r.data = {}, r.texture = function() {
+                return e;
+            }, r.update = function(n) {
+                return t.bindTexture(t.TEXTURE_2D, e), o.g(t, n, r.data), n.asset && t.texImage2D(t.TEXTURE_2D, 0, t.RGBA, t.RGBA, t.UNSIGNED_BYTE, n.asset), 
+                n.minFilter && n.minFilter.indexOf("MIPMAP") > 0 && t.generateMipmap(t.TEXTURE_2D), 
+                t.bindTexture(t.TEXTURE_2D, null), Object.assign(r.data, n), r;
+            }, r.destroy = function() {
+                t.deleteTexture(e);
             }, r;
         }
         function a(t) {
@@ -2622,8 +2693,8 @@
                         type: e.textureConfig && e.textureConfig.type || t.UNSIGNED_BYTE,
                         count: e.textureConfig && e.textureConfig.count || 1
                     }
-                }, o.g(t, r.target, e, r.data), r.textures = r.target.textures) : r.target && e.width && e.height && (r.target.width = e.width, 
-                r.target.height = e.height, o.g(t, r.target, e, r.data)), e.sketches && (r.sketches = e.sketches), 
+                }, o.h(t, r.target, e, r.data), r.textures = r.target.textures) : r.target && e.width && e.height && (r.target.width = e.width, 
+                r.target.height = e.height, o.h(t, r.target, e, r.data)), e.sketches && (r.sketches = e.sketches), 
                 e.frag) {
                     var n = r.sketches && r.sketches[0];
                     n && n.shade.update({
@@ -2631,13 +2702,15 @@
                     });
                 }
                 return e.uniforms && (r.uniforms = e.uniforms), Object.assign(r.data, e), r;
-            }, r.delete = function() {
-                for (var e = 0, n = r.textures; e < n.length; e++) {
+            }, r.destroy = function() {
+                if (r.sketches) for (var e = 0, n = r.sketches; e < n.length; e++) {
                     var a = n[e];
-                    t.deleteTexture(a);
+                    a.destroy();
                 }
-                return r.target && (t.deleteFramebuffer(r.target.frameBuffer), t.deleteRenderbuffer(r.target.depthBuffer)), 
-                r;
+                if (r.target) o.d(t, r.target); else for (var u = 0, i = r.textures; u < i.length; u++) {
+                    var s = i[u];
+                    t.deleteTexture(s);
+                }
             }, r;
         }
         r.b = n, r.a = a;
@@ -2943,8 +3016,8 @@
             };
         }
         function a(t) {
-            function r() {
-                e && (t(), requestAnimationFrame(r));
+            function r(n) {
+                e && (t(n), requestAnimationFrame(r));
             }
             var e = !0;
             return requestAnimationFrame(r), function() {
