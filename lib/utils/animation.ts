@@ -22,12 +22,12 @@ export function animateWithTPF(callback: (tps: number) => void) {
 
 // ===== stopable animation function without time per frame
 
-export function animate(callback: () => void) {
+export function animate(callback: (time?: number) => void) {
   let isRunning = true
 
-  function next() {
+  function next(time) {
     if (isRunning) {
-      callback()
+      callback(time)
       requestAnimationFrame(next)
     }
   }

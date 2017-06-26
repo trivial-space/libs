@@ -14,9 +14,9 @@ export function animateWithTPF(callback) {
 }
 export function animate(callback) {
     var isRunning = true;
-    function next() {
+    function next(time) {
         if (isRunning) {
-            callback();
+            callback(time);
             requestAnimationFrame(next);
         }
     }
