@@ -2,13 +2,10 @@ import { EntityRef } from 'tvs-flow/dist/lib/utils/entity-reference';
 import { WindowSizeState } from '../events/dom';
 import { Painter, Shade, Form, Sketch, Layer } from "tvs-renderer/dist/lib/render-types";
 export declare function makePainterCanvas(windowSizeEntity: EntityRef<WindowSizeState>): {
-    canvas: EntityRef<HTMLCanvasElement>;
-    painter: EntityRef<Painter>;
-    gl: EntityRef<WebGLRenderingContext>;
-    canvasSize: EntityRef<{
-        width: number;
-        height: number;
-    }>;
+    canvas: any;
+    painter: any;
+    gl: any;
+    canvasSize: any;
 };
 export declare function makeShadeEntity(painter: EntityRef<Painter>): EntityRef<Shade>;
 export declare function makeFormEntity(painter: EntityRef<Painter>): EntityRef<Form>;

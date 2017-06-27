@@ -20,46 +20,46 @@ import * as flowTree from './flow/tree'
 
 
 export const math = {
-  core: mathCore,
-  noise: mathNoise,
-  coords: mathCoords,
-  vectors: mathVectors,
-  linAlg: mathLinAlg,
-  geometry: mathGeometry
+	core: mathCore,
+	noise: mathNoise,
+	coords: mathCoords,
+	vectors: mathVectors,
+	linAlg: mathLinAlg,
+	geometry: mathGeometry
 }
 
 
 export const vr = {
-  camera: vrCamera,
-  flowCamera: vrFlowCamera,
-  flowUtils: vrFlowUtils
+	camera: vrCamera,
+	flowCamera: vrFlowCamera,
+	flowUtils: vrFlowUtils
 }
 
 
 export const events = {
-  dom: eventsDom,
-  mouse: eventsMouse,
-  keyboard: eventsKey
+	dom: eventsDom,
+	mouse: eventsMouse,
+	keyboard: eventsKey
 }
 
 
 export const utils = {
-  animation: utilsAnimation,
-  string: utilsString,
-  seq: utilsSequence
+	animation: utilsAnimation,
+	string: utilsString,
+	seq: utilsSequence
 }
 
 
 export const graphics = {
-  colors: graphicsColors,
-  pixels: graphicsPixesls,
-  textures: graphicsTextures
+	colors: graphicsColors,
+	pixels: graphicsPixesls,
+	textures: graphicsTextures
 }
 
 
 export const flow = {
-  tree: flowTree
+	tree: flowTree
 }
 
 
-export default { math, vr, events, utils, graphics, flow}
+export default { math, vr, events, utils, graphics, flow }

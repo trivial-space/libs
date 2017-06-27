@@ -1,6 +1,7 @@
 import { asyncStreamStart, stream, asyncStream } from 'tvs-flow/dist/lib/utils/entity-reference';
 import { create } from 'tvs-renderer/dist/lib/painter';
 import { getContext } from 'tvs-renderer/dist/lib/utils/context';
+import { unequal } from "../utils/predicates";
 export function makePainterCanvas(windowSizeEntity) {
     var canvas = asyncStreamStart(null, function (send) {
         var canvas = document.createElement('canvas');
@@ -15,15 +16,13 @@ export function makePainterCanvas(windowSizeEntity) {
         var p = create(gl);
         send(p);
         return p.destroy;
-    });
+    })
+        .accept(unequal);
     var canvasSize = stream([canvas.HOT, windowSizeEntity.HOT], function (canvas) { return ({
         width: canvas.clientWidth,
         height: canvas.clientHeight
     }); });
-    painter.react([canvasSize.HOT], function (p, _) {
-        p.resize();
-        return p;
-    }, 'updateSize');
+    painter.react([canvasSize.HOT], function (p, _) { return p.resize(); }, 'updateSize');
     return { canvas: canvas, painter: painter, gl: gl, canvasSize: canvasSize };
 }
 export function makeShadeEntity(painter) {

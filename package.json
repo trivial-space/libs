@@ -38,6 +38,7 @@
     "sinon": "^2.3.5",
     "sinon-chai": "^2.11.0",
     "ts-loader": "^2.2.0",
+    "tslint": "^5.4.3",
     "typescript": "2.4",
     "uglifyjs-webpack-plugin": "^0.4.6",
     "webpack": "^3.0.0"
