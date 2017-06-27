@@ -1,5 +1,6 @@
 export function animateWithTPF(callback) {
-    var isRunning = true, oldTime;
+    var isRunning = true;
+    var oldTime;
     function next(newTime) {
         if (isRunning) {
             callback(newTime - (oldTime || newTime));

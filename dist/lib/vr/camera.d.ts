@@ -19,13 +19,4 @@ export declare function create(opts?: {}): {
         position: number[];
     };
 };
-export declare function update({props, state: {view, perspective, rotationX, rotationY, position}}: {
-    props: any;
-    state: {
-        view: any;
-        perspective: any;
-        rotationX: any;
-        rotationY: any;
-        position: any;
-    };
-}): void;
+export declare function update({props, state: {view, perspective, rotationX, rotationY, position}}: any): void;

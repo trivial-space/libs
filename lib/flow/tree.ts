@@ -4,7 +4,7 @@ import { Runtime } from 'tvs-flow/dist/lib/runtime-types'
 export function create (flow: Runtime) {
 
 	function callAll (name: string) {
-		return function() {
+		return function(this: any) {
 			for (const key in this) {
 				if (typeof this[key][name] === 'function') {
 					this[key][name]()
@@ -13,7 +13,7 @@ export function create (flow: Runtime) {
 		}
 	}
 
-	function createObject (pathstring: string, root = {}) {
+	function createObject (pathstring: string, root: any = {}) {
 		const names = pathstring.split('.')
 		return names.reduce((obj, name) => obj[name] = obj[name] || {
 			reset: callAll('reset'),
@@ -23,7 +23,7 @@ export function create (flow: Runtime) {
 	}
 
 
-	function createTree (root) {
+	function createTree (root: any) {
 
 		const graph = flow.getGraph()
 		const { entities, arcs, processes } = graph
@@ -42,7 +42,7 @@ export function create (flow: Runtime) {
 					get: () => flow.get(eid),
 					set: (v) => flow.set(eid, v)
 				})
-				e.update = function(fn) {
+				e.update = function(fn: (a: any) => any) {
 					flow.update(eid, fn)
 				}
 				e.reset = function() {
@@ -77,7 +77,7 @@ export function create (flow: Runtime) {
 	}
 
 
-	const root = {
+	const root: any = {
 		update: function() {
 			for (const key in this) {
 				if (key !== 'update') {

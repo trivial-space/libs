@@ -128,12 +128,12 @@ export function keyboard (callback: (val: KeyState) => void, opts: any = {}) {
 
 	const pressed: KeyState = {}
 
-	function onKeydown (event) {
+	function onKeydown (event: KeyboardEvent) {
 		pressed[event.keyCode] = Date.now()
 		callback(pressed)
 	}
 
-	function onKeyup (event) {
+	function onKeyup (event: KeyboardEvent) {
 		delete pressed[event.keyCode]
 		callback(pressed)
 	}

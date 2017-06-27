@@ -34,7 +34,7 @@ export function create (opts = {}) {
 }
 
 
-export function update ({ props, state: { view, perspective, rotationX, rotationY, position } }) {
+export function update ({ props, state: { view, perspective, rotationX, rotationY, position } }: any) {
 
 	if (props.needsUpdatePerspective) {
 		props.needsUpdatePerspective = false

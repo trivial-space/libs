@@ -1,7 +1,7 @@
 import { tileNoise } from '../math/noise'
 
 
-function to8Bit (noise) {
+function to8Bit (noise: number) {
 	return Math.floor((noise + 1) * 127)
 }
 

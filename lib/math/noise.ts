@@ -5,15 +5,15 @@ for (i = _i = 0; _i <= 256; i = ++_i) {
     p1[256 + i] = p1[i]
 }
 
-function fade(t) {
+function fade(t: number) {
     return t * t * t * (t * (t * 6 - 15) + 10)
 }
 
-function lerp(t, a, b) {
+function lerp(t: number, a: number, b: number) {
     return a + t * (b - a)
 }
 
-function grad(hash, x) {
+function grad(hash: number, x: number) {
     if ((hash & 1) === 0) {
         return x
     } else {
@@ -22,7 +22,7 @@ function grad(hash, x) {
 }
 
 
-export function noise1d(x) {
+export function noise1d(x: number) {
     let X, floorX, u
     floorX = ~~x
     X = floorX & 255
@@ -115,7 +115,7 @@ const grad4 = new Float32Array([
 ])
 
 
-export function noise2d (xin, yin) {
+export function noise2d (xin: number, yin: number) {
 	let n0 = 0, n1 = 0, n2 = 0 // Noise contributions from the three corners
 	// Skew the input space to determine which simplex cell we're in
 	const s = (xin + yin) * F2 // Hairy factor for 2D
@@ -173,7 +173,7 @@ export function noise2d (xin, yin) {
 
 
 // 3D simplex noise
-export function noise3d (xin, yin, zin) {
+export function noise3d (xin: number, yin: number, zin: number) {
 	let n0, n1, n2, n3 // Noise contributions from the four corners
 	// Skew the input space to determine which simplex cell we're in
 	const s = (xin + yin + zin) * F3 // Very nice and simple skew factor for 3D

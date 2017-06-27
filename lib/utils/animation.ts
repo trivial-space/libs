@@ -1,10 +1,10 @@
 // ===== stopable animation function with time per frame
 
 export function animateWithTPF (callback: (tps: number) => void) {
-	let isRunning = true,
-		oldTime
+	let isRunning = true
+	let oldTime: number
 
-	function next (newTime) {
+	function next (newTime: number) {
 		if (isRunning) {
 			callback(newTime - (oldTime || newTime))
 			oldTime = newTime
@@ -25,7 +25,7 @@ export function animateWithTPF (callback: (tps: number) => void) {
 export function animate (callback: (time?: number) => void) {
 	let isRunning = true
 
-	function next (time) {
+	function next (time: number) {
 		if (isRunning) {
 			callback(time)
 			requestAnimationFrame(next)
