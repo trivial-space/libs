@@ -3001,7 +3001,7 @@
     }, function(t, r, e) {
         "use strict";
         function n(t) {
-            return t[u.randInt(t.length)];
+            return t[i.randInt(t.length)];
         }
         function a(t, r) {
             for (var e = 0; e < t; e++) r(e);
@@ -3012,10 +3012,14 @@
                 return e.push(r(t));
             }), e;
         }
+        function u(t, r, e) {
+            for (var n = Math.min(t.length, r.length), a = [], o = 0; o < n; o++) a.push(e(t[o], r[o]));
+            return a;
+        }
         Object.defineProperty(r, "__esModule", {
             value: !0
-        }), r.pickRandom = n, r.doTimes = a, r.yieldTimes = o;
-        var u = e(3);
+        }), r.pickRandom = n, r.doTimes = a, r.yieldTimes = o, r.zip = u;
+        var i = e(3);
     }, function(t, r, e) {
         "use strict";
         function n(t) {
