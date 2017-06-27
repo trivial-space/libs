@@ -41,19 +41,19 @@ export function mouse(callback, opts) {
     function preventDefault(e) {
         e.preventDefault();
     }
-    element.addEventListener("mousedown", onMouseDown);
-    document.addEventListener("mouseup", onMouseUp);
-    document.addEventListener("mousemove", onMouseMove);
+    element.addEventListener('mousedown', onMouseDown);
+    document.addEventListener('mouseup', onMouseUp);
+    document.addEventListener('mousemove', onMouseMove);
     if (enableRightButton) {
-        element.addEventListener("contextmenu", preventDefault);
+        element.addEventListener('contextmenu', preventDefault);
     }
     callback(state);
     return function destroy() {
-        element.removeEventListener("mousedown", onMouseDown);
-        document.removeEventListener("mousemove", onMouseMove);
-        document.removeEventListener("mouseup", onMouseUp);
+        element.removeEventListener('mousedown', onMouseDown);
+        document.removeEventListener('mousemove', onMouseMove);
+        document.removeEventListener('mouseup', onMouseUp);
         if (enableRightButton) {
-            element.removeEventListener("contextmenu", preventDefault);
+            element.removeEventListener('contextmenu', preventDefault);
         }
     };
 }

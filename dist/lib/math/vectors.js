@@ -60,7 +60,7 @@ export function limit(vec, maxLenght) {
     }
 }
 export function isEqual(vec1, vec2) {
-    if (vec1.length != vec2.length)
+    if (vec1.length !== vec2.length)
         return false;
     for (var i = 0; i < vec1.length; i++) {
         if (vec1[i] !== vec2[i]) {

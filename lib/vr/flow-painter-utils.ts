@@ -2,11 +2,14 @@ import { EntityRef, asyncStreamStart, stream, asyncStream } from 'tvs-flow/dist/
 import { WindowSizeState } from '../events/dom'
 import { create } from 'tvs-renderer/dist/lib/painter'
 import { getContext } from 'tvs-renderer/dist/lib/utils/context'
-import { Painter, Shade, Form, Sketch, Layer, GL, SketchData, LayerData, ShadeData, FormData } from 'tvs-renderer/dist/lib/render-types'
+import { Painter, Shade, Form, Sketch, Layer, GL, SketchData, LayerData, ShadeData, FormData, DrawSettings } from 'tvs-renderer/dist/lib/render-types'
 import { unequal } from '../utils/predicates'
 
 
-export function makePainterCanvas (windowSizeEntity: EntityRef<WindowSizeState>) {
+export function makePainterCanvas (
+	windowSizeEntity: EntityRef<WindowSizeState>,
+	painterSettings?: EntityRef<DrawSettings>
+) {
 
 	const canvas = asyncStreamStart<HTMLCanvasElement>(
 		null,
@@ -48,6 +51,10 @@ export function makePainterCanvas (windowSizeEntity: EntityRef<WindowSizeState>)
 		(p, _) => p.resize(),
 		'updateSize'
 	)
+
+	if (painterSettings) {
+		painter.react([painterSettings.HOT], (p, s) => p.updateDrawSettings(s))
+	}
 
 	return { canvas, painter, gl, canvasSize }
 }
@@ -113,10 +120,7 @@ export function makeSketchEntity (
 	)
 
 	if (data) {
-		entity.react(
-			[data.HOT],
-			(entity, data) => entity.update(data)
-		)
+		entity.react( [data.HOT], (entity, data) => entity.update(data))
 	}
 
 	return entity
@@ -136,10 +140,7 @@ export function makeFlatSketchEntity (
 	)
 
 	if (data) {
-		entity.react(
-			[data.HOT],
-			(entity, data) => entity.update(data)
-		)
+		entity.react( [data.HOT], (entity, data) => entity.update(data))
 	}
 
 	return entity
@@ -159,10 +160,7 @@ export function makeStaticLayerEntity (
 	)
 
 	if (data) {
-		entity.react(
-			[data.HOT],
-			(entity, data) => entity.update(data)
-		)
+		entity.react( [data.HOT], (entity, data) => entity.update(data))
 	}
 
 	return entity
@@ -182,10 +180,7 @@ export function makeDrawingLayerEntity (
 	)
 
 	if (data) {
-		entity.react(
-			[data.HOT],
-			(entity, data) => entity.update(data)
-		)
+		entity.react( [data.HOT], (entity, data) => entity.update(data))
 	}
 
 	return entity
@@ -205,10 +200,7 @@ export function makeEffectLayerEntity (
 	)
 
 	if (data) {
-		entity.react(
-			[data.HOT],
-			(entity, data) => entity.update(data)
-		)
+		entity.react( [data.HOT], (entity, data) => entity.update(data))
 	}
 
 	return entity

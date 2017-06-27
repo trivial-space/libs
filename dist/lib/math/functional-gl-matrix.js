@@ -17,6 +17,6 @@ export var fvec3 = {
     scaleAndAdd: function (a, b, s) { return v3.scaleAndAdd(v3.create(), a, b, s); },
     inverse: function (a) { return v3.inverse(v3.create(), a); },
     normalize: function (a) { return v3.normalize(v3.create(), a); },
-    cross: function (a, b) { return v3.cross(v3.create(), a, b); },
+    cross: function (a, b) { return v3.cross(v3.create(), a, b); }
 };
 //# sourceMappingURL=functional-gl-matrix.js.map

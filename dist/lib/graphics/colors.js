@@ -18,7 +18,7 @@ export function grey(scale, alpha) {
 }
 export function colorRgbaToCSS(_a) {
     var r = _a[0], g = _a[1], b = _a[2], a = _a[3];
-    return "rgba(" + r + ", " + g + ", " + b + ", " + (a / 255) + ")";
+    return 'rgba(' + r + ', ' + g + ', ' + b + ', ' + (a / 255) + ')';
 }
 export function intToFloat(color) {
     return color.map(function (v) { return v / 255; });

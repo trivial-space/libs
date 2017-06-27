@@ -128,14 +128,14 @@ export function createPixelContext(adjustPos) {
         decreaseAllBy: decreaseAllBy,
         mixinColor: mixinColor,
         replaceWithImageDataAt: replaceWithImageDataAt,
-        drawImageAt: drawImageAt,
+        drawImageAt: drawImageAt
     };
 }
 export function createImgDataFromImage(img) {
-    var c = document.createElement("canvas");
+    var c = document.createElement('canvas');
     c.width = img.width;
     c.height = img.height;
-    var ctx = c.getContext("2d");
+    var ctx = c.getContext('2d');
     if (ctx) {
         ctx.drawImage(img, 0, 0, img.width, img.height);
         return ctx.getImageData(0, 0, img.width, img.height);

@@ -6,7 +6,7 @@ import * as mathLinAlg from './math/gl-matrix';
 import * as mathGeometry from './math/geometry';
 import * as vrCamera from './vr/camera';
 import * as vrFlowCamera from './vr/flow-camera';
-import * as vrFlowUtils from './vr/flow-utils';
+import * as vrFlowPainterUtils from './vr/flow-painter-utils';
 import * as eventsDom from './events/dom';
 import * as eventsKey from './events/keyboard';
 import * as eventsMouse from './events/mouse';
@@ -28,7 +28,7 @@ export declare const math: {
 export declare const vr: {
     camera: typeof vrCamera;
     flowCamera: typeof vrFlowCamera;
-    flowUtils: typeof vrFlowUtils;
+    flowPainterUtils: typeof vrFlowPainterUtils;
 };
 export declare const events: {
     dom: typeof eventsDom;
@@ -60,7 +60,7 @@ declare const _default: {
     vr: {
         camera: typeof vrCamera;
         flowCamera: typeof vrFlowCamera;
-        flowUtils: typeof vrFlowUtils;
+        flowPainterUtils: typeof vrFlowPainterUtils;
     };
     events: {
         dom: typeof eventsDom;

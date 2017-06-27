@@ -1,4 +1,4 @@
-import { sub, length, mul, div } from "../math/vectors";
+import { sub, length, mul, div } from '../math/vectors';
 export function gravity(obj1, obj2, G) {
     var force = sub(obj1.position, obj2.position);
     var distance = length(force);

@@ -26,7 +26,7 @@ export function create(flow) {
             var entity = entities[eid];
             var streamIds = Object.keys(arcs)
                 .map(function (k) { return arcs[k]; })
-                .filter(function (a) { return a.entity == eid && !a.port; })
+                .filter(function (a) { return a.entity === eid && !a.port; })
                 .map(function (a) { return a.process; });
             e.id = eid;
             Object.defineProperty(e, 'val', {
@@ -55,7 +55,7 @@ export function create(flow) {
                 var name = p.split('.').pop();
                 if (name) {
                     e.streams[name] = {
-                        start: function () { flow.start(p); },
+                        start: function () { flow.start(p); }
                     };
                     if (processes[p].async) {
                         e.streams[name].stop = function () { flow.stop(p); };
