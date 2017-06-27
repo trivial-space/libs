@@ -12,4 +12,12 @@ export function yieldTimes(count, fn) {
     doTimes(count, function (i) { return arr.push(fn(i)); });
     return arr;
 }
+export function zip(as, bs, fn) {
+    var length = Math.min(as.length, bs.length);
+    var result = [];
+    for (var i = 0; i < length; i++) {
+        result.push(fn(as[i], bs[i]));
+    }
+    return result;
+}
 //# sourceMappingURL=sequence.js.map

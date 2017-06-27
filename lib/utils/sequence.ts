@@ -22,3 +22,13 @@ export function yieldTimes<T>(
 	doTimes(count, i => arr.push(fn(i)))
 	return arr
 }
+
+
+export function zip<A, B, C>(as: A[], bs: B[], fn: (a: A, b: B) => C): C[] {
+	const length = Math.min(as.length, bs.length)
+	const result: C[] = []
+	for (let i = 0; i < length; i++) {
+		result.push(fn(as[i], bs[i]))
+	}
+	return result
+}
