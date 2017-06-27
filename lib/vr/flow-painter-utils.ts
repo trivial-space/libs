@@ -2,7 +2,7 @@ import { EntityRef, asyncStreamStart, stream, asyncStream } from 'tvs-flow/dist/
 import { WindowSizeState } from '../events/dom'
 import { create } from 'tvs-renderer/dist/lib/painter'
 import { getContext } from 'tvs-renderer/dist/lib/utils/context'
-import { Painter, Shade, Form, Sketch, Layer, GL } from 'tvs-renderer/dist/lib/render-types'
+import { Painter, Shade, Form, Sketch, Layer, GL, SketchData, LayerData, ShadeData, FormData } from 'tvs-renderer/dist/lib/render-types'
 import { unequal } from '../utils/predicates'
 
 
@@ -53,8 +53,11 @@ export function makePainterCanvas (windowSizeEntity: EntityRef<WindowSizeState>)
 }
 
 
-export function makeShadeEntity (painter: EntityRef<Painter>): EntityRef<Shade> {
-	return asyncStream(
+export function makeShadeEntity (
+	painter: EntityRef<Painter>,
+	data?: EntityRef<ShadeData>
+): EntityRef<Shade> {
+	const entity = asyncStream<Shade, Painter>(
 		[painter.HOT],
 		(send, painter) => {
 			const shade = painter.createShade()
@@ -62,10 +65,22 @@ export function makeShadeEntity (painter: EntityRef<Painter>): EntityRef<Shade> 
 			return shade.destroy
 		}
 	)
+
+	if (data) {
+		entity.react(
+			[data.HOT],
+			(entity, data) => entity.update(data)
+		)
+	}
+
+	return entity
 }
 
-export function makeFormEntity (painter: EntityRef<Painter>): EntityRef<Form> {
-	return asyncStream(
+export function makeFormEntity (
+	painter: EntityRef<Painter>,
+	data?: EntityRef<FormData>
+): EntityRef<Form> {
+	const entity = asyncStream<Form, Painter>(
 		[painter.HOT],
 		(send, painter) => {
 			const form = painter.createForm()
@@ -73,10 +88,22 @@ export function makeFormEntity (painter: EntityRef<Painter>): EntityRef<Form> {
 			return form.destroy
 		}
 	)
+
+	if (data) {
+		entity.react(
+			[data.HOT],
+			(entity, data) => entity.update(data)
+		)
+	}
+
+	return entity
 }
 
-export function makeSketchEntity (painter: EntityRef<Painter>): EntityRef<Sketch> {
-	return asyncStream(
+export function makeSketchEntity (
+	painter: EntityRef<Painter>,
+	data?: EntityRef<SketchData>
+): EntityRef<Sketch> {
+	const entity = asyncStream<Sketch, Painter>(
 		[painter.HOT],
 		(send, painter) => {
 			const sketch = painter.createSketch()
@@ -84,10 +111,22 @@ export function makeSketchEntity (painter: EntityRef<Painter>): EntityRef<Sketch
 			return sketch.destroy
 		}
 	)
+
+	if (data) {
+		entity.react(
+			[data.HOT],
+			(entity, data) => entity.update(data)
+		)
+	}
+
+	return entity
 }
 
-export function makeFlatSketchEntity (painter: EntityRef<Painter>): EntityRef<Sketch> {
-	return asyncStream(
+export function makeFlatSketchEntity (
+	painter: EntityRef<Painter>,
+	data?: EntityRef<SketchData>
+): EntityRef<Sketch> {
+	const entity = asyncStream<Sketch, Painter>(
 		[painter.HOT],
 		(send, painter) => {
 			const sketch = painter.createFlatSketch()
@@ -95,10 +134,22 @@ export function makeFlatSketchEntity (painter: EntityRef<Painter>): EntityRef<Sk
 			return sketch.destroy
 		}
 	)
+
+	if (data) {
+		entity.react(
+			[data.HOT],
+			(entity, data) => entity.update(data)
+		)
+	}
+
+	return entity
 }
 
-export function makeStaticLayerEntity (painter: EntityRef<Painter>): EntityRef<Layer> {
-	return asyncStream(
+export function makeStaticLayerEntity (
+	painter: EntityRef<Painter>,
+	data?: EntityRef<LayerData>
+): EntityRef<Layer> {
+	const entity = asyncStream<Layer, Painter>(
 		[painter.HOT],
 		(send, painter) => {
 			const layer = painter.createStaticLayer()
@@ -106,10 +157,22 @@ export function makeStaticLayerEntity (painter: EntityRef<Painter>): EntityRef<L
 			return layer.destroy
 		}
 	)
+
+	if (data) {
+		entity.react(
+			[data.HOT],
+			(entity, data) => entity.update(data)
+		)
+	}
+
+	return entity
 }
 
-export function makeDrawingLayerEntity (painter: EntityRef<Painter>): EntityRef<Layer> {
-	return asyncStream(
+export function makeDrawingLayerEntity (
+	painter: EntityRef<Painter>,
+	data?: EntityRef<LayerData>
+): EntityRef<Layer> {
+	const entity = asyncStream<Layer, Painter>(
 		[painter.HOT],
 		(send, painter) => {
 			const layer = painter.createDrawingLayer()
@@ -117,10 +180,22 @@ export function makeDrawingLayerEntity (painter: EntityRef<Painter>): EntityRef<
 			return layer.destroy
 		}
 	)
+
+	if (data) {
+		entity.react(
+			[data.HOT],
+			(entity, data) => entity.update(data)
+		)
+	}
+
+	return entity
 }
 
-export function makeEffectLayerEntity (painter: EntityRef<Painter>): EntityRef<Layer> {
-	return asyncStream(
+export function makeEffectLayerEntity (
+	painter: EntityRef<Painter>,
+	data?: EntityRef<LayerData>
+): EntityRef<Layer> {
+	const entity = asyncStream<Layer, Painter>(
 		[painter.HOT],
 		(send, painter) => {
 			const layer = painter.createEffectLayer()
@@ -128,4 +203,13 @@ export function makeEffectLayerEntity (painter: EntityRef<Painter>): EntityRef<L
 			return layer.destroy
 		}
 	)
+
+	if (data) {
+		entity.react(
+			[data.HOT],
+			(entity, data) => entity.update(data)
+		)
+	}
+
+	return entity
 }
