@@ -1,34 +1,38 @@
-import { mat4, quat } from '../math/gl-matrix'
+import { mat4 } from 'gl-matrix'
 import { EntityRef, val } from 'tvs-flow/dist/lib/utils/entity-reference'
-import { getYawQuat, getPitchQuat } from '../math/geometry'
 
+
+export interface PerspectiveSettings {
+	near: number,
+	far: number,
+	fovy: number,
+	aspect: number
+}
 
 export function makePerspective (canvasSize: EntityRef<{ width: number, height: number }>) {
 
-	const fovy = val(Math.PI * 0.6)
-	const near = val(0.1)
-	const far = val(1000)
-
-	const aspect = val(1)
+	const perspectiveSettings = val<PerspectiveSettings>({
+		near: 0.1,
+		far: 1000,
+		fovy: Math.PI * 0.6,
+		aspect: 1
+	})
 	.react(
 		[canvasSize.HOT],
-		(self, size) => size ? size.width / size.height : self
+		(self, {width, height}) => {
+			self.aspect = width / height
+			return self
+		}
 	)
 
 	const perspective = val(mat4.create())
 	.react(
-		[
-			fovy.HOT,
-			aspect.HOT,
-			near.HOT,
-			far.HOT
-		],
-		mat4.perspective,
-		'updatePosition'
+		[ perspectiveSettings.HOT ],
+		(self, s) => mat4.perspective(self, s.fovy, s.aspect, s.near, s.far)
 	)
 
 	return {
-		fovy, aspect, near, far, perspective
+		perspectiveSettings, perspective
 	}
 }
 
@@ -36,32 +40,39 @@ export function makePerspective (canvasSize: EntityRef<{ width: number, height: 
 export function makeFirstPersonView () {
 
 	const position = val([0, 0, 0])
-	const yaw = val(0)
-	const pitch = val(0)
+	const rotY = val(0)
+	const rotX = val(0)
 
-	const yawQuat = val(quat.create())
+	const rotation = val({
+		rotX: mat4.create(),
+		rotY: mat4.create()
+	})
 	.react(
-		[yaw.HOT],
-		getYawQuat
+		[rotY.HOT],
+		(self, rotY) => {
+			self.rotY = mat4.fromYRotation(self.rotY, rotY)
+			return self
+		}
 	)
-
-	const pitchQuat = val(quat.create())
 	.react(
-		[pitch.HOT],
-		getPitchQuat
-	)
-
-	const rotationQuat = val(quat.create())
-	.react(
-		[pitchQuat.HOT, yawQuat.HOT],
-		quat.multiply
+		[rotX.HOT],
+		(self, rotX) => {
+			self.rotX = mat4.fromXRotation(self.rotX, rotX)
+			return self
+		}
 	)
 
 	const view = val(mat4.create())
 	.react(
-		[rotationQuat.HOT, position.HOT],
-		mat4.fromRotationTranslation
+		[rotation.HOT, position.HOT],
+		(self, rotation, position) => {
+			mat4.fromTranslation(self, position)
+			mat4.multiply(self, self, rotation.rotY)
+			mat4.multiply(self, self, rotation.rotX)
+			mat4.invert(self, self)
+			return self
+		}
 	)
 
-	return { position, yaw, pitch, yawQuat, pitchQuat, rotationQuat, view }
+	return { position, rotation, view, rotY, rotX }
 }
