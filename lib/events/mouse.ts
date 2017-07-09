@@ -7,7 +7,7 @@ export const Buttons = {
 
 export interface MouseState {
 	pressed: { [btn: number]: MouseEvent }
-	dragDelta: {
+	drag: {
 		x: number,
 		y: number,
 		event?: MouseEvent
@@ -24,7 +24,7 @@ export function mouse (callback: (val: MouseState) => void, opts: any = {}) {
 
 	const state: MouseState = {
 		pressed: {},
-		dragDelta: { x: 0, y: 0 }
+		drag: { x: 0, y: 0 }
 	}
 
 	let x = 0,
@@ -49,10 +49,10 @@ export function mouse (callback: (val: MouseState) => void, opts: any = {}) {
 	function onMouseUp (e: MouseEvent) {
 
 		delete state.pressed[e.button]
-		delete state.dragDelta.event
+		delete state.drag.event
 
-		state.dragDelta.x = 0
-		state.dragDelta.y = 0
+		state.drag.x = 0
+		state.drag.y = 0
 
 		dragging = false
 
@@ -63,12 +63,10 @@ export function mouse (callback: (val: MouseState) => void, opts: any = {}) {
 	function onMouseMove (e: MouseEvent) {
 		if (dragging) {
 
-			state.dragDelta.event = e
+			state.drag.event = e
 
-			state.dragDelta.x = x - e.clientX
-			state.dragDelta.y = y - e.clientY
-			x = e.clientX
-			y = e.clientY
+			state.drag.x = x - e.clientX
+			state.drag.y = y - e.clientY
 
 			callback(state)
 		}
