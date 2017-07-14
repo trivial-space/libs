@@ -1,20 +1,24 @@
 import { EntityRef } from 'tvs-flow/dist/lib/utils/entity-reference';
+export interface PerspectiveSettings {
+    near: number;
+    far: number;
+    fovy: number;
+    aspect: number;
+}
 export declare function makePerspective(canvasSize: EntityRef<{
     width: number;
     height: number;
 }>): {
-    fovy: EntityRef<number>;
-    aspect: EntityRef<number>;
-    near: EntityRef<number>;
-    far: EntityRef<number>;
+    perspectiveSettings: EntityRef<PerspectiveSettings>;
     perspective: EntityRef<number[] | Float32Array>;
 };
 export declare function makeFirstPersonView(): {
     position: EntityRef<number[]>;
-    yaw: EntityRef<number>;
-    pitch: EntityRef<number>;
-    yawQuat: EntityRef<number[] | Float32Array>;
-    pitchQuat: EntityRef<number[] | Float32Array>;
-    rotationQuat: EntityRef<number[] | Float32Array>;
+    rotation: EntityRef<{
+        rotX: number[] | Float32Array;
+        rotY: number[] | Float32Array;
+    }>;
     view: EntityRef<number[] | Float32Array>;
+    rotY: EntityRef<number>;
+    rotX: EntityRef<number>;
 };

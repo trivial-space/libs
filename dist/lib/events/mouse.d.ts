@@ -7,7 +7,7 @@ export interface MouseState {
     pressed: {
         [btn: number]: MouseEvent;
     };
-    dragDelta: {
+    drag: {
         x: number;
         y: number;
         event?: MouseEvent;

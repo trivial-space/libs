@@ -26,7 +26,7 @@ export function animate(callback) {
         isRunning = false;
     };
 }
-export function animator(animateFunction) {
+export function createAnimator(animateFunction) {
     var updates = [];
     function callback() {
         for (var i in updates) {

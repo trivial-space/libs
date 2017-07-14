@@ -1,6 +1,6 @@
 export declare function animateWithTPF(callback: (tps: number) => void): () => void;
 export declare function animate(callback: (time?: number) => void): () => void;
-export declare function animator(animateFunction: Function): {
+export declare function createAnimator(animateFunction: Function): {
     start: () => void;
     stop: () => void;
     step: () => void;
