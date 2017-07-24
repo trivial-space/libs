@@ -1,3 +1,5 @@
+/// <reference types="gl-matrix" />
+import { mat4 } from 'gl-matrix';
 export declare function create(opts?: {}): {
     props: {
         fovy: number;
@@ -12,10 +14,10 @@ export declare function create(opts?: {}): {
         moveUp: number;
     };
     state: {
-        view: number[] | Float32Array;
-        perspective: number[] | Float32Array;
-        rotationX: number[] | Float32Array;
-        rotationY: number[] | Float32Array;
+        view: mat4;
+        perspective: mat4;
+        rotationX: mat4;
+        rotationY: mat4;
         position: number[];
     };
 };

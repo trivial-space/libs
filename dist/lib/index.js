@@ -2,7 +2,6 @@ import * as mathCore from './math/core';
 import * as mathCoords from './math/coords';
 import * as mathNoise from './math/noise';
 import * as mathVectors from './math/vectors';
-import * as mathLinAlg from './math/gl-matrix';
 import * as mathGeometry from './math/geometry';
 import * as vrCamera from './vr/camera';
 import * as vrFlowCamera from './vr/flow-camera';
@@ -22,7 +21,6 @@ export var math = {
     noise: mathNoise,
     coords: mathCoords,
     vectors: mathVectors,
-    linAlg: mathLinAlg,
     geometry: mathGeometry
 };
 export var vr = {

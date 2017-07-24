@@ -1,20 +1,24 @@
-import { GLVec, GLMat, vec3, fvec3, vec4, mat4 } from './gl-matrix'
+import { vec3, vec4, mat4, quat } from 'gl-matrix'
+
+export type GLVec3 = vec3 | number[]
+export type GLVec4 = vec4 | number[]
+export type GLQuat = quat | number[]
 
 
 export function planeFromNormalAndCoplanarPoint (
-	n: GLVec,
-	point: GLVec
-): GLVec {
+	n: GLVec3,
+	point: GLVec3
+): vec4 {
 	const d = -vec3.dot(n, point)
 	return vec4.fromValues(n[0], n[1], n[2], d)
 }
 
 
 export function planeFromThreeCoplanarPoints (
-	p1: GLVec,
-	p2: GLVec,
-	p3: GLVec
-): GLVec {
+	p1: GLVec3,
+	p2: GLVec3,
+	p3: GLVec3
+): vec4 {
 	return planeFromNormalAndCoplanarPoint(
 		normalFromThreeCoplanarPoints(p1, p2, p3), p1
 	)
@@ -22,11 +26,11 @@ export function planeFromThreeCoplanarPoints (
 
 
 export function normalFromThreeCoplanarPoints (
-	p1: GLVec,
-	p2: GLVec,
-	p3: GLVec
-): GLVec {
-	const n = fvec3.cross(fvec3.sub(p3, p2), fvec3.sub(p1, p2))
+	p1: GLVec3,
+	p2: GLVec3,
+	p3: GLVec3
+): vec3 {
+	const n = vec3.cross(vec3.create(), vec3.sub(vec3.create(), p3, p2), vec3.sub(vec3.create(), p1, p2))
 	return vec3.normalize(n, n)
 }
 
@@ -44,7 +48,7 @@ http://khayyam.kaplinski.com/2011/09/reflective-water-with-glsl-part-i.html
 https://www.opengl.org/discussion_boards/showthread.php/147784-Mirror-Matrices
 */
 
-export function mirrorMatrixFromPlane (plane: GLVec): GLMat {
+export function mirrorMatrixFromPlane (plane: GLVec4): mat4 {
 	const [a, b, c, d] = plane as number[]
 
 	return mat4.fromValues(
@@ -56,7 +60,7 @@ export function mirrorMatrixFromPlane (plane: GLVec): GLMat {
 }
 
 
-export function getYawQuat (quat: GLVec, rotYAngle: number): GLVec {
+export function getYawQuat (quat: GLQuat, rotYAngle: number): GLQuat {
 	rotYAngle *= 0.5
 	quat[0] = 0
 	quat[1] = Math.sin(rotYAngle)
@@ -66,7 +70,7 @@ export function getYawQuat (quat: GLVec, rotYAngle: number): GLVec {
 }
 
 
-export function getPitchQuat (quat: GLVec, rotXAngle: number): GLVec {
+export function getPitchQuat (quat: GLQuat, rotXAngle: number): GLQuat {
 	rotXAngle *= 0.5
 	quat[0] = Math.sin(rotXAngle)
 	quat[1] = 0
@@ -76,7 +80,7 @@ export function getPitchQuat (quat: GLVec, rotXAngle: number): GLVec {
 }
 
 
-export function getRollQuat (quat: GLVec, rotZAngle: number): GLVec {
+export function getRollQuat (quat: GLQuat, rotZAngle: number): GLQuat {
 	rotZAngle *= 0.5
 	quat[0] = 0
 	quat[1] = 0

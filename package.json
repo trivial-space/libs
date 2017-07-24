@@ -20,10 +20,12 @@
   },
   "devDependencies": {
     "@types/chai": "^4.0.1",
+    "@types/gl-matrix": "^2.2.34",
     "@types/mocha": "^2.2.41",
     "@types/sinon": "^2.3.2",
     "@types/sinon-chai": "^2.7.28",
     "chai": "^4.1.0",
+    "gl-matrix": "2.3",
     "karma": "^1.7.0",
     "karma-chai-sinon": "^0.1.5",
     "karma-chrome-launcher": "^2.2.0",
@@ -37,15 +39,12 @@
     "mocha": "^3.4.2",
     "sinon": "^2.3.8",
     "sinon-chai": "^2.11.0",
-    "ts-loader": "^2.2.2",
+    "ts-loader": "^2.3.1",
     "tslint": "^5.5.0",
-    "typescript": "^2.4.1",
-    "uglifyjs-webpack-plugin": "^0.4.6",
-    "webpack": "^3.2.0"
-  },
-  "peerDependencies": {
-    "gl-matrix": "^2.3.2",
     "tvs-flow": "github:trivial-space/flow",
-    "tvs-renderer": "github:trivial-space/renderer"
+    "tvs-renderer": "github:trivial-space/renderer",
+    "typescript": "^2.4.2",
+    "uglifyjs-webpack-plugin": "^0.4.6",
+    "webpack": "^3.3.0"
   }
 }

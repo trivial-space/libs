@@ -1,3 +1,5 @@
+/// <reference types="gl-matrix" />
+import { mat4 } from 'gl-matrix';
 import { EntityRef } from 'tvs-flow/dist/lib/utils/entity-reference';
 export interface PerspectiveSettings {
     near: number;
@@ -10,15 +12,15 @@ export declare function makePerspective(canvasSize: EntityRef<{
     height: number;
 }>): {
     perspectiveSettings: EntityRef<PerspectiveSettings>;
-    perspective: EntityRef<number[] | Float32Array>;
+    perspective: EntityRef<mat4>;
 };
 export declare function makeFirstPersonView(): {
     position: EntityRef<number[]>;
     rotation: EntityRef<{
-        rotX: number[] | Float32Array;
-        rotY: number[] | Float32Array;
+        rotX: mat4;
+        rotY: mat4;
     }>;
-    view: EntityRef<number[] | Float32Array>;
+    view: EntityRef<mat4>;
     rotY: EntityRef<number>;
     rotX: EntityRef<number>;
 };

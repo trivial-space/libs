@@ -1,4 +1,4 @@
-import { mat4, vec3 } from '../math/gl-matrix'
+import { mat4, vec3 } from 'gl-matrix'
 
 
 export function create (opts = {}) {
@@ -63,21 +63,21 @@ export function update ({ props, state: { view, perspective, rotationX, rotation
 	}
 
 	if (props.moveForward) {
-		const v = [rotationY[8], rotationY[9], rotationY[10]]
+		const v = vec3.fromValues(rotationY[8], rotationY[9], rotationY[10])
 		vec3.add(position, position, vec3.scale(v, v, -props.moveForward))
 		props.moveForward = 0
 		needsUpdateView = true
 	}
 
 	if (props.moveLeft) {
-		const v = [rotationY[0], rotationY[1], rotationY[2]]
+		const v = vec3.fromValues(rotationY[0], rotationY[1], rotationY[2])
 		vec3.add(position, position, vec3.scale(v, v, -props.moveLeft))
 		props.moveLeft = 0
 		needsUpdateView = true
 	}
 
 	if (props.moveUp) {
-		const v = [rotationY[4], rotationY[5], rotationY[6]]
+		const v = vec3.fromValues(rotationY[4], rotationY[5], rotationY[6])
 		vec3.add(position, position, vec3.scale(v, v, props.moveUp))
 		props.moveUp = 0
 		needsUpdateView = true

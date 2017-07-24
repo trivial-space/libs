@@ -1,4 +1,4 @@
-import { vec3, fvec3, vec4, mat4 } from './gl-matrix';
+import { vec3, vec4, mat4 } from 'gl-matrix';
 export function planeFromNormalAndCoplanarPoint(n, point) {
     var d = -vec3.dot(n, point);
     return vec4.fromValues(n[0], n[1], n[2], d);
@@ -7,7 +7,7 @@ export function planeFromThreeCoplanarPoints(p1, p2, p3) {
     return planeFromNormalAndCoplanarPoint(normalFromThreeCoplanarPoints(p1, p2, p3), p1);
 }
 export function normalFromThreeCoplanarPoints(p1, p2, p3) {
-    var n = fvec3.cross(fvec3.sub(p3, p2), fvec3.sub(p1, p2));
+    var n = vec3.cross(vec3.create(), vec3.sub(vec3.create(), p3, p2), vec3.sub(vec3.create(), p1, p2));
     return vec3.normalize(n, n);
 }
 export function mirrorMatrixFromPlane(plane) {

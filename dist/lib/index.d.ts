@@ -2,7 +2,6 @@ import * as mathCore from './math/core';
 import * as mathCoords from './math/coords';
 import * as mathNoise from './math/noise';
 import * as mathVectors from './math/vectors';
-import * as mathLinAlg from './math/gl-matrix';
 import * as mathGeometry from './math/geometry';
 import * as vrCamera from './vr/camera';
 import * as vrFlowCamera from './vr/flow-camera';
@@ -22,7 +21,6 @@ export declare const math: {
     noise: typeof mathNoise;
     coords: typeof mathCoords;
     vectors: typeof mathVectors;
-    linAlg: typeof mathLinAlg;
     geometry: typeof mathGeometry;
 };
 export declare const vr: {
@@ -54,7 +52,6 @@ declare const _default: {
         noise: typeof mathNoise;
         coords: typeof mathCoords;
         vectors: typeof mathVectors;
-        linAlg: typeof mathLinAlg;
         geometry: typeof mathGeometry;
     };
     vr: {
