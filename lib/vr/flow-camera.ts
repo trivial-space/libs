@@ -1,4 +1,4 @@
-import { mat4 } from 'gl-matrix'
+import { mat4, vec3 } from 'gl-matrix'
 import { EntityRef, val } from 'tvs-flow/dist/lib/utils/entity-reference'
 
 
@@ -39,7 +39,7 @@ export function makePerspective (canvasSize: EntityRef<{ width: number, height: 
 
 export function makeFirstPersonView () {
 
-	const position = val([0, 0, 0])
+	const position = val(vec3.fromValues(0, 0, 0))
 	const rotY = val(0)
 	const rotX = val(0)
 

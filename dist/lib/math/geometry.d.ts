@@ -7,6 +7,6 @@ export declare function planeFromNormalAndCoplanarPoint(n: GLVec3, point: GLVec3
 export declare function planeFromThreeCoplanarPoints(p1: GLVec3, p2: GLVec3, p3: GLVec3): vec4;
 export declare function normalFromThreeCoplanarPoints(p1: GLVec3, p2: GLVec3, p3: GLVec3): vec3;
 export declare function mirrorMatrixFromPlane(plane: GLVec4): mat4;
-export declare function getYawQuat(quat: GLQuat, rotYAngle: number): GLQuat;
-export declare function getPitchQuat(quat: GLQuat, rotXAngle: number): GLQuat;
-export declare function getRollQuat(quat: GLQuat, rotZAngle: number): GLQuat;
+export declare function getYawQuat(quat: quat | number[], rotYAngle: number): quat;
+export declare function getPitchQuat(quat: quat | number[], rotXAngle: number): quat;
+export declare function getRollQuat(quat: quat | number[], rotZAngle: number): quat;

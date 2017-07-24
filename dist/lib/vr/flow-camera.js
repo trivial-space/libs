@@ -1,4 +1,4 @@
-import { mat4 } from 'gl-matrix';
+import { mat4, vec3 } from 'gl-matrix';
 import { val } from 'tvs-flow/dist/lib/utils/entity-reference';
 export function makePerspective(canvasSize) {
     var perspectiveSettings = val({
@@ -19,7 +19,7 @@ export function makePerspective(canvasSize) {
     };
 }
 export function makeFirstPersonView() {
-    var position = val([0, 0, 0]);
+    var position = val(vec3.fromValues(0, 0, 0));
     var rotY = val(0);
     var rotX = val(0);
     var rotation = val({
