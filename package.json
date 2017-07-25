@@ -42,7 +42,7 @@
     "ts-loader": "^2.3.1",
     "tslint": "^5.5.0",
     "tvs-flow": "github:trivial-space/flow",
-    "tvs-renderer": "github:trivial-space/renderer",
+    "tvs-painter": "github:trivial-space/painter",
     "typescript": "^2.4.2",
     "uglifyjs-webpack-plugin": "^0.4.6",
     "webpack": "^3.3.0"

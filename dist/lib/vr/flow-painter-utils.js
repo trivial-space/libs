@@ -1,6 +1,6 @@
 import { asyncStreamStart, stream, asyncStream } from 'tvs-flow/dist/lib/utils/entity-reference';
-import { create } from 'tvs-renderer/dist/lib/painter';
-import { getContext } from 'tvs-renderer/dist/lib/utils/context';
+import { create } from 'tvs-painter/dist/lib/painter';
+import { getContext } from 'tvs-painter/dist/lib/utils/context';
 import { unequal } from '../utils/predicates';
 export function makePainterCanvas(windowSizeEntity, painterSettings) {
     var canvas = asyncStreamStart(null, function (send) {

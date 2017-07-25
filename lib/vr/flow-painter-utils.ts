@@ -1,8 +1,8 @@
 import { EntityRef, asyncStreamStart, stream, asyncStream } from 'tvs-flow/dist/lib/utils/entity-reference'
 import { WindowSizeState } from '../events/dom'
-import { create } from 'tvs-renderer/dist/lib/painter'
-import { getContext } from 'tvs-renderer/dist/lib/utils/context'
-import { Painter, Shade, Form, Sketch, Layer, GL, SketchData, LayerData, ShadeData, FormData, DrawSettings } from 'tvs-renderer/dist/lib/render-types'
+import { create } from 'tvs-painter/dist/lib/painter'
+import { getContext } from 'tvs-painter/dist/lib/utils/context'
+import { Painter, Shade, Form, Sketch, Layer, GL, SketchData, LayerData, ShadeData, FormData, DrawSettings } from 'tvs-painter/dist/lib/painter-types'
 import { unequal } from '../utils/predicates'
 
 
