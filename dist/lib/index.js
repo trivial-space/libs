@@ -15,7 +15,6 @@ import * as utilsSequence from './utils/sequence';
 import * as graphicsColors from './graphics/colors';
 import * as graphicsTextures from './graphics/textures';
 import * as graphicsPixesls from './graphics/pixel-context';
-import * as flowTree from './flow/tree';
 export var math = {
     core: mathCore,
     noise: mathNoise,
@@ -43,8 +42,5 @@ export var graphics = {
     pixels: graphicsPixesls,
     textures: graphicsTextures
 };
-export var flow = {
-    tree: flowTree
-};
-export default { math: math, vr: vr, events: events, utils: utils, graphics: graphics, flow: flow };
+export default { math: math, vr: vr, events: events, utils: utils, graphics: graphics };
 //# sourceMappingURL=index.js.map
