@@ -27,7 +27,7 @@
             return r.d(e, "a", e), e;
         }, r.o = function(t, r) {
             return Object.prototype.hasOwnProperty.call(t, r);
-        }, r.p = "", r(r.s = 14);
+        }, r.p = "", r(r.s = 15);
     }([ function(t, r) {
         var e = {};
         e.EPSILON = 1e-6, e.ARRAY_TYPE = "undefined" != typeof Float32Array ? Float32Array : Array, 
@@ -319,7 +319,7 @@
             }
         }
         r.c = L, r.b = w, r.e = U, r.g = z, r.h = C, r.d = B, r.a = Y, r.f = j;
-        var G, H, q, X = e(11), V = (G = {}, G[X.c.FLOAT] = {
+        var G, q, H, X = e(11), V = (G = {}, G[X.c.FLOAT] = {
             Type: Float32Array,
             size: 4,
             setter: a,
@@ -513,89 +513,89 @@
             setter: y,
             arraySetter: O,
             bindPoint: X.c.TEXTURE_2D_ARRAY
-        }, G), k = (H = {}, H[X.c.FLOAT] = {
+        }, G), k = (q = {}, q[X.c.FLOAT] = {
             size: 4,
             setter: g,
             itemSize: 1
-        }, H[X.c.FLOAT_VEC2] = {
+        }, q[X.c.FLOAT_VEC2] = {
             size: 8,
             setter: g,
             itemSize: 2
-        }, H[X.c.FLOAT_VEC3] = {
+        }, q[X.c.FLOAT_VEC3] = {
             size: 12,
             setter: g,
             itemSize: 3
-        }, H[X.c.FLOAT_VEC4] = {
+        }, q[X.c.FLOAT_VEC4] = {
             size: 16,
             setter: g,
             itemSize: 4
-        }, H[X.c.INT] = {
+        }, q[X.c.INT] = {
             size: 4,
             setter: N,
             itemSize: 1
-        }, H[X.c.INT_VEC2] = {
+        }, q[X.c.INT_VEC2] = {
             size: 8,
             setter: N,
             itemSize: 2
-        }, H[X.c.INT_VEC3] = {
+        }, q[X.c.INT_VEC3] = {
             size: 12,
             setter: N,
             itemSize: 3
-        }, H[X.c.INT_VEC4] = {
+        }, q[X.c.INT_VEC4] = {
             size: 16,
             setter: N,
             itemSize: 4
-        }, H[X.c.UNSIGNED_INT] = {
+        }, q[X.c.UNSIGNED_INT] = {
             size: 4,
             setter: N,
             itemSize: 1
-        }, H[X.c.UNSIGNED_INT_VEC2] = {
+        }, q[X.c.UNSIGNED_INT_VEC2] = {
             size: 8,
             setter: N,
             itemSize: 2
-        }, H[X.c.UNSIGNED_INT_VEC3] = {
+        }, q[X.c.UNSIGNED_INT_VEC3] = {
             size: 12,
             setter: N,
             itemSize: 3
-        }, H[X.c.UNSIGNED_INT_VEC4] = {
+        }, q[X.c.UNSIGNED_INT_VEC4] = {
             size: 16,
             setter: N,
             itemSize: 4
-        }, H[X.c.BOOL] = {
+        }, q[X.c.BOOL] = {
             size: 4,
             setter: N,
             itemSize: 1
-        }, H[X.c.BOOL_VEC2] = {
+        }, q[X.c.BOOL_VEC2] = {
             size: 8,
             setter: N,
             itemSize: 2
-        }, H[X.c.BOOL_VEC3] = {
+        }, q[X.c.BOOL_VEC3] = {
             size: 12,
             setter: N,
             itemSize: 3
-        }, H[X.c.BOOL_VEC4] = {
+        }, q[X.c.BOOL_VEC4] = {
             size: 16,
             setter: N,
             itemSize: 4
-        }, H[X.c.FLOAT_MAT2] = {
+        }, q[X.c.FLOAT_MAT2] = {
             size: 4,
             setter: P,
             count: 2
-        }, H[X.c.FLOAT_MAT3] = {
+        }, q[X.c.FLOAT_MAT3] = {
             size: 9,
             setter: P,
             count: 3
-        }, H[X.c.FLOAT_MAT4] = {
+        }, q[X.c.FLOAT_MAT4] = {
             size: 16,
             setter: P,
             count: 4
-        }, H);
-        q = {}, q[X.c.BYTE] = Int8Array, q[X.c.UNSIGNED_BYTE] = Uint8Array, q[X.c.SHORT] = Int16Array, 
-        q[X.c.UNSIGNED_SHORT] = Uint16Array, q[X.c.INT] = Int32Array, q[X.c.UNSIGNED_INT] = Uint32Array, 
-        q[X.c.FLOAT] = Float32Array, q[X.c.UNSIGNED_SHORT_4_4_4_4] = Uint16Array, q[X.c.UNSIGNED_SHORT_5_5_5_1] = Uint16Array, 
-        q[X.c.UNSIGNED_SHORT_5_6_5] = Uint16Array, q[X.c.HALF_FLOAT] = Uint16Array, q[X.c.UNSIGNED_INT_2_10_10_10_REV] = Uint32Array, 
-        q[X.c.UNSIGNED_INT_10F_11F_11F_REV] = Uint32Array, q[X.c.UNSIGNED_INT_5_9_9_9_REV] = Uint32Array, 
-        q[X.c.FLOAT_32_UNSIGNED_INT_24_8_REV] = Uint32Array, q[X.c.UNSIGNED_INT_24_8] = Uint32Array;
+        }, q);
+        H = {}, H[X.c.BYTE] = Int8Array, H[X.c.UNSIGNED_BYTE] = Uint8Array, H[X.c.SHORT] = Int16Array, 
+        H[X.c.UNSIGNED_SHORT] = Uint16Array, H[X.c.INT] = Int32Array, H[X.c.UNSIGNED_INT] = Uint32Array, 
+        H[X.c.FLOAT] = Float32Array, H[X.c.UNSIGNED_SHORT_4_4_4_4] = Uint16Array, H[X.c.UNSIGNED_SHORT_5_5_5_1] = Uint16Array, 
+        H[X.c.UNSIGNED_SHORT_5_6_5] = Uint16Array, H[X.c.HALF_FLOAT] = Uint16Array, H[X.c.UNSIGNED_INT_2_10_10_10_REV] = Uint32Array, 
+        H[X.c.UNSIGNED_INT_10F_11F_11F_REV] = Uint32Array, H[X.c.UNSIGNED_INT_5_9_9_9_REV] = Uint32Array, 
+        H[X.c.FLOAT_32_UNSIGNED_INT_24_8_REV] = Uint32Array, H[X.c.UNSIGNED_INT_24_8] = Uint32Array;
     }, function(t, r, e) {
         "use strict";
         function n(t) {
@@ -627,8 +627,8 @@
         r.degToRad = s;
         var l = Math.PI / 180;
     }, function(t, r, e) {
-        r.glMatrix = e(0), r.mat2 = e(17), r.mat2d = e(18), r.mat3 = e(6), r.mat4 = e(19), 
-        r.quat = e(20), r.vec2 = e(21), r.vec3 = e(7), r.vec4 = e(8);
+        r.glMatrix = e(0), r.mat2 = e(18), r.mat2d = e(19), r.mat3 = e(6), r.mat4 = e(20), 
+        r.quat = e(21), r.vec2 = e(22), r.vec3 = e(7), r.vec4 = e(8);
     }, function(t, r, e) {
         "use strict";
         function n(t, r) {
@@ -723,10 +723,10 @@
                 var G = 3 * x[C + E[B + E[Y]]];
                 j *= j, n = j * j * (T[G] * A + T[G + 1] * b + T[G + 2] * y);
             }
-            var H = .6 - O * O - R * R - g * g;
-            if (H < 0) a = 0; else {
-                var q = 3 * x[C + i + E[B + c + E[Y + s]]];
-                H *= H, a = H * H * (T[q] * O + T[q + 1] * R + T[q + 2] * g);
+            var q = .6 - O * O - R * R - g * g;
+            if (q < 0) a = 0; else {
+                var H = 3 * x[C + i + E[B + c + E[Y + s]]];
+                q *= q, a = q * q * (T[H] * O + T[H + 1] * R + T[H + 2] * g);
             }
             var X = .6 - N * N - P * P - L * L;
             if (X < 0) o = 0; else {
@@ -748,15 +748,15 @@
             g = b >= 3 ? 1 : 0, N = y >= 3 ? 1 : 0, P = O >= 3 ? 1 : 0, L = R >= 3 ? 1 : 0, 
             w = b >= 2 ? 1 : 0, U = y >= 2 ? 1 : 0, z = O >= 2 ? 1 : 0, C = R >= 2 ? 1 : 0, 
             B = b >= 1 ? 1 : 0, Y = y >= 1 ? 1 : 0, j = O >= 1 ? 1 : 0, G = R >= 1 ? 1 : 0;
-            var H = x - g + D, q = T - N + D, X = p - P + D, V = A - L + D, k = x - w + 2 * D, W = T - U + 2 * D, K = p - z + 2 * D, Q = A - C + 2 * D, Z = x - B + 3 * D, J = T - Y + 3 * D, $ = p - j + 3 * D, tt = A - G + 3 * D, rt = x - 1 + 4 * D, et = T - 1 + 4 * D, nt = p - 1 + 4 * D, at = A - 1 + 4 * D, ot = 255 & l, ut = 255 & f, it = 255 & M, ct = 255 & d, st = .6 - x * x - T * T - p * p - A * A;
+            var q = x - g + D, H = T - N + D, X = p - P + D, V = A - L + D, k = x - w + 2 * D, W = T - U + 2 * D, K = p - z + 2 * D, Q = A - C + 2 * D, Z = x - B + 3 * D, J = T - Y + 3 * D, $ = p - j + 3 * D, tt = A - G + 3 * D, rt = x - 1 + 4 * D, et = T - 1 + 4 * D, nt = p - 1 + 4 * D, at = A - 1 + 4 * D, ot = 255 & l, ut = 255 & f, it = 255 & M, ct = 255 & d, st = .6 - x * x - T * T - p * p - A * A;
             if (st < 0) a = 0; else {
                 var lt = E[ot + E[ut + E[it + E[ct]]]] % 32 * 4;
                 st *= st, a = st * st * (_[lt] * x + _[lt + 1] * T + _[lt + 2] * p + _[lt + 3] * A);
             }
-            var ft = .6 - H * H - q * q - X * X - V * V;
+            var ft = .6 - q * q - H * H - X * X - V * V;
             if (ft < 0) o = 0; else {
                 var Mt = E[ot + g + E[ut + N + E[it + P + E[ct + L]]]] % 32 * 4;
-                ft *= ft, o = ft * ft * (_[Mt] * H + _[Mt + 1] * q + _[Mt + 2] * X + _[Mt + 3] * V);
+                ft *= ft, o = ft * ft * (_[Mt] * q + _[Mt + 1] * H + _[Mt + 2] * X + _[Mt + 3] * V);
             }
             var dt = .6 - k * k - W * W - K * K - Q * Q;
             if (dt < 0) u = 0; else {
@@ -1225,7 +1225,7 @@
         }), e.d(r, "b", function() {
             return S;
         });
-        var i = e(24), c = e(25), s = e(10), l = this && this.__assign || Object.assign || function(t) {
+        var i = e(25), c = e(26), s = e(10), l = this && this.__assign || Object.assign || function(t) {
             for (var r, e = 1, n = arguments.length; e < n; e++) {
                 r = arguments[e];
                 for (var a in r) Object.prototype.hasOwnProperty.call(r, a) && (t[a] = r[a]);
@@ -1348,6 +1348,54 @@
     }, function(t, r, e) {
         "use strict";
         function n(t, r) {
+            if (t.length !== r.length) return !1;
+            for (var e = 0; e < t.length; e++) if (t[e] !== r[e]) return !1;
+            return !0;
+        }
+        function a(t, r) {
+            var e = Object.keys(t);
+            if (!n(e, Object.keys(r))) return !1;
+            for (var a = 0, o = e; a < o.length; a++) {
+                var u = o[a];
+                if (t[u] !== r[u]) return !1;
+            }
+            return !0;
+        }
+        Object.defineProperty(r, "__esModule", {
+            value: !0
+        }), e.d(r, "and", function() {
+            return o;
+        }), e.d(r, "not", function() {
+            return u;
+        }), e.d(r, "defined", function() {
+            return i;
+        }), e.d(r, "notEmpty", function() {
+            return c;
+        }), e.d(r, "unequal", function() {
+            return s;
+        }), e.d(r, "equal", function() {
+            return l;
+        }), r.equalArray = n, r.equalObject = a;
+        var o = function(t, r) {
+            return function(e, n) {
+                return t(e, n) && r(e, n);
+            };
+        }, u = function(t) {
+            return function(r, e) {
+                return !t(r, e);
+            };
+        }, i = function(t) {
+            return null != t;
+        }, c = function(t) {
+            return t && t.length;
+        }, s = function(t, r) {
+            return t !== r;
+        }, l = function(t, r) {
+            return t === r;
+        };
+    }, function(t, r, e) {
+        "use strict";
+        function n(t, r) {
             var e = t[0], n = t[1], a = t[2], o = t[3], u = r[0], i = r[1], c = r[2], s = r[3], f = s / 255;
             return [ Math.floor(Object(l.lerp)(e, u, f)), Math.floor(Object(l.lerp)(n, i, f)), Math.floor(Object(l.lerp)(a, c, f)), o ];
         }
@@ -1388,45 +1436,46 @@
         Object.defineProperty(r, "__esModule", {
             value: !0
         }), e.d(r, "math", function() {
-            return F;
-        }), e.d(r, "vr", function() {
             return E;
-        }), e.d(r, "events", function() {
+        }), e.d(r, "vr", function() {
             return x;
-        }), e.d(r, "utils", function() {
+        }), e.d(r, "events", function() {
             return T;
-        }), e.d(r, "graphics", function() {
+        }), e.d(r, "utils", function() {
             return _;
+        }), e.d(r, "graphics", function() {
+            return p;
         });
-        var n = e(2), a = e(15), o = e(5), u = e(4), i = e(16), c = e(22), s = e(23), l = e(27), f = e(35), M = e(36), d = e(37), h = e(38), S = e(39), I = e(40), m = e(13), v = e(41), D = e(42), F = {
+        var n = e(2), a = e(16), o = e(5), u = e(4), i = e(17), c = e(23), s = e(24), l = e(28), f = e(35), M = e(36), d = e(37), h = e(38), S = e(39), I = e(40), m = e(13), v = e(14), D = e(41), F = e(42), E = {
             core: n,
             noise: o,
             coords: a,
             vectors: u,
             geometry: i
-        }, E = {
+        }, x = {
             camera: c,
             flowCamera: s,
             flowPainterUtils: l
-        }, x = {
+        }, T = {
             dom: f,
             mouse: d,
-            keyboard: M
-        }, T = {
-            animation: S,
-            string: h,
-            seq: I
+            keyboard: M,
+            animation: h
         }, _ = {
-            colors: m,
-            pixels: D,
-            textures: v
+            string: S,
+            seq: I,
+            predicates: m
+        }, p = {
+            colors: v,
+            pixels: F,
+            textures: D
         };
         r.default = {
-            math: F,
-            vr: E,
-            events: x,
-            utils: T,
-            graphics: _
+            math: E,
+            vr: x,
+            events: T,
+            utils: _,
+            graphics: p
         };
     }, function(t, r, e) {
         "use strict";
@@ -2282,26 +2331,26 @@
     }, function(t, r, e) {
         "use strict";
         function n(t) {
-            var r = t.id, e = void 0 === r ? Object(u.a)() : r, n = t.value, a = t.json, o = t.accept, i = t.reset, s = t.meta;
+            var r = t.id, e = void 0 === r ? Object(u.a)() : r, n = t.value, a = t.json, o = t.accept, i = t.reset, c = t.meta;
             return null == n && a && (n = JSON.parse(a)), {
                 id: e,
                 value: n,
                 accept: o,
                 reset: i,
-                meta: c({}, s)
+                meta: c
             };
         }
         function a(t, r) {
-            var e = t.id, n = void 0 === e ? Object(u.a)() : e, a = t.ports, o = void 0 === a ? [] : a, l = t.procedure, f = t.code, M = t.autostart, d = void 0 !== M && M, h = t.async, S = void 0 !== h && h, I = t.delta, m = void 0 !== I && I, v = t.meta;
-            if (null == l && null != f && (l = Object(i.a)(f, r)), null == l) throw TypeError("Process must have procedure or code set");
-            return m && !o.length && o.push(s.HOT), {
+            var e = t.id, n = void 0 === e ? Object(u.a)() : e, a = t.ports, o = void 0 === a ? [] : a, s = t.procedure, l = t.code, f = t.autostart, M = void 0 !== f && f, d = t.async, h = void 0 !== d && d, S = t.delta, I = void 0 !== S && S, m = t.meta;
+            if (null == s && null != l && (s = Object(i.a)(l, r)), null == s) throw TypeError("Process must have procedure or code set");
+            return I && !o.length && o.push(c.HOT), {
                 id: n,
                 ports: o,
-                procedure: l,
-                autostart: d,
-                async: S,
-                delta: m,
-                meta: c({}, v)
+                procedure: s,
+                autostart: M,
+                async: h,
+                delta: I,
+                meta: m
             };
         }
         function o(t) {
@@ -2313,19 +2362,13 @@
                 entity: e,
                 process: n,
                 port: a,
-                meta: c({}, o)
+                meta: o
             };
         }
         r.c = n, r.d = a, r.b = o, e.d(r, "a", function() {
-            return s;
+            return c;
         });
-        var u = e(10), i = e(26), c = this && this.__assign || Object.assign || function(t) {
-            for (var r, e = 1, n = arguments.length; e < n; e++) {
-                r = arguments[e];
-                for (var a in r) Object.prototype.hasOwnProperty.call(r, a) && (t[a] = r[a]);
-            }
-            return t;
-        }, s = {
+        var u = e(10), i = e(27), c = {
             COLD: "COLD",
             HOT: "HOT",
             ACCUMULATOR: "ACCUMULATOR"
@@ -2348,7 +2391,7 @@
             }), n = Object(f.c)([ e.HOT ], d.a), a = Object(f.a)([ n.HOT ], function(t, r) {
                 var e = Object(M.a)(r);
                 return t(e), e.destroy;
-            }).accept(h.a), o = Object(f.c)([ e.HOT, t.HOT ], function(t) {
+            }).accept(h.unequal), o = Object(f.c)([ e.HOT, t.HOT ], function(t) {
                 return {
                     width: t.clientWidth,
                     height: t.clientHeight
@@ -2433,7 +2476,7 @@
         }), r.makePainterCanvas = n, r.makeShadeEntity = a, r.makeFormEntity = o, r.makeSketchEntity = u, 
         r.makeFlatSketchEntity = i, r.makeStaticLayerEntity = c, r.makeDrawingLayerEntity = s, 
         r.makeEffectLayerEntity = l;
-        var f = e(9), M = e(28), d = e(12), h = e(34);
+        var f = e(9), M = e(29), d = e(12), h = e(13);
     }, function(t, r, e) {
         "use strict";
         function n(t) {
@@ -2550,7 +2593,7 @@
             }(u);
         }
         r.a = n;
-        var s = e(29), l = e(30), f = e(31), M = e(32), d = e(1), h = e(12), S = e(33), I = this && this.__assign || Object.assign || function(t) {
+        var s = e(30), l = e(31), f = e(32), M = e(33), d = e(1), h = e(12), S = e(34), I = this && this.__assign || Object.assign || function(t) {
             for (var r, e = 1, n = arguments.length; e < n; e++) {
                 r = arguments[e];
                 for (var a in r) Object.prototype.hasOwnProperty.call(r, a) && (t[a] = r[a]);
@@ -2721,14 +2764,6 @@
         };
     }, function(t, r, e) {
         "use strict";
-        e.d(r, "a", function() {
-            return n;
-        });
-        var n = function(t, r) {
-            return t !== r;
-        };
-    }, function(t, r, e) {
-        "use strict";
         function n(t) {
             function r() {
                 t({
@@ -2883,21 +2918,6 @@
         };
     }, function(t, r, e) {
         "use strict";
-        Object.defineProperty(r, "__esModule", {
-            value: !0
-        }), e.d(r, "generateUUID", function() {
-            return n;
-        });
-        var n = function() {
-            var t = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".split(""), r = new Array(36), e = 0, n = 0;
-            return function() {
-                for (var a = 0; a < 36; ) 8 === a || 13 === a || 18 === a || 23 === a ? r[a] = "-" : 14 === a ? r[a] = "4" : (e <= 2 && (e = 33554432 + 16777216 * Math.random() | 0), 
-                n = 15 & e, e >>= 4, r[a] = t[19 === a ? 3 & n | 8 : n]), a += 1;
-                return r.join("");
-            };
-        }();
-    }, function(t, r, e) {
-        "use strict";
         function n(t) {
             function r(a) {
                 n && (t(a - (e || a)), e = a, requestAnimationFrame(r));
@@ -2940,6 +2960,21 @@
         Object.defineProperty(r, "__esModule", {
             value: !0
         }), r.animateWithTPF = n, r.animate = a, r.createAnimator = o;
+    }, function(t, r, e) {
+        "use strict";
+        Object.defineProperty(r, "__esModule", {
+            value: !0
+        }), e.d(r, "generateUUID", function() {
+            return n;
+        });
+        var n = function() {
+            var t = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz".split(""), r = new Array(36), e = 0, n = 0;
+            return function() {
+                for (var a = 0; a < 36; ) 8 === a || 13 === a || 18 === a || 23 === a ? r[a] = "-" : 14 === a ? r[a] = "4" : (e <= 2 && (e = 33554432 + 16777216 * Math.random() | 0), 
+                n = 15 & e, e >>= 4, r[a] = t[19 === a ? 3 & n | 8 : n]), a += 1;
+                return r.join("");
+            };
+        }();
     }, function(t, r, e) {
         "use strict";
         function n(t) {
@@ -3040,6 +3075,6 @@
         Object.defineProperty(r, "__esModule", {
             value: !0
         }), r.repeatedPosition = n, r.closedPosition = a, r.createPixelContext = o, r.createImgDataFromImage = u;
-        var i = e(13);
+        var i = e(14);
     } ]);
 });

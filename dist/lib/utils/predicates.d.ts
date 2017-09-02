@@ -1,6 +1,13 @@
-export declare type Predicate1 = (a: any) => boolean;
-export declare type Predicate2 = (a: any, b: any) => boolean;
-export declare const unequal: Predicate2;
-export declare const defined: Predicate1;
-export declare const notEmpty: Predicate1;
-export declare const and: (p1: Predicate2, p2: Predicate2) => Predicate2;
+export declare type Predicate = (...a: any[]) => boolean;
+export declare const and: (p1: Predicate, p2: Predicate) => Predicate;
+export declare const not: (p: Predicate) => Predicate;
+export declare const defined: Predicate;
+export declare const notEmpty: Predicate;
+export declare const unequal: Predicate;
+export declare const equal: Predicate;
+export declare function equalArray(arr1: any[], arr2: any[]): boolean;
+export declare function equalObject(obj1: {
+    [key: string]: any;
+}, obj2: {
+    [key: string]: any;
+}): boolean;

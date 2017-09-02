@@ -9,9 +9,10 @@ import * as vrFlowPainterUtils from './vr/flow-painter-utils'
 import * as eventsDom from './events/dom'
 import * as eventsKey from './events/keyboard'
 import * as eventsMouse from './events/mouse'
+import * as eventsAnimation from './events/animation'
 import * as utilsString from './utils/string'
-import * as utilsAnimation from './events/animation'
 import * as utilsSequence from './utils/sequence'
+import * as utilsPredicates from './utils/predicates'
 import * as graphicsColors from './graphics/colors'
 import * as graphicsTextures from './graphics/textures'
 import * as graphicsPixesls from './graphics/pixel-context'
@@ -36,14 +37,15 @@ export const vr = {
 export const events = {
 	dom: eventsDom,
 	mouse: eventsMouse,
-	keyboard: eventsKey
+	keyboard: eventsKey,
+	animation: eventsAnimation
 }
 
 
 export const utils = {
-	animation: utilsAnimation,
 	string: utilsString,
-	seq: utilsSequence
+	seq: utilsSequence,
+	predicates: utilsPredicates
 }
 
 
