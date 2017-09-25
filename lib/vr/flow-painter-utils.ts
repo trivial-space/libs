@@ -6,11 +6,7 @@ import { Painter, Shade, Form, Sketch, Layer, GL, SketchData, LayerData, ShadeDa
 import { unequal } from '../utils/predicates'
 
 
-export function makePainterCanvas (
-	windowSizeEntity: EntityRef<WindowSizeState>,
-	painterSettings?: EntityRef<DrawSettings>
-) {
-
+export function createBodyCanvas() {
 	const canvas = asyncStreamStart<HTMLCanvasElement>(
 		null,
 		(send) => {
@@ -25,6 +21,16 @@ export function makePainterCanvas (
 			}
 		}
 	)
+
+	return {canvas}
+}
+
+export function setupPainter (
+	canvas: EntityRef<HTMLCanvasElement>,
+	windowSizeEntity: EntityRef<WindowSizeState>,
+	painterSettings?: EntityRef<DrawSettings>
+) {
+
 
 	const gl = stream([canvas.HOT], getContext)
 
@@ -56,7 +62,7 @@ export function makePainterCanvas (
 		painter.react([painterSettings.HOT], (p, s) => p.updateDrawSettings(s))
 	}
 
-	return { canvas, painter, gl, canvasSize }
+	return { painter, gl, canvasSize }
 }
 
 

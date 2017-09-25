@@ -2,7 +2,7 @@ import { asyncStreamStart, stream, asyncStream } from 'tvs-flow/dist/lib/utils/e
 import { create } from 'tvs-painter/dist/lib/painter';
 import { getContext } from 'tvs-painter/dist/lib/utils/context';
 import { unequal } from '../utils/predicates';
-export function makePainterCanvas(windowSizeEntity, painterSettings) {
+export function createBodyCanvas() {
     var canvas = asyncStreamStart(null, function (send) {
         var canvas = document.createElement('canvas');
         document.body.appendChild(canvas);
@@ -11,6 +11,9 @@ export function makePainterCanvas(windowSizeEntity, painterSettings) {
             document.body.removeChild(canvas);
         };
     });
+    return { canvas: canvas };
+}
+export function setupPainter(canvas, windowSizeEntity, painterSettings) {
     var gl = stream([canvas.HOT], getContext);
     var painter = asyncStream([gl.HOT], function (send, gl) {
         var p = create(gl);
@@ -26,7 +29,7 @@ export function makePainterCanvas(windowSizeEntity, painterSettings) {
     if (painterSettings) {
         painter.react([painterSettings.HOT], function (p, s) { return p.updateDrawSettings(s); });
     }
-    return { canvas: canvas, painter: painter, gl: gl, canvasSize: canvasSize };
+    return { painter: painter, gl: gl, canvasSize: canvasSize };
 }
 export function makeShadeEntity(painter, data) {
     var entity = asyncStream([painter.HOT], function (send, painter) {

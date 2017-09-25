@@ -146,12 +146,12 @@
                 t.uniformMatrix3x2fv(r, !1, e);
             };
         }
-        function _(t, r) {
+        function p(t, r) {
             return function(e) {
                 t.uniformMatrix2x4fv(r, !1, e);
             };
         }
-        function p(t, r) {
+        function _(t, r) {
             return function(e) {
                 t.uniformMatrix4x2fv(r, !1, e);
             };
@@ -406,7 +406,7 @@
         }, G[X.c.FLOAT_MAT2X4] = {
             Type: Float32Array,
             size: 32,
-            setter: _
+            setter: p
         }, G[X.c.FLOAT_MAT3X2] = {
             Type: Float32Array,
             size: 24,
@@ -418,7 +418,7 @@
         }, G[X.c.FLOAT_MAT4X2] = {
             Type: Float32Array,
             size: 32,
-            setter: p
+            setter: _
         }, G[X.c.FLOAT_MAT4X3] = {
             Type: Float32Array,
             size: 48,
@@ -695,25 +695,25 @@
         function i(t, r) {
             var e, n, a = 0, o = 0, u = 0, i = (t + r) * h, c = Math.floor(t + i), s = Math.floor(r + i), l = (c + s) * S, f = c - l, M = s - l, d = t - f, I = r - M;
             d > I ? (e = 1, n = 0) : (e = 0, n = 1);
-            var m = d - e + S, v = I - n + S, D = d - 1 + 2 * S, F = I - 1 + 2 * S, _ = 255 & c, p = 255 & s, A = .5 - d * d - I * I;
+            var m = d - e + S, v = I - n + S, D = d - 1 + 2 * S, F = I - 1 + 2 * S, p = 255 & c, _ = 255 & s, A = .5 - d * d - I * I;
             if (A >= 0) {
-                var b = 3 * x[_ + E[p]];
+                var b = 3 * x[p + E[_]];
                 A *= A, a = A * A * (T[b] * d + T[b + 1] * I);
             }
             var y = .5 - m * m - v * v;
             if (y >= 0) {
-                var O = 3 * x[_ + e + E[p + n]];
+                var O = 3 * x[p + e + E[_ + n]];
                 y *= y, o = y * y * (T[O] * m + T[O + 1] * v);
             }
             var R = .5 - D * D - F * F;
             if (R >= 0) {
-                var g = 3 * x[_ + 1 + E[p + 1]];
+                var g = 3 * x[p + 1 + E[_ + 1]];
                 R *= R, u = R * R * (T[g] * D + T[g + 1] * F);
             }
             return 70 * (a + o + u);
         }
         function c(t, r, e) {
-            var n, a, o, u, i, c, s, l, f, M, d = (t + r + e) * I, h = Math.floor(t + d), S = Math.floor(r + d), v = Math.floor(e + d), D = (h + S + v) * m, F = h - D, _ = S - D, p = v - D, A = t - F, b = r - _, y = e - p;
+            var n, a, o, u, i, c, s, l, f, M, d = (t + r + e) * I, h = Math.floor(t + d), S = Math.floor(r + d), v = Math.floor(e + d), D = (h + S + v) * m, F = h - D, p = S - D, _ = v - D, A = t - F, b = r - p, y = e - _;
             A >= b ? b >= y ? (i = 1, c = 0, s = 0, l = 1, f = 1, M = 0) : A >= y ? (i = 1, 
             c = 0, s = 0, l = 1, f = 0, M = 1) : (i = 0, c = 0, s = 1, l = 1, f = 0, M = 1) : b < y ? (i = 0, 
             c = 0, s = 1, l = 0, f = 1, M = 1) : A < y ? (i = 0, c = 1, s = 0, l = 0, f = 1, 
@@ -741,37 +741,37 @@
             return 32 * (n + a + o + u);
         }
         function s(t, r, e, n) {
-            var a, o, u, i, c, s = (t + r + e + n) * v, l = Math.floor(t + s), f = Math.floor(r + s), M = Math.floor(e + s), d = Math.floor(n + s), h = (l + f + M + d) * D, S = l - h, I = f - h, m = M - h, F = d - h, x = t - S, T = r - I, p = e - m, A = n - F, b = 0, y = 0, O = 0, R = 0;
-            x > T ? b++ : y++, x > p ? b++ : O++, x > A ? b++ : R++, T > p ? y++ : O++, T > A ? y++ : R++, 
-            p > A ? O++ : R++;
+            var a, o, u, i, c, s = (t + r + e + n) * v, l = Math.floor(t + s), f = Math.floor(r + s), M = Math.floor(e + s), d = Math.floor(n + s), h = (l + f + M + d) * D, S = l - h, I = f - h, m = M - h, F = d - h, x = t - S, T = r - I, _ = e - m, A = n - F, b = 0, y = 0, O = 0, R = 0;
+            x > T ? b++ : y++, x > _ ? b++ : O++, x > A ? b++ : R++, T > _ ? y++ : O++, T > A ? y++ : R++, 
+            _ > A ? O++ : R++;
             var g, N, P, L, w, U, z, C, B, Y, j, G;
             g = b >= 3 ? 1 : 0, N = y >= 3 ? 1 : 0, P = O >= 3 ? 1 : 0, L = R >= 3 ? 1 : 0, 
             w = b >= 2 ? 1 : 0, U = y >= 2 ? 1 : 0, z = O >= 2 ? 1 : 0, C = R >= 2 ? 1 : 0, 
             B = b >= 1 ? 1 : 0, Y = y >= 1 ? 1 : 0, j = O >= 1 ? 1 : 0, G = R >= 1 ? 1 : 0;
-            var q = x - g + D, H = T - N + D, X = p - P + D, V = A - L + D, k = x - w + 2 * D, W = T - U + 2 * D, K = p - z + 2 * D, Q = A - C + 2 * D, Z = x - B + 3 * D, J = T - Y + 3 * D, $ = p - j + 3 * D, tt = A - G + 3 * D, rt = x - 1 + 4 * D, et = T - 1 + 4 * D, nt = p - 1 + 4 * D, at = A - 1 + 4 * D, ot = 255 & l, ut = 255 & f, it = 255 & M, ct = 255 & d, st = .6 - x * x - T * T - p * p - A * A;
+            var q = x - g + D, H = T - N + D, X = _ - P + D, V = A - L + D, k = x - w + 2 * D, W = T - U + 2 * D, K = _ - z + 2 * D, Q = A - C + 2 * D, Z = x - B + 3 * D, J = T - Y + 3 * D, $ = _ - j + 3 * D, tt = A - G + 3 * D, rt = x - 1 + 4 * D, et = T - 1 + 4 * D, nt = _ - 1 + 4 * D, at = A - 1 + 4 * D, ot = 255 & l, ut = 255 & f, it = 255 & M, ct = 255 & d, st = .6 - x * x - T * T - _ * _ - A * A;
             if (st < 0) a = 0; else {
                 var lt = E[ot + E[ut + E[it + E[ct]]]] % 32 * 4;
-                st *= st, a = st * st * (_[lt] * x + _[lt + 1] * T + _[lt + 2] * p + _[lt + 3] * A);
+                st *= st, a = st * st * (p[lt] * x + p[lt + 1] * T + p[lt + 2] * _ + p[lt + 3] * A);
             }
             var ft = .6 - q * q - H * H - X * X - V * V;
             if (ft < 0) o = 0; else {
                 var Mt = E[ot + g + E[ut + N + E[it + P + E[ct + L]]]] % 32 * 4;
-                ft *= ft, o = ft * ft * (_[Mt] * q + _[Mt + 1] * H + _[Mt + 2] * X + _[Mt + 3] * V);
+                ft *= ft, o = ft * ft * (p[Mt] * q + p[Mt + 1] * H + p[Mt + 2] * X + p[Mt + 3] * V);
             }
             var dt = .6 - k * k - W * W - K * K - Q * Q;
             if (dt < 0) u = 0; else {
                 var ht = E[ot + w + E[ut + U + E[it + z + E[ct + C]]]] % 32 * 4;
-                dt *= dt, u = dt * dt * (_[ht] * k + _[ht + 1] * W + _[ht + 2] * K + _[ht + 3] * Q);
+                dt *= dt, u = dt * dt * (p[ht] * k + p[ht + 1] * W + p[ht + 2] * K + p[ht + 3] * Q);
             }
             var St = .6 - Z * Z - J * J - $ * $ - tt * tt;
             if (St < 0) i = 0; else {
                 var It = E[ot + B + E[ut + Y + E[it + j + E[ct + G]]]] % 32 * 4;
-                St *= St, i = St * St * (_[It] * Z + _[It + 1] * J + _[It + 2] * $ + _[It + 3] * tt);
+                St *= St, i = St * St * (p[It] * Z + p[It + 1] * J + p[It + 2] * $ + p[It + 3] * tt);
             }
             var mt = .6 - rt * rt - et * et - nt * nt - at * at;
             if (mt < 0) c = 0; else {
                 var vt = E[ot + 1 + E[ut + 1 + E[it + 1 + E[ct + 1]]]] % 32 * 4;
-                mt *= mt, c = mt * mt * (_[vt] * rt + _[vt + 1] * et + _[vt + 2] * nt + _[vt + 3] * at);
+                mt *= mt, c = mt * mt * (p[vt] * rt + p[vt + 1] * et + p[vt + 2] * nt + p[vt + 3] * at);
             }
             return 27 * (a + o + u + i + c);
         }
@@ -790,7 +790,7 @@
         var h = .5 * (Math.sqrt(3) - 1), S = (3 - Math.sqrt(3)) / 6, I = 1 / 3, m = 1 / 6, v = (Math.sqrt(5) - 1) / 4, D = (5 - Math.sqrt(5)) / 20, F = new Uint8Array(256), E = new Uint8Array(512), x = new Uint8Array(512);
         for (f = 0; f < 256; f++) F[f] = 256 * Math.random();
         for (f = 0; f < 512; f++) E[f] = F[255 & f], x[f] = E[f] % 12;
-        var T = new Float32Array([ 1, 1, 0, -1, 1, 0, 1, -1, 0, -1, -1, 0, 1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, -1, 0, 1, 1, 0, -1, 1, 0, 1, -1, 0, -1, -1 ]), _ = new Float32Array([ 0, 1, 1, 1, 0, 1, 1, -1, 0, 1, -1, 1, 0, 1, -1, -1, 0, -1, 1, 1, 0, -1, 1, -1, 0, -1, -1, 1, 0, -1, -1, -1, 1, 0, 1, 1, 1, 0, 1, -1, 1, 0, -1, 1, 1, 0, -1, -1, -1, 0, 1, 1, -1, 0, 1, -1, -1, 0, -1, 1, -1, 0, -1, -1, 1, 1, 0, 1, 1, 1, 0, -1, 1, -1, 0, 1, 1, -1, 0, -1, -1, 1, 0, 1, -1, 1, 0, -1, -1, -1, 0, 1, -1, -1, 0, -1, 1, 1, 1, 0, 1, 1, -1, 0, 1, -1, 1, 0, 1, -1, -1, 0, -1, 1, 1, 0, -1, 1, -1, 0, -1, -1, 1, 0, -1, -1, -1, 0 ]);
+        var T = new Float32Array([ 1, 1, 0, -1, 1, 0, 1, -1, 0, -1, -1, 0, 1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, -1, 0, 1, 1, 0, -1, 1, 0, 1, -1, 0, -1, -1 ]), p = new Float32Array([ 0, 1, 1, 1, 0, 1, 1, -1, 0, 1, -1, 1, 0, 1, -1, -1, 0, -1, 1, 1, 0, -1, 1, -1, 0, -1, -1, 1, 0, -1, -1, -1, 1, 0, 1, 1, 1, 0, 1, -1, 1, 0, -1, 1, 1, 0, -1, -1, -1, 0, 1, 1, -1, 0, 1, -1, -1, 0, -1, 1, -1, 0, -1, -1, 1, 1, 0, 1, 1, 1, 0, -1, 1, -1, 0, 1, 1, -1, 0, -1, -1, 1, 0, 1, -1, 1, 0, -1, -1, -1, 0, 1, -1, -1, 0, -1, 1, 1, 1, 0, 1, 1, -1, 0, 1, -1, 1, 0, 1, -1, -1, 0, -1, 1, 1, 0, -1, 1, -1, 0, -1, -1, 1, 0, -1, -1, -1, 0 ]);
     }, function(t, r, e) {
         var n = e(0), a = {};
         a.create = function() {
@@ -873,10 +873,10 @@
             return t[0] = 1 - f - h, t[3] = l - m, t[6] = M + I, t[1] = l + m, t[4] = 1 - s - h, 
             t[7] = d - S, t[2] = M - I, t[5] = d + S, t[8] = 1 - s - f, t;
         }, a.normalFromMat4 = function(t, r) {
-            var e = r[0], n = r[1], a = r[2], o = r[3], u = r[4], i = r[5], c = r[6], s = r[7], l = r[8], f = r[9], M = r[10], d = r[11], h = r[12], S = r[13], I = r[14], m = r[15], v = e * i - n * u, D = e * c - a * u, F = e * s - o * u, E = n * c - a * i, x = n * s - o * i, T = a * s - o * c, _ = l * S - f * h, p = l * I - M * h, A = l * m - d * h, b = f * I - M * S, y = f * m - d * S, O = M * m - d * I, R = v * O - D * y + F * b + E * A - x * p + T * _;
-            return R ? (R = 1 / R, t[0] = (i * O - c * y + s * b) * R, t[1] = (c * A - u * O - s * p) * R, 
-            t[2] = (u * y - i * A + s * _) * R, t[3] = (a * y - n * O - o * b) * R, t[4] = (e * O - a * A + o * p) * R, 
-            t[5] = (n * A - e * y - o * _) * R, t[6] = (S * T - I * x + m * E) * R, t[7] = (I * F - h * T - m * D) * R, 
+            var e = r[0], n = r[1], a = r[2], o = r[3], u = r[4], i = r[5], c = r[6], s = r[7], l = r[8], f = r[9], M = r[10], d = r[11], h = r[12], S = r[13], I = r[14], m = r[15], v = e * i - n * u, D = e * c - a * u, F = e * s - o * u, E = n * c - a * i, x = n * s - o * i, T = a * s - o * c, p = l * S - f * h, _ = l * I - M * h, A = l * m - d * h, b = f * I - M * S, y = f * m - d * S, O = M * m - d * I, R = v * O - D * y + F * b + E * A - x * _ + T * p;
+            return R ? (R = 1 / R, t[0] = (i * O - c * y + s * b) * R, t[1] = (c * A - u * O - s * _) * R, 
+            t[2] = (u * y - i * A + s * p) * R, t[3] = (a * y - n * O - o * b) * R, t[4] = (e * O - a * A + o * _) * R, 
+            t[5] = (n * A - e * y - o * p) * R, t[6] = (S * T - I * x + m * E) * R, t[7] = (I * F - h * T - m * D) * R, 
             t[8] = (h * x - S * F + m * v) * R, t) : null;
         }, a.str = function(t) {
             return "mat3(" + t[0] + ", " + t[1] + ", " + t[2] + ", " + t[3] + ", " + t[4] + ", " + t[5] + ", " + t[6] + ", " + t[7] + ", " + t[8] + ")";
@@ -1442,9 +1442,9 @@
         }), e.d(r, "events", function() {
             return T;
         }), e.d(r, "utils", function() {
-            return _;
-        }), e.d(r, "graphics", function() {
             return p;
+        }), e.d(r, "graphics", function() {
+            return _;
         });
         var n = e(2), a = e(16), o = e(5), u = e(4), i = e(17), c = e(23), s = e(24), l = e(28), f = e(35), M = e(36), d = e(37), h = e(38), S = e(39), I = e(40), m = e(13), v = e(14), D = e(41), F = e(42), E = {
             core: n,
@@ -1461,11 +1461,11 @@
             mouse: d,
             keyboard: M,
             animation: h
-        }, _ = {
+        }, p = {
             string: S,
             seq: I,
             predicates: m
-        }, p = {
+        }, _ = {
             colors: v,
             pixels: F,
             textures: D
@@ -1474,8 +1474,8 @@
             math: E,
             vr: x,
             events: T,
-            utils: _,
-            graphics: p
+            utils: p,
+            graphics: _
         };
     }, function(t, r, e) {
         "use strict";
@@ -1715,12 +1715,12 @@
             f = SIMD.Float32x4.shuffle(u, i, 1, 3, 5, 7), SIMD.Float32x4.store(t, 8, l), SIMD.Float32x4.store(t, 12, f), 
             t;
         }, a.transpose = n.USE_SIMD ? a.SIMD.transpose : a.scalar.transpose, a.scalar.invert = function(t, r) {
-            var e = r[0], n = r[1], a = r[2], o = r[3], u = r[4], i = r[5], c = r[6], s = r[7], l = r[8], f = r[9], M = r[10], d = r[11], h = r[12], S = r[13], I = r[14], m = r[15], v = e * i - n * u, D = e * c - a * u, F = e * s - o * u, E = n * c - a * i, x = n * s - o * i, T = a * s - o * c, _ = l * S - f * h, p = l * I - M * h, A = l * m - d * h, b = f * I - M * S, y = f * m - d * S, O = M * m - d * I, R = v * O - D * y + F * b + E * A - x * p + T * _;
+            var e = r[0], n = r[1], a = r[2], o = r[3], u = r[4], i = r[5], c = r[6], s = r[7], l = r[8], f = r[9], M = r[10], d = r[11], h = r[12], S = r[13], I = r[14], m = r[15], v = e * i - n * u, D = e * c - a * u, F = e * s - o * u, E = n * c - a * i, x = n * s - o * i, T = a * s - o * c, p = l * S - f * h, _ = l * I - M * h, A = l * m - d * h, b = f * I - M * S, y = f * m - d * S, O = M * m - d * I, R = v * O - D * y + F * b + E * A - x * _ + T * p;
             return R ? (R = 1 / R, t[0] = (i * O - c * y + s * b) * R, t[1] = (a * y - n * O - o * b) * R, 
-            t[2] = (S * T - I * x + m * E) * R, t[3] = (M * x - f * T - d * E) * R, t[4] = (c * A - u * O - s * p) * R, 
-            t[5] = (e * O - a * A + o * p) * R, t[6] = (I * F - h * T - m * D) * R, t[7] = (l * T - M * F + d * D) * R, 
-            t[8] = (u * y - i * A + s * _) * R, t[9] = (n * A - e * y - o * _) * R, t[10] = (h * x - S * F + m * v) * R, 
-            t[11] = (f * F - l * x - d * v) * R, t[12] = (i * p - u * b - c * _) * R, t[13] = (e * b - n * p + a * _) * R, 
+            t[2] = (S * T - I * x + m * E) * R, t[3] = (M * x - f * T - d * E) * R, t[4] = (c * A - u * O - s * _) * R, 
+            t[5] = (e * O - a * A + o * _) * R, t[6] = (I * F - h * T - m * D) * R, t[7] = (l * T - M * F + d * D) * R, 
+            t[8] = (u * y - i * A + s * p) * R, t[9] = (n * A - e * y - o * p) * R, t[10] = (h * x - S * F + m * v) * R, 
+            t[11] = (f * F - l * x - d * v) * R, t[12] = (i * _ - u * b - c * p) * R, t[13] = (e * b - n * _ + a * p) * R, 
             t[14] = (S * D - h * E - I * v) * R, t[15] = (l * E - f * D + M * v) * R, t) : null;
         }, a.SIMD.invert = function(t, r) {
             var e, n, a, o, u, i, c, s, l, f, M = SIMD.Float32x4.load(r, 0), d = SIMD.Float32x4.load(r, 4), h = SIMD.Float32x4.load(r, 8), S = SIMD.Float32x4.load(r, 12);
@@ -1844,15 +1844,15 @@
             o = SIMD.Float32x4.load(r, 8), SIMD.Float32x4.store(t, 8, SIMD.Float32x4.mul(o, SIMD.Float32x4.swizzle(u, 2, 2, 2, 2))), 
             t[12] = r[12], t[13] = r[13], t[14] = r[14], t[15] = r[15], t;
         }, a.scale = n.USE_SIMD ? a.SIMD.scale : a.scalar.scale, a.rotate = function(t, r, e, a) {
-            var o, u, i, c, s, l, f, M, d, h, S, I, m, v, D, F, E, x, T, _, p, A, b, y, O = a[0], R = a[1], g = a[2], N = Math.sqrt(O * O + R * R + g * g);
+            var o, u, i, c, s, l, f, M, d, h, S, I, m, v, D, F, E, x, T, p, _, A, b, y, O = a[0], R = a[1], g = a[2], N = Math.sqrt(O * O + R * R + g * g);
             return Math.abs(N) < n.EPSILON ? null : (N = 1 / N, O *= N, R *= N, g *= N, o = Math.sin(e), 
             u = Math.cos(e), i = 1 - u, c = r[0], s = r[1], l = r[2], f = r[3], M = r[4], d = r[5], 
             h = r[6], S = r[7], I = r[8], m = r[9], v = r[10], D = r[11], F = O * O * i + u, 
-            E = R * O * i + g * o, x = g * O * i - R * o, T = O * R * i - g * o, _ = R * R * i + u, 
-            p = g * R * i + O * o, A = O * g * i + R * o, b = R * g * i - O * o, y = g * g * i + u, 
+            E = R * O * i + g * o, x = g * O * i - R * o, T = O * R * i - g * o, p = R * R * i + u, 
+            _ = g * R * i + O * o, A = O * g * i + R * o, b = R * g * i - O * o, y = g * g * i + u, 
             t[0] = c * F + M * E + I * x, t[1] = s * F + d * E + m * x, t[2] = l * F + h * E + v * x, 
-            t[3] = f * F + S * E + D * x, t[4] = c * T + M * _ + I * p, t[5] = s * T + d * _ + m * p, 
-            t[6] = l * T + h * _ + v * p, t[7] = f * T + S * _ + D * p, t[8] = c * A + M * b + I * y, 
+            t[3] = f * F + S * E + D * x, t[4] = c * T + M * p + I * _, t[5] = s * T + d * p + m * _, 
+            t[6] = l * T + h * p + v * _, t[7] = f * T + S * p + D * _, t[8] = c * A + M * b + I * y, 
             t[9] = s * A + d * b + m * y, t[10] = l * A + h * b + v * y, t[11] = f * A + S * b + D * y, 
             r !== t && (t[12] = r[12], t[13] = r[13], t[14] = r[14], t[15] = r[15]), t);
         }, a.scalar.rotateX = function(t, r, e) {
@@ -1949,11 +1949,11 @@
             t[9] = (S - m) * x, t[10] = (1 - (f + h)) * x, t[11] = 0, t[12] = e[0], t[13] = e[1], 
             t[14] = e[2], t[15] = 1, t;
         }, a.fromRotationTranslationScaleOrigin = function(t, r, e, n, a) {
-            var o = r[0], u = r[1], i = r[2], c = r[3], s = o + o, l = u + u, f = i + i, M = o * s, d = o * l, h = o * f, S = u * l, I = u * f, m = i * f, v = c * s, D = c * l, F = c * f, E = n[0], x = n[1], T = n[2], _ = a[0], p = a[1], A = a[2];
+            var o = r[0], u = r[1], i = r[2], c = r[3], s = o + o, l = u + u, f = i + i, M = o * s, d = o * l, h = o * f, S = u * l, I = u * f, m = i * f, v = c * s, D = c * l, F = c * f, E = n[0], x = n[1], T = n[2], p = a[0], _ = a[1], A = a[2];
             return t[0] = (1 - (S + m)) * E, t[1] = (d + F) * E, t[2] = (h - D) * E, t[3] = 0, 
             t[4] = (d - F) * x, t[5] = (1 - (M + m)) * x, t[6] = (I + v) * x, t[7] = 0, t[8] = (h + D) * T, 
-            t[9] = (I - v) * T, t[10] = (1 - (M + S)) * T, t[11] = 0, t[12] = e[0] + _ - (t[0] * _ + t[4] * p + t[8] * A), 
-            t[13] = e[1] + p - (t[1] * _ + t[5] * p + t[9] * A), t[14] = e[2] + A - (t[2] * _ + t[6] * p + t[10] * A), 
+            t[9] = (I - v) * T, t[10] = (1 - (M + S)) * T, t[11] = 0, t[12] = e[0] + p - (t[0] * p + t[4] * _ + t[8] * A), 
+            t[13] = e[1] + _ - (t[1] * p + t[5] * _ + t[9] * A), t[14] = e[2] + A - (t[2] * p + t[6] * _ + t[10] * A), 
             t[15] = 1, t;
         }, a.fromQuat = function(t, r) {
             var e = r[0], n = r[1], a = r[2], o = r[3], u = e + e, i = n + n, c = a + a, s = e * u, l = n * u, f = n * i, M = a * u, d = a * i, h = a * c, S = o * u, I = o * i, m = o * c;
@@ -1981,9 +1981,9 @@
             t[7] = 0, t[8] = 0, t[9] = 0, t[10] = 2 * s, t[11] = 0, t[12] = (r + e) * i, t[13] = (a + n) * c, 
             t[14] = (u + o) * s, t[15] = 1, t;
         }, a.lookAt = function(t, r, e, o) {
-            var u, i, c, s, l, f, M, d, h, S, I = r[0], m = r[1], v = r[2], D = o[0], F = o[1], E = o[2], x = e[0], T = e[1], _ = e[2];
-            return Math.abs(I - x) < n.EPSILON && Math.abs(m - T) < n.EPSILON && Math.abs(v - _) < n.EPSILON ? a.identity(t) : (M = I - x, 
-            d = m - T, h = v - _, S = 1 / Math.sqrt(M * M + d * d + h * h), M *= S, d *= S, 
+            var u, i, c, s, l, f, M, d, h, S, I = r[0], m = r[1], v = r[2], D = o[0], F = o[1], E = o[2], x = e[0], T = e[1], p = e[2];
+            return Math.abs(I - x) < n.EPSILON && Math.abs(m - T) < n.EPSILON && Math.abs(v - p) < n.EPSILON ? a.identity(t) : (M = I - x, 
+            d = m - T, h = v - p, S = 1 / Math.sqrt(M * M + d * d + h * h), M *= S, d *= S, 
             h *= S, u = F * h - E * d, i = E * M - D * h, c = D * d - F * M, S = Math.sqrt(u * u + i * i + c * c), 
             S ? (S = 1 / S, u *= S, i *= S, c *= S) : (u = 0, i = 0, c = 0), s = d * c - h * i, 
             l = h * u - M * c, f = M * i - d * u, S = Math.sqrt(s * s + l * l + f * f), S ? (S = 1 / S, 
@@ -2021,8 +2021,8 @@
         }, a.exactEquals = function(t, r) {
             return t[0] === r[0] && t[1] === r[1] && t[2] === r[2] && t[3] === r[3] && t[4] === r[4] && t[5] === r[5] && t[6] === r[6] && t[7] === r[7] && t[8] === r[8] && t[9] === r[9] && t[10] === r[10] && t[11] === r[11] && t[12] === r[12] && t[13] === r[13] && t[14] === r[14] && t[15] === r[15];
         }, a.equals = function(t, r) {
-            var e = t[0], a = t[1], o = t[2], u = t[3], i = t[4], c = t[5], s = t[6], l = t[7], f = t[8], M = t[9], d = t[10], h = t[11], S = t[12], I = t[13], m = t[14], v = t[15], D = r[0], F = r[1], E = r[2], x = r[3], T = r[4], _ = r[5], p = r[6], A = r[7], b = r[8], y = r[9], O = r[10], R = r[11], g = r[12], N = r[13], P = r[14], L = r[15];
-            return Math.abs(e - D) <= n.EPSILON * Math.max(1, Math.abs(e), Math.abs(D)) && Math.abs(a - F) <= n.EPSILON * Math.max(1, Math.abs(a), Math.abs(F)) && Math.abs(o - E) <= n.EPSILON * Math.max(1, Math.abs(o), Math.abs(E)) && Math.abs(u - x) <= n.EPSILON * Math.max(1, Math.abs(u), Math.abs(x)) && Math.abs(i - T) <= n.EPSILON * Math.max(1, Math.abs(i), Math.abs(T)) && Math.abs(c - _) <= n.EPSILON * Math.max(1, Math.abs(c), Math.abs(_)) && Math.abs(s - p) <= n.EPSILON * Math.max(1, Math.abs(s), Math.abs(p)) && Math.abs(l - A) <= n.EPSILON * Math.max(1, Math.abs(l), Math.abs(A)) && Math.abs(f - b) <= n.EPSILON * Math.max(1, Math.abs(f), Math.abs(b)) && Math.abs(M - y) <= n.EPSILON * Math.max(1, Math.abs(M), Math.abs(y)) && Math.abs(d - O) <= n.EPSILON * Math.max(1, Math.abs(d), Math.abs(O)) && Math.abs(h - R) <= n.EPSILON * Math.max(1, Math.abs(h), Math.abs(R)) && Math.abs(S - g) <= n.EPSILON * Math.max(1, Math.abs(S), Math.abs(g)) && Math.abs(I - N) <= n.EPSILON * Math.max(1, Math.abs(I), Math.abs(N)) && Math.abs(m - P) <= n.EPSILON * Math.max(1, Math.abs(m), Math.abs(P)) && Math.abs(v - L) <= n.EPSILON * Math.max(1, Math.abs(v), Math.abs(L));
+            var e = t[0], a = t[1], o = t[2], u = t[3], i = t[4], c = t[5], s = t[6], l = t[7], f = t[8], M = t[9], d = t[10], h = t[11], S = t[12], I = t[13], m = t[14], v = t[15], D = r[0], F = r[1], E = r[2], x = r[3], T = r[4], p = r[5], _ = r[6], A = r[7], b = r[8], y = r[9], O = r[10], R = r[11], g = r[12], N = r[13], P = r[14], L = r[15];
+            return Math.abs(e - D) <= n.EPSILON * Math.max(1, Math.abs(e), Math.abs(D)) && Math.abs(a - F) <= n.EPSILON * Math.max(1, Math.abs(a), Math.abs(F)) && Math.abs(o - E) <= n.EPSILON * Math.max(1, Math.abs(o), Math.abs(E)) && Math.abs(u - x) <= n.EPSILON * Math.max(1, Math.abs(u), Math.abs(x)) && Math.abs(i - T) <= n.EPSILON * Math.max(1, Math.abs(i), Math.abs(T)) && Math.abs(c - p) <= n.EPSILON * Math.max(1, Math.abs(c), Math.abs(p)) && Math.abs(s - _) <= n.EPSILON * Math.max(1, Math.abs(s), Math.abs(_)) && Math.abs(l - A) <= n.EPSILON * Math.max(1, Math.abs(l), Math.abs(A)) && Math.abs(f - b) <= n.EPSILON * Math.max(1, Math.abs(f), Math.abs(b)) && Math.abs(M - y) <= n.EPSILON * Math.max(1, Math.abs(M), Math.abs(y)) && Math.abs(d - O) <= n.EPSILON * Math.max(1, Math.abs(d), Math.abs(O)) && Math.abs(h - R) <= n.EPSILON * Math.max(1, Math.abs(h), Math.abs(R)) && Math.abs(S - g) <= n.EPSILON * Math.max(1, Math.abs(S), Math.abs(g)) && Math.abs(I - N) <= n.EPSILON * Math.max(1, Math.abs(I), Math.abs(N)) && Math.abs(m - P) <= n.EPSILON * Math.max(1, Math.abs(m), Math.abs(P)) && Math.abs(v - L) <= n.EPSILON * Math.max(1, Math.abs(v), Math.abs(L));
         }, t.exports = a;
     }, function(t, r, e) {
         var n = e(0), a = e(6), o = e(7), u = e(8), i = {};
@@ -2332,7 +2332,7 @@
         "use strict";
         function n(t) {
             var r = t.id, e = void 0 === r ? Object(u.a)() : r, n = t.value, a = t.json, o = t.accept, i = t.reset, c = t.meta;
-            return null == n && a && (n = JSON.parse(a)), {
+            return void 0 === n && a && (n = JSON.parse(a)), {
                 id: e,
                 value: n,
                 accept: o,
@@ -2382,16 +2382,21 @@
         __webpack_exports__.a = evaluate;
     }, function(t, r, e) {
         "use strict";
-        function n(t, r) {
-            var e = Object(f.b)(null, function(t) {
-                var r = document.createElement("canvas");
-                return document.body.appendChild(r), t(r), function() {
-                    document.body.removeChild(r);
-                };
-            }), n = Object(f.c)([ e.HOT ], d.a), a = Object(f.a)([ n.HOT ], function(t, r) {
-                var e = Object(M.a)(r);
+        function n() {
+            return {
+                canvas: Object(M.b)(null, function(t) {
+                    var r = document.createElement("canvas");
+                    return document.body.appendChild(r), t(r), function() {
+                        document.body.removeChild(r);
+                    };
+                })
+            };
+        }
+        function a(t, r, e) {
+            var n = Object(M.c)([ t.HOT ], h.a), a = Object(M.a)([ n.HOT ], function(t, r) {
+                var e = Object(d.a)(r);
                 return t(e), e.destroy;
-            }).accept(h.unequal), o = Object(f.c)([ e.HOT, t.HOT ], function(t) {
+            }).accept(S.unequal), o = Object(M.c)([ t.HOT, r.HOT ], function(t) {
                 return {
                     width: t.clientWidth,
                     height: t.clientHeight
@@ -2399,17 +2404,16 @@
             });
             return a.react([ o.HOT ], function(t, r) {
                 return t.resize();
-            }, "updateSize"), r && a.react([ r.HOT ], function(t, r) {
+            }, "updateSize"), e && a.react([ e.HOT ], function(t, r) {
                 return t.updateDrawSettings(r);
             }), {
-                canvas: e,
                 painter: a,
                 gl: n,
                 canvasSize: o
             };
         }
-        function a(t, r) {
-            var e = Object(f.a)([ t.HOT ], function(t, r) {
+        function o(t, r) {
+            var e = Object(M.a)([ t.HOT ], function(t, r) {
                 var e = r.createShade();
                 return t(e), e.destroy;
             });
@@ -2417,8 +2421,8 @@
                 return t.update(r);
             }), e;
         }
-        function o(t, r) {
-            var e = Object(f.a)([ t.HOT ], function(t, r) {
+        function u(t, r) {
+            var e = Object(M.a)([ t.HOT ], function(t, r) {
                 var e = r.createForm();
                 return t(e), e.destroy;
             });
@@ -2426,8 +2430,8 @@
                 return t.update(r);
             }), e;
         }
-        function u(t, r) {
-            var e = Object(f.a)([ t.HOT ], function(t, r) {
+        function i(t, r) {
+            var e = Object(M.a)([ t.HOT ], function(t, r) {
                 var e = r.createSketch();
                 return t(e), e.destroy;
             });
@@ -2435,8 +2439,8 @@
                 return t.update(r);
             }), e;
         }
-        function i(t, r) {
-            var e = Object(f.a)([ t.HOT ], function(t, r) {
+        function c(t, r) {
+            var e = Object(M.a)([ t.HOT ], function(t, r) {
                 var e = r.createFlatSketch();
                 return t(e), e.destroy;
             });
@@ -2444,8 +2448,8 @@
                 return t.update(r);
             }), e;
         }
-        function c(t, r) {
-            var e = Object(f.a)([ t.HOT ], function(t, r) {
+        function s(t, r) {
+            var e = Object(M.a)([ t.HOT ], function(t, r) {
                 var e = r.createStaticLayer();
                 return t(e), e.destroy;
             });
@@ -2453,8 +2457,8 @@
                 return t.update(r);
             }), e;
         }
-        function s(t, r) {
-            var e = Object(f.a)([ t.HOT ], function(t, r) {
+        function l(t, r) {
+            var e = Object(M.a)([ t.HOT ], function(t, r) {
                 var e = r.createDrawingLayer();
                 return t(e), e.destroy;
             });
@@ -2462,8 +2466,8 @@
                 return t.update(r);
             }), e;
         }
-        function l(t, r) {
-            var e = Object(f.a)([ t.HOT ], function(t, r) {
+        function f(t, r) {
+            var e = Object(M.a)([ t.HOT ], function(t, r) {
                 var e = r.createEffectLayer();
                 return t(e), e.destroy;
             });
@@ -2473,10 +2477,10 @@
         }
         Object.defineProperty(r, "__esModule", {
             value: !0
-        }), r.makePainterCanvas = n, r.makeShadeEntity = a, r.makeFormEntity = o, r.makeSketchEntity = u, 
-        r.makeFlatSketchEntity = i, r.makeStaticLayerEntity = c, r.makeDrawingLayerEntity = s, 
-        r.makeEffectLayerEntity = l;
-        var f = e(9), M = e(29), d = e(12), h = e(13);
+        }), r.createBodyCanvas = n, r.setupPainter = a, r.makeShadeEntity = o, r.makeFormEntity = u, 
+        r.makeSketchEntity = i, r.makeFlatSketchEntity = c, r.makeStaticLayerEntity = s, 
+        r.makeDrawingLayerEntity = l, r.makeEffectLayerEntity = f;
+        var M = e(9), d = e(29), h = e(12), S = e(13);
     }, function(t, r, e) {
         "use strict";
         function n(t) {

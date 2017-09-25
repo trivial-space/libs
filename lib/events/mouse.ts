@@ -14,8 +14,12 @@ export interface MouseState {
 	},
 }
 
+export interface MouseOpts {
+	element?: HTMLElement,
+	enableRightButton?: boolean
+}
 
-export function mouse (callback: (val: MouseState) => void, opts: any = {}) {
+export function mouse (callback: (val: MouseState) => void, opts: MouseOpts = {}) {
 
 	const {
 		element = document,
