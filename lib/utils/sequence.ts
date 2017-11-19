@@ -32,3 +32,21 @@ export function zip<A, B, C>(as: A[], bs: B[], fn: (a: A, b: B) => C): C[] {
 	}
 	return result
 }
+
+
+export function flatten<T>(array: T[][]): T[] {
+	const results: T[] = []
+
+	for (const subarray of array) {
+		for (const el of subarray) {
+			results.push(el)
+		}
+	}
+	return results
+}
+
+
+export function mapcat<A, B>(array: A[], fn: (a: A) => B[]): B[] {
+	return flatten(array.map(fn))
+}
+

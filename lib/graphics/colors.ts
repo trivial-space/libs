@@ -16,7 +16,7 @@ export function mixColors (
 	[r2, g2, b2, a2]: ColorRGBA
 ): ColorRGBA {
 
-	const step = a2 / 255.0
+	const step = a2 / 255
 	const r = Math.floor(lerp(r1, r2, step))
 	const g = Math.floor(lerp(g1, g2, step))
 	const b = Math.floor(lerp(b1, b2, step))
