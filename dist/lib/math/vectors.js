@@ -52,8 +52,9 @@ export function normalize(vec) {
     return div(vec, length(vec));
 }
 export function limit(vec, maxLenght) {
-    if (maxLenght < length(vec)) {
-        return mul(normalize(vec), maxLenght);
+    var l = length(vec);
+    if (maxLenght < l) {
+        return mul(vec, maxLenght / l);
     }
     else {
         return vec;

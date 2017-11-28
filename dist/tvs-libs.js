@@ -666,7 +666,8 @@
             return c(t, s(t));
         }
         function f(t, r) {
-            return r < s(t) ? i(l(t), r) : t;
+            var e = s(t);
+            return r < e ? i(t, r / e) : t;
         }
         function M(t, r) {
             if (t.length !== r.length) return !1;
@@ -2944,6 +2945,7 @@
             function r() {
                 for (var t in e) e[t].apply(null, arguments);
             }
+            void 0 === t && (t = n);
             var e = [];
             return {
                 start: function() {

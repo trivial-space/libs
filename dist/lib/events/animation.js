@@ -27,6 +27,7 @@ export function animate(callback) {
     };
 }
 export function createAnimator(animateFunction) {
+    if (animateFunction === void 0) { animateFunction = animateWithTPF; }
     var updates = [];
     function callback() {
         for (var i in updates) {

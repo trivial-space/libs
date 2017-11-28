@@ -72,8 +72,9 @@ export function normalize (vec: Vec): number[] {
 
 
 export function limit (vec: Vec, maxLenght: number): Vec {
-	if (maxLenght < length(vec)) {
-		return mul(normalize(vec), maxLenght)
+	const l = length(vec)
+	if (maxLenght < l) {
+		return mul(vec, maxLenght / l)
 	} else {
 		return vec
 	}
