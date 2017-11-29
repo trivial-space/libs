@@ -82,7 +82,7 @@ export function mouse (callback: (val: MouseState) => void, opts: MouseOpts = {}
 	}
 
 
-	element.addEventListener('mousedown', onMouseDown)
+	element.addEventListener('mousedown', onMouseDown as EventListener)
 	document.addEventListener('mouseup', onMouseUp)
 	document.addEventListener('mousemove', onMouseMove)
 
@@ -93,7 +93,7 @@ export function mouse (callback: (val: MouseState) => void, opts: MouseOpts = {}
 	callback(state)
 
 	return function destroy () {
-		element.removeEventListener('mousedown', onMouseDown)
+		element.removeEventListener('mousedown', onMouseDown as EventListener)
 		document.removeEventListener('mousemove', onMouseMove)
 		document.removeEventListener('mouseup', onMouseUp)
 		if (enableRightButton) {

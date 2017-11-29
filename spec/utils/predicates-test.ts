@@ -5,10 +5,10 @@ import { N } from '../types'
 
 describe('utils predicates', function() {
 
-  describe('and', function() {
+	describe('and', function() {
 
 		it('takes two predicates and returns an composed predicate', function() {
-			const p11 = (a: N)	=> a < 100
+			const p11 = (a: N) => a < 100
 			const p12 = (b: N) => b > 10
 			const p1 = and(p11, p12)
 			expect(p1(5)).to.be.false
@@ -22,13 +22,13 @@ describe('utils predicates', function() {
 			expect(p2(110, 10)).to.be.false
 			expect(p2(10, 110)).to.be.true
 		})
-  })
+	})
 
 
-  describe('not', function() {
+	describe('not', function() {
 
 		it('takes a predicate and negates its value', function() {
-			const p11 = (a: N)	=> a < 100
+			const p11 = (a: N) => a < 100
 			const p1 = not(p11)
 			expect(p1(5)).to.be.false
 			expect(p1(115)).to.be.true
@@ -38,7 +38,7 @@ describe('utils predicates', function() {
 			expect(p2(5, 10)).to.be.false
 			expect(p2(10, 5)).to.be.true
 		})
-  })
+	})
 
 
 	describe('equalArray', function() {
@@ -58,11 +58,11 @@ describe('utils predicates', function() {
 	describe('equalObject', function() {
 		it('shallow compares if two objects are equal', function() {
 			const obj = { foo: 'bar' }
-			expect(equalObject({foo: 'bar'}, obj)).to.be.true
-			expect(equalObject({foo: obj}, {foo: obj})).to.be.true
-			expect(equalObject({foo: obj}, {foo: {foo: 'bar'}})).to.be.false
-			expect(equalObject({foo: 'bar', bar: 'kuku'}, obj)).to.be.false
-			expect(equalObject({bar: 'bar'}, obj)).to.be.false
+			expect(equalObject({ foo: 'bar' }, obj)).to.be.true
+			expect(equalObject({ foo: obj }, { foo: obj })).to.be.true
+			expect(equalObject({ foo: obj }, { foo: { foo: 'bar' } })).to.be.false
+			expect(equalObject({ foo: 'bar', bar: 'kuku' }, obj)).to.be.false
+			expect(equalObject({ bar: 'bar' }, obj)).to.be.false
 		})
 	})
 
