@@ -44,11 +44,14 @@ describe('utils predicates', function () {
         it('shallow compares if two objects are equal', function () {
             var obj = { foo: 'bar' };
             expect(equalObject({ foo: 'bar' }, obj)).to.be.true;
+            expect(equalObject(obj, obj)).to.be.true;
             expect(equalObject({ foo: obj }, { foo: obj })).to.be.true;
             expect(equalObject({ foo: obj }, { foo: { foo: 'bar' } })).to.be.false;
             expect(equalObject({ foo: 'bar', bar: 'kuku' }, obj)).to.be.false;
             expect(equalObject({ bar: 'bar' }, obj)).to.be.false;
         });
+    });
+    describe('deepEquals', function () {
     });
 });
 //# sourceMappingURL=predicates-test.js.map

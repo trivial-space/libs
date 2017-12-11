@@ -9,6 +9,9 @@ export var notEmpty = function (a) { return a && a.length; };
 export var unequal = function (a, b) { return a !== b; };
 export var equal = function (a, b) { return a === b; };
 export function equalArray(arr1, arr2) {
+    if (arr1 === arr2) {
+        return true;
+    }
     if (arr1.length !== arr2.length) {
         return false;
     }
@@ -20,6 +23,9 @@ export function equalArray(arr1, arr2) {
     return true;
 }
 export function equalObject(obj1, obj2) {
+    if (obj1 === obj2) {
+        return true;
+    }
     var k1 = Object.keys(obj1);
     var k2 = Object.keys(obj2);
     if (!equalArray(k1, k2)) {
