@@ -17,7 +17,12 @@
     "test": "karma start",
     "build": "tsc; webpack",
     "prepublish": "npm run build"
-  },
+	},
+	"peerDependency": {
+    "gl-matrix": "^2.4.0",
+    "tvs-flow": "^0.9.0",
+    "tvs-painter": "^0.1.0"
+	},
   "devDependencies": {
     "@types/chai": "^4.0.6",
     "@types/gl-matrix": "^2.4.0",

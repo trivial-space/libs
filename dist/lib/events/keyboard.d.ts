@@ -118,7 +118,8 @@ export declare enum Keys {
 export declare type KeyState = {
     [key: number]: number;
 };
-export declare function keyboard(callback: (val: KeyState) => void, opts?: any): () => void;
+export declare function keyboard(callback: (val: KeyState) => void): () => void;
+export declare function keyboard(opts: any, callback: (val: KeyState) => void): () => void;
 export interface KeyObserver {
     Keys: typeof Keys;
     state: {

@@ -3,9 +3,9 @@ export var Buttons = {
     MIDDLE: 1,
     RIGHT: 2
 };
-export function mouse(callback, opts) {
-    if (opts === void 0) { opts = {}; }
-    var _a = opts.element, element = _a === void 0 ? document : _a, enableRightButton = opts.enableRightButton;
+export function mouse(opts, callback) {
+    var cb = callback || opts;
+    var _a = opts, _b = _a.element, element = _b === void 0 ? document : _b, enableRightButton = _a.enableRightButton;
     var state = {
         pressed: {},
         drag: { x: 0, y: 0 }
@@ -18,7 +18,7 @@ export function mouse(callback, opts) {
             y = e.clientY;
             dragging = true;
         }
-        callback(state);
+        cb(state);
     }
     function onMouseUp(e) {
         delete state.pressed[e.button];
@@ -26,14 +26,14 @@ export function mouse(callback, opts) {
         state.drag.x = 0;
         state.drag.y = 0;
         dragging = false;
-        callback(state);
+        cb(state);
     }
     function onMouseMove(e) {
         if (dragging) {
             state.drag.event = e;
             state.drag.x = x - e.clientX;
             state.drag.y = y - e.clientY;
-            callback(state);
+            cb(state);
         }
     }
     function preventDefault(e) {
@@ -45,7 +45,7 @@ export function mouse(callback, opts) {
     if (enableRightButton) {
         element.addEventListener('contextmenu', preventDefault);
     }
-    callback(state);
+    cb(state);
     return function destroy() {
         element.removeEventListener('mousedown', onMouseDown);
         document.removeEventListener('mousemove', onMouseMove);
@@ -65,7 +65,7 @@ export function mouseObserver(opts) {
     function callback(state) {
         observer.state = state;
     }
-    observer.destroy = mouse(callback, opts);
+    observer.destroy = mouse(opts, callback);
     return observer;
 }
 //# sourceMappingURL=mouse.js.map

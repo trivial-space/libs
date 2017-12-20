@@ -7,9 +7,9 @@ function to8Bit (noise: number) {
 
 
 export function drawTileNoiseTexture (
-	ctx: CanvasRenderingContext2D,
 	startX: number,
-	startY: number
+	startY: number,
+	ctx: CanvasRenderingContext2D
 ): void {
 
 	const width = ctx.canvas.width

@@ -7,7 +7,7 @@ export function gravity(obj1, obj2, G) {
     }
     else {
         var m = (G * obj1.mass * obj2.mass) / (distance * distance);
-        return mul(div(force, distance), m);
+        return mul(m, div(distance, force));
     }
 }
 export function drag(obj, C) {
@@ -18,7 +18,7 @@ export function drag(obj, C) {
     }
     else {
         var dragMag = C * speed * speed * -1;
-        return mul(div(dragVec, speed), dragMag);
+        return mul(dragMag, div(speed, dragVec));
     }
 }
 //# sourceMappingURL=core.js.map

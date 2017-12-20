@@ -1,14 +1,8 @@
+import { equalArray } from 'utils/predicates';
 export function add(vec1, vec2) {
     var results = [];
     for (var i = 0; i < vec1.length; i++) {
         results[i] = vec1[i] + vec2[i];
-    }
-    return results;
-}
-export function addScalar(vec, scalar) {
-    var results = [];
-    for (var i = 0; i < vec.length; i++) {
-        results[i] = vec[i] + scalar;
     }
     return results;
 }
@@ -19,21 +13,14 @@ export function sub(vec1, vec2) {
     }
     return results;
 }
-export function subScalar(vec, scalar) {
-    var results = [];
-    for (var i = 0; i < vec.length; i++) {
-        results[i] = vec[i] - scalar;
-    }
-    return results;
-}
-export function mul(vec, scalar) {
+export function mul(scalar, vec) {
     var results = [];
     for (var i = 0; i < vec.length; i++) {
         results[i] = vec[i] * scalar;
     }
     return results;
 }
-export function div(vec, scalar) {
+export function div(scalar, vec) {
     var results = [];
     for (var i = 0; i < vec.length; i++) {
         results[i] = vec[i] / scalar;
@@ -49,25 +36,16 @@ export function length(vec) {
     return Math.sqrt(sum);
 }
 export function normalize(vec) {
-    return div(vec, length(vec));
+    return div(length(vec), vec);
 }
-export function limit(vec, maxLenght) {
+export function limit(maxLength, vec) {
     var l = length(vec);
-    if (maxLenght < l) {
-        return mul(vec, maxLenght / l);
+    if (maxLength < l) {
+        return mul(maxLength / l, vec);
     }
     else {
         return vec;
     }
 }
-export function isEqual(vec1, vec2) {
-    if (vec1.length !== vec2.length)
-        return false;
-    for (var i = 0; i < vec1.length; i++) {
-        if (vec1[i] !== vec2[i]) {
-            return false;
-        }
-    }
-    return true;
-}
+export var isEqual = equalArray;
 //# sourceMappingURL=vectors.js.map

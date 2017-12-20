@@ -19,12 +19,16 @@ export interface MouseOpts {
 	enableRightButton?: boolean
 }
 
-export function mouse (callback: (val: MouseState) => void, opts: MouseOpts = {}) {
+export function mouse (callback: (val: MouseState) => void): () => void
+export function mouse (opts: MouseOpts , callback: (val: MouseState) => void): () => void
+export function mouse (opts: MouseOpts | ((val: MouseState) => void), callback?: (val: MouseState) => void) {
+
+	const cb = callback || opts as (val: MouseState) => void
 
 	const {
 		element = document,
 		enableRightButton
-	} = opts
+	} = opts as MouseOpts
 
 	const state: MouseState = {
 		pressed: {},
@@ -46,7 +50,7 @@ export function mouse (callback: (val: MouseState) => void, opts: MouseOpts = {}
 			dragging = true
 		}
 
-		callback(state)
+		cb(state)
 	}
 
 
@@ -60,7 +64,7 @@ export function mouse (callback: (val: MouseState) => void, opts: MouseOpts = {}
 
 		dragging = false
 
-		callback(state)
+		cb(state)
 	}
 
 
@@ -72,7 +76,7 @@ export function mouse (callback: (val: MouseState) => void, opts: MouseOpts = {}
 			state.drag.x = x - e.clientX
 			state.drag.y = y - e.clientY
 
-			callback(state)
+			cb(state)
 		}
 	}
 
@@ -90,7 +94,7 @@ export function mouse (callback: (val: MouseState) => void, opts: MouseOpts = {}
 		element.addEventListener('contextmenu', preventDefault)
 	}
 
-	callback(state)
+	cb(state)
 
 	return function destroy () {
 		element.removeEventListener('mousedown', onMouseDown as EventListener)
@@ -122,7 +126,7 @@ export function mouseObserver (opts: any = {}): MouseObserver {
 		observer.state = state
 	}
 
-	observer.destroy = mouse(callback, opts)
+	observer.destroy = mouse(opts, callback)
 
 	return observer
 }

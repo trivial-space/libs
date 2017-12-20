@@ -120,7 +120,11 @@ export enum Keys {
 export type KeyState = { [key: number]: number }
 
 
-export function keyboard (callback: (val: KeyState) => void, opts: any = {}) {
+export function keyboard (callback: (val: KeyState) => void): () => void
+export function keyboard (opts: any, callback: (val: KeyState) => void): () => void
+export function keyboard (opts: any, callback?: (val: KeyState) => void): () => void {
+
+	const cb = callback || opts
 
 	const {
 		element = window
@@ -130,18 +134,18 @@ export function keyboard (callback: (val: KeyState) => void, opts: any = {}) {
 
 	function onKeydown (event: KeyboardEvent) {
 		pressed[event.keyCode] = Date.now()
-		callback(pressed)
+		cb(pressed)
 	}
 
 	function onKeyup (event: KeyboardEvent) {
 		delete pressed[event.keyCode]
-		callback(pressed)
+		cb(pressed)
 	}
 
 	element.addEventListener('keyup', onKeyup, false)
 	element.addEventListener('keydown', onKeydown, false)
 
-	callback(pressed)
+	cb(pressed)
 
 	return function stop () {
 		element.removeEventListener('keyup', onKeyup)

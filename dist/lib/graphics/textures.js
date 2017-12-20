@@ -2,7 +2,7 @@ import { tileNoise } from '../math/noise';
 function to8Bit(noise) {
     return Math.floor((noise + 1) * 127);
 }
-export function drawTileNoiseTexture(ctx, startX, startY) {
+export function drawTileNoiseTexture(startX, startY, ctx) {
     var width = ctx.canvas.width;
     var height = ctx.canvas.height;
     var noise1 = tileNoise(width, height, startX, startY);

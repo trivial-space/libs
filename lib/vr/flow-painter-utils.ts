@@ -3,7 +3,6 @@ import { WindowSizeState } from '../events/dom'
 import { create } from 'tvs-painter/dist/lib/painter'
 import { getContext } from 'tvs-painter/dist/lib/utils/context'
 import { Painter, Shade, Form, Sketch, Layer, GL, SketchData, LayerData, ShadeData, FormData, DrawSettings } from 'tvs-painter/dist/lib/painter-types'
-import { unequal } from '../utils/predicates'
 
 
 export function createBodyCanvas() {
@@ -42,7 +41,6 @@ export function setupPainter (
 			return p.destroy
 		}
 	)
-	.accept(unequal)
 
 	const canvasSize = stream(
 		[canvas.HOT, windowSizeEntity.HOT],

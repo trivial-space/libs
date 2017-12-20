@@ -116,21 +116,21 @@ export var Keys;
     Keys[Keys["QUOTE"] = 222] = "QUOTE";
     Keys[Keys["META"] = 224] = "META";
 })(Keys || (Keys = {}));
-export function keyboard(callback, opts) {
-    if (opts === void 0) { opts = {}; }
+export function keyboard(opts, callback) {
+    var cb = callback || opts;
     var _a = opts.element, element = _a === void 0 ? window : _a;
     var pressed = {};
     function onKeydown(event) {
         pressed[event.keyCode] = Date.now();
-        callback(pressed);
+        cb(pressed);
     }
     function onKeyup(event) {
         delete pressed[event.keyCode];
-        callback(pressed);
+        cb(pressed);
     }
     element.addEventListener('keyup', onKeyup, false);
     element.addEventListener('keydown', onKeydown, false);
-    callback(pressed);
+    cb(pressed);
     return function stop() {
         element.removeEventListener('keyup', onKeyup);
         element.removeEventListener('keydown', onKeydown);

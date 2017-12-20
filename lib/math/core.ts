@@ -1,6 +1,3 @@
-export const DEG_TO_RAD_FACTOR = Math.PI / 180
-
-
 export function sign (num: number): number {
 	if (num > 0) {
 		return 1
@@ -23,33 +20,16 @@ export function lerp (
 
 
 export function clamp (
-	value: number,
 	min: number,
-	max: number
+	max: number,
+	value: number
 ): number {
 
 	return Math.max(min, Math.min(value, max))
 }
 
 
-export function randInt (int: number): number {
-	return Math.floor(Math.random() * int)
-}
-
-
-export function randIntInRange (
-	from: number,
-	to: number
-): number {
-
-	return randInt(to - from) + from
-}
-
-
-export function normalRand (): number {
-	return (Math.random() + Math.random() + Math.random()) / 3
-}
-
+export const DEG_TO_RAD_FACTOR = Math.PI / 180
 
 export function degToRad (degrees: number): number {
 	return degrees * DEG_TO_RAD_FACTOR

@@ -27,11 +27,11 @@ export function makeFirstPersonView() {
         rotY: mat4.create()
     })
         .react([rotY.HOT], function (self, rotY) {
-        self.rotY = mat4.fromYRotation(self.rotY, rotY);
+        mat4.fromYRotation(self.rotY, rotY);
         return self;
     })
         .react([rotX.HOT], function (self, rotX) {
-        self.rotX = mat4.fromXRotation(self.rotX, rotX);
+        mat4.fromXRotation(self.rotX, rotX);
         return self;
     });
     var view = val(mat4.create())

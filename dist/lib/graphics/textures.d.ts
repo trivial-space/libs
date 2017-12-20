@@ -1,1 +1,1 @@
-export declare function drawTileNoiseTexture(ctx: CanvasRenderingContext2D, startX: number, startY: number): void;
+export declare function drawTileNoiseTexture(startX: number, startY: number, ctx: CanvasRenderingContext2D): void;

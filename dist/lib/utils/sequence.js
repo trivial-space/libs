@@ -1,18 +1,20 @@
-import { randInt } from '../math/core';
+import { randInt } from '../math/random';
 export function pickRandom(arr) {
     return arr[randInt(arr.length)];
 }
-export function doTimes(count, fn) {
+export function doTimes(fn, count) {
     for (var i = 0; i < count; i++) {
         fn(i);
     }
 }
-export function yieldTimes(count, fn) {
+export function yieldTimes(fn, count) {
     var arr = [];
-    doTimes(count, function (i) { return arr.push(fn(i)); });
+    for (var i = 0; i < count; i++) {
+        arr.push(fn(i));
+    }
     return arr;
 }
-export function zip(as, bs, fn) {
+export function zip(fn, as, bs) {
     var length = Math.min(as.length, bs.length);
     var result = [];
     for (var i = 0; i < length; i++) {
@@ -31,7 +33,7 @@ export function flatten(array) {
     }
     return results;
 }
-export function mapcat(array, fn) {
+export function mapcat(fn, array) {
     return flatten(array.map(fn));
 }
 //# sourceMappingURL=sequence.js.map

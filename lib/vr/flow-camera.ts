@@ -50,14 +50,14 @@ export function makeFirstPersonView () {
 	.react(
 		[rotY.HOT],
 		(self, rotY) => {
-			self.rotY = mat4.fromYRotation(self.rotY, rotY)
+			mat4.fromYRotation(self.rotY, rotY)
 			return self
 		}
 	)
 	.react(
 		[rotX.HOT],
 		(self, rotX) => {
-			self.rotX = mat4.fromXRotation(self.rotX, rotX)
+			mat4.fromXRotation(self.rotX, rotX)
 			return self
 		}
 	)

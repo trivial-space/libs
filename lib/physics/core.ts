@@ -8,7 +8,7 @@ export function gravity (obj1: any, obj2: any, G: number) {
 		return force
 	} else {
 		const m = (G * obj1.mass * obj2.mass) / (distance * distance)
-		return mul(div(force, distance), m)
+		return mul(m, div(distance, force))
 	}
 }
 
@@ -20,6 +20,6 @@ export function drag (obj: any, C: number) {
 		return dragVec
 	} else {
 		const dragMag = C * speed * speed * -1
-		return mul(div(dragVec, speed), dragMag)
+		return mul(dragMag, div(speed, dragVec))
 	}
 }
