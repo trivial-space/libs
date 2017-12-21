@@ -1,4 +1,4 @@
-import { equalArray } from 'utils/predicates'
+import { equalArray } from '../utils/predicates'
 
 export type Vec = number[] | Float32Array
 

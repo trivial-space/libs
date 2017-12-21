@@ -1,4 +1,4 @@
-import { equalArray } from 'utils/predicates';
+import { equalArray } from '../utils/predicates';
 export function add(vec1, vec2) {
     var results = [];
     for (var i = 0; i < vec1.length; i++) {
