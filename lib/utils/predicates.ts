@@ -16,9 +16,12 @@ export const unequal: Predicate = (a, b) => a !== b
 
 export const equal: Predicate = (a, b) => a === b
 
-export function equalArray(arr1: any[], arr2: any[]) {
+export function equalArray(arr1: any[], arr2?: any[]) {
 	if (arr1 === arr2) {
 		return true
+	}
+	if (!arr2) {
+		return false
 	}
 	if (arr1.length !== arr2.length) {
 		return false
@@ -31,9 +34,12 @@ export function equalArray(arr1: any[], arr2: any[]) {
 	return true
 }
 
-export function equalObject(obj1: {[key: string]: any}, obj2: {[key: string]: any}) {
+export function equalObject(obj1: {[key: string]: any}, obj2?: {[key: string]: any}) {
 	if (obj1 === obj2) {
 		return true
+	}
+	if (!obj2) {
+		return false
 	}
 	const k1 = Object.keys(obj1)
 	const k2 = Object.keys(obj2)

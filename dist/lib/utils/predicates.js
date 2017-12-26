@@ -12,6 +12,9 @@ export function equalArray(arr1, arr2) {
     if (arr1 === arr2) {
         return true;
     }
+    if (!arr2) {
+        return false;
+    }
     if (arr1.length !== arr2.length) {
         return false;
     }
@@ -25,6 +28,9 @@ export function equalArray(arr1, arr2) {
 export function equalObject(obj1, obj2) {
     if (obj1 === obj2) {
         return true;
+    }
+    if (!obj2) {
+        return false;
     }
     var k1 = Object.keys(obj1);
     var k2 = Object.keys(obj2);

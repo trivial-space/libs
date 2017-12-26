@@ -5,9 +5,9 @@ export declare const defined: Predicate;
 export declare const notEmpty: Predicate;
 export declare const unequal: Predicate;
 export declare const equal: Predicate;
-export declare function equalArray(arr1: any[], arr2: any[]): boolean;
+export declare function equalArray(arr1: any[], arr2?: any[]): boolean;
 export declare function equalObject(obj1: {
     [key: string]: any;
-}, obj2: {
+}, obj2?: {
     [key: string]: any;
 }): boolean;
