@@ -7,7 +7,7 @@ import * as eventsDom from './events/dom';
 import * as eventsKey from './events/keyboard';
 import * as eventsMouse from './events/mouse';
 import * as eventsAnimation from './events/animation';
-import * as utilsString from './utils/string';
+import * as utilsUUID from './utils/uuid';
 import * as utilsSequence from './utils/sequence';
 import * as utilsPredicates from './utils/predicates';
 import * as utilsFp from './utils/fp';
@@ -28,7 +28,7 @@ export var events = {
     animation: eventsAnimation
 };
 export var utils = {
-    string: utilsString,
+    uuid: utilsUUID,
     seq: utilsSequence,
     predicates: utilsPredicates,
     fp: utilsFp

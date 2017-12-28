@@ -7,7 +7,7 @@ import * as eventsDom from './events/dom';
 import * as eventsKey from './events/keyboard';
 import * as eventsMouse from './events/mouse';
 import * as eventsAnimation from './events/animation';
-import * as utilsString from './utils/string';
+import * as utilsUUID from './utils/uuid';
 import * as utilsSequence from './utils/sequence';
 import * as utilsPredicates from './utils/predicates';
 import * as utilsFp from './utils/fp';
@@ -28,7 +28,7 @@ export declare const events: {
     animation: typeof eventsAnimation;
 };
 export declare const utils: {
-    string: typeof utilsString;
+    uuid: typeof utilsUUID;
     seq: typeof utilsSequence;
     predicates: typeof utilsPredicates;
     fp: typeof utilsFp;
@@ -53,7 +53,7 @@ declare const _default: {
         animation: typeof eventsAnimation;
     };
     utils: {
-        string: typeof utilsString;
+        uuid: typeof utilsUUID;
         seq: typeof utilsSequence;
         predicates: typeof utilsPredicates;
         fp: typeof utilsFp;
