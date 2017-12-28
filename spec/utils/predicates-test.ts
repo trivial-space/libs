@@ -67,10 +67,5 @@ describe('utils predicates', function() {
 		})
 	})
 
-
-	describe('deepEquals', function() {
-
-	})
-
 })
 

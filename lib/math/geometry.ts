@@ -1,24 +1,20 @@
-import { vec3, vec4, mat4, quat } from 'gl-matrix'
-
-export type GLVec3 = vec3 | number[]
-export type GLVec4 = vec4 | number[]
-export type GLQuat = quat | number[]
+import { dot, Vec, normalize, cross, sub } from './vectors'
 
 
 export function planeFromNormalAndCoplanarPoint (
-	n: GLVec3,
-	point: GLVec3
-): vec4 {
-	const d = -vec3.dot(n, point)
-	return vec4.fromValues(n[0], n[1], n[2], d)
+	n: Vec,
+	point: Vec
+) {
+	const d = dot(n, point)
+	return [n[0], n[1], n[2], d]
 }
 
 
 export function planeFromThreeCoplanarPoints (
-	p1: GLVec3,
-	p2: GLVec3,
-	p3: GLVec3
-): vec4 {
+	p1: Vec,
+	p2: Vec,
+	p3: Vec
+) {
 	return planeFromNormalAndCoplanarPoint(
 		normalFromThreeCoplanarPoints(p1, p2, p3), p1
 	)
@@ -26,12 +22,11 @@ export function planeFromThreeCoplanarPoints (
 
 
 export function normalFromThreeCoplanarPoints (
-	p1: GLVec3,
-	p2: GLVec3,
-	p3: GLVec3
-): vec3 {
-	const n = vec3.cross(vec3.create(), vec3.sub(vec3.create(), p3, p2), vec3.sub(vec3.create(), p1, p2))
-	return vec3.normalize(n, n)
+	p1: Vec,
+	p2: Vec,
+	p3: Vec
+) {
+	return normalize(cross(sub(p3, p2), sub(p1, p2)))
 }
 
 
@@ -48,43 +43,31 @@ http://khayyam.kaplinski.com/2011/09/reflective-water-with-glsl-part-i.html
 https://www.opengl.org/discussion_boards/showthread.php/147784-Mirror-Matrices
 */
 
-export function mirrorMatrixFromPlane (plane: GLVec4): mat4 {
+export function mirrorMatrixFromPlane (plane: Vec) {
 	const [a, b, c, d] = plane as number[]
 
-	return mat4.fromValues(
+	return [
 		1 - 2 * a * a,	-2 * a * b,			-2 * a * c,			0,
 		-2 * a * b,			1 - 2 * b * b,	-2 * b * c,			0,
 		-2 * a * c,			-2 * b * c,			1 - 2 * c * c,	0,
 		-2 * a * d,			-2 * b * d,			-2 * c * d,			1
-	)
+	]
 }
 
 
-export function getYawQuat (quat: quat | number[], rotYAngle: number): quat {
+export function getYawQuat (rotYAngle: number): Vec {
 	rotYAngle *= 0.5
-	quat[0] = 0
-	quat[1] = Math.sin(rotYAngle)
-	quat[2] = 0
-	quat[3] = Math.cos(rotYAngle)
-	return quat as quat
+	return [0, Math.sin(rotYAngle), 0, Math.cos(rotYAngle)]
 }
 
 
-export function getPitchQuat (quat: quat | number[], rotXAngle: number): quat {
+export function getPitchQuat (rotXAngle: number): Vec {
 	rotXAngle *= 0.5
-	quat[0] = Math.sin(rotXAngle)
-	quat[1] = 0
-	quat[2] = 0
-	quat[3] = Math.cos(rotXAngle)
-	return quat as quat
+	return [Math.sin(rotXAngle), 0, 0, Math.cos(rotXAngle)]
 }
 
 
-export function getRollQuat (quat: quat | number[], rotZAngle: number): quat {
+export function getRollQuat (rotZAngle: number): Vec {
 	rotZAngle *= 0.5
-	quat[0] = 0
-	quat[1] = 0
-	quat[2] = Math.sin(rotZAngle)
-	quat[3] = Math.cos(rotZAngle)
-	return quat as quat
+	return [ 0, 0, Math.sin(rotZAngle), Math.cos(rotZAngle)]
 }

@@ -1,7 +1,7 @@
 {
   "name": "tvs-libs",
   "version": "0.4.1",
-  "description": "trivialspace libs - utility and helper functions",
+  "description": "trivialspace libs - basic functions and algorithms",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/trivial-space/libs.git"
@@ -18,21 +18,14 @@
     "build": "tsc; webpack",
     "prepublish": "npm run build"
 	},
-	"peerDependency": {
-    "gl-matrix": "^2.4.0",
-    "tvs-flow": "^0.9.0",
-    "tvs-painter": "^0.1.0"
-	},
   "devDependencies": {
     "@types/chai": "^4.0.6",
-    "@types/gl-matrix": "^2.4.0",
     "@types/mocha": "^2.2.44",
     "@types/node": "^8.0.53",
     "@types/sinon": "^4.0.0",
     "@types/sinon-chai": "^2.7.29",
     "@types/webpack-env": "^1.13.2",
     "chai": "^4.1.1",
-    "gl-matrix": "2.4.0",
     "karma": "^1.7.1",
     "karma-chai-sinon": "^0.1.5",
     "karma-chrome-launcher": "^2.2.0",
@@ -48,11 +41,8 @@
     "sinon-chai": "^2.14.0",
     "ts-loader": "^3.2.0",
     "tslint": "^5.8.0",
-    "tvs-flow": "^0.9.0",
-    "tvs-painter": "^0.1.0",
     "typescript": "^2.6.2",
     "uglifyjs-webpack-plugin": "^1.1.1",
-    "webpack": "^3.8.1",
-    "webpack-dev-server": "^2.9.5"
+    "webpack": "^3.8.1"
   }
 }

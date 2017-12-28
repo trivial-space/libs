@@ -1,6 +1,6 @@
 # Trivial space libs
 
-Utility helpers and functions used throughout the trivial space projects.
+Utility functions and algorithms used throughout the trivial space projects. They are elementary, modular and dependency free.
 
 *This library is fluctuating a lot, changed and updated as the rest of the trivial space projects evolves. Do not use for production applications!*
 

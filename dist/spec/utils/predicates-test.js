@@ -51,7 +51,5 @@ describe('utils predicates', function () {
             expect(equalObject({ bar: 'bar' }, obj)).to.be.false;
         });
     });
-    describe('deepEquals', function () {
-    });
 });
 //# sourceMappingURL=predicates-test.js.map

@@ -31,8 +31,8 @@ describe('graphics colors', function () {
     });
     describe('hexStringToRgb', function () {
         it('converts a hex string to a rgb color', function () {
-            expect(colors.hexStringToRgb("#2334af")).to.deep.equal([0x23, 0x34, 0xaf]);
-            expect(colors.hexStringToRgb("2334af")).to.deep.equal([0x23, 0x34, 0xaf]);
+            expect(colors.hexStringToRgb('#2334af')).to.deep.equal([0x23, 0x34, 0xaf]);
+            expect(colors.hexStringToRgb('2334af')).to.deep.equal([0x23, 0x34, 0xaf]);
         });
     });
 });
