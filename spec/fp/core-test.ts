@@ -1,9 +1,9 @@
-import { curry, partial } from 'utils/fp'
+import { curry, partial } from 'fp/core'
 import { expect } from 'chai'
 import { N, S } from '../types'
 
 
-describe('functional programming utils', function() {
+describe('functional programming core', function() {
 
 	describe('curry', function() {
 

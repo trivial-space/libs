@@ -10,7 +10,7 @@ import * as eventsAnimation from './events/animation'
 import * as utilsUUID from './utils/uuid'
 import * as utilsSequence from './utils/sequence'
 import * as utilsPredicates from './utils/predicates'
-import * as utilsFp from './utils/fp'
+import * as fpCore from './fp/core'
 import * as graphicsColors from './graphics/colors'
 import * as graphicsTextures from './graphics/textures'
 import * as graphicsPixesls from './graphics/pixel-context'
@@ -36,8 +36,12 @@ export const events = {
 export const utils = {
 	uuid: utilsUUID,
 	seq: utilsSequence,
-	predicates: utilsPredicates,
-	fp: utilsFp
+	predicates: utilsPredicates
+}
+
+
+export const fp = {
+	core: fpCore
 }
 
 
@@ -48,4 +52,4 @@ export const graphics = {
 }
 
 
-export default { math, events, utils, graphics }
+export default { math, events, utils, graphics, fp }
