@@ -10,7 +10,7 @@ import * as eventsAnimation from './events/animation';
 import * as utilsUUID from './utils/uuid';
 import * as utilsSequence from './utils/sequence';
 import * as utilsPredicates from './utils/predicates';
-import * as utilsFp from './utils/fp';
+import * as fpCore from './fp/core';
 import * as graphicsColors from './graphics/colors';
 import * as graphicsTextures from './graphics/textures';
 import * as graphicsPixesls from './graphics/pixel-context';
@@ -31,7 +31,9 @@ export declare const utils: {
     uuid: typeof utilsUUID;
     seq: typeof utilsSequence;
     predicates: typeof utilsPredicates;
-    fp: typeof utilsFp;
+};
+export declare const fp: {
+    core: typeof fpCore;
 };
 export declare const graphics: {
     colors: typeof graphicsColors;
@@ -56,12 +58,14 @@ declare const _default: {
         uuid: typeof utilsUUID;
         seq: typeof utilsSequence;
         predicates: typeof utilsPredicates;
-        fp: typeof utilsFp;
     };
     graphics: {
         colors: typeof graphicsColors;
         pixels: typeof graphicsPixesls;
         textures: typeof graphicsTextures;
+    };
+    fp: {
+        core: typeof fpCore;
     };
 };
 export default _default;

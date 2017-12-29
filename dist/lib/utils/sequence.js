@@ -1,4 +1,4 @@
-import { randInt } from '../math/random';
+import { randInt, randIntInRange } from '../math/random';
 export function pickRandom(arr) {
     return arr[randInt(arr.length)];
 }
@@ -7,7 +7,7 @@ export function doTimes(fn, count) {
         fn(i);
     }
 }
-export function yieldTimes(fn, count) {
+export function times(fn, count) {
     var arr = [];
     for (var i = 0; i < count; i++) {
         arr.push(fn(i));
@@ -35,5 +35,15 @@ export function flatten(array) {
 }
 export function mapcat(fn, array) {
     return flatten(array.map(fn));
+}
+export function shuffle(arr) {
+    var shuffled = [];
+    for (var i = 0; i < arr.length; i++) {
+        var j = randIntInRange(i, arr.length);
+        var temp = (shuffled[i] !== undefined) ? shuffled[i] : arr[i];
+        shuffled[i] = (shuffled[j] !== undefined) ? shuffled[j] : arr[j];
+        shuffled[j] = temp;
+    }
+    return shuffled;
 }
 //# sourceMappingURL=sequence.js.map

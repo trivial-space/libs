@@ -10,7 +10,7 @@ import * as eventsAnimation from './events/animation';
 import * as utilsUUID from './utils/uuid';
 import * as utilsSequence from './utils/sequence';
 import * as utilsPredicates from './utils/predicates';
-import * as utilsFp from './utils/fp';
+import * as fpCore from './fp/core';
 import * as graphicsColors from './graphics/colors';
 import * as graphicsTextures from './graphics/textures';
 import * as graphicsPixesls from './graphics/pixel-context';
@@ -30,13 +30,15 @@ export var events = {
 export var utils = {
     uuid: utilsUUID,
     seq: utilsSequence,
-    predicates: utilsPredicates,
-    fp: utilsFp
+    predicates: utilsPredicates
+};
+export var fp = {
+    core: fpCore
 };
 export var graphics = {
     colors: graphicsColors,
     pixels: graphicsPixesls,
     textures: graphicsTextures
 };
-export default { math: math, events: events, utils: utils, graphics: graphics };
+export default { math: math, events: events, utils: utils, graphics: graphics, fp: fp };
 //# sourceMappingURL=index.js.map
