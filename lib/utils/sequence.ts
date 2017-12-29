@@ -1,4 +1,4 @@
-import { randInt } from '../math/random'
+import { randInt, randIntInRange } from '../math/random'
 
 
 export function pickRandom<T>(arr: T[]): T {
@@ -14,7 +14,7 @@ export function doTimes (
 }
 
 
-export function yieldTimes<T>(
+export function times<T>(
 	fn: (i: number) => T,
 	count: number
 ): T[] {
@@ -48,4 +48,18 @@ export function flatten<T>(array: T[][]): T[] {
 
 export function mapcat<A, B>(fn: (a: A) => B[], array: A[]): B[] {
 	return flatten(array.map(fn))
+}
+
+
+export function shuffle<T>(arr: T[]): T[] {
+	const shuffled: T[] = []
+
+	for (let i = 0; i < arr.length; i++) {
+		const j = randIntInRange(i, arr.length)
+		const temp = (shuffled[i] !== undefined) ? shuffled[i] : arr[i]
+		shuffled[i] = (shuffled[j] !== undefined) ? shuffled[j] : arr[j]
+		shuffled[j] = temp
+	}
+
+	return shuffled
 }
