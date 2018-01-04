@@ -9,7 +9,7 @@ export function sign(num) {
         return 0;
     }
 }
-export function lerp(start, end, step) {
+export function lerp(step, start, end) {
     return start + step * (end - start);
 }
 export function clamp(min, max, value) {

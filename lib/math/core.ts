@@ -10,9 +10,9 @@ export function sign (num: number): number {
 
 
 export function lerp (
+	step: number,
 	start: number,
-	end: number,
-	step: number
+	end: number
 ): number {
 
 	return start + step * (end - start)

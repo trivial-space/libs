@@ -25,7 +25,7 @@ export function noise1d(x: number) {
 	X = floorX & 255
 	x -= floorX
 	u = fade(x)
-	return lerp(grad(p1[X], x), grad(p1[X + 1], x - 1), u)
+	return lerp(u, grad(p1[X], x), grad(p1[X + 1], x - 1))
 }
 
 

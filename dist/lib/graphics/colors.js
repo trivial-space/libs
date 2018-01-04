@@ -5,9 +5,9 @@ export function mixColors(_a, _b) {
     var r1 = _a[0], g1 = _a[1], b1 = _a[2], a1 = _a[3];
     var r2 = _b[0], g2 = _b[1], b2 = _b[2], a2 = _b[3];
     var step = a2 / 255;
-    var r = Math.floor(lerp(r1, r2, step));
-    var g = Math.floor(lerp(g1, g2, step));
-    var b = Math.floor(lerp(b1, b2, step));
+    var r = Math.floor(lerp(step, r1, r2));
+    var g = Math.floor(lerp(step, g1, g2));
+    var b = Math.floor(lerp(step, b1, b2));
     return [r, g, b, a1];
 }
 export function grey(scale, alpha) {

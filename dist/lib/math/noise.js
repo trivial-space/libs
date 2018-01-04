@@ -20,7 +20,7 @@ export function noise1d(x) {
     X = floorX & 255;
     x -= floorX;
     u = fade(x);
-    return lerp(grad(p1[X], x), grad(p1[X + 1], x - 1), u);
+    return lerp(u, grad(p1[X], x), grad(p1[X + 1], x - 1));
 }
 var F2 = 0.5 * (Math.sqrt(3.0) - 1.0), G2 = (3.0 - Math.sqrt(3.0)) / 6.0, F3 = 1.0 / 3.0, G3 = 1.0 / 6.0, F4 = (Math.sqrt(5.0) - 1.0) / 4.0, G4 = (5.0 - Math.sqrt(5.0)) / 20.0, p = new Uint8Array(256), perm = new Uint8Array(512), permMod12 = new Uint8Array(512);
 for (var i = 0; i < 256; i++) {
