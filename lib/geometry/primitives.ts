@@ -1,7 +1,7 @@
 import { zip } from '../utils/sequence'
 import { partial } from '../fp/core'
 import { lerp } from '../math/core'
-import { Vec, add } from '../math/vectors'
+import { Vec, add, normalize, cross, sub } from '../math/vectors'
 
 
 export type Geometry = number[][]
@@ -51,4 +51,9 @@ export function rotateLeft(g: Geometry): Geometry {
 
 export function rotateRight(g: Geometry): Geometry {
 	return rotateRightInPlace(g.concat())
+}
+
+
+export function normal (g: Geometry): number[] {
+	return normalize(cross(sub(g[1], g[0]), sub(g[2], g[0])))
 }

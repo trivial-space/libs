@@ -10,3 +10,4 @@ export declare function rotateLeftInPlace(g: Geometry): Geometry;
 export declare function rotateRightInPlace(g: Geometry): Geometry;
 export declare function rotateLeft(g: Geometry): Geometry;
 export declare function rotateRight(g: Geometry): Geometry;
+export declare function normal(g: Geometry): number[];

@@ -1,7 +1,7 @@
 import { zip } from '../utils/sequence';
 import { partial } from '../fp/core';
 import { lerp } from '../math/core';
-import { add } from '../math/vectors';
+import { add, normalize, cross, sub } from '../math/vectors';
 export function interpolate(fn, step, start, end) {
     return zip(partial(fn, step), start, end);
 }
@@ -27,5 +27,8 @@ export function rotateLeft(g) {
 }
 export function rotateRight(g) {
     return rotateRightInPlace(g.concat());
+}
+export function normal(g) {
+    return normalize(cross(sub(g[1], g[0]), sub(g[2], g[0])));
 }
 //# sourceMappingURL=primitives.js.map
