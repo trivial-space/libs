@@ -53,5 +53,6 @@ describe('geometry primitives', function() {
 			expect(g2).to.not.equal(g)
 		})
 	})
+
 })
 

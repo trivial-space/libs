@@ -25,7 +25,8 @@ export function split (part: number, [v1, v2]: Edge): Edge[] {
 	return [[v1, p], [p, v2]]
 }
 
-
+export function translate (vec: Vec, g: Edge): Edge
+export function translate (vec: Vec, g: Geometry): Geometry
 export function translate (vec: Vec, g: Geometry): Geometry {
 	return g.map(partial(add, vec))
 }

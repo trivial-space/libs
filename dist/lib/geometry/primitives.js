@@ -14,4 +14,18 @@ export function split(part, _a) {
 export function translate(vec, g) {
     return g.map(partial(add, vec));
 }
+export function rotateLeftInPlace(g) {
+    g.unshift(g.pop());
+    return g;
+}
+export function rotateRightInPlace(g) {
+    g.push(g.shift());
+    return g;
+}
+export function rotateLeft(g) {
+    return rotateLeftInPlace(g.concat());
+}
+export function rotateRight(g) {
+    return rotateRightInPlace(g.concat());
+}
 //# sourceMappingURL=primitives.js.map
