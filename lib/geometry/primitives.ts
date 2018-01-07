@@ -29,3 +29,25 @@ export function split (part: number, [v1, v2]: Edge): Edge[] {
 export function translate (vec: Vec, g: Geometry): Geometry {
 	return g.map(partial(add, vec))
 }
+
+
+export function rotateLeftInPlace (g: Geometry): Geometry {
+	g.unshift(g.pop() as number[])
+	return g
+}
+
+
+export function rotateRightInPlace (g: Geometry): Geometry {
+	g.push(g.shift() as number[])
+	return g
+}
+
+
+export function rotateLeft(g: Geometry): Geometry {
+	return rotateLeftInPlace(g.concat())
+}
+
+
+export function rotateRight(g: Geometry): Geometry {
+	return rotateRightInPlace(g.concat())
+}
