@@ -1,5 +1,5 @@
 import { lerpVecs, translate, rotateLeft } from './primitives';
-import { times, flatten } from 'utils/sequence';
+import { times, flatten } from '../utils/sequence';
 export function top(q) {
     return [q[0], q[1]];
 }

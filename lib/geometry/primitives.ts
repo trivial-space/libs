@@ -1,7 +1,7 @@
 import { zip } from '../utils/sequence'
 import { partial } from '../fp/core'
 import { lerp } from '../math/core'
-import { Vec, add } from 'math/vectors'
+import { Vec, add } from '../math/vectors'
 
 
 export type Geometry = number[][]

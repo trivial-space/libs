@@ -1,4 +1,4 @@
-import { Vec } from 'math/vectors';
+import { Vec } from '../math/vectors';
 export declare type Geometry = number[][];
 export declare type Edge = [number[], number[]];
 export declare function interpolate(fn: (step: number, start: number, end: number) => number, step: number, start: number[], end: number[]): number[];

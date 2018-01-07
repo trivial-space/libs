@@ -1,7 +1,7 @@
 import { zip } from '../utils/sequence';
 import { partial } from '../fp/core';
 import { lerp } from '../math/core';
-import { add } from 'math/vectors';
+import { add } from '../math/vectors';
 export function interpolate(fn, step, start, end) {
     return zip(partial(fn, step), start, end);
 }

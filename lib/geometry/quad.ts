@@ -1,5 +1,5 @@
 import { Edge, lerpVecs, translate, rotateLeft } from './primitives'
-import { times, flatten } from 'utils/sequence'
+import { times, flatten } from '../utils/sequence'
 
 
 export type Quad = [number[], number[], number[], number[]]
