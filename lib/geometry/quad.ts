@@ -59,9 +59,10 @@ export function divideVertical(topRatio: number, bottomRatio: number, [v1, v2, v
 
 
 // Triangles in WebGL go clockwise: https://webglfundamentals.org/webgl/lessons/webgl-3d-orthographic.html
-export const quadTriangles = [1, 2, 3, 1, 3, 4]
+// Make triangles conform stackGL cells specification
+export const quadTriangles = [[1, 2, 3], [1, 3, 4]]
 
 
 export function triangulate (quadCount: number) {
-	return flatten(times(i => quadTriangles.map(j => 4 * i + j), quadCount))
+	return flatten(times(i => quadTriangles.map((t => t.map(j => 4 * i + j))), quadCount))
 }

@@ -11,5 +11,5 @@ export declare function extrudeBottom(direction: number[], edge: Edge): Quad;
 export declare function extrudeLeft(direction: number[], edge: Edge): Quad;
 export declare function divideHorizontal(leftRatio: number, rightRatio: number, [v1, v2, v3, v4]: Quad): Quad[];
 export declare function divideVertical(topRatio: number, bottomRatio: number, [v1, v2, v3, v4]: Quad): Quad[];
-export declare const quadTriangles: number[];
-export declare function triangulate(quadCount: number): number[];
+export declare const quadTriangles: number[][];
+export declare function triangulate(quadCount: number): number[][];

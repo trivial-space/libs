@@ -45,8 +45,8 @@ describe('geometry quad', function () {
     });
     it('can generate triangleIndizes', function () {
         expect(triangulate(1)).to.deep.equal(quadTriangles);
-        expect(triangulate(2)).to.deep.equal([1, 2, 3, 1, 3, 4, 5, 6, 7, 5, 7, 8]);
-        expect(triangulate(3)).to.deep.equal([1, 2, 3, 1, 3, 4, 5, 6, 7, 5, 7, 8, 9, 10, 11, 9, 11, 12]);
+        expect(triangulate(2)).to.deep.equal([[1, 2, 3], [1, 3, 4], [5, 6, 7], [5, 7, 8]]);
+        expect(triangulate(3)).to.deep.equal([[1, 2, 3], [1, 3, 4], [5, 6, 7], [5, 7, 8], [9, 10, 11], [9, 11, 12]]);
     });
 });
 //# sourceMappingURL=quad-test.js.map
