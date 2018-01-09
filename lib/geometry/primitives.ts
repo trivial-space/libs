@@ -54,6 +54,7 @@ export function rotateRight(g: Geometry): Geometry {
 }
 
 
+// computed counter clockwise normal from clockwise geometry
 export function normal (g: Geometry): number[] {
-	return normalize(cross(sub(g[1], g[0]), sub(g[2], g[0])))
+	return normalize(cross(sub(g[2], g[0]), sub(g[1], g[0])))
 }

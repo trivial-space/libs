@@ -29,6 +29,6 @@ export function rotateRight(g) {
     return rotateRightInPlace(g.concat());
 }
 export function normal(g) {
-    return normalize(cross(sub(g[1], g[0]), sub(g[2], g[0])));
+    return normalize(cross(sub(g[2], g[0]), sub(g[1], g[0])));
 }
 //# sourceMappingURL=primitives.js.map

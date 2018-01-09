@@ -39,7 +39,7 @@ export function divideVertical(topRatio, bottomRatio, _a) {
     var v44 = lerpVecs(bottomRatio, v4, v3);
     return [[v1, v11, v44, v4], [v11, v2, v3, v44]];
 }
-export var quadTriangles = [[1, 2, 3], [1, 3, 4]];
+export var quadTriangles = [[0, 2, 1], [0, 3, 2]];
 export function triangulate(quadCount) {
     return flatten(times(function (i) { return quadTriangles.map((function (t) { return t.map(function (j) { return 4 * i + j; }); })); }, quadCount));
 }

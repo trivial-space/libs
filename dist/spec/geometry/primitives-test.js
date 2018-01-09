@@ -20,7 +20,7 @@ describe('geometry primitives', function () {
         });
         it('normal', function () {
             var n = normal([[-1, 1, 0], [0, 1, 0], [0, -1, 0]]);
-            expect(n).to.deep.equal([0, 0, -1]);
+            expect(n).to.deep.equal([-0, 0, 1]);
         });
     });
     describe('rotations', function () {
