@@ -1,41 +1,39 @@
 import { equalArray } from '../utils/predicates'
+import { Sequence } from '../utils/sequence'
 
-export type Vec = number[] | Float32Array
+
+export type Vec = Sequence<number>
 
 
-export function add (vec1: Vec, vec2: Vec): number[] {
-	const results: number[] = []
+export function add (vec1: Vec, vec2: Vec, res: Vec = []): number[] {
 	for (let i = 0; i < vec1.length; i++) {
-		results[i] = vec1[i] + vec2[i]
+		res[i] = vec1[i] + vec2[i]
 	}
-	return results
+	return res as number[]
 }
 
 
-export function sub (vec1: Vec, vec2: Vec): number[] {
-	const results: number[] = []
+export function sub (vec1: Vec, vec2: Vec, res: Vec = []): number[] {
 	for (let i = 0; i < vec1.length; i++) {
-		results[i] = vec1[i] - vec2[i]
+		res[i] = vec1[i] - vec2[i]
 	}
-	return results
+	return res as number[]
 }
 
 
-export function mul (scalar: number, vec: Vec): number[] {
-	const results: number[] = []
+export function mul (scalar: number, vec: Vec, res: Vec = []): number[] {
 	for (let i = 0; i < vec.length; i++) {
-		results[i] = vec[i] * scalar
+		res[i] = vec[i] * scalar
 	}
-	return results
+	return res as number[]
 }
 
 
-export function div (scalar: number, vec: Vec): number[] {
-	const results: number[] = []
+export function div (scalar: number, vec: Vec, res: Vec = []): number[] {
 	for (let i = 0; i < vec.length; i++) {
-		results[i] = vec[i] / scalar
+		res[i] = vec[i] / scalar
 	}
-	return results
+	return res as number[]
 }
 
 
@@ -50,17 +48,17 @@ export function length (vec: Vec): number {
 }
 
 
-export function normalize (vec: Vec): number[] {
-	return div(length(vec), vec)
+export function normalize (vec: Vec, res: Vec = []): number[] {
+	return div(length(vec), vec, res)
 }
 
 
-export function limit (maxLength: number, vec: Vec): Vec {
+export function limit (maxLength: number, vec: Vec): number[] {
 	const l = length(vec)
 	if (maxLength < l) {
 		return mul(maxLength / l, vec)
 	} else {
-		return vec
+		return vec as number[]
 	}
 }
 
@@ -74,12 +72,17 @@ export function dot (v1: Vec, v2: Vec): number {
 }
 
 
-export function cross (v1: Vec, v2: Vec): number[] {
-	return [
-		v1[1] * v2[2] - v1[2] * v2[1],
-		v1[2] * v2[0] - v1[0] * v2[2],
-		v1[0] * v2[1] - v1[1] * v2[0]
-	]
+export function cross (v1: Vec, v2: Vec, res: Vec = []): number[] {
+	res[0] = v1[1] * v2[2] - v1[2] * v2[1]
+	res[1] = v1[2] * v2[0] - v1[0] * v2[2]
+	res[2] = v1[0] * v2[1] - v1[1] * v2[0]
+
+	return res as number[]
+}
+
+
+export function cross2D (v1: Vec, v2: Vec): number {
+	return v1[0] * v2[1] - v1[1] * v2[0]
 }
 
 

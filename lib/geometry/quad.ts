@@ -1,8 +1,9 @@
 import { Edge, lerpVecs, translate, rotateLeft } from './primitives'
 import { times, flatten } from '../utils/sequence'
+import { Vec } from '../math/vectors'
 
 
-export type Quad = [number[], number[], number[], number[]]
+export type Quad = [Vec, Vec, Vec, Vec]
 
 
 export function top(q: Quad): Edge {
@@ -27,19 +28,19 @@ export function combineEdges(e1: Edge, e2: Edge): Quad {
 }
 
 
-export function extrudeTop(direction: number[], edge: Edge): Quad {
+export function extrudeTop(direction: Vec, edge: Edge): Quad {
 	return combineEdges(translate(direction, edge), edge)
 }
 
-export function extrudeRight(direction: number[], edge: Edge): Quad {
+export function extrudeRight(direction: Vec, edge: Edge): Quad {
 	return rotateLeft(extrudeTop(direction, edge)) as Quad
 }
 
-export function extrudeBottom(direction: number[], edge: Edge): Quad {
+export function extrudeBottom(direction: Vec, edge: Edge): Quad {
 	return combineEdges(edge, translate(direction, edge))
 }
 
-export function extrudeLeft(direction: number[], edge: Edge): Quad {
+export function extrudeLeft(direction: Vec, edge: Edge): Quad {
 	return rotateLeft(extrudeBottom(direction, edge)) as Quad
 }
 

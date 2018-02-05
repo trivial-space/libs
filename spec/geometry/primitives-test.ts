@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 import { lerp } from 'math/core'
-import { interpolate, lerpVecs, split, translate, rotateLeftInPlace, rotateRightInPlace, rotateLeft, rotateRight, normal } from 'geometry/primitives'
+import { interpolate, lerpVecs, split, translate, rotateLeftInPlace, rotateRightInPlace, rotateLeft, rotateRight, normal, side, Edge } from 'geometry/primitives'
 
 
 describe('geometry primitives', function() {
@@ -27,7 +27,18 @@ describe('geometry primitives', function() {
 
 		it('normal', function() {
 			const n = normal([[-1, 1, 0], [0, 1, 0], [0, -1, 0]])
-			expect(n).to.deep.equal([-0, 0, 1])
+			expect(n).to.deep.equal([0, 0, 1])
+		})
+
+		it('side', function() {
+			const e: Edge = [[0, 0], [0, 1]]
+			const p1 = [1, 0]
+			const p2 = [-1, 0]
+			const p3 = [0, 2]
+
+			expect(side(e, p1)).to.be.greaterThan(0)
+			expect(side(e, p2)).to.be.lessThan(0)
+			expect(side(e, p3)).to.equal(0)
 		})
 	})
 

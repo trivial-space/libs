@@ -1,17 +1,20 @@
 import { zip } from '../utils/sequence'
 import { partial } from '../fp/core'
 import { lerp } from '../math/core'
-import { Vec, add, normalize, cross, sub } from '../math/vectors'
+import { Vec, add, normalize, cross, sub, cross2D } from '../math/vectors'
 
 
-export type Geometry = number[][]
+/**
+ * Clockwise Polygon
+ */
+export type Polygon = Vec[]
 
-export type Edge = [number[], number[]]
+export type Edge = [Vec, Vec]
 
 
 export function interpolate (
 	fn: (step: number, start: number, end: number) => number,
-	step: number, start: number[], end: number[]
+	step: number, start: Vec, end: Vec
 ) {
 	return zip(partial(fn, step), start, end)
 }
@@ -25,36 +28,49 @@ export function split (part: number, [v1, v2]: Edge): Edge[] {
 	return [[v1, p], [p, v2]]
 }
 
-export function translate (vec: Vec, g: Edge): Edge
-export function translate (vec: Vec, g: Geometry): Geometry
-export function translate (vec: Vec, g: Geometry): Geometry {
-	return g.map(partial(add, vec))
+export function translate (vec: Vec, e: Edge): Edge
+export function translate (vec: Vec, p: Polygon): Polygon
+export function translate (vec: Vec, p: Polygon): Polygon {
+	return p.map(v => add(vec, v))
 }
 
 
-export function rotateLeftInPlace (g: Geometry): Geometry {
-	g.unshift(g.pop() as number[])
-	return g
+export function rotateLeftInPlace (p: Polygon): Polygon {
+	p.unshift(p.pop() as number[])
+	return p
 }
 
 
-export function rotateRightInPlace (g: Geometry): Geometry {
-	g.push(g.shift() as number[])
-	return g
+export function rotateRightInPlace (p: Polygon): Polygon {
+	p.push(p.shift() as number[])
+	return p
 }
 
 
-export function rotateLeft(g: Geometry): Geometry {
-	return rotateLeftInPlace(g.concat())
+export function rotateLeft(p: Polygon): Polygon {
+	return rotateLeftInPlace(p.concat())
 }
 
 
-export function rotateRight(g: Geometry): Geometry {
-	return rotateRightInPlace(g.concat())
+export function rotateRight(p: Polygon): Polygon {
+	return rotateRightInPlace(p.concat())
 }
 
 
-// computed counter clockwise normal from clockwise geometry
-export function normal (g: Geometry): number[] {
-	return normalize(cross(sub(g[2], g[0]), sub(g[1], g[0])))
+/**
+ * Unit normal on a clockwise polygon.
+ */
+export function normal (p: Polygon): Vec {
+	return normalize(cross(sub(p[0], p[1]), sub(p[2], p[1])))
+}
+
+
+/**
+ * Returns a positive number if v is right of e,
+ * a negative number, iv v ist left of e, and 0, if v is colinear to e.
+ * @param e Edge
+ * @param v Point
+ */
+export function side (e: Edge, v: Vec) {
+	return cross2D(sub(v, e[0]), sub(e[1], e[0]))
 }

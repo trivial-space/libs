@@ -1,7 +1,13 @@
 import { randInt, randIntInRange } from '../math/random'
 
 
-export function pickRandom<T>(arr: T[]): T {
+export type Sequence<T> = {
+	length: number
+	[n: number]: T
+}
+
+
+export function pickRandom<T>(arr: Sequence<T>): T {
 	return arr[randInt(arr.length)]
 }
 
@@ -16,38 +22,41 @@ export function doTimes (
 
 export function times<T>(
 	fn: (i: number) => T,
-	count: number
+	count: number,
+	res: T[] = []
 ): T[] {
-	const arr: T[] = []
-	for (let i = 0; i < count; i++) { arr.push(fn(i)) }
-	return arr
+	for (let i = 0; i < count; i++) { res[i] = fn(i) }
+	return res
 }
 
 
-export function zip<A, B, C>(fn: (a: A, b: B) => C, as: A[], bs: B[]): C[] {
+export function zip<A, B, C>(
+	fn: (a: A, b: B) => C,
+	as: Sequence<A>,
+	bs: Sequence<B>,
+	res: Sequence<C> = []
+): C[] {
 	const length = Math.min(as.length, bs.length)
-	const result: C[] = []
 	for (let i = 0; i < length; i++) {
-		result.push(fn(as[i], bs[i]))
+		res[i] = fn(as[i], bs[i])
 	}
-	return result
+	return res as C[]
 }
 
 
-export function flatten<T>(array: T[][]): T[] {
-	const results: T[] = []
-
-	for (const subarray of array) {
-		for (const el of subarray) {
-			results.push(el)
+export function flatten<T>(array: T[][], res: T[] = []): T[] {
+	for (const subarray of array as Sequence<T>[]) {
+		const currentLength = res.length
+		for (let i = 0; i < subarray.length; i++) {
+			res[i + currentLength] = subarray[i]
 		}
 	}
-	return results
+	return res
 }
 
 
-export function mapcat<A, B>(fn: (a: A) => B[], array: A[]): B[] {
-	return flatten(array.map(fn))
+export function mapcat<A, B>(fn: (a: A) => B[], array: A[], res: B[] = []): B[] {
+	return flatten(array.map(fn), res)
 }
 
 

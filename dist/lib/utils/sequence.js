@@ -7,34 +7,35 @@ export function doTimes(fn, count) {
         fn(i);
     }
 }
-export function times(fn, count) {
-    var arr = [];
+export function times(fn, count, res) {
+    if (res === void 0) { res = []; }
     for (var i = 0; i < count; i++) {
-        arr.push(fn(i));
+        res[i] = fn(i);
     }
-    return arr;
+    return res;
 }
-export function zip(fn, as, bs) {
+export function zip(fn, as, bs, res) {
+    if (res === void 0) { res = []; }
     var length = Math.min(as.length, bs.length);
-    var result = [];
     for (var i = 0; i < length; i++) {
-        result.push(fn(as[i], bs[i]));
+        res[i] = fn(as[i], bs[i]);
     }
-    return result;
+    return res;
 }
-export function flatten(array) {
-    var results = [];
-    for (var _i = 0, array_1 = array; _i < array_1.length; _i++) {
-        var subarray = array_1[_i];
-        for (var _a = 0, subarray_1 = subarray; _a < subarray_1.length; _a++) {
-            var el = subarray_1[_a];
-            results.push(el);
+export function flatten(array, res) {
+    if (res === void 0) { res = []; }
+    for (var _i = 0, _a = array; _i < _a.length; _i++) {
+        var subarray = _a[_i];
+        var currentLength = res.length;
+        for (var i = 0; i < subarray.length; i++) {
+            res[i + currentLength] = subarray[i];
         }
     }
-    return results;
+    return res;
 }
-export function mapcat(fn, array) {
-    return flatten(array.map(fn));
+export function mapcat(fn, array, res) {
+    if (res === void 0) { res = []; }
+    return flatten(array.map(fn), res);
 }
 export function shuffle(arr) {
     var shuffled = [];

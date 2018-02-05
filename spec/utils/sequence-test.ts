@@ -8,7 +8,7 @@ describe('utils sequence', function() {
 	describe('shuffle', function() {
 
 		it('shuffles an array', function() {
-			const arr = [1, 3, 2, 4, 3, 5, 7, 8]
+			const arr = [1, 3, 2, 4, 3, 5, 7, 8, 9]
 			const shuffled = shuffle(arr)
 
 			expect(arr).to.not.equal(shuffled)
