@@ -1,5 +1,6 @@
 import { Sequence } from '../utils/sequence';
 export declare type Vec = Sequence<number>;
+export declare function vec(v: number | Vec): Vec;
 export declare function add(vec1: Vec, vec2: Vec, res?: Vec): number[];
 export declare function sub(vec1: Vec, vec2: Vec, res?: Vec): number[];
 export declare function mul(scalar: number, vec: Vec, res?: Vec): number[];

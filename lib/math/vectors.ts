@@ -5,6 +5,14 @@ import { Sequence } from '../utils/sequence'
 export type Vec = Sequence<number>
 
 
+export function vec(v: number | Vec): Vec {
+	if (typeof v === 'number') {
+		return new Float32Array(v)
+	}
+	return new Float32Array(v)
+}
+
+
 export function add (vec1: Vec, vec2: Vec, res: Vec = []): number[] {
 	for (let i = 0; i < vec1.length; i++) {
 		res[i] = vec1[i] + vec2[i]

@@ -1,4 +1,10 @@
 import { equalArray } from '../utils/predicates';
+export function vec(v) {
+    if (typeof v === 'number') {
+        return new Float32Array(v);
+    }
+    return new Float32Array(v);
+}
 export function add(vec1, vec2, res) {
     if (res === void 0) { res = []; }
     for (var i = 0; i < vec1.length; i++) {
