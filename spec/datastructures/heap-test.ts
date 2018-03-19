@@ -1,6 +1,7 @@
-import { createHeap, maxHeapCompareFn, Heap } from 'datastructures/heap'
+import { createHeap, Heap } from 'datastructures/heap'
 import { expect } from 'chai'
 import { N, S } from '../types'
+import { numericalCompare } from 'algorithms/base'
 
 
 describe('datastructures heap', function() {
@@ -9,7 +10,7 @@ describe('datastructures heap', function() {
 		let heap: Heap<N>
 
 		beforeEach(function() {
-			heap = createHeap(maxHeapCompareFn)
+			heap = createHeap(numericalCompare)
 		})
 
 		it('is initially empty', function() {
@@ -67,7 +68,7 @@ describe('datastructures heap', function() {
 
 
 	it('can build heaps with custom compare functions', function() {
-		const minHeap = createHeap((p: N, c: N) => p <= c)
+		const minHeap = createHeap((p: N, c: N) => c - p)
 		minHeap.fromArray([3, 6])
 		minHeap.insert(5)
 		minHeap.insert(10)
@@ -87,7 +88,7 @@ describe('datastructures heap', function() {
 		expect(minHeap.size()).to.equal(0)
 
 
-		const stringHeap = createHeap((p: S, c: S) => p.localeCompare(c) >= 0)
+		const stringHeap = createHeap((p: S, c: S) => p.localeCompare(c))
 		stringHeap.fromArray(['z', 'f'])
 		stringHeap.insert('a')
 		stringHeap.insert('w')

@@ -1,3 +1,6 @@
+import { CompareFn } from 'algorithms/base'
+
+
 export interface Heap<T> {
 	insert: (item: T) => void
 	getTop: () => T
@@ -5,9 +8,6 @@ export interface Heap<T> {
 	size: () => number
 	fromArray: (items: T[]) => void
 }
-
-
-export type HeapCompareFn<T> = (parent: T, child: T) => boolean
 
 
 export function parentIndex (currentIndex: number) {
@@ -30,14 +30,14 @@ function swap(i: number, j: number, arr: any[]) {
 }
 
 
-export function heapifyAt<T> (compareFn: HeapCompareFn<T>, arr: T[], i: number) {
+export function heapifyAt<T> (compareFn: CompareFn<T>, arr: T[], i: number) {
 	const l = leftIndex(i)
 	const r = rightIndex(i)
 	let top = i
-	if (l < arr.length && !compareFn(arr[top], arr[l])) {
+	if (l < arr.length && compareFn(arr[top], arr[l]) < 0) {
 		top = l
 	}
-	if (r < arr.length && !compareFn(arr[top], arr[r])) {
+	if (r < arr.length && compareFn(arr[top], arr[r]) < 0) {
 		top = r
 	}
 	if (top !== i) {
@@ -47,19 +47,19 @@ export function heapifyAt<T> (compareFn: HeapCompareFn<T>, arr: T[], i: number) 
 }
 
 
-export function heapify<T> (compareFn: HeapCompareFn<T>, arr: T[]) {
+export function heapify<T> (compareFn: CompareFn<T>, arr: T[]) {
 	for (let i = Math.floor((arr.length - 1) / 2); i >= 0; i--) {
 		heapifyAt(compareFn, arr, i)
 	}
 }
 
 
-export function insert<T> (compareFn: HeapCompareFn<T>, arr: T[], item: T) {
+export function insert<T> (compareFn: CompareFn<T>, arr: T[], item: T) {
 	arr.push(item)
 	if (arr.length > 1) {
 		let i = arr.length - 1
 		let p = parentIndex(i)
-		while (i > 0 && !compareFn(arr[p], arr[i])) {
+		while (i > 0 && compareFn(arr[p], arr[i]) < 0) {
 			swap(p, i, arr)
 			i = p
 			p = parentIndex(i)
@@ -68,7 +68,7 @@ export function insert<T> (compareFn: HeapCompareFn<T>, arr: T[], item: T) {
 }
 
 
-export function createHeap<T> (compareFn: HeapCompareFn<T>) {
+export function createHeap<T> (compareFn: CompareFn<T>) {
 	let arr: T[] = []
 
 	function size () {
@@ -98,9 +98,3 @@ export function createHeap<T> (compareFn: HeapCompareFn<T>) {
 		insert: (item: T) => insert(compareFn, arr, item)
 	} as Heap<T>
 }
-
-
-export function maxHeapCompareFn (parent: number, child: number) {
-	return parent >= child
-}
-
