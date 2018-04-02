@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 import { N } from '../types'
-import { BinaryTree } from 'datastructures/bintree'
+import { BinaryTree, walkToRoot, min } from 'datastructures/bintree'
 import { numericalCompare, stringCompare } from 'algorithms/base'
 
 
@@ -64,6 +64,28 @@ describe('datastructures binary tree', function() {
 			tree.remove(3)
 			expect(tree.keys()).to.deep.equal([2, 4])
 		})
+
+		it('has an element count', function() {
+			expect(tree.size()).to.equal(0)
+			tree.insert(3)
+			expect(tree.size()).to.equal(1)
+			tree.insert(4)
+			expect(tree.size()).to.equal(2)
+			tree.insert(2)
+			expect(tree.size()).to.equal(3)
+
+			tree.remove(3)
+			expect(tree.size()).to.equal(2)
+			tree.remove(5)
+			expect(tree.size()).to.equal(2)
+			tree.remove(2)
+			expect(tree.size()).to.equal(1)
+			tree.remove(4)
+			expect(tree.size()).to.equal(0)
+			tree.remove(4)
+			expect(tree.size()).to.equal(0)
+
+		})
 	})
 
 	describe('custom keys', function() {
@@ -77,6 +99,27 @@ describe('datastructures binary tree', function() {
 			tree.insert('a')
 
 			expect(tree.keys()).to.deep.equal(['a', 'A', 'bar', 'bazz', 'foo'])
+		})
+	})
+
+	describe('functions', function() {
+		it ('can walk to root', function() {
+			const tree = new BinaryTree(numericalCompare)
+
+			tree.insert(4)
+			tree.insert(3)
+			tree.insert(2)
+			tree.insert(1)
+
+			let height = 0
+			const keys: number[] = []
+			walkToRoot(tree, min(tree, tree.root), n => {
+				height++
+				keys.push(n.key)
+			})
+
+			expect(height).to.equal(4)
+			expect(keys).to.deep.equal([1, 2, 3, 4])
 		})
 	})
 })

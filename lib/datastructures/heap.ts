@@ -1,4 +1,4 @@
-import { CompareFn } from 'algorithms/base'
+import { CompareFn } from '../algorithms/base'
 
 
 export interface Heap<T> {

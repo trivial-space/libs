@@ -1,10 +1,11 @@
-import { createHeap, maxHeapCompareFn } from 'datastructures/heap';
+import { createHeap } from 'datastructures/heap';
 import { expect } from 'chai';
+import { numericalCompare } from 'algorithms/base';
 describe('datastructures heap', function () {
     describe('maxHeap', function () {
         var heap;
         beforeEach(function () {
-            heap = createHeap(maxHeapCompareFn);
+            heap = createHeap(numericalCompare);
         });
         it('is initially empty', function () {
             expect(heap.size()).to.equal(0);
@@ -47,7 +48,7 @@ describe('datastructures heap', function () {
         });
     });
     it('can build heaps with custom compare functions', function () {
-        var minHeap = createHeap(function (p, c) { return p <= c; });
+        var minHeap = createHeap(function (p, c) { return c - p; });
         minHeap.fromArray([3, 6]);
         minHeap.insert(5);
         minHeap.insert(10);
@@ -60,7 +61,7 @@ describe('datastructures heap', function () {
         expect(minHeap.size()).to.equal(1);
         expect(minHeap.pull()).to.equal(10);
         expect(minHeap.size()).to.equal(0);
-        var stringHeap = createHeap(function (p, c) { return p.localeCompare(c) >= 0; });
+        var stringHeap = createHeap(function (p, c) { return p.localeCompare(c); });
         stringHeap.fromArray(['z', 'f']);
         stringHeap.insert('a');
         stringHeap.insert('w');

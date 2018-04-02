@@ -1,4 +1,4 @@
-import { CompareFn } from 'algorithms/base'
+import { CompareFn } from '../algorithms/base'
 
 
 export class Node<K = any, V = any> {
@@ -40,7 +40,7 @@ export const nil = (function () {
 })()as Node<any, any>
 
 
-function walkInOrder<K, V>(n: Node<K, V>, nil: Nil, cb: (n: Node<K, V>) => void) {
+export function walkInOrder<K, V>(n: Node<K, V>, nil: Nil, cb: (n: Node<K, V>) => void) {
 	if (n !== nil) {
 		walkInOrder(n.left, nil, cb)
 		cb(n)
@@ -115,7 +115,7 @@ export function remove<K>(tree: BinaryTreeData<K>, node: Node<K>) {
 
 
 export function min<K>(tree: BinaryTreeData<K>, node: Node<K>) {
-	while (node.left !== tree.nil) {
+	while (node !== tree.nil && node.left !== tree.nil) {
 		node = node.left
 	}
 	return node
@@ -168,10 +168,22 @@ export function rotateRight<K>(tree: BinaryTreeData<K>, node: Node<K>) {
 }
 
 
+export function walkToRoot<K>(tree: BinaryTreeData, node: Node<K>, callback: (n: Node<K>) => void) {
+	if (!(node && node !== tree.nil)) {
+		return
+	}
+	while (node !== tree.nil) {
+		callback(node)
+		node = node.parent
+	}
+}
+
+
 export class BinaryTree<K, V> implements BinaryTreeData<K, V> {
 	compare: CompareFn<K>
 	root: Node<K, V>
 	nil: Nil
+	count: number = 0
 
 	constructor (compareFn: CompareFn<K>, newNil: Nil = nil) {
 		this.compare = compareFn
@@ -185,6 +197,7 @@ export class BinaryTree<K, V> implements BinaryTreeData<K, V> {
 
 	insert (key: K, value?: V) {
 		insert(this, this.createNode(key, value))
+		this.count++
 	}
 
 	keys () {
@@ -207,6 +220,14 @@ export class BinaryTree<K, V> implements BinaryTreeData<K, V> {
 	}
 
 	remove (key: K) {
-		remove(this, search(this, this.root, key))
+		const node = search(this, this.root, key)
+		if (node !== this.nil) {
+			remove(this, node)
+			this.count--
+		}
+	}
+
+	size () {
+		return this.count
 	}
 }

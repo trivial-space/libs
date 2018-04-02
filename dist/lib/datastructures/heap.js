@@ -16,10 +16,10 @@ export function heapifyAt(compareFn, arr, i) {
     var l = leftIndex(i);
     var r = rightIndex(i);
     var top = i;
-    if (l < arr.length && !compareFn(arr[top], arr[l])) {
+    if (l < arr.length && compareFn(arr[top], arr[l]) < 0) {
         top = l;
     }
-    if (r < arr.length && !compareFn(arr[top], arr[r])) {
+    if (r < arr.length && compareFn(arr[top], arr[r]) < 0) {
         top = r;
     }
     if (top !== i) {
@@ -37,7 +37,7 @@ export function insert(compareFn, arr, item) {
     if (arr.length > 1) {
         var i = arr.length - 1;
         var p = parentIndex(i);
-        while (i > 0 && !compareFn(arr[p], arr[i])) {
+        while (i > 0 && compareFn(arr[p], arr[i]) < 0) {
             swap(p, i, arr);
             i = p;
             p = parentIndex(i);
@@ -68,8 +68,5 @@ export function createHeap(compareFn) {
         getTop: getTop,
         insert: function (item) { return insert(compareFn, arr, item); }
     };
-}
-export function maxHeapCompareFn(parent, child) {
-    return parent >= child;
 }
 //# sourceMappingURL=heap.js.map

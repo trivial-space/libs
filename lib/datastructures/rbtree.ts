@@ -1,5 +1,5 @@
 // compare to https://github.com/vadimg/js_bintrees for reference
-import { CompareFn } from 'algorithms/base'
+import { CompareFn } from '../algorithms/base'
 import  * as BT from './bintree'
 
 
@@ -63,8 +63,8 @@ export function insertFixup(tree: RBTreeData, node: RBNode) {
 				BT.rotateLeft(tree, node.parent.parent)
 			}
 		}
-		tree.root.red = false
 	}
+	tree.root.red = false
 }
 
 
@@ -153,8 +153,6 @@ export function remove<K>(tree: RBTreeData<K>, node: RBNode<K>) {
 }
 
 
-
-
 export class RBTree<K, V> extends BT.BinaryTree<K, V> implements RBTreeData<K, V> {
 	compare!: CompareFn<K>
 	root!: RBNode<K, V>
@@ -169,13 +167,18 @@ export class RBTree<K, V> extends BT.BinaryTree<K, V> implements RBTreeData<K, V
 	}
 
 	insert (key: K, value?: V) {
-		const n = this.createNode(key, value)
-		BT.insert(this, n)
-		insertFixup(this, n)
+		const node = this.createNode(key, value)
+		BT.insert(this, node)
+		insertFixup(this, node)
+		this.count++
 	}
 
 	remove (key: K) {
-		remove(this, BT.search(this, this.root, key) as RBNode)
+		const node = BT.search(this, this.root, key) as RBNode
+		if (node !== this.nil) {
+			remove(this, node)
+			this.count--
+		}
 	}
 }
 
