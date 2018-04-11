@@ -21,12 +21,34 @@ export var nil = (function () {
     nil.right = nil;
     return nil;
 })();
-export function walkInOrder(n, nil, cb) {
-    if (n !== nil) {
-        walkInOrder(n.left, nil, cb);
-        cb(n);
-        walkInOrder(n.right, nil, cb);
+export function walkInOrder(tree, walkRoot, cb) {
+    if (walkRoot !== tree.nil) {
+        walkInOrder(tree, walkRoot.left, cb);
+        cb(walkRoot);
+        walkInOrder(tree, walkRoot.right, cb);
     }
+}
+export function next(tree, node) {
+    if (node.right !== tree.nil) {
+        return min(tree, node.right);
+    }
+    var parent = node.parent;
+    while (parent !== tree.nil && node === parent.right) {
+        node = parent;
+        parent = parent.parent;
+    }
+    return parent;
+}
+export function prev(tree, node) {
+    if (node.left !== tree.nil) {
+        return max(tree, node.right);
+    }
+    var parent = node.parent;
+    while (parent !== tree.nil && node === parent.left) {
+        node = parent;
+        parent = parent.parent;
+    }
+    return parent;
 }
 export function insert(tree, node) {
     var y = tree.nil;
@@ -51,16 +73,16 @@ export function insert(tree, node) {
         y.right = node;
     }
 }
-export function search(tree, node, key) {
-    while (node !== tree.nil && node.key !== key) {
-        if (tree.compare(key, node.key) < 0) {
-            node = node.left;
+export function search(tree, startNode, key) {
+    while (startNode !== tree.nil && startNode.key !== key) {
+        if (tree.compare(key, startNode.key) < 0) {
+            startNode = startNode.left;
         }
         else {
-            node = node.right;
+            startNode = startNode.right;
         }
     }
-    return node;
+    return startNode;
 }
 export function transplant(tree, oldNode, newNode) {
     if (oldNode.parent === tree.nil) {
@@ -93,17 +115,17 @@ export function remove(tree, node) {
         y.left.parent = y;
     }
 }
-export function min(tree, node) {
-    while (node !== tree.nil && node.left !== tree.nil) {
-        node = node.left;
+export function min(tree, startNode) {
+    while (startNode !== tree.nil && startNode.left !== tree.nil) {
+        startNode = startNode.left;
     }
-    return node;
+    return startNode;
 }
-export function max(tree, node) {
-    while (node.right !== tree.nil) {
-        node = node.right;
+export function max(tree, startNode) {
+    while (startNode.right !== tree.nil) {
+        startNode = startNode.right;
     }
-    return node;
+    return startNode;
 }
 export function rotateLeft(tree, node) {
     var y = node.right;
@@ -143,13 +165,13 @@ export function rotateRight(tree, node) {
     y.right = node;
     node.parent = y;
 }
-export function walkToRoot(tree, node, callback) {
-    if (!(node && node !== tree.nil)) {
+export function walkToRoot(tree, startNode, callback) {
+    if (!(startNode && startNode !== tree.nil)) {
         return;
     }
-    while (node !== tree.nil) {
-        callback(node);
-        node = node.parent;
+    while (startNode !== tree.nil) {
+        callback(startNode);
+        startNode = startNode.parent;
     }
 }
 var BinaryTree = (function () {
@@ -164,17 +186,22 @@ var BinaryTree = (function () {
         return new Node(this.nil, key, value);
     };
     BinaryTree.prototype.insert = function (key, value) {
-        insert(this, this.createNode(key, value));
+        var n = this.createNode(key, value);
+        insert(this, n);
         this.count++;
+        return n;
+    };
+    BinaryTree.prototype.getNode = function (key) {
+        return search(this, this.root, key);
+    };
+    BinaryTree.prototype.get = function (key) {
+        var n = this.getNode(key);
+        return n === this.nil ? n : n.value;
     };
     BinaryTree.prototype.keys = function () {
         var arr = [];
-        walkInOrder(this.root, this.nil, function (n) { return arr.push(n.key); });
+        walkInOrder(this, this.root, function (n) { return arr.push(n.key); });
         return arr;
-    };
-    BinaryTree.prototype.get = function (key) {
-        var n = search(this, this.root, key);
-        return n === this.nil ? n : n.value;
     };
     BinaryTree.prototype.min = function () {
         return min(this, this.root).key;

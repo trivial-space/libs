@@ -170,6 +170,7 @@ var RBTree = (function (_super) {
         BT.insert(this, node);
         insertFixup(this, node);
         this.count++;
+        return node;
     };
     RBTree.prototype.remove = function (key) {
         var node = BT.search(this, this.root, key);

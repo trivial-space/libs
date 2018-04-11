@@ -97,7 +97,7 @@ describe('datastructures red black tree', function () {
                         minBlackCount++;
                     }
                 });
-                walkInOrder(tree.root, tree.nil, function (n) {
+                walkInOrder(tree, tree.root, function (n) {
                     if (n.left === tree.nil && n.right === tree.nil) {
                         var height_1 = 0;
                         var blackCount_1 = 0;
@@ -128,7 +128,7 @@ describe('datastructures red black tree', function () {
                         minBlackCount++;
                     }
                 });
-                walkInOrder(tree.root, tree.nil, function (n) {
+                walkInOrder(tree, tree.root, function (n) {
                     if (n.left === tree.nil && n.right === tree.nil) {
                         var height_2 = 0;
                         var blackCount_2 = 0;

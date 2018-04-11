@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 import { N } from '../types'
-import { BinaryTree, walkToRoot, min } from 'datastructures/bintree'
+import { BinaryTree, walkToRoot, min, walkInOrder, next, prev } from 'datastructures/bintree'
 import { numericalCompare, stringCompare } from 'algorithms/base'
 
 
@@ -30,6 +30,15 @@ describe('datastructures binary tree', function() {
 			expect(tree.root.left.value).to.be.undefined
 		})
 
+		it('returns the inserted node', function() {
+			tree.insert(3)
+			const n = tree.insert(4)
+			tree.insert(5)
+			expect(n.key).to.equal(4)
+			expect(n.parent.key).to.equal(3)
+			expect(n.right.key).to.equal(5)
+		})
+
 		it('can get sorted keys', function() {
 			tree.insert(3)
 			tree.insert(4, 'foo')
@@ -45,6 +54,15 @@ describe('datastructures binary tree', function() {
 			expect(tree.get(4)).to.equal('foo')
 			expect(tree.get(3)).to.be.undefined
 			expect(tree.get(2)).to.equal(tree.nil)
+		})
+
+		it('can search for a node', function () {
+			tree.insert(3)
+			tree.insert(4, 'foo')
+
+			const n = tree.getNode(4)
+			expect(n.key).to.equal(4)
+			expect(n.value).to.equal('foo')
 		})
 
 		it('can retrieve the minimum and maximum', function () {
@@ -103,6 +121,34 @@ describe('datastructures binary tree', function() {
 	})
 
 	describe('functions', function() {
+
+		it ('can walk a tree in order', function() {
+			const tree = new BinaryTree(numericalCompare)
+
+			tree.insert(3)
+			tree.insert(4)
+			tree.insert(1)
+			tree.insert(2)
+
+			const result: any[] = []
+			walkInOrder(tree, tree.root, n => result.push(n.key))
+
+			expect(result).to.deep.equal([1, 2, 3, 4])
+		})
+
+		it ('can find the next and prev node', function() {
+			const tree = new BinaryTree(numericalCompare)
+
+			const n3 = tree.insert(3)
+			const n1 = tree.insert(1)
+			const n2 = tree.insert(2)
+
+			expect(next(tree, n2)).to.equal(n3)
+			expect(prev(tree, n2)).to.equal(n1)
+			expect(next(tree, n3)).to.equal(tree.nil)
+			expect(prev(tree, n1)).to.equal(tree.nil)
+		})
+
 		it ('can walk to root', function() {
 			const tree = new BinaryTree(numericalCompare)
 

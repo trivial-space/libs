@@ -125,7 +125,7 @@ describe('datastructures red black tree', function() {
 					}
 				})
 
-				walkInOrder(tree.root, tree.nil, n => {
+				walkInOrder(tree, tree.root, n => {
 					if (n.left === tree.nil && n.right === tree.nil) {
 						let height = 0
 						let blackCount = 0
@@ -158,7 +158,7 @@ describe('datastructures red black tree', function() {
 					}
 				})
 
-				walkInOrder(tree.root, tree.nil, n => {
+				walkInOrder(tree, tree.root, n => {
 					if (n.left === tree.nil && n.right === tree.nil) {
 						let height = 0
 						let blackCount = 0

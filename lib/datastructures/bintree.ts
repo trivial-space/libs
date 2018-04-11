@@ -40,12 +40,38 @@ export const nil = (function () {
 })()as Node<any, any>
 
 
-export function walkInOrder<K, V>(n: Node<K, V>, nil: Nil, cb: (n: Node<K, V>) => void) {
-	if (n !== nil) {
-		walkInOrder(n.left, nil, cb)
-		cb(n)
-		walkInOrder(n.right, nil, cb)
+export function walkInOrder<K, V>(tree: BinaryTreeData<K, V>, walkRoot: Node<K, V>, cb: (n: Node<K, V>) => void) {
+	if (walkRoot !== tree.nil) {
+		walkInOrder(tree, walkRoot.left, cb)
+		cb(walkRoot)
+		walkInOrder(tree, walkRoot.right, cb)
 	}
+}
+
+
+export function next<K, V>(tree: BinaryTreeData<K, V>, node: Node<K, V>) {
+	if (node.right !== tree.nil) {
+		return min(tree, node.right)
+	}
+	let parent = node.parent
+	while (parent !== tree.nil && node === parent.right) {
+		node = parent
+		parent = parent.parent
+	}
+	return parent
+}
+
+
+export function prev<K, V>(tree: BinaryTreeData<K, V>, node: Node<K, V>) {
+	if (node.left !== tree.nil) {
+		return max(tree, node.right)
+	}
+	let parent = node.parent
+	while (parent !== tree.nil && node === parent.left) {
+		node = parent
+		parent = parent.parent
+	}
+	return parent
 }
 
 
@@ -71,15 +97,15 @@ export function insert<K, V>(tree: BinaryTreeData<K, V>, node: Node<K, V>) {
 }
 
 
-export function search<K>(tree: BinaryTreeData<K>, node: Node<K>, key: K) {
-	while (node !== tree.nil && node.key !== key) {
-		if (tree.compare(key, node.key) < 0) {
-			node = node.left
+export function search<K>(tree: BinaryTreeData<K>, startNode: Node<K>, key: K) {
+	while (startNode !== tree.nil && startNode.key !== key) {
+		if (tree.compare(key, startNode.key) < 0) {
+			startNode = startNode.left
 		} else {
-			node = node.right
+			startNode = startNode.right
 		}
 	}
-	return node
+	return startNode
 }
 
 
@@ -114,19 +140,19 @@ export function remove<K>(tree: BinaryTreeData<K>, node: Node<K>) {
 }
 
 
-export function min<K>(tree: BinaryTreeData<K>, node: Node<K>) {
-	while (node !== tree.nil && node.left !== tree.nil) {
-		node = node.left
+export function min<K>(tree: BinaryTreeData<K>, startNode: Node<K>) {
+	while (startNode !== tree.nil && startNode.left !== tree.nil) {
+		startNode = startNode.left
 	}
-	return node
+	return startNode
 }
 
 
-export function max<K>(tree: BinaryTreeData<K>, node: Node<K>) {
-	while (node.right !== tree.nil) {
-		node = node.right
+export function max<K>(tree: BinaryTreeData<K>, startNode: Node<K>) {
+	while (startNode.right !== tree.nil) {
+		startNode = startNode.right
 	}
-	return node
+	return startNode
 }
 
 
@@ -168,13 +194,13 @@ export function rotateRight<K>(tree: BinaryTreeData<K>, node: Node<K>) {
 }
 
 
-export function walkToRoot<K>(tree: BinaryTreeData, node: Node<K>, callback: (n: Node<K>) => void) {
-	if (!(node && node !== tree.nil)) {
+export function walkToRoot<K>(tree: BinaryTreeData, startNode: Node<K>, callback: (n: Node<K>) => void) {
+	if (!(startNode && startNode !== tree.nil)) {
 		return
 	}
-	while (node !== tree.nil) {
-		callback(node)
-		node = node.parent
+	while (startNode !== tree.nil) {
+		callback(startNode)
+		startNode = startNode.parent
 	}
 }
 
@@ -196,19 +222,25 @@ export class BinaryTree<K, V> implements BinaryTreeData<K, V> {
 	}
 
 	insert (key: K, value?: V) {
-		insert(this, this.createNode(key, value))
+		const n = this.createNode(key, value)
+		insert(this, n)
 		this.count++
+		return n
+	}
+
+	getNode (key: K) {
+		return search(this, this.root, key)
+	}
+
+	get (key: K) {
+		const n = this.getNode(key)
+		return n === this.nil ? n : n.value
 	}
 
 	keys () {
 		const arr: K[] = []
-		walkInOrder(this.root, this.nil, n => arr.push(n.key))
+		walkInOrder(this, this.root, n => arr.push(n.key))
 		return arr
-	}
-
-	get (key: K) {
-		const n = search(this, this.root, key)
-		return n === this.nil ? n : n.value
 	}
 
 	min () {

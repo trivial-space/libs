@@ -21,6 +21,6 @@ export declare class RBTree<K, V> extends BT.BinaryTree<K, V> implements RBTreeD
     nil: RBNil;
     constructor(compareFn: CompareFn<K>, newNil?: RBNil);
     createNode(key: K, value?: V): RBNode<K, V>;
-    insert(key: K, value?: V): void;
+    insert(key: K, value?: V): RBNode<K, V>;
     remove(key: K): void;
 }

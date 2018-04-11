@@ -171,6 +171,7 @@ export class RBTree<K, V> extends BT.BinaryTree<K, V> implements RBTreeData<K, V
 		BT.insert(this, node)
 		insertFixup(this, node)
 		this.count++
+		return node
 	}
 
 	remove (key: K) {

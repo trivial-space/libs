@@ -3,6 +3,7 @@ import * as mathCoords from './math/coords';
 import * as mathNoise from './math/noise';
 import * as mathVectors from './math/vectors';
 import * as mathGeometry from './math/geometry';
+import * as mathRandom from './math/random';
 import * as eventsDom from './events/dom';
 import * as eventsKey from './events/keyboard';
 import * as eventsMouse from './events/mouse';
@@ -10,16 +11,24 @@ import * as eventsAnimation from './events/animation';
 import * as utilsUUID from './utils/uuid';
 import * as utilsSequence from './utils/sequence';
 import * as utilsPredicates from './utils/predicates';
+import * as utilsObject from './utils/object';
 import * as fpCore from './fp/core';
 import * as graphicsColors from './graphics/colors';
 import * as graphicsTextures from './graphics/textures';
 import * as graphicsPixesls from './graphics/pixel-context';
+import * as algorithmsBase from './algorithms/base';
+import * as datastructuresBintree from './datastructures/bintree';
+import * as datastructuresRBTree from './datastructures/rbtree';
+import * as datastructuresHeap from './datastructures/heap';
+import * as geometryPrimitives from './geometry/primitives';
+import * as geometryQuad from './geometry/quad';
 export var math = {
     core: mathCore,
     noise: mathNoise,
     coords: mathCoords,
     vectors: mathVectors,
-    geometry: mathGeometry
+    geometry: mathGeometry,
+    random: mathRandom
 };
 export var events = {
     dom: eventsDom,
@@ -30,7 +39,8 @@ export var events = {
 export var utils = {
     uuid: utilsUUID,
     seq: utilsSequence,
-    predicates: utilsPredicates
+    predicates: utilsPredicates,
+    object: utilsObject
 };
 export var fp = {
     core: fpCore
@@ -40,5 +50,17 @@ export var graphics = {
     pixels: graphicsPixesls,
     textures: graphicsTextures
 };
-export default { math: math, events: events, utils: utils, graphics: graphics, fp: fp };
+export var geometry = {
+    primitives: geometryPrimitives,
+    quad: geometryQuad
+};
+export var algorithms = {
+    base: algorithmsBase
+};
+export var datastructures = {
+    bintree: datastructuresBintree,
+    rbtree: datastructuresRBTree,
+    heap: datastructuresHeap
+};
+export default { math: math, events: events, utils: utils, graphics: graphics, fp: fp, geometry: geometry, datastructures: datastructures, algorithms: algorithms };
 //# sourceMappingURL=index.js.map
