@@ -34,7 +34,7 @@ module.exports = function(config) {
 		webpack: {
 			module: webpack.module,
 			resolve: webpack.resolve,
-			devtool: 'inline-source-map',
+			devtool: 'cheap-module-eval-source-map',
 			mode: 'development'
 		},
 
