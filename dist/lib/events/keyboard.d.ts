@@ -113,7 +113,7 @@ export declare enum Keys {
     BACK_SLASH = 220,
     CLOSE_BRACKET = 221,
     QUOTE = 222,
-    META = 224,
+    META = 224
 }
 export declare type KeyState = {
     [key: number]: number;
