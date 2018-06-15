@@ -1,7 +1,7 @@
 import { dot, normalize, cross, sub } from './vectors';
 export function planeFromNormalAndCoplanarPoint(n, point) {
     var d = dot(n, point);
-    return [n[0], n[1], n[2], d];
+    return [n[0], n[1], n[2], -d];
 }
 export function planeFromThreeCoplanarPoints(p1, p2, p3) {
     return planeFromNormalAndCoplanarPoint(normalFromThreeCoplanarPoints(p1, p2, p3), p1);

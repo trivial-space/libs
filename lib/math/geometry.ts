@@ -6,7 +6,7 @@ export function planeFromNormalAndCoplanarPoint (
 	point: Vec
 ) {
 	const d = dot(n, point)
-	return [n[0], n[1], n[2], d]
+	return [n[0], n[1], n[2], -d]
 }
 
 
