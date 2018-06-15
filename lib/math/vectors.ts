@@ -74,7 +74,7 @@ export function limit (maxLength: number, vec: Vec): number[] {
 export function dot (v1: Vec, v2: Vec): number {
 	let d = 0
 	for (let i = 0; i < v1.length; i++) {
-		d += v1[i] + v2[i]
+		d += v1[i] * v2[i]
 	}
 	return d
 }
