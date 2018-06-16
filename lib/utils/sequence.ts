@@ -92,14 +92,10 @@ export function map<A, B>(fn: (val: A, key?: any) => B, coll: Collection<A>): Co
 }
 
 
-export function each<A>(fn: (val: A, key?: any) => any, coll: {[key: string]: A}): void
-export function each<A>(fn: (val: A, key?: any) => any, coll: A[]): void
-export function each<A>(fn: (val: A, key?: any) => any, coll: Collection<A>): void {
-	if (Array.isArray(coll)) {
-		return coll.forEach(fn as any)
-	} else {
-		for (const key in coll) {
-			(fn as any)(coll[key], key)
-		}
+export function each<A> (fn: (val: A, key?: any) => any, coll: { [key: string]: A }): void
+export function each<A> (fn: (val: A, key?: any) => any, coll: A[]): void
+export function each<A> (fn: (val: A, key?: any) => any, coll: Collection<A>): void {
+	for (const key in coll) {
+		fn((coll as any)[key], key)
 	}
 }

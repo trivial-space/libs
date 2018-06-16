@@ -60,13 +60,8 @@ export function map(fn, coll) {
     }
 }
 export function each(fn, coll) {
-    if (Array.isArray(coll)) {
-        return coll.forEach(fn);
-    }
-    else {
-        for (var key in coll) {
-            fn(coll[key], key);
-        }
+    for (var key in coll) {
+        fn(coll[key], key);
     }
 }
 //# sourceMappingURL=sequence.js.map
