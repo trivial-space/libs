@@ -24,8 +24,8 @@ export function zip(fn, as, bs, res) {
 }
 export function flatten(array, res) {
     if (res === void 0) { res = []; }
-    for (var _i = 0, _a = array; _i < _a.length; _i++) {
-        var subarray = _a[_i];
+    for (var _i = 0, array_1 = array; _i < array_1.length; _i++) {
+        var subarray = array_1[_i];
         var currentLength = res.length;
         for (var i = 0; i < subarray.length; i++) {
             res[i + currentLength] = subarray[i];
@@ -46,5 +46,27 @@ export function shuffle(arr) {
         shuffled[j] = temp;
     }
     return shuffled;
+}
+export function map(fn, coll) {
+    if (Array.isArray(coll)) {
+        return coll.map(fn);
+    }
+    else {
+        var obj = {};
+        for (var key in coll) {
+            obj[key] = fn(coll[key], key);
+        }
+        return obj;
+    }
+}
+export function each(fn, coll) {
+    if (Array.isArray(coll)) {
+        return coll.forEach(fn);
+    }
+    else {
+        for (var key in coll) {
+            fn(coll[key], key);
+        }
+    }
 }
 //# sourceMappingURL=sequence.js.map

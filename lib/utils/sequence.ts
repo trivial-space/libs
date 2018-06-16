@@ -7,6 +7,9 @@ export type Sequence<T> = {
 }
 
 
+export type Collection<T> = T[] | {[key: string]: T}
+
+
 export function pickRandom<T>(arr: Sequence<T>): T {
 	return arr[randInt(arr.length)]
 }
@@ -44,8 +47,8 @@ export function zip<A, B, C>(
 }
 
 
-export function flatten<T>(array: T[][], res: T[] = []): T[] {
-	for (const subarray of array as Sequence<T>[]) {
+export function flatten<T>(array: Sequence<T>[], res: T[] = []): T[] {
+	for (const subarray of array) {
 		const currentLength = res.length
 		for (let i = 0; i < subarray.length; i++) {
 			res[i + currentLength] = subarray[i]
@@ -71,4 +74,32 @@ export function shuffle<T>(arr: T[]): T[] {
 	}
 
 	return shuffled
+}
+
+
+export function map<A, B>(fn: (val: A, key?: any) => B, coll: {[key: string]: A}): {[key: string]: B}
+export function map<A, B>(fn: (val: A, key?: any) => B, coll: A[]): B[]
+export function map<A, B>(fn: (val: A, key?: any) => B, coll: Collection<A>): Collection<B> {
+	if (Array.isArray(coll)) {
+		return coll.map(fn)
+	} else {
+		const obj = {} as {[key: string]: B}
+		for (const key in coll) {
+			obj[key] = fn(coll[key], key)
+		}
+		return obj
+	}
+}
+
+
+export function each<A>(fn: (val: A, key?: any) => any, coll: {[key: string]: A}): void
+export function each<A>(fn: (val: A, key?: any) => any, coll: A[]): void
+export function each<A>(fn: (val: A, key?: any) => any, coll: Collection<A>): void {
+	if (Array.isArray(coll)) {
+		return coll.forEach(fn as any)
+	} else {
+		for (const key in coll) {
+			(fn as any)(coll[key], key)
+		}
+	}
 }
