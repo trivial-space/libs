@@ -10,6 +10,8 @@ export interface MouseState {
     drag: {
         x: number;
         y: number;
+        dX: number;
+        dY: number;
         event?: MouseEvent;
     };
 }

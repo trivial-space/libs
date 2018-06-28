@@ -10,6 +10,8 @@ export interface MouseState {
 	drag: {
 		x: number,
 		y: number,
+		dX: number,
+		dY: number
 		event?: MouseEvent
 	},
 }
@@ -32,11 +34,12 @@ export function mouse (opts: MouseOpts | ((val: MouseState) => void), callback?:
 
 	const state: MouseState = {
 		pressed: {},
-		drag: { x: 0, y: 0 }
+		drag: { x: 0, y: 0, dX: 0, dY: 0 }
 	}
 
 	let x = 0,
 		y = 0,
+		oX = 0, oY = 0,
 		dragging = false
 
 
@@ -45,8 +48,8 @@ export function mouse (opts: MouseOpts | ((val: MouseState) => void), callback?:
 		state.pressed[e.button] = e
 
 		if (e.button === Buttons.LEFT) {
-			x = e.clientX
-			y = e.clientY
+			x = oX = e.clientX
+			y = oY = e.clientY
 			dragging = true
 		}
 
@@ -61,6 +64,8 @@ export function mouse (opts: MouseOpts | ((val: MouseState) => void), callback?:
 
 		state.drag.x = 0
 		state.drag.y = 0
+		state.drag.dX = 0
+		state.drag.dY = 0
 
 		dragging = false
 
@@ -75,6 +80,11 @@ export function mouse (opts: MouseOpts | ((val: MouseState) => void), callback?:
 
 			state.drag.x = x - e.clientX
 			state.drag.y = y - e.clientY
+			state.drag.dX = oX - e.clientX
+			state.drag.dY = oY - e.clientY
+
+			oX = e.clientX
+			oY = e.clientY
 
 			cb(state)
 		}
