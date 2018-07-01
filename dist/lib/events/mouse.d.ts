@@ -14,6 +14,7 @@ export interface MouseState {
         dY: number;
         event?: MouseEvent;
     };
+    dragging: boolean;
 }
 export interface MouseOpts {
     element?: HTMLElement;

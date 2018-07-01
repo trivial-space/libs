@@ -8,15 +8,16 @@ export function mouse(opts, callback) {
     var _a = opts, _b = _a.element, element = _b === void 0 ? document : _b, enableRightButton = _a.enableRightButton;
     var state = {
         pressed: {},
-        drag: { x: 0, y: 0, dX: 0, dY: 0 }
+        drag: { x: 0, y: 0, dX: 0, dY: 0 },
+        dragging: false
     };
-    var x = 0, y = 0, oX = 0, oY = 0, dragging = false;
+    var x = 0, y = 0, oX = 0, oY = 0;
     function onMouseDown(e) {
         state.pressed[e.button] = e;
         if (e.button === Buttons.LEFT) {
             x = oX = e.clientX;
             y = oY = e.clientY;
-            dragging = true;
+            state.dragging = true;
         }
         cb(state);
     }
@@ -27,11 +28,11 @@ export function mouse(opts, callback) {
         state.drag.y = 0;
         state.drag.dX = 0;
         state.drag.dY = 0;
-        dragging = false;
+        state.dragging = false;
         cb(state);
     }
     function onMouseMove(e) {
-        if (dragging) {
+        if (state.dragging) {
             state.drag.event = e;
             state.drag.x = x - e.clientX;
             state.drag.y = y - e.clientY;

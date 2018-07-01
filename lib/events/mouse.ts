@@ -14,6 +14,7 @@ export interface MouseState {
 		dY: number
 		event?: MouseEvent
 	},
+	dragging: boolean
 }
 
 export interface MouseOpts {
@@ -34,13 +35,13 @@ export function mouse (opts: MouseOpts | ((val: MouseState) => void), callback?:
 
 	const state: MouseState = {
 		pressed: {},
-		drag: { x: 0, y: 0, dX: 0, dY: 0 }
+		drag: { x: 0, y: 0, dX: 0, dY: 0 },
+		dragging: false
 	}
 
 	let x = 0,
 		y = 0,
-		oX = 0, oY = 0,
-		dragging = false
+		oX = 0, oY = 0
 
 
 	function onMouseDown (e: MouseEvent) {
@@ -50,7 +51,7 @@ export function mouse (opts: MouseOpts | ((val: MouseState) => void), callback?:
 		if (e.button === Buttons.LEFT) {
 			x = oX = e.clientX
 			y = oY = e.clientY
-			dragging = true
+			state.dragging = true
 		}
 
 		cb(state)
@@ -66,15 +67,14 @@ export function mouse (opts: MouseOpts | ((val: MouseState) => void), callback?:
 		state.drag.y = 0
 		state.drag.dX = 0
 		state.drag.dY = 0
-
-		dragging = false
+		state.dragging = false
 
 		cb(state)
 	}
 
 
 	function onMouseMove (e: MouseEvent) {
-		if (dragging) {
+		if (state.dragging) {
 
 			state.drag.event = e
 
