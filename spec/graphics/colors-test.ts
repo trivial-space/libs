@@ -49,6 +49,28 @@ describe('graphics colors', function() {
 		it('converts a hex string to a rgb color', function() {
 			expect(colors.hexStringToRgb('#2334af')).to.deep.equal([0x23, 0x34, 0xaf])
 			expect(colors.hexStringToRgb('2334af')).to.deep.equal([0x23, 0x34, 0xaf])
+			expect(colors.hexStringToRgb('234')).to.deep.equal([0x22, 0x33, 0x44])
+		})
+	})
+
+
+	describe('rgbToHSL', function() {
+
+		it('converts rgb colors to hsl colors', function() {
+			expect(colors.rgbToHSL([1, 1, 1])).to.deep.equal({h: 0, s: 0, l: 1})
+			expect(colors.rgbToHSL([0.5, 0, 0.5])).to.deep.equal({h: 5 / 6, s: 1, l: 0.25})
+			expect(colors.rgbToHSL([0, 0, 0])).to.deep.equal({h: 0, s: 0, l: 0})
+			expect(colors.rgbToHSL([0.25, 0.75, 0.75])).to.deep.equal({h: 0.5, s: 0.5, l: 0.5})
+		})
+	})
+
+
+	describe('hslToRGB', function() {
+		it('converts hsl to rgb', function() {
+			expect(colors.hslToRGB({h: 0, s: 0, l: 1})).to.deep.equal([1, 1, 1])
+			expect(colors.hslToRGB({h: 5 / 6, s: 1, l: 0.25})).to.deep.equal([0.5, 0, 0.5])
+			expect(colors.hslToRGB({h: 0.5, s: 0.5, l: 0.5})).to.deep.equal([0.25, 0.75, 0.75])
+			expect(colors.hslToRGB({h: 0, s: 0, l: 0})).to.deep.equal([0, 0, 0])
 		})
 	})
 
