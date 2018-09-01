@@ -5,7 +5,7 @@ import { times, shuffle } from 'utils/sequence';
 import { min, walkInOrder, walkToRoot } from 'datastructures/bintree';
 describe('datastructures red black tree', function () {
     describe('numberical', function () {
-        var tree;
+        let tree;
         beforeEach(function () {
             tree = new RBTree(numericalCompare);
         });
@@ -72,7 +72,7 @@ describe('datastructures red black tree', function () {
     });
     describe('custom keys', function () {
         it('can be given a custom compare function', function () {
-            var tree = new RBTree(stringCompare);
+            const tree = new RBTree(stringCompare);
             tree.insert('foo');
             tree.insert('bar');
             tree.insert('bazz');
@@ -83,69 +83,61 @@ describe('datastructures red black tree', function () {
     });
     describe('red black property', function () {
         it('tree height is always max log(n) * 2 and has same black node count', function () {
-            var numbers = times(Math.random, 100)
-                .map(function (n) { return Math.floor(n * 100); });
-            var tree = new RBTree(numericalCompare);
-            var count = 0;
-            var _loop_1 = function (n) {
+            const numbers = times(Math.random, 100)
+                .map(n => Math.floor(n * 100));
+            const tree = new RBTree(numericalCompare);
+            let count = 0;
+            for (const n of numbers) {
                 tree.insert(n);
                 count++;
-                var minBlackCount = 0;
-                var minNode = min(tree, tree.root);
-                walkToRoot(tree, minNode, function (n) {
+                let minBlackCount = 0;
+                const minNode = min(tree, tree.root);
+                walkToRoot(tree, minNode, n => {
                     if (!n.red) {
                         minBlackCount++;
                     }
                 });
-                walkInOrder(tree, tree.root, function (n) {
+                walkInOrder(tree, tree.root, n => {
                     if (n.left === tree.nil && n.right === tree.nil) {
-                        var height_1 = 0;
-                        var blackCount_1 = 0;
-                        walkToRoot(tree, n, function (n) {
-                            height_1++;
+                        let height = 0;
+                        let blackCount = 0;
+                        walkToRoot(tree, n, n => {
+                            height++;
                             if (!n.red) {
-                                blackCount_1++;
+                                blackCount++;
                             }
                         });
-                        expect(blackCount_1).to.equal(minBlackCount);
-                        expect(height_1).to.be.lessThan(Math.floor(Math.log2(count + 1) * 2 + 1));
+                        expect(blackCount).to.equal(minBlackCount);
+                        expect(height).to.be.lessThan(Math.floor(Math.log2(count + 1) * 2 + 1));
                     }
                 });
-            };
-            for (var _i = 0, numbers_1 = numbers; _i < numbers_1.length; _i++) {
-                var n = numbers_1[_i];
-                _loop_1(n);
             }
             expect(count === numbers.length && count === tree.size()).to.be.true;
-            var shuffled = shuffle(numbers);
-            var _loop_2 = function (n) {
+            const shuffled = shuffle(numbers);
+            for (const n of shuffled) {
                 tree.remove(n);
                 count--;
-                var minBlackCount = 0;
-                var minNode = min(tree, tree.root);
-                walkToRoot(tree, minNode, function (n) {
+                let minBlackCount = 0;
+                const minNode = min(tree, tree.root);
+                walkToRoot(tree, minNode, n => {
                     if (!n.red) {
                         minBlackCount++;
                     }
                 });
-                walkInOrder(tree, tree.root, function (n) {
+                walkInOrder(tree, tree.root, n => {
                     if (n.left === tree.nil && n.right === tree.nil) {
-                        var height_2 = 0;
-                        var blackCount_2 = 0;
-                        walkToRoot(tree, n, function (n) {
-                            height_2++;
+                        let height = 0;
+                        let blackCount = 0;
+                        walkToRoot(tree, n, n => {
+                            height++;
                             if (!n.red) {
-                                blackCount_2++;
+                                blackCount++;
                             }
                         });
-                        expect(blackCount_2).to.equal(minBlackCount);
-                        expect(height_2).to.be.lessThan(Math.floor(Math.log2(count + 1) * 2 + 1));
+                        expect(blackCount).to.equal(minBlackCount);
+                        expect(height).to.be.lessThan(Math.floor(Math.log2(count + 1) * 2 + 1));
                     }
                 });
-            };
-            for (var _a = 0, shuffled_1 = shuffled; _a < shuffled_1.length; _a++) {
-                var n = shuffled_1[_a];
-                _loop_2(n);
             }
         });
     });

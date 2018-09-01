@@ -27,20 +27,18 @@ export function extrudeBottom(direction, edge) {
 export function extrudeLeft(direction, edge) {
     return rotateLeft(extrudeBottom(direction, edge));
 }
-export function divideHorizontal(leftRatio, rightRatio, _a) {
-    var v1 = _a[0], v2 = _a[1], v3 = _a[2], v4 = _a[3];
-    var v11 = lerpVecs(leftRatio, v1, v4);
-    var v22 = lerpVecs(rightRatio, v2, v3);
+export function divideHorizontal(leftRatio, rightRatio, [v1, v2, v3, v4]) {
+    const v11 = lerpVecs(leftRatio, v1, v4);
+    const v22 = lerpVecs(rightRatio, v2, v3);
     return [[v1, v2, v22, v11], [v11, v22, v3, v4]];
 }
-export function divideVertical(topRatio, bottomRatio, _a) {
-    var v1 = _a[0], v2 = _a[1], v3 = _a[2], v4 = _a[3];
-    var v11 = lerpVecs(topRatio, v1, v2);
-    var v44 = lerpVecs(bottomRatio, v4, v3);
+export function divideVertical(topRatio, bottomRatio, [v1, v2, v3, v4]) {
+    const v11 = lerpVecs(topRatio, v1, v2);
+    const v44 = lerpVecs(bottomRatio, v4, v3);
     return [[v1, v11, v44, v4], [v11, v2, v3, v44]];
 }
-export var quadTriangles = [[0, 2, 1], [0, 3, 2]];
+export const quadTriangles = [[0, 2, 1], [0, 3, 2]];
 export function triangulate(quadCount) {
-    return flatten(times(function (i) { return quadTriangles.map((function (t) { return t.map(function (j) { return 4 * i + j; }); })); }, quadCount));
+    return flatten(times(i => quadTriangles.map((t => t.map(j => 4 * i + j))), quadCount));
 }
 //# sourceMappingURL=quad.js.map

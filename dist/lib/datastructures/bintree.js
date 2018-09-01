@@ -1,16 +1,14 @@
-var Node = (function () {
-    function Node(nil, key, value) {
+export class Node {
+    constructor(nil, key, value) {
         this.parent = nil,
             this.left = nil,
             this.right = nil,
             this.key = key;
         this.value = value;
     }
-    return Node;
-}());
-export { Node };
-export var nil = (function () {
-    var nil = {
+}
+export const nil = (function () {
+    const nil = {
         parent: null,
         left: null,
         right: null,
@@ -32,7 +30,7 @@ export function next(tree, node) {
     if (node.right !== tree.nil) {
         return min(tree, node.right);
     }
-    var parent = node.parent;
+    let parent = node.parent;
     while (parent !== tree.nil && node === parent.right) {
         node = parent;
         parent = parent.parent;
@@ -43,7 +41,7 @@ export function prev(tree, node) {
     if (node.left !== tree.nil) {
         return max(tree, node.right);
     }
-    var parent = node.parent;
+    let parent = node.parent;
     while (parent !== tree.nil && node === parent.left) {
         node = parent;
         parent = parent.parent;
@@ -51,8 +49,8 @@ export function prev(tree, node) {
     return parent;
 }
 export function insert(tree, node) {
-    var y = tree.nil;
-    var x = tree.root;
+    let y = tree.nil;
+    let x = tree.root;
     while (x !== tree.nil) {
         y = x;
         if (tree.compare(node.key, x.key) < 0) {
@@ -104,7 +102,7 @@ export function remove(tree, node) {
         transplant(tree, node, node.left);
     }
     else {
-        var y = min(tree, node.right);
+        const y = min(tree, node.right);
         if (y.parent !== node) {
             transplant(tree, y, y.right);
             y.right = node.right;
@@ -128,7 +126,7 @@ export function max(tree, startNode) {
     return startNode;
 }
 export function rotateLeft(tree, node) {
-    var y = node.right;
+    const y = node.right;
     node.right = y.left;
     if (y.left !== tree.nil) {
         y.left.parent = node;
@@ -147,7 +145,7 @@ export function rotateLeft(tree, node) {
     node.parent = y;
 }
 export function rotateRight(tree, node) {
-    var y = node.left;
+    const y = node.left;
     node.left = y.right;
     if (y.right !== tree.nil) {
         y.right.parent = node;
@@ -174,52 +172,49 @@ export function walkToRoot(tree, startNode, callback) {
         startNode = startNode.parent;
     }
 }
-var BinaryTree = (function () {
-    function BinaryTree(compareFn, newNil) {
-        if (newNil === void 0) { newNil = nil; }
+export class BinaryTree {
+    constructor(compareFn, newNil = nil) {
         this.count = 0;
         this.compare = compareFn;
         this.root = newNil;
         this.nil = newNil;
     }
-    BinaryTree.prototype.createNode = function (key, value) {
+    createNode(key, value) {
         return new Node(this.nil, key, value);
-    };
-    BinaryTree.prototype.insert = function (key, value) {
-        var n = this.createNode(key, value);
+    }
+    insert(key, value) {
+        const n = this.createNode(key, value);
         insert(this, n);
         this.count++;
         return n;
-    };
-    BinaryTree.prototype.getNode = function (key) {
+    }
+    getNode(key) {
         return search(this, this.root, key);
-    };
-    BinaryTree.prototype.get = function (key) {
-        var n = this.getNode(key);
+    }
+    get(key) {
+        const n = this.getNode(key);
         return n === this.nil ? n : n.value;
-    };
-    BinaryTree.prototype.keys = function () {
-        var arr = [];
-        walkInOrder(this, this.root, function (n) { return arr.push(n.key); });
+    }
+    keys() {
+        const arr = [];
+        walkInOrder(this, this.root, n => arr.push(n.key));
         return arr;
-    };
-    BinaryTree.prototype.min = function () {
+    }
+    min() {
         return min(this, this.root).key;
-    };
-    BinaryTree.prototype.max = function () {
+    }
+    max() {
         return max(this, this.root).key;
-    };
-    BinaryTree.prototype.remove = function (key) {
-        var node = search(this, this.root, key);
+    }
+    remove(key) {
+        const node = search(this, this.root, key);
         if (node !== this.nil) {
             remove(this, node);
             this.count--;
         }
-    };
-    BinaryTree.prototype.size = function () {
+    }
+    size() {
         return this.count;
-    };
-    return BinaryTree;
-}());
-export { BinaryTree };
+    }
+}
 //# sourceMappingURL=bintree.js.map

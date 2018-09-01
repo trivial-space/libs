@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import { numericalCompare } from 'algorithms/base';
 describe('datastructures heap', function () {
     describe('maxHeap', function () {
-        var heap;
+        let heap;
         beforeEach(function () {
             heap = createHeap(numericalCompare);
         });
@@ -48,7 +48,7 @@ describe('datastructures heap', function () {
         });
     });
     it('can build heaps with custom compare functions', function () {
-        var minHeap = createHeap(function (p, c) { return c - p; });
+        const minHeap = createHeap((p, c) => c - p);
         minHeap.fromArray([3, 6]);
         minHeap.insert(5);
         minHeap.insert(10);
@@ -61,7 +61,7 @@ describe('datastructures heap', function () {
         expect(minHeap.size()).to.equal(1);
         expect(minHeap.pull()).to.equal(10);
         expect(minHeap.size()).to.equal(0);
-        var stringHeap = createHeap(function (p, c) { return p.localeCompare(c); });
+        const stringHeap = createHeap((p, c) => p.localeCompare(c));
         stringHeap.fromArray(['z', 'f']);
         stringHeap.insert('a');
         stringHeap.insert('w');

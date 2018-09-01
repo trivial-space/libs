@@ -1,3 +1,3 @@
-export var numericalCompare = function (a, b) { return a - b; };
-export var stringCompare = function (a, b) { return a.localeCompare(b); };
+export const numericalCompare = (a, b) => a - b;
+export const stringCompare = (a, b) => a.localeCompare(b);
 //# sourceMappingURL=base.js.map

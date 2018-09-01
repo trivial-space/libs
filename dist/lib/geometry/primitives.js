@@ -5,14 +5,13 @@ import { add, normalize, cross, sub, cross2D } from '../math/vectors';
 export function interpolate(fn, step, start, end) {
     return zip(partial(fn, step), start, end);
 }
-export var lerpVecs = partial(interpolate, lerp);
-export function split(part, _a) {
-    var v1 = _a[0], v2 = _a[1];
-    var p = lerpVecs(part, v1, v2);
+export const lerpVecs = partial(interpolate, lerp);
+export function split(part, [v1, v2]) {
+    const p = lerpVecs(part, v1, v2);
     return [[v1, p], [p, v2]];
 }
 export function translate(vec, p) {
-    return p.map(function (v) { return add(vec, v); });
+    return p.map(v => add(vec, v));
 }
 export function rotateLeftInPlace(p) {
     p.unshift(p.pop());

@@ -15,7 +15,7 @@ export function lerp(step, start, end) {
 export function clamp(min, max, value) {
     return Math.max(min, Math.min(value, max));
 }
-export var DEG_TO_RAD_FACTOR = Math.PI / 180;
+export const DEG_TO_RAD_FACTOR = Math.PI / 180;
 export function degToRad(degrees) {
     return degrees * DEG_TO_RAD_FACTOR;
 }

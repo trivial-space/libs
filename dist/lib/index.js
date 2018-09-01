@@ -22,7 +22,7 @@ import * as datastructuresRBTree from './datastructures/rbtree';
 import * as datastructuresHeap from './datastructures/heap';
 import * as geometryPrimitives from './geometry/primitives';
 import * as geometryQuad from './geometry/quad';
-export var math = {
+export const math = {
     core: mathCore,
     noise: mathNoise,
     coords: mathCoords,
@@ -30,37 +30,37 @@ export var math = {
     geometry: mathGeometry,
     random: mathRandom
 };
-export var events = {
+export const events = {
     dom: eventsDom,
     mouse: eventsMouse,
     keyboard: eventsKey,
     animation: eventsAnimation
 };
-export var utils = {
+export const utils = {
     uuid: utilsUUID,
     seq: utilsSequence,
     predicates: utilsPredicates,
     object: utilsObject
 };
-export var fp = {
+export const fp = {
     core: fpCore
 };
-export var graphics = {
+export const graphics = {
     colors: graphicsColors,
     pixels: graphicsPixesls,
     textures: graphicsTextures
 };
-export var geometry = {
+export const geometry = {
     primitives: geometryPrimitives,
     quad: geometryQuad
 };
-export var algorithms = {
+export const algorithms = {
     base: algorithmsBase
 };
-export var datastructures = {
+export const datastructures = {
     bintree: datastructuresBintree,
     rbtree: datastructuresRBTree,
     heap: datastructuresHeap
 };
-export default { math: math, events: events, utils: utils, graphics: graphics, fp: fp, geometry: geometry, datastructures: datastructures, algorithms: algorithms };
+export default { math, events, utils, graphics, fp, geometry, datastructures, algorithms };
 //# sourceMappingURL=index.js.map

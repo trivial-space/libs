@@ -2,15 +2,15 @@ import { expect } from 'chai';
 import { top, right, bottom, left, divideHorizontal, divideVertical, extrudeTop, extrudeRight, extrudeBottom, extrudeLeft, combineEdges, quadTriangles, triangulate } from 'geometry/quad';
 describe('geometry quad', function () {
     it('has clockwise sides', function () {
-        var q = [[1], [2], [3], [4]];
+        const q = [[1], [2], [3], [4]];
         expect(top(q)).to.deep.equal([[1], [2]]);
         expect(right(q)).to.deep.equal([[2], [3]]);
         expect(bottom(q)).to.deep.equal([[3], [4]]);
         expect(left(q)).to.deep.equal([[4], [1]]);
     });
     it('can be divided horizontally', function () {
-        var q = [[1], [2], [3], [4]];
-        var q1 = divideHorizontal(0.5, 0.25, q);
+        const q = [[1], [2], [3], [4]];
+        const q1 = divideHorizontal(0.5, 0.25, q);
         expect(q1)
             .to.deep.equal([
             [[1], [2], [2.25], [2.5]],
@@ -19,8 +19,8 @@ describe('geometry quad', function () {
         expect(bottom(q1[0])).to.deep.equal(top(q1[1]).reverse());
     });
     it('can be divided vertically', function () {
-        var q = [[1], [2], [3], [4]];
-        var q1 = divideVertical(0.5, 0.25, q);
+        const q = [[1], [2], [3], [4]];
+        const q1 = divideVertical(0.5, 0.25, q);
         expect(q1)
             .to.deep.equal([
             [[1], [1.5], [3.75], [4]],
@@ -29,12 +29,12 @@ describe('geometry quad', function () {
         expect(right(q1[0])).to.deep.equal(left(q1[1]).reverse());
     });
     it('can be extruded from one of the side edges', function () {
-        var e = [[1], [2]];
-        var dir = [3];
-        var q1 = extrudeTop(dir, e);
-        var q2 = extrudeRight(dir, e);
-        var q3 = extrudeBottom(dir, e);
-        var q4 = extrudeLeft(dir, e);
+        const e = [[1], [2]];
+        const dir = [3];
+        const q1 = extrudeTop(dir, e);
+        const q2 = extrudeRight(dir, e);
+        const q3 = extrudeBottom(dir, e);
+        const q4 = extrudeLeft(dir, e);
         expect(q1).to.deep.equal([[4], [5], [2], [1]]);
         expect(q2).to.deep.equal([[1], [4], [5], [2]]);
         expect(q3).to.deep.equal([[1], [2], [5], [4]]);

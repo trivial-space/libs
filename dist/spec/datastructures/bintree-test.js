@@ -3,7 +3,7 @@ import { BinaryTree, walkToRoot, min, walkInOrder, next, prev } from 'datastruct
 import { numericalCompare, stringCompare } from 'algorithms/base';
 describe('datastructures binary tree', function () {
     describe('numberical', function () {
-        var tree;
+        let tree;
         beforeEach(function () {
             tree = new BinaryTree(numericalCompare);
         });
@@ -23,7 +23,7 @@ describe('datastructures binary tree', function () {
         });
         it('returns the inserted node', function () {
             tree.insert(3);
-            var n = tree.insert(4);
+            const n = tree.insert(4);
             tree.insert(5);
             expect(n.key).to.equal(4);
             expect(n.parent.key).to.equal(3);
@@ -45,7 +45,7 @@ describe('datastructures binary tree', function () {
         it('can search for a node', function () {
             tree.insert(3);
             tree.insert(4, 'foo');
-            var n = tree.getNode(4);
+            const n = tree.getNode(4);
             expect(n.key).to.equal(4);
             expect(n.value).to.equal('foo');
         });
@@ -85,7 +85,7 @@ describe('datastructures binary tree', function () {
     });
     describe('custom keys', function () {
         it('can be given a custom compare function', function () {
-            var tree = new BinaryTree(stringCompare);
+            const tree = new BinaryTree(stringCompare);
             tree.insert('foo');
             tree.insert('bar');
             tree.insert('bazz');
@@ -96,34 +96,34 @@ describe('datastructures binary tree', function () {
     });
     describe('functions', function () {
         it('can walk a tree in order', function () {
-            var tree = new BinaryTree(numericalCompare);
+            const tree = new BinaryTree(numericalCompare);
             tree.insert(3);
             tree.insert(4);
             tree.insert(1);
             tree.insert(2);
-            var result = [];
-            walkInOrder(tree, tree.root, function (n) { return result.push(n.key); });
+            const result = [];
+            walkInOrder(tree, tree.root, n => result.push(n.key));
             expect(result).to.deep.equal([1, 2, 3, 4]);
         });
         it('can find the next and prev node', function () {
-            var tree = new BinaryTree(numericalCompare);
-            var n3 = tree.insert(3);
-            var n1 = tree.insert(1);
-            var n2 = tree.insert(2);
+            const tree = new BinaryTree(numericalCompare);
+            const n3 = tree.insert(3);
+            const n1 = tree.insert(1);
+            const n2 = tree.insert(2);
             expect(next(tree, n2)).to.equal(n3);
             expect(prev(tree, n2)).to.equal(n1);
             expect(next(tree, n3)).to.equal(tree.nil);
             expect(prev(tree, n1)).to.equal(tree.nil);
         });
         it('can walk to root', function () {
-            var tree = new BinaryTree(numericalCompare);
+            const tree = new BinaryTree(numericalCompare);
             tree.insert(4);
             tree.insert(3);
             tree.insert(2);
             tree.insert(1);
-            var height = 0;
-            var keys = [];
-            walkToRoot(tree, min(tree, tree.root), function (n) {
+            let height = 0;
+            const keys = [];
+            walkToRoot(tree, min(tree, tree.root), n => {
                 height++;
                 keys.push(n.key);
             });

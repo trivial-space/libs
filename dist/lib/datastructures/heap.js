@@ -8,14 +8,14 @@ export function leftIndex(currentIndex) {
     return currentIndex * 2;
 }
 function swap(i, j, arr) {
-    var temp = arr[i];
+    const temp = arr[i];
     arr[i] = arr[j];
     arr[j] = temp;
 }
 export function heapifyAt(compareFn, arr, i) {
-    var l = leftIndex(i);
-    var r = rightIndex(i);
-    var top = i;
+    const l = leftIndex(i);
+    const r = rightIndex(i);
+    let top = i;
     if (l < arr.length && compareFn(arr[top], arr[l]) < 0) {
         top = l;
     }
@@ -28,15 +28,15 @@ export function heapifyAt(compareFn, arr, i) {
     }
 }
 export function heapify(compareFn, arr) {
-    for (var i = Math.floor((arr.length - 1) / 2); i >= 0; i--) {
+    for (let i = Math.floor((arr.length - 1) / 2); i >= 0; i--) {
         heapifyAt(compareFn, arr, i);
     }
 }
 export function insert(compareFn, arr, item) {
     arr.push(item);
     if (arr.length > 1) {
-        var i = arr.length - 1;
-        var p = parentIndex(i);
+        let i = arr.length - 1;
+        let p = parentIndex(i);
         while (i > 0 && compareFn(arr[p], arr[i]) < 0) {
             swap(p, i, arr);
             i = p;
@@ -45,7 +45,7 @@ export function insert(compareFn, arr, item) {
     }
 }
 export function createHeap(compareFn) {
-    var arr = [];
+    let arr = [];
     function size() {
         return arr.length;
     }
@@ -54,7 +54,7 @@ export function createHeap(compareFn) {
         heapify(compareFn, arr);
     }
     function pull() {
-        var top = arr.shift();
+        const top = arr.shift();
         heapifyAt(compareFn, arr, 0);
         return top;
     }
@@ -62,11 +62,11 @@ export function createHeap(compareFn) {
         return arr[0];
     }
     return {
-        size: size,
-        fromArray: fromArray,
-        pull: pull,
-        getTop: getTop,
-        insert: function (item) { return insert(compareFn, arr, item); }
+        size,
+        fromArray,
+        pull,
+        getTop,
+        insert: (item) => insert(compareFn, arr, item)
     };
 }
 //# sourceMappingURL=heap.js.map

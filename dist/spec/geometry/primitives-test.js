@@ -12,21 +12,21 @@ describe('geometry primitives', function () {
             expect(split(0.25, [[1, 5], [3, 1]])).to.deep.equal([[[1, 5], [1.5, 4]], [[1.5, 4], [3, 1]]]);
         });
         it('translate', function () {
-            var g = [[1], [2], [3]];
-            var t = translate([4], g);
+            const g = [[1], [2], [3]];
+            const t = translate([4], g);
             expect(t).to.deep.equal([[5], [6], [7]]);
             expect(g).to.not.deep.equal(t);
             expect(translate([4, 4], [[1, 1], [2, 2], [3, 3]])).to.deep.equal([[5, 5], [6, 6], [7, 7]]);
         });
         it('normal', function () {
-            var n = normal([[-1, 1, 0], [0, 1, 0], [0, -1, 0]]);
+            const n = normal([[-1, 1, 0], [0, 1, 0], [0, -1, 0]]);
             expect(n).to.deep.equal([0, 0, 1]);
         });
         it('side', function () {
-            var e = [[0, 0], [0, 1]];
-            var p1 = [1, 0];
-            var p2 = [-1, 0];
-            var p3 = [0, 2];
+            const e = [[0, 0], [0, 1]];
+            const p1 = [1, 0];
+            const p2 = [-1, 0];
+            const p3 = [0, 2];
             expect(side(e, p1)).to.be.greaterThan(0);
             expect(side(e, p2)).to.be.lessThan(0);
             expect(side(e, p3)).to.equal(0);
@@ -34,20 +34,20 @@ describe('geometry primitives', function () {
     });
     describe('rotations', function () {
         it('can happen in place', function () {
-            var g = [[1], [2], [3]];
-            var g1 = rotateLeftInPlace(g);
+            const g = [[1], [2], [3]];
+            const g1 = rotateLeftInPlace(g);
             expect(g1).to.deep.equal([[3], [1], [2]]);
             expect(g1).to.equal(g);
-            var g2 = rotateRightInPlace(g);
+            const g2 = rotateRightInPlace(g);
             expect(g2).to.deep.equal([[1], [2], [3]]);
             expect(g2).to.equal(g);
         });
         it('can happen in place', function () {
-            var g = [[1], [2], [3]];
-            var g1 = rotateLeft(g);
+            const g = [[1], [2], [3]];
+            const g1 = rotateLeft(g);
             expect(g1).to.deep.equal([[3], [1], [2]]);
             expect(g1).to.not.equal(g);
-            var g2 = rotateRight(g);
+            const g2 = rotateRight(g);
             expect(g2).to.deep.equal([[2], [3], [1]]);
             expect(g2).to.not.equal(g);
         });

@@ -9,7 +9,7 @@ describe('math coords', function () {
     });
     it('polarToCartesian2D', function () {
         expect(polarToCartesian2D([100, 0])).to.deep.equal([100, 0]);
-        var cart = polarToCartesian2D([100, Math.PI / 2]);
+        let cart = polarToCartesian2D([100, Math.PI / 2]);
         expect(cart[0] < 0.000001 && cart[0] > -0.000001).to.be.true;
         expect(cart[1]).to.equal(100);
         cart = polarToCartesian2D([100, Math.PI]);

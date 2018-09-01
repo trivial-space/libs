@@ -12,10 +12,10 @@ export function windowSize(callback) {
     };
 }
 export function windowSizeObserver() {
-    var state = {
+    const state = {
         size: { width: 0, height: 0 }
     };
-    var destroy = windowSize(function (s) { return state.size = s; });
-    return { state: state, destroy: destroy };
+    const destroy = windowSize(s => state.size = s);
+    return { state, destroy };
 }
 //# sourceMappingURL=dom.js.map

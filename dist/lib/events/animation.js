@@ -1,6 +1,6 @@
 export function animateWithTPF(callback) {
-    var isRunning = true;
-    var oldTime;
+    let isRunning = true;
+    let oldTime;
     function next(newTime) {
         if (isRunning) {
             callback(newTime - (oldTime || newTime));
@@ -14,7 +14,7 @@ export function animateWithTPF(callback) {
     };
 }
 export function animate(callback) {
-    var isRunning = true;
+    let isRunning = true;
     function next(time) {
         if (isRunning) {
             callback(time);
@@ -26,11 +26,10 @@ export function animate(callback) {
         isRunning = false;
     };
 }
-export function createAnimator(animateFunction) {
-    if (animateFunction === void 0) { animateFunction = animateWithTPF; }
-    var updates = [];
+export function createAnimator(animateFunction = animateWithTPF) {
+    let updates = [];
     function callback() {
-        for (var i in updates) {
+        for (const i in updates) {
             updates[i].apply(null, arguments);
         }
     }
@@ -38,13 +37,13 @@ export function createAnimator(animateFunction) {
         start: function () {
             this.stop = animateFunction(callback);
         },
-        stop: function () { },
+        stop: () => { },
         step: callback,
         addUpdate: function (update) {
             updates.push(update);
         },
         removeUpdate: function (update) {
-            updates = updates.filter(function (u) { return u !== update; });
+            updates = updates.filter(u => u !== update);
         }
     };
 }

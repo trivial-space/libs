@@ -1,21 +1,11 @@
-var __assign = (this && this.__assign) || Object.assign || function(t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-        s = arguments[i];
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-            t[p] = s[p];
-    }
-    return t;
-};
 import { lerp, clamp } from '../math/core';
-export var BLACK = [0, 0, 0, 255];
-export var WHITE = [255, 255, 255, 255];
-export function mixColors(_a, _b) {
-    var r1 = _a[0], g1 = _a[1], b1 = _a[2], a1 = _a[3];
-    var r2 = _b[0], g2 = _b[1], b2 = _b[2], a2 = _b[3];
-    var step = a2 / 255;
-    var r = Math.floor(lerp(step, r1, r2));
-    var g = Math.floor(lerp(step, g1, g2));
-    var b = Math.floor(lerp(step, b1, b2));
+export const BLACK = [0, 0, 0, 255];
+export const WHITE = [255, 255, 255, 255];
+export function mixColors([r1, g1, b1, a1], [r2, g2, b2, a2]) {
+    const step = a2 / 255;
+    const r = Math.floor(lerp(step, r1, r2));
+    const g = Math.floor(lerp(step, g1, g2));
+    const b = Math.floor(lerp(step, b1, b2));
     return [r, g, b, a1];
 }
 export function grey(scale, alpha) {
@@ -24,23 +14,21 @@ export function grey(scale, alpha) {
     }
     return [scale, scale, scale, alpha];
 }
-export function colorRgbaToCSS(_a) {
-    var r = _a[0], g = _a[1], b = _a[2], a = _a[3];
+export function colorRgbaToCSS([r, g, b, a]) {
     return 'rgba(' + r + ', ' + g + ', ' + b + ', ' + (a / 255) + ')';
 }
 export function intToFloat(color) {
-    return color.map(function (v) { return v / 255; });
+    return color.map(v => v / 255);
 }
 export function floatToInt(color) {
-    return color.map(function (v) { return Math.floor(v * 255); });
+    return color.map(v => Math.floor(v * 255));
 }
 export function hexToRgb(hex) {
     hex = Math.floor(hex);
-    var r = (hex >> 16 & 255), g = (hex >> 8 & 255), b = (hex & 255);
+    const r = (hex >> 16 & 255), g = (hex >> 8 & 255), b = (hex & 255);
     return [r, g, b];
 }
-export function rgbToHexString(_a) {
-    var r = _a[0], g = _a[1], b = _a[2];
+export function rgbToHexString([r, g, b]) {
     return '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
 }
 export function hexStringToRgb(s) {
@@ -50,13 +38,12 @@ export function hexStringToRgb(s) {
     }
     return hexToRgb(parseInt(s, 16));
 }
-export function rgbToHSL(_a) {
-    var r = _a[0], g = _a[1], b = _a[2];
-    var cMax = Math.max(r, g, b);
-    var cMin = Math.min(r, g, b);
-    var delta = cMax - cMin;
-    var l = (cMax + cMin) / 2;
-    var h = 0, s = 0;
+export function rgbToHSL([r, g, b]) {
+    const cMax = Math.max(r, g, b);
+    const cMin = Math.min(r, g, b);
+    const delta = cMax - cMin;
+    const l = (cMax + cMin) / 2;
+    let h = 0, s = 0;
     if (delta === 0) {
         h = 0;
     }
@@ -81,12 +68,11 @@ export function rgbToHSL(_a) {
         l: l
     };
 }
-export function hslToRGB(_a) {
-    var h = _a.h, s = _a.s, l = _a.l;
-    var c = (1 - Math.abs(2 * l - 1)) * s;
-    var x = c * (1 - Math.abs((h * 6) % 2 - 1));
-    var m = l - c / 2;
-    var r, g, b;
+export function hslToRGB({ h, s, l }) {
+    const c = (1 - Math.abs(2 * l - 1)) * s;
+    const x = c * (1 - Math.abs((h * 6) % 2 - 1));
+    const m = l - c / 2;
+    let r, g, b;
     if (h < 1 / 6) {
         r = c;
         g = x;
@@ -132,12 +118,12 @@ export function adjustHue(hue) {
     return hue;
 }
 export function updateHue(hsl, degree) {
-    return __assign({}, hsl, { h: adjustHue(hsl.h + degree) });
+    return Object.assign({}, hsl, { h: adjustHue(hsl.h + degree) });
 }
 export function updateSaturation(hsl, delta) {
-    return __assign({}, hsl, { s: clamp(0, 1, hsl.s + delta) });
+    return Object.assign({}, hsl, { s: clamp(0, 1, hsl.s + delta) });
 }
 export function updateLightness(hsl, delta) {
-    return __assign({}, hsl, { l: clamp(0, 1, hsl.l + delta) });
+    return Object.assign({}, hsl, { l: clamp(0, 1, hsl.l + delta) });
 }
 //# sourceMappingURL=colors.js.map

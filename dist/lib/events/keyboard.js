@@ -117,9 +117,9 @@ export var Keys;
     Keys[Keys["META"] = 224] = "META";
 })(Keys || (Keys = {}));
 export function keyboard(opts, callback) {
-    var cb = callback || opts;
-    var _a = opts.element, element = _a === void 0 ? window : _a;
-    var pressed = {};
+    const cb = callback || opts;
+    const { element = window } = opts;
+    const pressed = {};
     function onKeydown(event) {
         pressed[event.keyCode] = Date.now();
         cb(pressed);
@@ -137,10 +137,10 @@ export function keyboard(opts, callback) {
     };
 }
 export function keyboardObserver(opts) {
-    var observer = {
-        Keys: Keys,
+    const observer = {
+        Keys,
         state: { pressed: {} },
-        destroy: function () { }
+        destroy: () => { }
     };
     function callback(pressed) {
         observer.state.pressed = pressed;

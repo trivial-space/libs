@@ -1,17 +1,17 @@
-export var Buttons = {
+export const Buttons = {
     LEFT: 0,
     MIDDLE: 1,
     RIGHT: 2
 };
 export function mouse(opts, callback) {
-    var cb = callback || opts;
-    var _a = opts, _b = _a.element, element = _b === void 0 ? document : _b, enableRightButton = _a.enableRightButton;
-    var state = {
+    const cb = callback || opts;
+    const { element = document, enableRightButton } = opts;
+    const state = {
         pressed: {},
         drag: { x: 0, y: 0, dX: 0, dY: 0 },
         dragging: false
     };
-    var x = 0, y = 0, oX = 0, oY = 0;
+    let x = 0, y = 0, oX = 0, oY = 0;
     function onMouseDown(e) {
         state.pressed[e.button] = e;
         if (e.button === Buttons.LEFT) {
@@ -62,12 +62,11 @@ export function mouse(opts, callback) {
         }
     };
 }
-export function mouseObserver(opts) {
-    if (opts === void 0) { opts = {}; }
-    var observer = {
-        Buttons: Buttons,
+export function mouseObserver(opts = {}) {
+    const observer = {
+        Buttons,
         state: {},
-        destroy: function () { }
+        destroy: () => { }
     };
     function callback(state) {
         observer.state = state;
