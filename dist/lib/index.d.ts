@@ -62,6 +62,7 @@ export declare const datastructures: {
     rbtree: typeof datastructuresRBTree;
     heap: typeof datastructuresHeap;
 };
+export * from './types';
 declare const _default: {
     math: {
         core: typeof mathCore;

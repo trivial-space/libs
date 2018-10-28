@@ -79,5 +79,5 @@ export const datastructures = {
 	heap: datastructuresHeap
 }
 
-
+export * from './types'
 export default { math, events, utils, graphics, fp, geometry, datastructures, algorithms }
