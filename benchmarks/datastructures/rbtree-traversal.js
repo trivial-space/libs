@@ -21,13 +21,13 @@ function traverseWithNext(tree) {
 		sum += node.key
 		node = bintree.next(tree, node)
 	}
-	assert (sum === initialSum)
+	assert(sum === initialSum)
 }
 
 function traverseWithRecursion(tree) {
 	let sum = 0
 	bintree.walkInOrder(tree, tree.root, n => sum += n.key)
-	assert (sum === initialSum)
+	assert(sum === initialSum)
 }
 
 // Performance Test

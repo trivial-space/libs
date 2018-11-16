@@ -15,7 +15,7 @@ export function grey(scale, alpha) {
     return [scale, scale, scale, alpha];
 }
 export function colorRgbaToCSS([r, g, b, a]) {
-    return 'rgba(' + r + ', ' + g + ', ' + b + ', ' + (a / 255) + ')';
+    return 'rgba(' + r + ', ' + g + ', ' + b + ', ' + a / 255 + ')';
 }
 export function intToFloat(color) {
     return color.map(v => v / 255);
@@ -25,7 +25,7 @@ export function floatToInt(color) {
 }
 export function hexToRgb(hex) {
     hex = Math.floor(hex);
-    const r = (hex >> 16 & 255), g = (hex >> 8 & 255), b = (hex & 255);
+    const r = (hex >> 16) & 255, g = (hex >> 8) & 255, b = hex & 255;
     return [r, g, b];
 }
 export function rgbToHexString([r, g, b]) {
@@ -51,16 +51,16 @@ export function rgbToHSL([r, g, b]) {
         h = (((g - b) / delta) % 6) / 6;
     }
     else if (cMax === g) {
-        h = (((b - r) / delta) + 2) / 6;
+        h = ((b - r) / delta + 2) / 6;
     }
     else {
-        h = (((r - g) / delta) + 4) / 6;
+        h = ((r - g) / delta + 4) / 6;
     }
     if (delta === 0) {
         s = 0;
     }
     else {
-        s = (delta / (1 - Math.abs(2 * l - 1)));
+        s = delta / (1 - Math.abs(2 * l - 1));
     }
     return {
         h: adjustHue(h),
@@ -70,7 +70,7 @@ export function rgbToHSL([r, g, b]) {
 }
 export function hslToRGB({ h, s, l }) {
     const c = (1 - Math.abs(2 * l - 1)) * s;
-    const x = c * (1 - Math.abs((h * 6) % 2 - 1));
+    const x = c * (1 - Math.abs(((h * 6) % 2) - 1));
     const m = l - c / 2;
     let r, g, b;
     if (h < 1 / 6) {

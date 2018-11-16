@@ -1,11 +1,16 @@
 import { expect } from 'chai'
 import { N } from '../types'
-import { BinaryTree, walkToRoot, min, walkInOrder, next, prev } from 'datastructures/bintree'
+import {
+	BinaryTree,
+	walkToRoot,
+	min,
+	walkInOrder,
+	next,
+	prev
+} from 'datastructures/bintree'
 import { numericalCompare, stringCompare } from 'algorithms/base'
 
-
 describe('datastructures binary tree', function() {
-
 	describe('numberical', function() {
 		let tree: BinaryTree<N, any>
 
@@ -47,7 +52,7 @@ describe('datastructures binary tree', function() {
 			expect(tree.keys()).to.deep.equal([2, 3, 4])
 		})
 
-		it('can search for a key', function () {
+		it('can search for a key', function() {
 			tree.insert(3)
 			tree.insert(4, 'foo')
 
@@ -56,7 +61,7 @@ describe('datastructures binary tree', function() {
 			expect(tree.get(2)).to.equal(tree.nil)
 		})
 
-		it('can search for a node', function () {
+		it('can search for a node', function() {
 			tree.insert(3)
 			tree.insert(4, 'foo')
 
@@ -65,7 +70,7 @@ describe('datastructures binary tree', function() {
 			expect(n.value).to.equal('foo')
 		})
 
-		it('can retrieve the minimum and maximum', function () {
+		it('can retrieve the minimum and maximum', function() {
 			tree.insert(3)
 			tree.insert(4)
 			tree.insert(2)
@@ -74,7 +79,7 @@ describe('datastructures binary tree', function() {
 			expect(tree.max()).to.equal(4)
 		})
 
-		it('can remove items', function () {
+		it('can remove items', function() {
 			tree.insert(3)
 			tree.insert(4)
 			tree.insert(2)
@@ -102,7 +107,6 @@ describe('datastructures binary tree', function() {
 			expect(tree.size()).to.equal(0)
 			tree.remove(4)
 			expect(tree.size()).to.equal(0)
-
 		})
 	})
 
@@ -121,8 +125,7 @@ describe('datastructures binary tree', function() {
 	})
 
 	describe('functions', function() {
-
-		it ('can walk a tree in order', function() {
+		it('can walk a tree in order', function() {
 			const tree = new BinaryTree(numericalCompare)
 
 			tree.insert(3)
@@ -136,7 +139,7 @@ describe('datastructures binary tree', function() {
 			expect(result).to.deep.equal([1, 2, 3, 4])
 		})
 
-		it ('can find the next and prev node', function() {
+		it('can find the next and prev node', function() {
 			const tree = new BinaryTree(numericalCompare)
 
 			const n3 = tree.insert(3)
@@ -149,7 +152,7 @@ describe('datastructures binary tree', function() {
 			expect(prev(tree, n1)).to.equal(tree.nil)
 		})
 
-		it ('can walk to root', function() {
+		it('can walk to root', function() {
 			const tree = new BinaryTree(numericalCompare)
 
 			tree.insert(4)

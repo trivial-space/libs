@@ -1,7 +1,6 @@
 // compare to https://github.com/vadimg/js_bintrees for reference
 import { CompareFn } from '../algorithms/base'
-import  * as BT from './bintree'
-
+import * as BT from './bintree'
 
 export class RBNode<K = any, V = any> extends BT.Node<K, V> {
 	parent!: RBNode<K, V>
@@ -9,7 +8,7 @@ export class RBNode<K = any, V = any> extends BT.Node<K, V> {
 	right!: RBNode<K, V>
 	red: boolean = true
 
-	constructor (nil: RBNil, key: K, value?: V) {
+	constructor(nil: RBNil, key: K, value?: V) {
 		super(nil, key, value)
 	}
 }
@@ -21,12 +20,10 @@ export interface RBTreeData<K = any, V = any> extends BT.BinaryTreeData<K, V> {
 	nil: RBNil
 }
 
-
 export const rbNil = {
 	...BT.nil,
 	red: false
 } as RBNode<any, any>
-
 
 export function insertFixup(tree: RBTreeData, node: RBNode) {
 	while (node.parent.red) {
@@ -66,7 +63,6 @@ export function insertFixup(tree: RBTreeData, node: RBNode) {
 	}
 	tree.root.red = false
 }
-
 
 export function remove<K>(tree: RBTreeData<K>, node: RBNode<K>) {
 	let y = node
@@ -152,21 +148,21 @@ export function remove<K>(tree: RBTreeData<K>, node: RBNode<K>) {
 	}
 }
 
-
-export class RBTree<K, V> extends BT.BinaryTree<K, V> implements RBTreeData<K, V> {
+export class RBTree<K, V> extends BT.BinaryTree<K, V>
+	implements RBTreeData<K, V> {
 	compare!: CompareFn<K>
 	root!: RBNode<K, V>
 	nil!: RBNil
 
-	constructor (compareFn: CompareFn<K>, newNil: RBNil = rbNil) {
+	constructor(compareFn: CompareFn<K>, newNil: RBNil = rbNil) {
 		super(compareFn, newNil)
 	}
 
-	createNode (key: K, value?: V) {
+	createNode(key: K, value?: V) {
 		return new RBNode(this.nil, key, value)
 	}
 
-	insert (key: K, value?: V) {
+	insert(key: K, value?: V) {
 		const node = this.createNode(key, value)
 		BT.insert(this, node)
 		insertFixup(this, node)
@@ -174,7 +170,7 @@ export class RBTree<K, V> extends BT.BinaryTree<K, V> implements RBTreeData<K, V
 		return node
 	}
 
-	remove (key: K) {
+	remove(key: K) {
 		const node = BT.search(this, this.root, key) as RBNode
 		if (node !== this.nil) {
 			remove(this, node)
@@ -182,4 +178,3 @@ export class RBTree<K, V> extends BT.BinaryTree<K, V> implements RBTreeData<K, V
 		}
 	}
 }
-

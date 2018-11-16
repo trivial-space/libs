@@ -1,14 +1,12 @@
 import { v4 } from 'utils/uuid'
 import { expect } from 'chai'
 
-
 describe('utils UUID', function() {
-
 	it('generates random strings', function() {
 		const u1 = v4(),
-					u2 = v4(),
-					u3 = v4(),
-					u4 = v4()
+			u2 = v4(),
+			u3 = v4(),
+			u4 = v4()
 
 		expect(u1).to.be.a('string')
 		expect(u2).to.be.a('string')

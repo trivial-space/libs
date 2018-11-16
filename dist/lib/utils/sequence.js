@@ -36,8 +36,8 @@ export function shuffle(arr) {
     const shuffled = [];
     for (let i = 0; i < arr.length; i++) {
         const j = randIntInRange(i, arr.length);
-        const temp = (shuffled[i] !== undefined) ? shuffled[i] : arr[i];
-        shuffled[i] = (shuffled[j] !== undefined) ? shuffled[j] : arr[j];
+        const temp = shuffled[i] !== undefined ? shuffled[i] : arr[i];
+        shuffled[i] = shuffled[j] !== undefined ? shuffled[j] : arr[j];
         shuffled[j] = temp;
     }
     return shuffled;

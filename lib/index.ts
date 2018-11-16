@@ -23,7 +23,6 @@ import * as utilsPredicates from './utils/predicates'
 import * as utilsSequence from './utils/sequence'
 import * as utilsUUID from './utils/uuid'
 
-
 export const math = {
 	core: mathCore,
 	noise: mathNoise,
@@ -33,14 +32,12 @@ export const math = {
 	random: mathRandom
 }
 
-
 export const events = {
 	dom: eventsDom,
 	mouse: eventsMouse,
 	keyboard: eventsKey,
 	animation: eventsAnimation
 }
-
 
 export const utils = {
 	uuid: utilsUUID,
@@ -49,11 +46,9 @@ export const utils = {
 	object: utilsObject
 }
 
-
 export const fp = {
 	core: fpCore
 }
-
 
 export const graphics = {
 	colors: graphicsColors,
@@ -61,17 +56,14 @@ export const graphics = {
 	textures: graphicsTextures
 }
 
-
 export const geometry = {
 	primitives: geometryPrimitives,
 	quad: geometryQuad
 }
 
-
 export const algorithms = {
 	base: algorithmsBase
 }
-
 
 export const datastructures = {
 	bintree: datastructuresBintree,
@@ -80,4 +72,13 @@ export const datastructures = {
 }
 
 export * from './types'
-export default { math, events, utils, graphics, fp, geometry, datastructures, algorithms }
+export default {
+	math,
+	events,
+	utils,
+	graphics,
+	fp,
+	geometry,
+	datastructures,
+	algorithms
+}

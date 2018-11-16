@@ -166,7 +166,8 @@ describe('utils object', function () {
                     }
                 }
             };
-            const result = deepOverride(obj1, obj2, { ignore: {
+            const result = deepOverride(obj1, obj2, {
+                ignore: {
                     kuku: true,
                     foo: {
                         kuku: true,
@@ -175,7 +176,8 @@ describe('utils object', function () {
                             lala: true
                         }
                     }
-                } });
+                }
+            });
             expect(result).to.deep.equal({
                 kuku: 1,
                 foo: {

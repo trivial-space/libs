@@ -4,11 +4,11 @@
 //     MIT License - http://opensource.org/licenses/mit-license.php
 const _rnds = new Array(16)
 
-function _rng () {
+function _rng() {
 	for (let i = 0, r; i < 16; i++) {
 		if ((i & 0x03) === 0) {
 			r = Math.random() * 0x100000000
-			_rnds[i] = r >>> ((i & 0x03) << 3) & 0xff
+			_rnds[i] = (r >>> ((i & 0x03) << 3)) & 0xff
 		}
 	}
 
@@ -24,21 +24,35 @@ for (let i = 0; i < 256; i++) {
 }
 
 // **`unparse()` - Convert UUID byte array (ala parse()) into a string**
-function unparse (buf: number[]) {
+function unparse(buf: number[]) {
 	const bth = _byteToHex
 	let i = 0
-	return bth[buf[i++]] + bth[buf[i++]] +
-		bth[buf[i++]] + bth[buf[i++]] + '-' +
-		bth[buf[i++]] + bth[buf[i++]] + '-' +
-		bth[buf[i++]] + bth[buf[i++]] + '-' +
-		bth[buf[i++]] + bth[buf[i++]] + '-' +
-		bth[buf[i++]] + bth[buf[i++]] +
-		bth[buf[i++]] + bth[buf[i++]] +
-		bth[buf[i++]] + bth[buf[i++]]
+	return (
+		bth[buf[i++]] +
+		bth[buf[i++]] +
+		bth[buf[i++]] +
+		bth[buf[i++]] +
+		'-' +
+		bth[buf[i++]] +
+		bth[buf[i++]] +
+		'-' +
+		bth[buf[i++]] +
+		bth[buf[i++]] +
+		'-' +
+		bth[buf[i++]] +
+		bth[buf[i++]] +
+		'-' +
+		bth[buf[i++]] +
+		bth[buf[i++]] +
+		bth[buf[i++]] +
+		bth[buf[i++]] +
+		bth[buf[i++]] +
+		bth[buf[i++]]
+	)
 }
 
 // **`v4()` - Generate random UUID**
-export function v4 () {
+export function v4() {
 	// Deprecated - 'format' argument, as supported in v1.2
 	const rnds = _rng()
 	// Per 4.4, set bits for version and `clock_seq_hi_and_reserved`

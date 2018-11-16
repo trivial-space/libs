@@ -4,34 +4,35 @@ export const Buttons = {
 	RIGHT: 2
 }
 
-
 export interface MouseState {
 	pressed: { [btn: number]: MouseEvent }
 	drag: {
-		x: number,
-		y: number,
-		dX: number,
+		x: number
+		y: number
+		dX: number
 		dY: number
 		event?: MouseEvent
-	},
+	}
 	dragging: boolean
 }
 
 export interface MouseOpts {
-	element?: HTMLElement,
+	element?: HTMLElement
 	enableRightButton?: boolean
 }
 
-export function mouse (callback: (val: MouseState) => void): () => void
-export function mouse (opts: MouseOpts , callback: (val: MouseState) => void): () => void
-export function mouse (opts: MouseOpts | ((val: MouseState) => void), callback?: (val: MouseState) => void) {
+export function mouse(callback: (val: MouseState) => void): () => void
+export function mouse(
+	opts: MouseOpts,
+	callback: (val: MouseState) => void
+): () => void
+export function mouse(
+	opts: MouseOpts | ((val: MouseState) => void),
+	callback?: (val: MouseState) => void
+) {
+	const cb = callback || (opts as (val: MouseState) => void)
 
-	const cb = callback || opts as (val: MouseState) => void
-
-	const {
-		element = document,
-		enableRightButton
-	} = opts as MouseOpts
+	const { element = document, enableRightButton } = opts as MouseOpts
 
 	const state: MouseState = {
 		pressed: {},
@@ -41,11 +42,10 @@ export function mouse (opts: MouseOpts | ((val: MouseState) => void), callback?:
 
 	let x = 0,
 		y = 0,
-		oX = 0, oY = 0
+		oX = 0,
+		oY = 0
 
-
-	function onMouseDown (e: MouseEvent) {
-
+	function onMouseDown(e: MouseEvent) {
 		state.pressed[e.button] = e
 
 		if (e.button === Buttons.LEFT) {
@@ -57,9 +57,7 @@ export function mouse (opts: MouseOpts | ((val: MouseState) => void), callback?:
 		cb(state)
 	}
 
-
-	function onMouseUp (e: MouseEvent) {
-
+	function onMouseUp(e: MouseEvent) {
 		delete state.pressed[e.button]
 		delete state.drag.event
 
@@ -72,10 +70,8 @@ export function mouse (opts: MouseOpts | ((val: MouseState) => void), callback?:
 		cb(state)
 	}
 
-
-	function onMouseMove (e: MouseEvent) {
+	function onMouseMove(e: MouseEvent) {
 		if (state.dragging) {
-
 			state.drag.event = e
 
 			state.drag.x = x - e.clientX
@@ -90,11 +86,9 @@ export function mouse (opts: MouseOpts | ((val: MouseState) => void), callback?:
 		}
 	}
 
-
-	function preventDefault (e: Event) {
+	function preventDefault(e: Event) {
 		e.preventDefault()
 	}
-
 
 	element.addEventListener('mousedown', onMouseDown as EventListener)
 	document.addEventListener('mouseup', onMouseUp)
@@ -106,7 +100,7 @@ export function mouse (opts: MouseOpts | ((val: MouseState) => void), callback?:
 
 	cb(state)
 
-	return function destroy () {
+	return function destroy() {
 		element.removeEventListener('mousedown', onMouseDown as EventListener)
 		document.removeEventListener('mousemove', onMouseMove)
 		document.removeEventListener('mouseup', onMouseUp)
@@ -116,23 +110,20 @@ export function mouse (opts: MouseOpts | ((val: MouseState) => void), callback?:
 	}
 }
 
-
 export interface MouseObserver {
-	Buttons: typeof Buttons,
-	state: MouseState,
+	Buttons: typeof Buttons
+	state: MouseState
 	destroy: () => void
 }
 
-
-export function mouseObserver (opts: any = {}): MouseObserver {
-
+export function mouseObserver(opts: any = {}): MouseObserver {
 	const observer: MouseObserver = {
 		Buttons,
 		state: {} as MouseState,
-		destroy: () => { }
+		destroy: () => {}
 	}
 
-	function callback (state: MouseState) {
+	function callback(state: MouseState) {
 		observer.state = state
 	}
 

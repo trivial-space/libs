@@ -1,17 +1,14 @@
 import { tileNoise } from '../math/noise'
 
-
-function to8Bit (noise: number) {
+function to8Bit(noise: number) {
 	return Math.floor((noise + 1) * 127)
 }
 
-
-export function drawTileNoiseTexture (
+export function drawTileNoiseTexture(
 	startX: number,
 	startY: number,
 	ctx: CanvasRenderingContext2D
 ): void {
-
 	const width = ctx.canvas.width
 	const height = ctx.canvas.height
 	const noise1 = tileNoise(width, height, startX, startY)

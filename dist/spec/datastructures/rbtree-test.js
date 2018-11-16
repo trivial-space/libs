@@ -83,8 +83,7 @@ describe('datastructures red black tree', function () {
     });
     describe('red black property', function () {
         it('tree height is always max log(n) * 2 and has same black node count', function () {
-            const numbers = times(Math.random, 100)
-                .map(n => Math.floor(n * 100));
+            const numbers = times(Math.random, 100).map(n => Math.floor(n * 100));
             const tree = new RBTree(numericalCompare);
             let count = 0;
             for (const n of numbers) {

@@ -3,9 +3,7 @@ import { expect } from 'chai'
 import { N, S } from '../types'
 import { numericalCompare } from 'algorithms/base'
 
-
 describe('datastructures heap', function() {
-
 	describe('maxHeap', function() {
 		let heap: Heap<N>
 
@@ -56,7 +54,6 @@ describe('datastructures heap', function() {
 			expect(heap.pull()).to.equal(3)
 		})
 
-
 		it('returns undefined on pulling on empty heap', function() {
 			expect(heap.pull()).to.be.undefined
 			expect(heap.pull()).to.be.undefined
@@ -65,7 +62,6 @@ describe('datastructures heap', function() {
 			expect(heap.size()).to.equal(0)
 		})
 	})
-
 
 	it('can build heaps with custom compare functions', function() {
 		const minHeap = createHeap((p: N, c: N) => c - p)
@@ -86,7 +82,6 @@ describe('datastructures heap', function() {
 
 		expect(minHeap.pull()).to.equal(10)
 		expect(minHeap.size()).to.equal(0)
-
 
 		const stringHeap = createHeap((p: S, c: S) => p.localeCompare(c))
 		stringHeap.fromArray(['z', 'f'])
@@ -112,4 +107,3 @@ describe('datastructures heap', function() {
 		expect(stringHeap.size()).to.equal(0)
 	})
 })
-

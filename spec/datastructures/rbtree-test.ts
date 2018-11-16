@@ -5,9 +5,7 @@ import { numericalCompare, stringCompare } from 'algorithms/base'
 import { times, shuffle } from 'utils/sequence'
 import { min, walkInOrder, walkToRoot } from 'datastructures/bintree'
 
-
 describe('datastructures red black tree', function() {
-
 	describe('numberical', function() {
 		let tree: RBTree<N, any>
 
@@ -40,7 +38,7 @@ describe('datastructures red black tree', function() {
 			expect(tree.keys()).to.deep.equal([2, 3, 4])
 		})
 
-		it('can search for a key', function () {
+		it('can search for a key', function() {
 			tree.insert(3)
 			tree.insert(4, 'foo')
 
@@ -49,7 +47,7 @@ describe('datastructures red black tree', function() {
 			expect(tree.get(2)).to.equal(tree.nil)
 		})
 
-		it('can retrieve the minimum and maximum', function () {
+		it('can retrieve the minimum and maximum', function() {
 			tree.insert(3)
 			tree.insert(4)
 			tree.insert(2)
@@ -58,7 +56,7 @@ describe('datastructures red black tree', function() {
 			expect(tree.max()).to.equal(4)
 		})
 
-		it('can remove items', function () {
+		it('can remove items', function() {
 			tree.insert(3)
 			tree.insert(4)
 			tree.insert(2)
@@ -86,7 +84,6 @@ describe('datastructures red black tree', function() {
 			expect(tree.size()).to.equal(0)
 			tree.remove(4)
 			expect(tree.size()).to.equal(0)
-
 		})
 	})
 
@@ -106,8 +103,7 @@ describe('datastructures red black tree', function() {
 
 	describe('red black property', function() {
 		it('tree height is always max log(n) * 2 and has same black node count', function() {
-			const numbers = times(Math.random, 100)
-				.map(n => Math.floor(n * 100))
+			const numbers = times(Math.random, 100).map(n => Math.floor(n * 100))
 
 			const tree = new RBTree(numericalCompare)
 
@@ -137,7 +133,9 @@ describe('datastructures red black tree', function() {
 						})
 
 						expect(blackCount).to.equal(minBlackCount)
-						expect(height).to.be.lessThan(Math.floor(Math.log2(count + 1) * 2 + 1))
+						expect(height).to.be.lessThan(
+							Math.floor(Math.log2(count + 1) * 2 + 1)
+						)
 					}
 				})
 			}
@@ -170,11 +168,12 @@ describe('datastructures red black tree', function() {
 						})
 
 						expect(blackCount).to.equal(minBlackCount)
-						expect(height).to.be.lessThan(Math.floor(Math.log2(count + 1) * 2 + 1))
+						expect(height).to.be.lessThan(
+							Math.floor(Math.log2(count + 1) * 2 + 1)
+						)
 					}
 				})
 			}
 		})
 	})
 })
-

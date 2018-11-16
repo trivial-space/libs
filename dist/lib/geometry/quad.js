@@ -39,6 +39,6 @@ export function divideVertical(topRatio, bottomRatio, [v1, v2, v3, v4]) {
 }
 export const quadTriangles = [[0, 2, 1], [0, 3, 2]];
 export function triangulate(quadCount) {
-    return flatten(times(i => quadTriangles.map((t => t.map(j => 4 * i + j))), quadCount));
+    return flatten(times(i => quadTriangles.map(t => t.map(j => 4 * i + j)), quadCount));
 }
 //# sourceMappingURL=quad.js.map

@@ -3,7 +3,7 @@ function _rng() {
     for (let i = 0, r; i < 16; i++) {
         if ((i & 0x03) === 0) {
             r = Math.random() * 0x100000000;
-            _rnds[i] = r >>> ((i & 0x03) << 3) & 0xff;
+            _rnds[i] = (r >>> ((i & 0x03) << 3)) & 0xff;
         }
     }
     return _rnds;
@@ -17,14 +17,26 @@ for (let i = 0; i < 256; i++) {
 function unparse(buf) {
     const bth = _byteToHex;
     let i = 0;
-    return bth[buf[i++]] + bth[buf[i++]] +
-        bth[buf[i++]] + bth[buf[i++]] + '-' +
-        bth[buf[i++]] + bth[buf[i++]] + '-' +
-        bth[buf[i++]] + bth[buf[i++]] + '-' +
-        bth[buf[i++]] + bth[buf[i++]] + '-' +
-        bth[buf[i++]] + bth[buf[i++]] +
-        bth[buf[i++]] + bth[buf[i++]] +
-        bth[buf[i++]] + bth[buf[i++]];
+    return (bth[buf[i++]] +
+        bth[buf[i++]] +
+        bth[buf[i++]] +
+        bth[buf[i++]] +
+        '-' +
+        bth[buf[i++]] +
+        bth[buf[i++]] +
+        '-' +
+        bth[buf[i++]] +
+        bth[buf[i++]] +
+        '-' +
+        bth[buf[i++]] +
+        bth[buf[i++]] +
+        '-' +
+        bth[buf[i++]] +
+        bth[buf[i++]] +
+        bth[buf[i++]] +
+        bth[buf[i++]] +
+        bth[buf[i++]] +
+        bth[buf[i++]]);
 }
 export function v4() {
     const rnds = _rng();

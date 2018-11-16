@@ -2,11 +2,8 @@ import { curry, partial } from 'fp/core'
 import { expect } from 'chai'
 import { N, S } from '../types'
 
-
 describe('functional programming core', function() {
-
 	describe('curry', function() {
-
 		it('curries a 2 argument function', function() {
 			const fn = (a: N, b: N) => a + b
 
@@ -20,9 +17,7 @@ describe('functional programming core', function() {
 		})
 	})
 
-
 	describe('partial', function() {
-
 		it('patrially applies arguments to a function', function() {
 			const fn = (a: N, b: N) => a + b
 			const fn2 = (a: S, b: S, c: S) => a + b + c
@@ -39,5 +34,3 @@ describe('functional programming core', function() {
 		})
 	})
 })
-
-

@@ -1,9 +1,10 @@
 export class Node {
     constructor(nil, key, value) {
-        this.parent = nil,
-            this.left = nil,
-            this.right = nil,
-            this.key = key;
+        ;
+        (this.parent = nil),
+            (this.left = nil),
+            (this.right = nil),
+            (this.key = key);
         this.value = value;
     }
 }

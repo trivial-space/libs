@@ -9,14 +9,21 @@ describe('geometry primitives', function () {
         });
         it('split', function () {
             expect(split(0.5, [[1], [3]])).to.deep.equal([[[1], [2]], [[2], [3]]]);
-            expect(split(0.25, [[1, 5], [3, 1]])).to.deep.equal([[[1, 5], [1.5, 4]], [[1.5, 4], [3, 1]]]);
+            expect(split(0.25, [[1, 5], [3, 1]])).to.deep.equal([
+                [[1, 5], [1.5, 4]],
+                [[1.5, 4], [3, 1]]
+            ]);
         });
         it('translate', function () {
             const g = [[1], [2], [3]];
             const t = translate([4], g);
             expect(t).to.deep.equal([[5], [6], [7]]);
             expect(g).to.not.deep.equal(t);
-            expect(translate([4, 4], [[1, 1], [2, 2], [3, 3]])).to.deep.equal([[5, 5], [6, 6], [7, 7]]);
+            expect(translate([4, 4], [[1, 1], [2, 2], [3, 3]])).to.deep.equal([
+                [5, 5],
+                [6, 6],
+                [7, 7]
+            ]);
         });
         it('normal', function () {
             const n = normal([[-1, 1, 0], [0, 1, 0], [0, -1, 0]]);

@@ -1,6 +1,5 @@
 import { CompareFn } from '../algorithms/base'
 
-
 export interface Heap<T> {
 	insert: (item: T) => void
 	getTop: () => T
@@ -9,19 +8,17 @@ export interface Heap<T> {
 	fromArray: (items: T[]) => void
 }
 
-
-export function parentIndex (currentIndex: number) {
+export function parentIndex(currentIndex: number) {
 	return Math.floor(currentIndex / 2)
 }
 
-export function rightIndex (currentIndex: number) {
+export function rightIndex(currentIndex: number) {
 	return currentIndex * 2 + 1
 }
 
-export function leftIndex (currentIndex: number) {
+export function leftIndex(currentIndex: number) {
 	return currentIndex * 2
 }
-
 
 function swap(i: number, j: number, arr: any[]) {
 	const temp = arr[i]
@@ -29,8 +26,7 @@ function swap(i: number, j: number, arr: any[]) {
 	arr[j] = temp
 }
 
-
-export function heapifyAt<T> (compareFn: CompareFn<T>, arr: T[], i: number) {
+export function heapifyAt<T>(compareFn: CompareFn<T>, arr: T[], i: number) {
 	const l = leftIndex(i)
 	const r = rightIndex(i)
 	let top = i
@@ -46,15 +42,13 @@ export function heapifyAt<T> (compareFn: CompareFn<T>, arr: T[], i: number) {
 	}
 }
 
-
-export function heapify<T> (compareFn: CompareFn<T>, arr: T[]) {
+export function heapify<T>(compareFn: CompareFn<T>, arr: T[]) {
 	for (let i = Math.floor((arr.length - 1) / 2); i >= 0; i--) {
 		heapifyAt(compareFn, arr, i)
 	}
 }
 
-
-export function insert<T> (compareFn: CompareFn<T>, arr: T[], item: T) {
+export function insert<T>(compareFn: CompareFn<T>, arr: T[], item: T) {
 	arr.push(item)
 	if (arr.length > 1) {
 		let i = arr.length - 1
@@ -67,11 +61,10 @@ export function insert<T> (compareFn: CompareFn<T>, arr: T[], item: T) {
 	}
 }
 
-
-export function createHeap<T> (compareFn: CompareFn<T>) {
+export function createHeap<T>(compareFn: CompareFn<T>) {
 	let arr: T[] = []
 
-	function size () {
+	function size() {
 		return arr.length
 	}
 

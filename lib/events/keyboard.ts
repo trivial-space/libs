@@ -116,28 +116,29 @@ export enum Keys {
 	META = 224
 }
 
-
 export type KeyState = { [key: number]: number }
 
-
-export function keyboard (callback: (val: KeyState) => void): () => void
-export function keyboard (opts: any, callback: (val: KeyState) => void): () => void
-export function keyboard (opts: any, callback?: (val: KeyState) => void): () => void {
-
+export function keyboard(callback: (val: KeyState) => void): () => void
+export function keyboard(
+	opts: any,
+	callback: (val: KeyState) => void
+): () => void
+export function keyboard(
+	opts: any,
+	callback?: (val: KeyState) => void
+): () => void {
 	const cb = callback || opts
 
-	const {
-		element = window
-  } = opts
+	const { element = window } = opts
 
 	const pressed: KeyState = {}
 
-	function onKeydown (event: KeyboardEvent) {
+	function onKeydown(event: KeyboardEvent) {
 		pressed[event.keyCode] = Date.now()
 		cb(pressed)
 	}
 
-	function onKeyup (event: KeyboardEvent) {
+	function onKeyup(event: KeyboardEvent) {
 		delete pressed[event.keyCode]
 		cb(pressed)
 	}
@@ -147,12 +148,11 @@ export function keyboard (opts: any, callback?: (val: KeyState) => void): () => 
 
 	cb(pressed)
 
-	return function stop () {
+	return function stop() {
 		element.removeEventListener('keyup', onKeyup)
 		element.removeEventListener('keydown', onKeydown)
 	}
 }
-
 
 export interface KeyObserver {
 	Keys: typeof Keys
@@ -162,15 +162,14 @@ export interface KeyObserver {
 	destroy: () => void
 }
 
-export function keyboardObserver (opts?: any): KeyObserver {
-
+export function keyboardObserver(opts?: any): KeyObserver {
 	const observer: KeyObserver = {
 		Keys,
 		state: { pressed: {} as KeyState },
-		destroy: () => { }
+		destroy: () => {}
 	}
 
-	function callback (pressed: KeyState) {
+	function callback(pressed: KeyState) {
 		observer.state.pressed = pressed
 	}
 

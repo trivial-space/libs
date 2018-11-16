@@ -1,14 +1,11 @@
 import { ColorRGBA, mixColors } from './colors'
 
-
 export type Position = [number, number]
 
-
-export function repeatedPosition (
+export function repeatedPosition(
 	[x, y]: Position,
 	imgData: ImageData
 ): Position {
-
 	const w = imgData.width
 	const h = imgData.height
 	if (x >= w) {
@@ -26,12 +23,7 @@ export function repeatedPosition (
 	return [x, y]
 }
 
-
-export function closedPosition (
-	[x, y]: Position,
-	imgData: ImageData
-): Position {
-
+export function closedPosition([x, y]: Position, imgData: ImageData): Position {
 	const w = imgData.width
 	const h = imgData.height
 	if (x < 0) {
@@ -49,29 +41,17 @@ export function closedPosition (
 	return [x, y]
 }
 
-
-export function createPixelContext (
+export function createPixelContext(
 	adjustPos: (pos: Position, imgData: ImageData) => Position
 ) {
-
 	adjustPos = adjustPos || closedPosition
 
-
-	function getPixelIndex (
-		imgData: ImageData,
-		pos: Position
-	): number {
-
+	function getPixelIndex(imgData: ImageData, pos: Position): number {
 		const [x, y] = adjustPos(pos, imgData)
 		return (y * imgData.height + x) * 4
 	}
 
-
-	function getColorAt (
-		imgData: ImageData,
-		pos: Position
-	): ColorRGBA {
-
+	function getColorAt(imgData: ImageData, pos: Position): ColorRGBA {
 		const i = getPixelIndex(imgData, pos)
 		return [
 			imgData.data[i],
@@ -81,12 +61,11 @@ export function createPixelContext (
 		]
 	}
 
-	function setColorAt (
+	function setColorAt(
 		imgData: ImageData,
 		pos: Position,
 		color: ColorRGBA
 	): void {
-
 		const i = getPixelIndex(imgData, pos)
 		imgData.data[i] = color[0]
 		imgData.data[i + 1] = color[1]
@@ -94,12 +73,7 @@ export function createPixelContext (
 		imgData.data[i + 3] = color[3]
 	}
 
-
-	function increaseAllBy (
-		imgData: ImageData,
-		[r, g, b, a]: ColorRGBA
-	): void {
-
+	function increaseAllBy(imgData: ImageData, [r, g, b, a]: ColorRGBA): void {
 		const d = imgData.data
 
 		for (let i = 0; i < d.length; i += 4) {
@@ -118,11 +92,7 @@ export function createPixelContext (
 		}
 	}
 
-	function decreaseAllBy (
-		imgData: ImageData,
-		[r, g, b, a]: ColorRGBA
-	): void {
-
+	function decreaseAllBy(imgData: ImageData, [r, g, b, a]: ColorRGBA): void {
 		const d = imgData.data
 		for (let i = 0; i <= d.length; i += 4) {
 			if (r <= d[i]) {
@@ -140,20 +110,19 @@ export function createPixelContext (
 		}
 	}
 
-
-	function mixinColor (
-		imgData: ImageData,
-		color: ColorRGBA
-	): void {
+	function mixinColor(imgData: ImageData, color: ColorRGBA): void {
 		for (let x = 0; x < imgData.width; x++) {
 			for (let y = 0; x < imgData.height; y++) {
-				setColorAt(imgData, [x, y], mixColors(getColorAt(imgData, [x, y]), color))
+				setColorAt(
+					imgData,
+					[x, y],
+					mixColors(getColorAt(imgData, [x, y]), color)
+				)
 			}
 		}
 	}
 
-
-	function replaceWithImageDataAt (
+	function replaceWithImageDataAt(
 		imgData: ImageData,
 		imgData2: ImageData,
 		[x, y]: Position
@@ -167,8 +136,7 @@ export function createPixelContext (
 		}
 	}
 
-
-	function drawImageAt (
+	function drawImageAt(
 		imgData: ImageData,
 		imgData2: ImageData,
 		[x, y]: Position
@@ -178,7 +146,8 @@ export function createPixelContext (
 		for (let j = 0; j < h; j++) {
 			for (let i = 0; i < w; i++) {
 				setColorAt(
-					imgData, [x + i, y + j],
+					imgData,
+					[x + i, y + j],
 					mixColors(
 						getColorAt(imgData, [x + i, y + j]),
 						getColorAt(imgData2, [i, j])
@@ -187,7 +156,6 @@ export function createPixelContext (
 			}
 		}
 	}
-
 
 	return {
 		getPixelIndex,
@@ -201,8 +169,7 @@ export function createPixelContext (
 	}
 }
 
-
-export function createImgDataFromImage (img: HTMLImageElement) {
+export function createImgDataFromImage(img: HTMLImageElement) {
 	const c = document.createElement('canvas')
 	c.width = img.width
 	c.height = img.height

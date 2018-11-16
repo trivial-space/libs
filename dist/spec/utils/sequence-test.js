@@ -22,7 +22,9 @@ describe('utils sequence', function () {
             const coll = { foo: 1, bar: 3, baz: 5 };
             const fn = (x) => x + 2;
             expect(map(fn, coll)).to.deep.equal({
-                foo: 3, bar: 5, baz: 7
+                foo: 3,
+                bar: 5,
+                baz: 7
             });
         });
     });
@@ -40,10 +42,12 @@ describe('utils sequence', function () {
         it('maps over objects', function () {
             const coll = { foo: 1, bar: 3, baz: 5 };
             const res = {};
-            const fn = (x, k) => res[k] = x + 2;
+            const fn = (x, k) => (res[k] = x + 2);
             each(fn, coll);
             expect(res).to.deep.equal({
-                foo: 3, bar: 5, baz: 7
+                foo: 3,
+                bar: 5,
+                baz: 7
             });
         });
     });

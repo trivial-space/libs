@@ -62,5 +62,14 @@ export const datastructures = {
     rbtree: datastructuresRBTree,
     heap: datastructuresHeap
 };
-export default { math, events, utils, graphics, fp, geometry, datastructures, algorithms };
+export default {
+    math,
+    events,
+    utils,
+    graphics,
+    fp,
+    geometry,
+    datastructures,
+    algorithms
+};
 //# sourceMappingURL=index.js.map

@@ -1,7 +1,263 @@
 import { lerp } from './core'
 
-
-const p1 = [151, 160, 137, 91, 90, 15, 131, 13, 201, 95, 96, 53, 194, 233, 7, 225, 140, 36, 103, 30, 69, 142, 8, 99, 37, 240, 21, 10, 23, 190, 6, 148, 247, 120, 234, 75, 0, 26, 197, 62, 94, 252, 219, 203, 117, 35, 11, 32, 57, 177, 33, 88, 237, 149, 56, 87, 174, 20, 125, 136, 171, 168, 68, 175, 74, 165, 71, 134, 139, 48, 27, 166, 77, 146, 158, 231, 83, 111, 229, 122, 60, 211, 133, 230, 220, 105, 92, 41, 55, 46, 245, 40, 244, 102, 143, 54, 65, 25, 63, 161, 1, 216, 80, 73, 209, 76, 132, 187, 208, 89, 18, 169, 200, 196, 135, 130, 116, 188, 159, 86, 164, 100, 109, 198, 173, 186, 3, 64, 52, 217, 226, 250, 124, 123, 5, 202, 38, 147, 118, 126, 255, 82, 85, 212, 207, 206, 59, 227, 47, 16, 58, 17, 182, 189, 28, 42, 223, 183, 170, 213, 119, 248, 152, 2, 44, 154, 163, 70, 221, 153, 101, 155, 167, 43, 172, 9, 129, 22, 39, 253, 19, 98, 108, 110, 79, 113, 224, 232, 178, 185, 112, 104, 218, 246, 97, 228, 251, 34, 242, 193, 238, 210, 144, 12, 191, 179, 162, 241, 81, 51, 145, 235, 249, 14, 239, 107, 49, 192, 214, 31, 181, 199, 106, 157, 184, 84, 204, 176, 115, 121, 50, 45, 127, 4, 150, 254, 138, 236, 205, 93, 222, 114, 67, 29, 24, 72, 243, 141, 128, 195, 78, 66, 215, 61, 156, 180]
+const p1 = [
+	151,
+	160,
+	137,
+	91,
+	90,
+	15,
+	131,
+	13,
+	201,
+	95,
+	96,
+	53,
+	194,
+	233,
+	7,
+	225,
+	140,
+	36,
+	103,
+	30,
+	69,
+	142,
+	8,
+	99,
+	37,
+	240,
+	21,
+	10,
+	23,
+	190,
+	6,
+	148,
+	247,
+	120,
+	234,
+	75,
+	0,
+	26,
+	197,
+	62,
+	94,
+	252,
+	219,
+	203,
+	117,
+	35,
+	11,
+	32,
+	57,
+	177,
+	33,
+	88,
+	237,
+	149,
+	56,
+	87,
+	174,
+	20,
+	125,
+	136,
+	171,
+	168,
+	68,
+	175,
+	74,
+	165,
+	71,
+	134,
+	139,
+	48,
+	27,
+	166,
+	77,
+	146,
+	158,
+	231,
+	83,
+	111,
+	229,
+	122,
+	60,
+	211,
+	133,
+	230,
+	220,
+	105,
+	92,
+	41,
+	55,
+	46,
+	245,
+	40,
+	244,
+	102,
+	143,
+	54,
+	65,
+	25,
+	63,
+	161,
+	1,
+	216,
+	80,
+	73,
+	209,
+	76,
+	132,
+	187,
+	208,
+	89,
+	18,
+	169,
+	200,
+	196,
+	135,
+	130,
+	116,
+	188,
+	159,
+	86,
+	164,
+	100,
+	109,
+	198,
+	173,
+	186,
+	3,
+	64,
+	52,
+	217,
+	226,
+	250,
+	124,
+	123,
+	5,
+	202,
+	38,
+	147,
+	118,
+	126,
+	255,
+	82,
+	85,
+	212,
+	207,
+	206,
+	59,
+	227,
+	47,
+	16,
+	58,
+	17,
+	182,
+	189,
+	28,
+	42,
+	223,
+	183,
+	170,
+	213,
+	119,
+	248,
+	152,
+	2,
+	44,
+	154,
+	163,
+	70,
+	221,
+	153,
+	101,
+	155,
+	167,
+	43,
+	172,
+	9,
+	129,
+	22,
+	39,
+	253,
+	19,
+	98,
+	108,
+	110,
+	79,
+	113,
+	224,
+	232,
+	178,
+	185,
+	112,
+	104,
+	218,
+	246,
+	97,
+	228,
+	251,
+	34,
+	242,
+	193,
+	238,
+	210,
+	144,
+	12,
+	191,
+	179,
+	162,
+	241,
+	81,
+	51,
+	145,
+	235,
+	249,
+	14,
+	239,
+	107,
+	49,
+	192,
+	214,
+	31,
+	181,
+	199,
+	106,
+	157,
+	184,
+	84,
+	204,
+	176,
+	115,
+	121,
+	50,
+	45,
+	127,
+	4,
+	150,
+	254,
+	138,
+	236,
+	205,
+	93,
+	222,
+	114,
+	67,
+	29,
+	24,
+	72,
+	243,
+	141,
+	128,
+	195,
+	78,
+	66,
+	215,
+	61,
+	156,
+	180
+]
 
 for (let i = 0; i <= 256; i++) {
 	p1[256 + i] = p1[i]
@@ -27,7 +283,6 @@ export function noise1d(x: number) {
 	u = fade(x)
 	return lerp(u, grad(p1[X], x), grad(p1[X + 1], x - 1))
 }
-
 
 /*
  * A fast javascript implementation of simplex noise by Jonas Wagner
@@ -67,8 +322,6 @@ const F2 = 0.5 * (Math.sqrt(3.0) - 1.0),
 	G3 = 1.0 / 6.0,
 	F4 = (Math.sqrt(5.0) - 1.0) / 4.0,
 	G4 = (5.0 - Math.sqrt(5.0)) / 20.0,
-
-
 	p = new Uint8Array(256),
 	perm = new Uint8Array(512),
 	permMod12 = new Uint8Array(512)
@@ -83,37 +336,182 @@ for (let i = 0; i < 512; i++) {
 }
 
 const grad3 = new Float32Array([
-	1, 1, 0,
-	-1, 1, 0,
-	1, -1, 0,
+	1,
+	1,
+	0,
+	-1,
+	1,
+	0,
+	1,
+	-1,
+	0,
 
-	-1, -1, 0,
-	1, 0, 1,
-	-1, 0, 1,
+	-1,
+	-1,
+	0,
+	1,
+	0,
+	1,
+	-1,
+	0,
+	1,
 
-	1, 0, -1,
-	-1, 0, -1,
-	0, 1, 1,
+	1,
+	0,
+	-1,
+	-1,
+	0,
+	-1,
+	0,
+	1,
+	1,
 
-	0, -1, 1,
-	0, 1, -1,
-	0, -1, -1
+	0,
+	-1,
+	1,
+	0,
+	1,
+	-1,
+	0,
+	-1,
+	-1
 ])
 
 const grad4 = new Float32Array([
-	0, 1, 1, 1, 0, 1, 1, -1, 0, 1, -1, 1, 0, 1, -1, -1,
-	0, -1, 1, 1, 0, -1, 1, -1, 0, -1, -1, 1, 0, -1, -1, -1,
-	1, 0, 1, 1, 1, 0, 1, -1, 1, 0, -1, 1, 1, 0, -1, -1,
-	-1, 0, 1, 1, -1, 0, 1, -1, -1, 0, -1, 1, -1, 0, -1, -1,
-	1, 1, 0, 1, 1, 1, 0, -1, 1, -1, 0, 1, 1, -1, 0, -1,
-	-1, 1, 0, 1, -1, 1, 0, -1, -1, -1, 0, 1, -1, -1, 0, -1,
-	1, 1, 1, 0, 1, 1, -1, 0, 1, -1, 1, 0, 1, -1, -1, 0,
-	-1, 1, 1, 0, -1, 1, -1, 0, -1, -1, 1, 0, -1, -1, -1, 0
+	0,
+	1,
+	1,
+	1,
+	0,
+	1,
+	1,
+	-1,
+	0,
+	1,
+	-1,
+	1,
+	0,
+	1,
+	-1,
+	-1,
+	0,
+	-1,
+	1,
+	1,
+	0,
+	-1,
+	1,
+	-1,
+	0,
+	-1,
+	-1,
+	1,
+	0,
+	-1,
+	-1,
+	-1,
+	1,
+	0,
+	1,
+	1,
+	1,
+	0,
+	1,
+	-1,
+	1,
+	0,
+	-1,
+	1,
+	1,
+	0,
+	-1,
+	-1,
+	-1,
+	0,
+	1,
+	1,
+	-1,
+	0,
+	1,
+	-1,
+	-1,
+	0,
+	-1,
+	1,
+	-1,
+	0,
+	-1,
+	-1,
+	1,
+	1,
+	0,
+	1,
+	1,
+	1,
+	0,
+	-1,
+	1,
+	-1,
+	0,
+	1,
+	1,
+	-1,
+	0,
+	-1,
+	-1,
+	1,
+	0,
+	1,
+	-1,
+	1,
+	0,
+	-1,
+	-1,
+	-1,
+	0,
+	1,
+	-1,
+	-1,
+	0,
+	-1,
+	1,
+	1,
+	1,
+	0,
+	1,
+	1,
+	-1,
+	0,
+	1,
+	-1,
+	1,
+	0,
+	1,
+	-1,
+	-1,
+	0,
+	-1,
+	1,
+	1,
+	0,
+	-1,
+	1,
+	-1,
+	0,
+	-1,
+	-1,
+	1,
+	0,
+	-1,
+	-1,
+	-1,
+	0
 ])
 
-
-export function noise2d (xin: number, yin: number) {
-	let n0 = 0, n1 = 0, n2 = 0 // Noise contributions from the three corners
+export function noise2d(xin: number, yin: number) {
+	let n0 = 0,
+		n1 = 0,
+		n2 = 0 // Noise contributions from the three corners
 	// Skew the input space to determine which simplex cell we're in
 	const s = (xin + yin) * F2 // Hairy factor for 2D
 	const i = Math.floor(xin + s)
@@ -168,9 +566,8 @@ export function noise2d (xin: number, yin: number) {
 	return 70.0 * (n0 + n1 + n2)
 }
 
-
 // 3D simplex noise
-export function noise3d (xin: number, yin: number, zin: number) {
+export function noise3d(xin: number, yin: number, zin: number) {
 	let n0, n1, n2, n3 // Noise contributions from the four corners
 	// Skew the input space to determine which simplex cell we're in
 	const s = (xin + yin + zin) * F3 // Very nice and simple skew factor for 3D
@@ -213,8 +610,8 @@ export function noise3d (xin: number, yin: number, zin: number) {
 			j2 = 0
 			k2 = 1
 		} // Z X Y order
-	}
-	else { // x0<y0
+	} else {
+		// x0<y0
 		if (y0 < z0) {
 			i1 = 0
 			j1 = 0
@@ -291,10 +688,8 @@ export function noise3d (xin: number, yin: number, zin: number) {
 	return 32.0 * (n0 + n1 + n2 + n3)
 }
 
-
 // 4D simplex noise, better simplex rank ordering method 2012-03-09
-export function noise4d (x: number, y: number, z: number, w: number) {
-
+export function noise4d(x: number, y: number, z: number, w: number) {
 	let n0, n1, n2, n3, n4 // Noise contributions from the five corners
 	// Skew the (x,y,z,w) space to determine which cell of 24 simplices we're in
 	const s = (x + y + z + w) * F4 // Factor for 4D skewing
@@ -382,57 +777,89 @@ export function noise4d (x: number, y: number, z: number, w: number) {
 	else {
 		const gi0 = (perm[ii + perm[jj + perm[kk + perm[ll]]]] % 32) * 4
 		t0 *= t0
-		n0 = t0 * t0 * (grad4[gi0] * x0 + grad4[gi0 + 1] * y0 + grad4[gi0 + 2] * z0 + grad4[gi0 + 3] * w0)
+		n0 =
+			t0 *
+			t0 *
+			(grad4[gi0] * x0 +
+				grad4[gi0 + 1] * y0 +
+				grad4[gi0 + 2] * z0 +
+				grad4[gi0 + 3] * w0)
 	}
 	let t1 = 0.6 - x1 * x1 - y1 * y1 - z1 * z1 - w1 * w1
 	if (t1 < 0) n1 = 0.0
 	else {
-		const gi1 = (perm[ii + i1 + perm[jj + j1 + perm[kk + k1 + perm[ll + l1]]]] % 32) * 4
+		const gi1 =
+			(perm[ii + i1 + perm[jj + j1 + perm[kk + k1 + perm[ll + l1]]]] % 32) * 4
 		t1 *= t1
-		n1 = t1 * t1 * (grad4[gi1] * x1 + grad4[gi1 + 1] * y1 + grad4[gi1 + 2] * z1 + grad4[gi1 + 3] * w1)
+		n1 =
+			t1 *
+			t1 *
+			(grad4[gi1] * x1 +
+				grad4[gi1 + 1] * y1 +
+				grad4[gi1 + 2] * z1 +
+				grad4[gi1 + 3] * w1)
 	}
 	let t2 = 0.6 - x2 * x2 - y2 * y2 - z2 * z2 - w2 * w2
 	if (t2 < 0) n2 = 0.0
 	else {
-		const gi2 = (perm[ii + i2 + perm[jj + j2 + perm[kk + k2 + perm[ll + l2]]]] % 32) * 4
+		const gi2 =
+			(perm[ii + i2 + perm[jj + j2 + perm[kk + k2 + perm[ll + l2]]]] % 32) * 4
 		t2 *= t2
-		n2 = t2 * t2 * (grad4[gi2] * x2 + grad4[gi2 + 1] * y2 + grad4[gi2 + 2] * z2 + grad4[gi2 + 3] * w2)
+		n2 =
+			t2 *
+			t2 *
+			(grad4[gi2] * x2 +
+				grad4[gi2 + 1] * y2 +
+				grad4[gi2 + 2] * z2 +
+				grad4[gi2 + 3] * w2)
 	}
 	let t3 = 0.6 - x3 * x3 - y3 * y3 - z3 * z3 - w3 * w3
 	if (t3 < 0) n3 = 0.0
 	else {
-		const gi3 = (perm[ii + i3 + perm[jj + j3 + perm[kk + k3 + perm[ll + l3]]]] % 32) * 4
+		const gi3 =
+			(perm[ii + i3 + perm[jj + j3 + perm[kk + k3 + perm[ll + l3]]]] % 32) * 4
 		t3 *= t3
-		n3 = t3 * t3 * (grad4[gi3] * x3 + grad4[gi3 + 1] * y3 + grad4[gi3 + 2] * z3 + grad4[gi3 + 3] * w3)
+		n3 =
+			t3 *
+			t3 *
+			(grad4[gi3] * x3 +
+				grad4[gi3 + 1] * y3 +
+				grad4[gi3 + 2] * z3 +
+				grad4[gi3 + 3] * w3)
 	}
 	let t4 = 0.6 - x4 * x4 - y4 * y4 - z4 * z4 - w4 * w4
 	if (t4 < 0) n4 = 0.0
 	else {
-		const gi4 = (perm[ii + 1 + perm[jj + 1 + perm[kk + 1 + perm[ll + 1]]]] % 32) * 4
+		const gi4 =
+			(perm[ii + 1 + perm[jj + 1 + perm[kk + 1 + perm[ll + 1]]]] % 32) * 4
 		t4 *= t4
-		n4 = t4 * t4 * (grad4[gi4] * x4 + grad4[gi4 + 1] * y4 + grad4[gi4 + 2] * z4 + grad4[gi4 + 3] * w4)
+		n4 =
+			t4 *
+			t4 *
+			(grad4[gi4] * x4 +
+				grad4[gi4 + 1] * y4 +
+				grad4[gi4 + 2] * z4 +
+				grad4[gi4 + 3] * w4)
 	}
 	// Sum up and scale the result to cover the range [-1,1]
 	return 27.0 * (n0 + n1 + n2 + n3 + n4)
 }
 
-
-export function tileNoise (
+export function tileNoise(
 	width: number,
 	height: number,
 	dx: number,
 	dy: number
 ): number[] {
-
 	const noise: number[] = []
 	for (let y = 0; y < height; y++) {
 		for (let x = 0; x < width; x++) {
 			const s = x / width,
 				t = y / height,
-				nx = Math.cos(s * 2 * Math.PI) * dx / (2 * Math.PI),
-				ny = Math.cos(t * 2 * Math.PI) * dy / (2 * Math.PI),
-				nz = Math.sin(s * 2 * Math.PI) * dx / (2 * Math.PI),
-				nw = Math.sin(t * 2 * Math.PI) * dy / (2 * Math.PI)
+				nx = (Math.cos(s * 2 * Math.PI) * dx) / (2 * Math.PI),
+				ny = (Math.cos(t * 2 * Math.PI) * dy) / (2 * Math.PI),
+				nz = (Math.sin(s * 2 * Math.PI) * dx) / (2 * Math.PI),
+				nw = (Math.sin(t * 2 * Math.PI) * dy) / (2 * Math.PI)
 			noise.push(noise4d(nx, ny, nz, nw))
 		}
 	}

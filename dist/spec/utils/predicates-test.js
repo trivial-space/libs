@@ -1,5 +1,5 @@
-import { and, not, equalArray, equalObject } from 'utils/predicates';
 import { expect } from 'chai';
+import { and, equalArray, equalObject, not } from 'utils/predicates';
 describe('utils predicates', function () {
     describe('and', function () {
         it('takes two predicates and returns an composed predicate', function () {
@@ -38,6 +38,9 @@ describe('utils predicates', function () {
             expect(equalArray([1, 2], [2, 1])).to.be.false;
             expect(equalArray([1], [1, 2])).to.be.false;
             expect(equalArray([], [1])).to.be.false;
+            expect(equalArray([])).to.be.false;
+            expect(equalArray(undefined, [])).to.be.false;
+            expect(equalArray()).to.be.true;
         });
     });
     describe('equalObject', function () {

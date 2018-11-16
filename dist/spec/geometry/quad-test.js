@@ -11,8 +11,7 @@ describe('geometry quad', function () {
     it('can be divided horizontally', function () {
         const q = [[1], [2], [3], [4]];
         const q1 = divideHorizontal(0.5, 0.25, q);
-        expect(q1)
-            .to.deep.equal([
+        expect(q1).to.deep.equal([
             [[1], [2], [2.25], [2.5]],
             [[2.5], [2.25], [3], [4]]
         ]);
@@ -21,8 +20,7 @@ describe('geometry quad', function () {
     it('can be divided vertically', function () {
         const q = [[1], [2], [3], [4]];
         const q1 = divideVertical(0.5, 0.25, q);
-        expect(q1)
-            .to.deep.equal([
+        expect(q1).to.deep.equal([
             [[1], [1.5], [3.75], [4]],
             [[1.5], [2], [3], [3.75]]
         ]);
@@ -41,12 +39,29 @@ describe('geometry quad', function () {
         expect(q4).to.deep.equal([[4], [1], [2], [5]]);
     });
     it('can be created from 2 edges', function () {
-        expect(combineEdges([[1], [2]], [[3], [4]])).to.deep.equal([[1], [2], [4], [3]]);
+        expect(combineEdges([[1], [2]], [[3], [4]])).to.deep.equal([
+            [1],
+            [2],
+            [4],
+            [3]
+        ]);
     });
     it('can generate triangleIndizes', function () {
         expect(triangulate(1)).to.deep.equal(quadTriangles);
-        expect(triangulate(2)).to.deep.equal([[0, 2, 1], [0, 3, 2], [4, 6, 5], [4, 7, 6]]);
-        expect(triangulate(3)).to.deep.equal([[0, 2, 1], [0, 3, 2], [4, 6, 5], [4, 7, 6], [8, 10, 9], [8, 11, 10]]);
+        expect(triangulate(2)).to.deep.equal([
+            [0, 2, 1],
+            [0, 3, 2],
+            [4, 6, 5],
+            [4, 7, 6]
+        ]);
+        expect(triangulate(3)).to.deep.equal([
+            [0, 2, 1],
+            [0, 3, 2],
+            [4, 6, 5],
+            [4, 7, 6],
+            [8, 10, 9],
+            [8, 11, 10]
+        ]);
     });
 });
 //# sourceMappingURL=quad-test.js.map

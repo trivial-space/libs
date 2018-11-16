@@ -1,11 +1,8 @@
 import { deepmerge, deepOverride } from 'utils/object'
 import { expect } from 'chai'
 
-
 describe('utils object', function() {
-
 	describe('deepmerge', function() {
-
 		it('deepmerges two objects', function() {
 			const obj1 = {
 				lala: 2,
@@ -61,7 +58,6 @@ describe('utils object', function() {
 			expect(result2.arr).to.equal(obj1.arr)
 		})
 
-
 		it('returns second arg if args are not objects', function() {
 			const obj = { fuu: 'bar' }
 			const arr = [1, 2, 3]
@@ -73,7 +69,6 @@ describe('utils object', function() {
 			expect(deepmerge(val, obj)).to.equal(obj)
 		})
 
-
 		it('removes a property when assigned to undefined', function() {
 			const obj = { foo: 'bar', kuku: 'kaka' }
 
@@ -81,7 +76,6 @@ describe('utils object', function() {
 				foo: 'bar'
 			})
 		})
-
 
 		it('doesnt merge equal objects', function() {
 			const nested = { foo: 'bar' }
@@ -93,9 +87,7 @@ describe('utils object', function() {
 		})
 	})
 
-
 	describe('deepOverride', function() {
-
 		it('recursively overrides the values of obj1 without changing its structure', function() {
 			const obj1 = {
 				lala: 2,
@@ -139,8 +131,8 @@ describe('utils object', function() {
 			const obj1 = { arr: { foo: 'bar' } }
 			const obj2 = { arr: [1, 4, 5, 6] }
 
-			const result1 = deepOverride({...obj1}, obj2)
-			const result2 = deepOverride({...obj2}, obj1)
+			const result1 = deepOverride({ ...obj1 }, obj2)
+			const result2 = deepOverride({ ...obj2 }, obj1)
 
 			expect(result1).to.deep.equal({
 				arr: [1, 4, 5, 6]
@@ -153,7 +145,6 @@ describe('utils object', function() {
 			expect(result2.arr).to.equal(obj1.arr)
 		})
 
-
 		it('returns second arg if args are not objects', function() {
 			const obj = { fuu: 'bar' }
 			const arr = [1, 2, 3]
@@ -165,7 +156,6 @@ describe('utils object', function() {
 			expect(deepmerge(val, obj)).to.equal(obj)
 		})
 
-
 		it('doesnt merge equal objects', function() {
 			const nested = { foo: 'bar' }
 			const o1 = { kuu: 1, nested }
@@ -175,7 +165,6 @@ describe('utils object', function() {
 			expect(o.nested).to.equal(nested)
 			expect(o1.kuu).to.equal(5)
 		})
-
 
 		it('has an option to ignore properties', () => {
 			const obj1 = {
@@ -208,16 +197,18 @@ describe('utils object', function() {
 				}
 			}
 
-			const result = deepOverride(obj1, obj2, {ignore: {
-				kuku: true,
-				foo: {
+			const result = deepOverride(obj1, obj2, {
+				ignore: {
 					kuku: true,
-					bar: {
+					foo: {
 						kuku: true,
-						lala: true
+						bar: {
+							kuku: true,
+							lala: true
+						}
 					}
 				}
-			}})
+			})
 
 			expect(result).to.deep.equal({
 				kuku: 1,
@@ -235,5 +226,4 @@ describe('utils object', function() {
 			})
 		})
 	})
-
 })

@@ -15,7 +15,7 @@ export function windowSizeObserver() {
     const state = {
         size: { width: 0, height: 0 }
     };
-    const destroy = windowSize(s => state.size = s);
+    const destroy = windowSize(s => (state.size = s));
     return { state, destroy };
 }
 //# sourceMappingURL=dom.js.map

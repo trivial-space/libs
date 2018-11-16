@@ -3,9 +3,8 @@ export interface WindowSizeState {
 	height: number
 }
 
-
-export function windowSize (callback: (s: WindowSizeState) => void) {
-	function resize () {
+export function windowSize(callback: (s: WindowSizeState) => void) {
+	function resize() {
 		callback({
 			width: window.innerWidth,
 			height: window.innerHeight
@@ -16,11 +15,10 @@ export function windowSize (callback: (s: WindowSizeState) => void) {
 
 	resize()
 
-	return function stop () {
+	return function stop() {
 		window.removeEventListener('resize', resize)
 	}
 }
-
 
 export interface WindowSizeObserver {
 	state: {
@@ -29,13 +27,12 @@ export interface WindowSizeObserver {
 	destroy: () => void
 }
 
-
-export function windowSizeObserver (): WindowSizeObserver {
+export function windowSizeObserver(): WindowSizeObserver {
 	const state = {
 		size: { width: 0, height: 0 }
 	}
 
-	const destroy = windowSize(s => state.size = s)
+	const destroy = windowSize(s => (state.size = s))
 
 	return { state, destroy }
 }
