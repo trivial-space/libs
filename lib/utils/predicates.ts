@@ -1,12 +1,9 @@
 export type Predicate = (...a: any[]) => boolean
 
+export const and = (p1: Predicate, p2: Predicate): Predicate => (a, b) =>
+	p1(a, b) && p2(a, b)
 
-export const and = (p1: Predicate, p2: Predicate): Predicate =>
-	(a, b) => p1(a, b) && p2(a, b)
-
-export const not = (p: Predicate): Predicate =>
-	(a, b) => !p(a, b)
-
+export const not = (p: Predicate): Predicate => (a, b) => !p(a, b)
 
 export const defined: Predicate = a => a != null
 
@@ -16,11 +13,11 @@ export const unequal: Predicate = (a, b) => a !== b
 
 export const equal: Predicate = (a, b) => a === b
 
-export function equalArray(arr1: any[], arr2?: any[]) {
+export function equalArray(arr1?: any[], arr2?: any[]) {
 	if (arr1 === arr2) {
 		return true
 	}
-	if (!arr2) {
+	if (!arr2 || !arr1) {
 		return false
 	}
 	if (arr1.length !== arr2.length) {
@@ -34,7 +31,10 @@ export function equalArray(arr1: any[], arr2?: any[]) {
 	return true
 }
 
-export function equalObject(obj1: {[key: string]: any}, obj2?: {[key: string]: any}) {
+export function equalObject(
+	obj1: { [key: string]: any },
+	obj2?: { [key: string]: any }
+) {
 	if (obj1 === obj2) {
 		return true
 	}

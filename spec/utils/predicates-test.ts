@@ -1,12 +1,9 @@
-import { and, not, equalArray, equalObject } from 'utils/predicates'
 import { expect } from 'chai'
+import { and, equalArray, equalObject, not } from 'utils/predicates'
 import { N } from '../types'
 
-
 describe('utils predicates', function() {
-
 	describe('and', function() {
-
 		it('takes two predicates and returns an composed predicate', function() {
 			const p11 = (a: N) => a < 100
 			const p12 = (b: N) => b > 10
@@ -24,9 +21,7 @@ describe('utils predicates', function() {
 		})
 	})
 
-
 	describe('not', function() {
-
 		it('takes a predicate and negates its value', function() {
 			const p11 = (a: N) => a < 100
 			const p1 = not(p11)
@@ -40,9 +35,7 @@ describe('utils predicates', function() {
 		})
 	})
 
-
 	describe('equalArray', function() {
-
 		it('shallow compares if two arrays are equal', function() {
 			const obj = { foo: 'bar' }
 			expect(equalArray([1, 2], [1, 2])).to.be.true
@@ -51,9 +44,11 @@ describe('utils predicates', function() {
 			expect(equalArray([1, 2], [2, 1])).to.be.false
 			expect(equalArray([1], [1, 2])).to.be.false
 			expect(equalArray([], [1])).to.be.false
+			expect(equalArray([])).to.be.false
+			expect(equalArray(undefined, [])).to.be.false
+			expect(equalArray()).to.be.true
 		})
 	})
-
 
 	describe('equalObject', function() {
 		it('shallow compares if two objects are equal', function() {
@@ -66,6 +61,4 @@ describe('utils predicates', function() {
 			expect(equalObject({ bar: 'bar' }, obj)).to.be.false
 		})
 	})
-
 })
-
