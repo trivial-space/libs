@@ -1,21 +1,21 @@
 import { expect } from 'chai'
+import { Edge } from 'geometry/primitives'
 import {
-	top,
-	Quad,
-	right,
 	bottom,
-	left,
+	combineEdges,
 	divideHorizontal,
 	divideVertical,
-	extrudeTop,
-	extrudeRight,
 	extrudeBottom,
 	extrudeLeft,
-	combineEdges,
+	extrudeRight,
+	extrudeTop,
+	left,
+	Quad,
 	quadTriangles,
-	triangulate
+	right,
+	top,
+	triangulate,
 } from 'geometry/quad'
-import { Edge } from 'geometry/primitives'
 
 describe('geometry quad', function() {
 	it('has clockwise sides', function() {
@@ -31,7 +31,7 @@ describe('geometry quad', function() {
 		const q1 = divideHorizontal(0.5, 0.25, q)
 		expect(q1).to.deep.equal([
 			[[1], [2], [2.25], [2.5]],
-			[[2.5], [2.25], [3], [4]]
+			[[2.5], [2.25], [3], [4]],
 		])
 		expect(bottom(q1[0])).to.deep.equal(top(q1[1]).reverse())
 	})
@@ -41,7 +41,7 @@ describe('geometry quad', function() {
 		const q1 = divideVertical(0.5, 0.25, q)
 		expect(q1).to.deep.equal([
 			[[1], [1.5], [3.75], [4]],
-			[[1.5], [2], [3], [3.75]]
+			[[1.5], [2], [3], [3.75]],
 		])
 
 		expect(right(q1[0])).to.deep.equal(left(q1[1]).reverse())
@@ -65,7 +65,7 @@ describe('geometry quad', function() {
 			[1],
 			[2],
 			[4],
-			[3]
+			[3],
 		])
 	})
 
@@ -75,7 +75,7 @@ describe('geometry quad', function() {
 			[0, 2, 1],
 			[0, 3, 2],
 			[4, 6, 5],
-			[4, 7, 6]
+			[4, 7, 6],
 		])
 		expect(triangulate(3)).to.deep.equal([
 			[0, 2, 1],
@@ -83,7 +83,7 @@ describe('geometry quad', function() {
 			[4, 6, 5],
 			[4, 7, 6],
 			[8, 10, 9],
-			[8, 11, 10]
+			[8, 11, 10],
 		])
 	})
 })

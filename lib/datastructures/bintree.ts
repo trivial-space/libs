@@ -8,10 +8,10 @@ export class Node<K = any, V = any> {
 	value?: V
 
 	constructor(nil: Nil, key: K, value?: V) {
-		;(this.parent = nil),
-			(this.left = nil),
-			(this.right = nil),
-			(this.key = key)
+		this.parent = nil
+		this.left = nil
+		this.right = nil
+		this.key = key
 		this.value = value
 	}
 }
@@ -29,7 +29,7 @@ export const nil = (function() {
 		parent: null as any,
 		left: null as any,
 		right: null as any,
-		key: null
+		key: null,
 	}
 	nil.parent = nil
 	nil.left = nil
@@ -40,7 +40,7 @@ export const nil = (function() {
 export function walkInOrder<K, V>(
 	tree: BinaryTreeData<K, V>,
 	walkRoot: Node<K, V>,
-	cb: (n: Node<K, V>) => void
+	cb: (n: Node<K, V>) => void,
 ) {
 	if (walkRoot !== tree.nil) {
 		walkInOrder(tree, walkRoot.left, cb)
@@ -108,7 +108,7 @@ export function search<K>(tree: BinaryTreeData<K>, startNode: Node<K>, key: K) {
 export function transplant<K>(
 	tree: BinaryTreeData<K>,
 	oldNode: Node<K>,
-	newNode: Node<K>
+	newNode: Node<K>,
 ) {
 	if (oldNode.parent === tree.nil) {
 		tree.root = newNode
@@ -191,7 +191,7 @@ export function rotateRight<K>(tree: BinaryTreeData<K>, node: Node<K>) {
 export function walkToRoot<K>(
 	tree: BinaryTreeData,
 	startNode: Node<K>,
-	callback: (n: Node<K>) => void
+	callback: (n: Node<K>) => void,
 ) {
 	if (!(startNode && startNode !== tree.nil)) {
 		return

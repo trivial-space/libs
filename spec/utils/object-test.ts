@@ -1,5 +1,5 @@
-import { deepmerge, deepOverride } from 'utils/object'
 import { expect } from 'chai'
+import { deepmerge, deepOverride } from 'utils/object'
 
 describe('utils object', function() {
 	describe('deepmerge', function() {
@@ -9,18 +9,18 @@ describe('utils object', function() {
 				foo: {
 					kuku: 3,
 					bar: {
-						kuku: 1
-					}
-				}
+						kuku: 1,
+					},
+				},
 			}
 
 			const obj2 = {
 				foo: {
 					kuku: 4,
 					bar: {
-						lulu: 3
-					}
-				}
+						lulu: 3,
+					},
+				},
 			}
 
 			const result = deepmerge(obj1, obj2)
@@ -31,9 +31,9 @@ describe('utils object', function() {
 					kuku: 4,
 					bar: {
 						kuku: 1,
-						lulu: 3
-					}
-				}
+						lulu: 3,
+					},
+				},
 			})
 
 			expect(result).to.not.equal(obj1)
@@ -48,12 +48,12 @@ describe('utils object', function() {
 			const result2 = deepmerge(obj2, obj1)
 
 			expect(result1).to.deep.equal({
-				arr: [1, 4, 5, 6]
+				arr: [1, 4, 5, 6],
 			})
 			expect(result1.arr).to.equal(obj2.arr)
 
 			expect(result2).to.deep.equal({
-				arr: { foo: 'bar' }
+				arr: { foo: 'bar' },
 			})
 			expect(result2.arr).to.equal(obj1.arr)
 		})
@@ -73,7 +73,7 @@ describe('utils object', function() {
 			const obj = { foo: 'bar', kuku: 'kaka' }
 
 			expect(deepmerge(obj, { kuku: undefined })).to.deep.equal({
-				foo: 'bar'
+				foo: 'bar',
 			})
 		})
 
@@ -95,19 +95,19 @@ describe('utils object', function() {
 					kuku: 3,
 					bar: {
 						kuku: 1,
-						lulu: 3
-					}
-				}
+						lulu: 3,
+					},
+				},
 			}
 
 			const obj2 = {
 				foo: {
 					kuku: 4,
 					bar: {
-						kuku: 3
-					}
+						kuku: 3,
+					},
 				},
-				ffff: 666
+				ffff: 666,
 			}
 
 			const result = deepOverride(obj1, obj2)
@@ -118,9 +118,9 @@ describe('utils object', function() {
 					kuku: 4,
 					bar: {
 						kuku: 3,
-						lulu: 3
-					}
-				}
+						lulu: 3,
+					},
+				},
 			})
 
 			expect(result).to.equal(obj1)
@@ -135,12 +135,12 @@ describe('utils object', function() {
 			const result2 = deepOverride({ ...obj2 }, obj1)
 
 			expect(result1).to.deep.equal({
-				arr: [1, 4, 5, 6]
+				arr: [1, 4, 5, 6],
 			})
 			expect(result1.arr).to.equal(obj2.arr)
 
 			expect(result2).to.deep.equal({
-				arr: { foo: 'bar' }
+				arr: { foo: 'bar' },
 			})
 			expect(result2.arr).to.equal(obj1.arr)
 		})
@@ -176,10 +176,10 @@ describe('utils object', function() {
 						lulu: 3,
 						lala: {
 							fufu: 1,
-							kuku: 5
-						}
-					}
-				}
+							kuku: 5,
+						},
+					},
+				},
 			}
 
 			const obj2 = {
@@ -191,10 +191,10 @@ describe('utils object', function() {
 						lulu: 7,
 						lala: {
 							fufu: 2,
-							kuku: 2
-						}
-					}
-				}
+							kuku: 2,
+						},
+					},
+				},
 			}
 
 			const result = deepOverride(obj1, obj2, {
@@ -204,10 +204,10 @@ describe('utils object', function() {
 						kuku: true,
 						bar: {
 							kuku: true,
-							lala: true
-						}
-					}
-				}
+							lala: true,
+						},
+					},
+				},
 			})
 
 			expect(result).to.deep.equal({
@@ -219,10 +219,10 @@ describe('utils object', function() {
 						lulu: 7,
 						lala: {
 							fufu: 1,
-							kuku: 5
-						}
-					}
-				}
+							kuku: 5,
+						},
+					},
+				},
 			})
 		})
 	})

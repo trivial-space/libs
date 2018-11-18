@@ -29,46 +29,46 @@ export const math = {
 	coords: mathCoords,
 	vectors: mathVectors,
 	geometry: mathGeometry,
-	random: mathRandom
+	random: mathRandom,
 }
 
 export const events = {
 	dom: eventsDom,
 	mouse: eventsMouse,
 	keyboard: eventsKey,
-	animation: eventsAnimation
+	animation: eventsAnimation,
 }
 
 export const utils = {
 	uuid: utilsUUID,
 	seq: utilsSequence,
 	predicates: utilsPredicates,
-	object: utilsObject
+	object: utilsObject,
 }
 
 export const fp = {
-	core: fpCore
+	core: fpCore,
 }
 
 export const graphics = {
 	colors: graphicsColors,
 	pixels: graphicsPixesls,
-	textures: graphicsTextures
+	textures: graphicsTextures,
 }
 
 export const geometry = {
 	primitives: geometryPrimitives,
-	quad: geometryQuad
+	quad: geometryQuad,
 }
 
 export const algorithms = {
-	base: algorithmsBase
+	base: algorithmsBase,
 }
 
 export const datastructures = {
 	bintree: datastructuresBintree,
 	rbtree: datastructuresRBTree,
-	heap: datastructuresHeap
+	heap: datastructuresHeap,
 }
 
 export * from './types'
@@ -80,5 +80,5 @@ export default {
 	fp,
 	geometry,
 	datastructures,
-	algorithms
+	algorithms,
 }

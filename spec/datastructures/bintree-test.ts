@@ -1,14 +1,14 @@
+import { numericalCompare, stringCompare } from 'algorithms/base'
 import { expect } from 'chai'
-import { N } from '../types'
 import {
 	BinaryTree,
-	walkToRoot,
 	min,
-	walkInOrder,
 	next,
-	prev
+	prev,
+	walkInOrder,
+	walkToRoot,
 } from 'datastructures/bintree'
-import { numericalCompare, stringCompare } from 'algorithms/base'
+import { N } from '../types'
 
 describe('datastructures binary tree', function() {
 	describe('numberical', function() {

@@ -1,14 +1,14 @@
-import * as colors from 'graphics/colors'
 import { expect } from 'chai'
+import * as colors from 'graphics/colors'
 
 describe('graphics colors', function() {
 	describe('colorRgbaToCSS', function() {
 		it('converts a integer color to CSS rgba string', function() {
 			expect(colors.colorRgbaToCSS([12, 13, 15, 255])).to.equal(
-				'rgba(12, 13, 15, 1)'
+				'rgba(12, 13, 15, 1)',
 			)
 			expect(colors.colorRgbaToCSS([12, 13, 15, 0])).to.equal(
-				'rgba(12, 13, 15, 0)'
+				'rgba(12, 13, 15, 0)',
 			)
 		})
 	})
@@ -20,7 +20,7 @@ describe('graphics colors', function() {
 				1,
 				1,
 				1,
-				1
+				1,
 			])
 			expect(colors.intToFloat([0, 0, 0])).to.deep.equal([0, 0, 0])
 			expect(colors.intToFloat([0, 0, 0, 0])).to.deep.equal([0, 0, 0, 0])
@@ -34,7 +34,7 @@ describe('graphics colors', function() {
 				255,
 				255,
 				255,
-				255
+				255,
 			])
 			expect(colors.floatToInt([0, 0, 0])).to.deep.equal([0, 0, 0])
 			expect(colors.floatToInt([0, 0, 0, 0])).to.deep.equal([0, 0, 0, 0])
@@ -62,13 +62,13 @@ describe('graphics colors', function() {
 			expect(colors.rgbToHSL([0.5, 0, 0.5])).to.deep.equal({
 				h: 5 / 6,
 				s: 1,
-				l: 0.25
+				l: 0.25,
 			})
 			expect(colors.rgbToHSL([0, 0, 0])).to.deep.equal({ h: 0, s: 0, l: 0 })
 			expect(colors.rgbToHSL([0.25, 0.75, 0.75])).to.deep.equal({
 				h: 0.5,
 				s: 0.5,
-				l: 0.5
+				l: 0.5,
 			})
 		})
 	})
@@ -79,12 +79,12 @@ describe('graphics colors', function() {
 			expect(colors.hslToRGB({ h: 5 / 6, s: 1, l: 0.25 })).to.deep.equal([
 				0.5,
 				0,
-				0.5
+				0.5,
 			])
 			expect(colors.hslToRGB({ h: 0.5, s: 0.5, l: 0.5 })).to.deep.equal([
 				0.25,
 				0.75,
-				0.75
+				0.75,
 			])
 			expect(colors.hslToRGB({ h: 0, s: 0, l: 0 })).to.deep.equal([0, 0, 0])
 		})

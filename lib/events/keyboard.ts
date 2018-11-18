@@ -113,7 +113,7 @@ export enum Keys {
 	BACK_SLASH = 220,
 	CLOSE_BRACKET = 221,
 	QUOTE = 222,
-	META = 224
+	META = 224,
 }
 
 export type KeyState = { [key: number]: number }
@@ -121,11 +121,11 @@ export type KeyState = { [key: number]: number }
 export function keyboard(callback: (val: KeyState) => void): () => void
 export function keyboard(
 	opts: any,
-	callback: (val: KeyState) => void
+	callback: (val: KeyState) => void,
 ): () => void
 export function keyboard(
 	opts: any,
-	callback?: (val: KeyState) => void
+	callback?: (val: KeyState) => void,
 ): () => void {
 	const cb = callback || opts
 
@@ -157,7 +157,7 @@ export function keyboard(
 export interface KeyObserver {
 	Keys: typeof Keys
 	state: {
-		pressed: { [keyCode: number]: number }
+		pressed: { [keyCode: number]: number },
 	}
 	destroy: () => void
 }
@@ -166,7 +166,7 @@ export function keyboardObserver(opts?: any): KeyObserver {
 	const observer: KeyObserver = {
 		Keys,
 		state: { pressed: {} as KeyState },
-		destroy: () => {}
+		destroy: () => {},
 	}
 
 	function callback(pressed: KeyState) {

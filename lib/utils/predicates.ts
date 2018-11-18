@@ -33,7 +33,7 @@ export function equalArray(arr1?: any[], arr2?: any[]) {
 
 export function equalObject(
 	obj1: { [key: string]: any },
-	obj2?: { [key: string]: any }
+	obj2?: { [key: string]: any },
 ) {
 	if (obj1 === obj2) {
 		return true

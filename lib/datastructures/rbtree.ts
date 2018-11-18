@@ -22,7 +22,7 @@ export interface RBTreeData<K = any, V = any> extends BT.BinaryTreeData<K, V> {
 
 export const rbNil = {
 	...BT.nil,
-	red: false
+	red: false,
 } as RBNode<any, any>
 
 export function insertFixup(tree: RBTreeData, node: RBNode) {

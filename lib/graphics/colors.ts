@@ -1,4 +1,4 @@
-import { lerp, clamp } from '../math/core'
+import { clamp, lerp } from '../math/core'
 
 // see also https://www.rapidtables.com/convert/color/
 
@@ -23,7 +23,7 @@ export const WHITE = [255, 255, 255, 255]
 
 export function mixColors(
 	[r1, g1, b1, a1]: ColorRGBA,
-	[r2, g2, b2, a2]: ColorRGBA
+	[r2, g2, b2, a2]: ColorRGBA,
 ): ColorRGBA {
 	const step = a2 / 255
 	const r = Math.floor(lerp(step, r1, r2))
@@ -105,7 +105,7 @@ export function rgbToHSL([r, g, b]: Color): HSLColor {
 	return {
 		h: adjustHue(h),
 		s: s,
-		l: l
+		l: l,
 	}
 }
 

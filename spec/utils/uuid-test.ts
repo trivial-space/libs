@@ -1,5 +1,5 @@
-import { v4 } from 'utils/uuid'
 import { expect } from 'chai'
+import { v4 } from 'utils/uuid'
 
 describe('utils UUID', function() {
 	it('generates random strings', function() {

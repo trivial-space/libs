@@ -1,7 +1,7 @@
-import { zip } from '../utils/sequence'
 import { partial } from '../fp/core'
 import { lerp } from '../math/core'
-import { Vec, add, normalize, cross, sub, cross2D } from '../math/vectors'
+import { add, cross, cross2D, normalize, sub, Vec } from '../math/vectors'
+import { zip } from '../utils/sequence'
 
 /**
  * Clockwise Polygon
@@ -14,7 +14,7 @@ export function interpolate(
 	fn: (step: number, start: number, end: number) => number,
 	step: number,
 	start: Vec,
-	end: Vec
+	end: Vec,
 ) {
 	return zip(partial(fn, step), start, end)
 }

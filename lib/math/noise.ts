@@ -256,7 +256,7 @@ const p1 = [
 	215,
 	61,
 	156,
-	180
+	180,
 ]
 
 for (let i = 0; i <= 256; i++) {
@@ -374,7 +374,7 @@ const grad3 = new Float32Array([
 	-1,
 	0,
 	-1,
-	-1
+	-1,
 ])
 
 const grad4 = new Float32Array([
@@ -505,7 +505,7 @@ const grad4 = new Float32Array([
 	-1,
 	-1,
 	-1,
-	0
+	0,
 ])
 
 export function noise2d(xin: number, yin: number) {
@@ -849,7 +849,7 @@ export function tileNoise(
 	width: number,
 	height: number,
 	dx: number,
-	dy: number
+	dy: number,
 ): number[] {
 	const noise: number[] = []
 	for (let y = 0; y < height; y++) {

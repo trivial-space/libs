@@ -1,18 +1,18 @@
 import { expect } from 'chai'
-import { lerp } from 'math/core'
 import {
+	Edge,
 	interpolate,
 	lerpVecs,
+	normal,
+	rotateLeft,
+	rotateLeftInPlace,
+	rotateRight,
+	rotateRightInPlace,
+	side,
 	split,
 	translate,
-	rotateLeftInPlace,
-	rotateRightInPlace,
-	rotateLeft,
-	rotateRight,
-	normal,
-	side,
-	Edge
 } from 'geometry/primitives'
+import { lerp } from 'math/core'
 
 describe('geometry primitives', function() {
 	describe('operations', function() {
@@ -25,7 +25,7 @@ describe('geometry primitives', function() {
 			expect(split(0.5, [[1], [3]])).to.deep.equal([[[1], [2]], [[2], [3]]])
 			expect(split(0.25, [[1, 5], [3, 1]])).to.deep.equal([
 				[[1, 5], [1.5, 4]],
-				[[1.5, 4], [3, 1]]
+				[[1.5, 4], [3, 1]],
 			])
 		})
 
@@ -37,7 +37,7 @@ describe('geometry primitives', function() {
 			expect(translate([4, 4], [[1, 1], [2, 2], [3, 3]])).to.deep.equal([
 				[5, 5],
 				[6, 6],
-				[7, 7]
+				[7, 7],
 			])
 		})
 

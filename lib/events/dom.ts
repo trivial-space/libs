@@ -7,7 +7,7 @@ export function windowSize(callback: (s: WindowSizeState) => void) {
 	function resize() {
 		callback({
 			width: window.innerWidth,
-			height: window.innerHeight
+			height: window.innerHeight,
 		})
 	}
 
@@ -22,14 +22,14 @@ export function windowSize(callback: (s: WindowSizeState) => void) {
 
 export interface WindowSizeObserver {
 	state: {
-		size: WindowSizeState
+		size: WindowSizeState,
 	}
 	destroy: () => void
 }
 
 export function windowSizeObserver(): WindowSizeObserver {
 	const state = {
-		size: { width: 0, height: 0 }
+		size: { width: 0, height: 0 },
 	}
 
 	const destroy = windowSize(s => (state.size = s))

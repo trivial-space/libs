@@ -13,40 +13,40 @@ export function partial<A, B, C>(fn: (a: A, b: B) => C, a: A): (b: B) => C
 export function partial<A, B, C>(fn: (a: A, b: B) => C, a: A, b: B): () => C
 export function partial<A, B, C, D>(
 	fn: (a: A, b: B, c: C) => D,
-	a: A
+	a: A,
 ): (b: B, c: C) => D
 export function partial<A, B, C, D>(
 	fn: (a: A, b: B, c: C) => D,
 	a: A,
-	b: B
+	b: B,
 ): (c: C) => D
 export function partial<A, B, C, D>(
 	fn: (a: A, b: B, c: C) => D,
 	a: A,
 	b: B,
-	c: C
+	c: C,
 ): () => D
 export function partial<A, B, C, D, E>(
 	fn: (a: A, b: B, c: C, d: D) => E,
-	a: A
+	a: A,
 ): (b: B, c: C, d: D) => E
 export function partial<A, B, C, D, E>(
 	fn: (a: A, b: B, c: C, d: D) => E,
 	a: A,
-	b: B
+	b: B,
 ): (c: C, d: D) => E
 export function partial<A, B, C, D, E>(
 	fn: (a: A, b: B, c: C, d: D) => E,
 	a: A,
 	b: B,
-	c: C
+	c: C,
 ): (d: D) => E
 export function partial<A, B, C, D, E>(
 	fn: (a: A, b: B, c: C, d: D) => E,
 	a: A,
 	b: B,
 	c: C,
-	d: D
+	d: D,
 ): () => E
 export function partial(fn: Function, ...args: any[]) {
 	return fn.bind(null, ...args)

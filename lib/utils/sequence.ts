@@ -2,7 +2,7 @@ import { randInt, randIntInRange } from '../math/random'
 
 export type Sequence<T> = {
 	length: number
-	[n: number]: T
+	[n: number]: T,
 }
 
 export type Collection<T> = T[] | { [key: string]: T }
@@ -20,7 +20,7 @@ export function doTimes(fn: (i: number) => void, count: number): void {
 export function times<T>(
 	fn: (i: number) => T,
 	count: number,
-	res: T[] = []
+	res: T[] = [],
 ): T[] {
 	for (let i = 0; i < count; i++) {
 		res[i] = fn(i)
@@ -32,7 +32,7 @@ export function zip<A, B, C>(
 	fn: (a: A, b: B) => C,
 	as: Sequence<A>,
 	bs: Sequence<B>,
-	res: Sequence<C> = []
+	res: Sequence<C> = [],
 ): C[] {
 	const length = Math.min(as.length, bs.length)
 	for (let i = 0; i < length; i++) {
@@ -54,7 +54,7 @@ export function flatten<T>(array: Sequence<T>[], res: T[] = []): T[] {
 export function mapcat<A, B>(
 	fn: (a: A) => B[],
 	array: A[],
-	res: B[] = []
+	res: B[] = [],
 ): B[] {
 	return flatten(array.map(fn), res)
 }
@@ -74,12 +74,12 @@ export function shuffle<T>(arr: T[]): T[] {
 
 export function map<A, B>(
 	fn: (val: A, key?: any) => B,
-	coll: { [key: string]: A }
+	coll: { [key: string]: A },
 ): { [key: string]: B }
 export function map<A, B>(fn: (val: A, key?: any) => B, coll: A[]): B[]
 export function map<A, B>(
 	fn: (val: A, key?: any) => B,
-	coll: Collection<A>
+	coll: Collection<A>,
 ): Collection<B> {
 	if (Array.isArray(coll)) {
 		return coll.map(fn)
@@ -94,12 +94,12 @@ export function map<A, B>(
 
 export function each<A>(
 	fn: (val: A, key?: any) => any,
-	coll: { [key: string]: A }
+	coll: { [key: string]: A },
 ): void
 export function each<A>(fn: (val: A, key?: any) => any, coll: A[]): void
 export function each<A>(
 	fn: (val: A, key?: any) => any,
-	coll: Collection<A>
+	coll: Collection<A>,
 ): void {
 	for (const key in coll) {
 		fn((coll as any)[key], key)

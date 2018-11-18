@@ -1,9 +1,9 @@
-import { expect } from 'chai'
-import { N } from '../types'
-import { RBTree, RBNode } from 'datastructures/rbtree'
 import { numericalCompare, stringCompare } from 'algorithms/base'
-import { times, shuffle } from 'utils/sequence'
+import { expect } from 'chai'
 import { min, walkInOrder, walkToRoot } from 'datastructures/bintree'
+import { RBNode, RBTree } from 'datastructures/rbtree'
+import { shuffle, times } from 'utils/sequence'
+import { N } from '../types'
 
 describe('datastructures red black tree', function() {
 	describe('numberical', function() {
@@ -134,7 +134,7 @@ describe('datastructures red black tree', function() {
 
 						expect(blackCount).to.equal(minBlackCount)
 						expect(height).to.be.lessThan(
-							Math.floor(Math.log2(count + 1) * 2 + 1)
+							Math.floor(Math.log2(count + 1) * 2 + 1),
 						)
 					}
 				})
@@ -169,7 +169,7 @@ describe('datastructures red black tree', function() {
 
 						expect(blackCount).to.equal(minBlackCount)
 						expect(height).to.be.lessThan(
-							Math.floor(Math.log2(count + 1) * 2 + 1)
+							Math.floor(Math.log2(count + 1) * 2 + 1),
 						)
 					}
 				})

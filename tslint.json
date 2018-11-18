@@ -20,7 +20,7 @@
 			"jsx-double"
 		],
 		"no-var-keyword": true,
-		"trailing-comma": [ true, {"multiline": "never", "singleline": "never"} ],
+		"trailing-comma": [ true, {"multiline": "always", "singleline": "never"} ],
 		"prefer-for-of": true,
 		"prefer-const": true,
 		"no-unused-expression": false,

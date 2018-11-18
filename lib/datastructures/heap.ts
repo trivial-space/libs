@@ -88,6 +88,6 @@ export function createHeap<T>(compareFn: CompareFn<T>) {
 		fromArray,
 		pull,
 		getTop,
-		insert: (item: T) => insert(compareFn, arr, item)
+		insert: (item: T) => insert(compareFn, arr, item),
 	} as Heap<T>
 }

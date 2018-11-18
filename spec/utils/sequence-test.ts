@@ -1,6 +1,6 @@
-import { shuffle, map, each } from 'utils/sequence'
 import { expect } from 'chai'
 import { equalArray } from 'utils/predicates'
+import { each, map, shuffle } from 'utils/sequence'
 import { N, S } from '../types'
 
 describe('utils sequence', function() {
@@ -29,7 +29,7 @@ describe('utils sequence', function() {
 			expect(map(fn, coll)).to.deep.equal({
 				foo: 3,
 				bar: 5,
-				baz: 7
+				baz: 7,
 			})
 		})
 	})
@@ -54,7 +54,7 @@ describe('utils sequence', function() {
 			expect(res).to.deep.equal({
 				foo: 3,
 				bar: 5,
-				baz: 7
+				baz: 7,
 			})
 		})
 	})

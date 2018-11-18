@@ -1,6 +1,6 @@
-import { Edge, lerpVecs, translate, rotateLeft } from './primitives'
-import { times, flatten } from '../utils/sequence'
 import { Vec } from '../math/vectors'
+import { flatten, times } from '../utils/sequence'
+import { Edge, lerpVecs, rotateLeft, translate } from './primitives'
 
 export type Quad = [Vec, Vec, Vec, Vec]
 
@@ -43,7 +43,7 @@ export function extrudeLeft(direction: Vec, edge: Edge): Quad {
 export function divideHorizontal(
 	leftRatio: number,
 	rightRatio: number,
-	[v1, v2, v3, v4]: Quad
+	[v1, v2, v3, v4]: Quad,
 ): Quad[] {
 	const v11 = lerpVecs(leftRatio, v1, v4)
 	const v22 = lerpVecs(rightRatio, v2, v3)
@@ -53,7 +53,7 @@ export function divideHorizontal(
 export function divideVertical(
 	topRatio: number,
 	bottomRatio: number,
-	[v1, v2, v3, v4]: Quad
+	[v1, v2, v3, v4]: Quad,
 ): Quad[] {
 	const v11 = lerpVecs(topRatio, v1, v2)
 	const v44 = lerpVecs(bottomRatio, v4, v3)
@@ -66,6 +66,6 @@ export const quadTriangles = [[0, 2, 1], [0, 3, 2]]
 
 export function triangulate(quadCount: number) {
 	return flatten(
-		times(i => quadTriangles.map(t => t.map(j => 4 * i + j)), quadCount)
+		times(i => quadTriangles.map(t => t.map(j => 4 * i + j)), quadCount),
 	)
 }

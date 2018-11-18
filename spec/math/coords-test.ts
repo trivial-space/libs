@@ -1,5 +1,5 @@
-import { cartesianToPolar2D, polarToCartesian2D } from 'math/coords'
 import { expect } from 'chai'
+import { cartesianToPolar2D, polarToCartesian2D } from 'math/coords'
 
 describe('math coords', function() {
 	it('cartesianToPolar2D', function() {

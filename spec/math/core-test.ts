@@ -1,5 +1,5 @@
-import { sign, lerp, clamp } from 'math/core'
 import { expect } from 'chai'
+import { clamp, lerp, sign } from 'math/core'
 
 describe('math core', function() {
 	it('sign', function() {

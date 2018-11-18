@@ -1,7 +1,7 @@
 export const Buttons = {
 	LEFT: 0,
 	MIDDLE: 1,
-	RIGHT: 2
+	RIGHT: 2,
 }
 
 export interface MouseState {
@@ -11,7 +11,7 @@ export interface MouseState {
 		y: number
 		dX: number
 		dY: number
-		event?: MouseEvent
+		event?: MouseEvent,
 	}
 	dragging: boolean
 }
@@ -24,11 +24,11 @@ export interface MouseOpts {
 export function mouse(callback: (val: MouseState) => void): () => void
 export function mouse(
 	opts: MouseOpts,
-	callback: (val: MouseState) => void
+	callback: (val: MouseState) => void,
 ): () => void
 export function mouse(
 	opts: MouseOpts | ((val: MouseState) => void),
-	callback?: (val: MouseState) => void
+	callback?: (val: MouseState) => void,
 ) {
 	const cb = callback || (opts as (val: MouseState) => void)
 
@@ -37,7 +37,7 @@ export function mouse(
 	const state: MouseState = {
 		pressed: {},
 		drag: { x: 0, y: 0, dX: 0, dY: 0 },
-		dragging: false
+		dragging: false,
 	}
 
 	let x = 0,
@@ -120,7 +120,7 @@ export function mouseObserver(opts: any = {}): MouseObserver {
 	const observer: MouseObserver = {
 		Buttons,
 		state: {} as MouseState,
-		destroy: () => {}
+		destroy: () => {},
 	}
 
 	function callback(state: MouseState) {

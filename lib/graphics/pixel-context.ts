@@ -4,7 +4,7 @@ export type Position = [number, number]
 
 export function repeatedPosition(
 	[x, y]: Position,
-	imgData: ImageData
+	imgData: ImageData,
 ): Position {
 	const w = imgData.width
 	const h = imgData.height
@@ -42,7 +42,7 @@ export function closedPosition([x, y]: Position, imgData: ImageData): Position {
 }
 
 export function createPixelContext(
-	adjustPos: (pos: Position, imgData: ImageData) => Position
+	adjustPos: (pos: Position, imgData: ImageData) => Position,
 ) {
 	adjustPos = adjustPos || closedPosition
 
@@ -57,14 +57,14 @@ export function createPixelContext(
 			imgData.data[i],
 			imgData.data[i + 1],
 			imgData.data[i + 2],
-			imgData.data[i + 3]
+			imgData.data[i + 3],
 		]
 	}
 
 	function setColorAt(
 		imgData: ImageData,
 		pos: Position,
-		color: ColorRGBA
+		color: ColorRGBA,
 	): void {
 		const i = getPixelIndex(imgData, pos)
 		imgData.data[i] = color[0]
@@ -116,7 +116,7 @@ export function createPixelContext(
 				setColorAt(
 					imgData,
 					[x, y],
-					mixColors(getColorAt(imgData, [x, y]), color)
+					mixColors(getColorAt(imgData, [x, y]), color),
 				)
 			}
 		}
@@ -125,7 +125,7 @@ export function createPixelContext(
 	function replaceWithImageDataAt(
 		imgData: ImageData,
 		imgData2: ImageData,
-		[x, y]: Position
+		[x, y]: Position,
 	): void {
 		const w = imgData2.width - 1
 		const h = imgData2.height - 1
@@ -139,7 +139,7 @@ export function createPixelContext(
 	function drawImageAt(
 		imgData: ImageData,
 		imgData2: ImageData,
-		[x, y]: Position
+		[x, y]: Position,
 	): void {
 		const w = imgData2.width - 1
 		const h = imgData2.height - 1
@@ -150,8 +150,8 @@ export function createPixelContext(
 					[x + i, y + j],
 					mixColors(
 						getColorAt(imgData, [x + i, y + j]),
-						getColorAt(imgData2, [i, j])
-					)
+						getColorAt(imgData2, [i, j]),
+					),
 				)
 			}
 		}
@@ -165,7 +165,7 @@ export function createPixelContext(
 		decreaseAllBy,
 		mixinColor,
 		replaceWithImageDataAt,
-		drawImageAt
+		drawImageAt,
 	}
 }
 

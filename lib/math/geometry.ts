@@ -1,4 +1,4 @@
-import { dot, Vec, normalize, cross, sub } from './vectors'
+import { cross, dot, normalize, sub, Vec } from './vectors'
 
 export function planeFromNormalAndCoplanarPoint(n: Vec, point: Vec) {
 	const d = dot(n, point)
@@ -8,7 +8,7 @@ export function planeFromNormalAndCoplanarPoint(n: Vec, point: Vec) {
 export function planeFromThreeCoplanarPoints(p1: Vec, p2: Vec, p3: Vec) {
 	return planeFromNormalAndCoplanarPoint(
 		normalFromThreeCoplanarPoints(p1, p2, p3),
-		p1
+		p1,
 	)
 }
 
@@ -48,7 +48,7 @@ export function mirrorMatrixFromPlane(plane: Vec) {
 		-2 * a * d,
 		-2 * b * d,
 		-2 * c * d,
-		1
+		1,
 	]
 }
 

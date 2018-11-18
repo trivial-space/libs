@@ -1,7 +1,7 @@
-import { createHeap, Heap } from 'datastructures/heap'
-import { expect } from 'chai'
-import { N, S } from '../types'
 import { numericalCompare } from 'algorithms/base'
+import { expect } from 'chai'
+import { createHeap, Heap } from 'datastructures/heap'
+import { N, S } from '../types'
 
 describe('datastructures heap', function() {
 	describe('maxHeap', function() {

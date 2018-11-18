@@ -64,6 +64,6 @@ export function createAnimator(animateFunction: Function = animateWithTPF) {
 
 		removeUpdate: function(update: Function) {
 			updates = updates.filter(u => u !== update)
-		}
+		},
 	}
 }

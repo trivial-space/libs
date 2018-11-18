@@ -45,7 +45,7 @@ export function deepOverride<T>(obj1: T, obj2: any, opt?: { ignore: any }): T {
 
 				if (val2 !== undefined) {
 					obj1[key] = deepOverride(val1, val2, {
-						ignore: ignore && ignore[key]
+						ignore: ignore && ignore[key],
 					})
 				}
 			}
