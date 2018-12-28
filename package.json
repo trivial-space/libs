@@ -15,7 +15,7 @@
 	"typings": "dist/index.d.ts",
 	"scripts": {
 		"test": "jest",
-		"build": "tsc -p \"./tsconfig.build.json\"; webpack",
+		"build": "tsc -p \"./tsconfig.build.json\"& webpack",
 		"prepublish": "npm run build"
 	},
 	"devDependencies": {

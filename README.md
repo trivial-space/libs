@@ -11,4 +11,4 @@ Developed and build for usage with TypeScript. Compiled for tree shaking with we
 
 MIT, see the LICENSE file in the repository.
 
-Copyright (c) 2014 - 2017 Thomas Gorny
+Copyright (c) 2014 - 2019 Thomas Gorny

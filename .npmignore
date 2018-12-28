@@ -1,9 +1,14 @@
 .idea
+.vscode
 .DS_Store
 node_modules
 spec
 .git
-.tern-project
-karma.conf.js
-webpack.config.js
+.editorconfig
+.gitignore
+.prettierrc.json
+jest.config.js
 tsconfig.json
+tsconfig.build.json
+tslint.json
+webpack.config.js
