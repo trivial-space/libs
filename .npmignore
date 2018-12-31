@@ -1,6 +1,7 @@
 .idea
 .vscode
 .DS_Store
+benchmarks
 node_modules
 spec
 .git
