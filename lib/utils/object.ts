@@ -37,7 +37,7 @@ export function deepOverride<T>(obj1: T, obj2: any, opt?: { ignore: any }): T {
 	) {
 		for (const key in obj1) {
 			if (
-				obj1.hasOwnProperty(key) &&
+				(obj1 as any).hasOwnProperty(key) &&
 				!(ignore && key in ignore && ignore[key] === true)
 			) {
 				const val1 = obj1[key]

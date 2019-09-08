@@ -2,7 +2,7 @@ import { randInt, randIntInRange } from '../math/random'
 
 export type Sequence<T> = {
 	length: number
-	[n: number]: T,
+	[n: number]: T
 }
 
 export type Collection<T> = T[] | { [key: string]: T }

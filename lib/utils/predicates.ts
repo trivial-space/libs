@@ -3,7 +3,7 @@ export type Predicate = (...a: any[]) => boolean
 export const and = (p1: Predicate, p2: Predicate): Predicate => (a, b) =>
 	p1(a, b) && p2(a, b)
 
-export const not = (p: Predicate): Predicate => (a, b) => !p(a, b)
+export const not = (p: Predicate): Predicate => (...args) => !p(...args)
 
 export const defined: Predicate = a => a != null
 
