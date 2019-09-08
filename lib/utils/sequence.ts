@@ -1,6 +1,6 @@
 import { randInt, randIntInRange } from '../math/random'
 
-export type Sequence<T> = {
+export interface Sequence<T> {
 	length: number
 	[n: number]: T
 }
@@ -92,11 +92,6 @@ export function map<A, B>(
 	}
 }
 
-export function each<A>(
-	fn: (val: A, key?: any) => any,
-	coll: { [key: string]: A },
-): void
-export function each<A>(fn: (val: A, key?: any) => any, coll: A[]): void
 export function each<A>(
 	fn: (val: A, key?: any) => any,
 	coll: Collection<A>,
