@@ -5,7 +5,7 @@ export class RBNode extends BT.Node {
         this.red = true;
     }
 }
-export const rbNil = Object.assign({}, BT.nil, { red: false });
+export const rbNil = Object.assign(Object.assign({}, BT.nil), { red: false });
 export function insertFixup(tree, node) {
     while (node.parent.red) {
         if (node.parent === node.parent.parent.left) {

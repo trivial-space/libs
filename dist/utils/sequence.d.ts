@@ -1,7 +1,7 @@
-export declare type Sequence<T> = {
+export interface Sequence<T> {
     length: number;
     [n: number]: T;
-};
+}
 export declare type Collection<T> = T[] | {
     [key: string]: T;
 };
@@ -18,7 +18,4 @@ export declare function map<A, B>(fn: (val: A, key?: any) => B, coll: {
     [key: string]: B;
 };
 export declare function map<A, B>(fn: (val: A, key?: any) => B, coll: A[]): B[];
-export declare function each<A>(fn: (val: A, key?: any) => any, coll: {
-    [key: string]: A;
-}): void;
-export declare function each<A>(fn: (val: A, key?: any) => any, coll: A[]): void;
+export declare function each<A>(fn: (val: A, key?: any) => any, coll: Collection<A>): void;

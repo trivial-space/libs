@@ -1,5 +1,5 @@
 export const and = (p1, p2) => (a, b) => p1(a, b) && p2(a, b);
-export const not = (p) => (a, b) => !p(a, b);
+export const not = (p) => (...args) => !p(...args);
 export const defined = a => a != null;
 export const notEmpty = a => a && a.length;
 export const unequal = (a, b) => a !== b;

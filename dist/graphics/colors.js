@@ -118,12 +118,12 @@ export function adjustHue(hue) {
     return hue;
 }
 export function updateHue(hsl, degree) {
-    return Object.assign({}, hsl, { h: adjustHue(hsl.h + degree) });
+    return Object.assign(Object.assign({}, hsl), { h: adjustHue(hsl.h + degree) });
 }
 export function updateSaturation(hsl, delta) {
-    return Object.assign({}, hsl, { s: clamp(0, 1, hsl.s + delta) });
+    return Object.assign(Object.assign({}, hsl), { s: clamp(0, 1, hsl.s + delta) });
 }
 export function updateLightness(hsl, delta) {
-    return Object.assign({}, hsl, { l: clamp(0, 1, hsl.l + delta) });
+    return Object.assign(Object.assign({}, hsl), { l: clamp(0, 1, hsl.l + delta) });
 }
 //# sourceMappingURL=colors.js.map

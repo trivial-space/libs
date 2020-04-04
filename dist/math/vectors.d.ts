@@ -11,4 +11,4 @@ export declare function limit(maxLength: number, vec: Vec): number[];
 export declare function dot(v1: Vec, v2: Vec): number;
 export declare function cross(v1: Vec, v2: Vec, res?: Vec): number[];
 export declare function cross2D(v1: Vec, v2: Vec): number;
-export declare const isEqual: (vec1: Sequence<number>, vec2: Sequence<number>) => boolean;
+export declare const isEqual: (vec1: Vec, vec2: Vec) => boolean;
