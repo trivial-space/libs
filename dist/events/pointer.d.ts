@@ -18,7 +18,6 @@ export interface PointerState {
     };
     dragging: boolean;
     holding: boolean;
-    touching: boolean;
 }
 export interface PointerOpts {
     element?: HTMLElement;

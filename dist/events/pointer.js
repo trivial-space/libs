@@ -11,7 +11,6 @@ export function pointer(opts, callback) {
         drag: { x: 0, y: 0, dX: 0, dY: 0, xMax: 0, yMax: 0 },
         dragging: false,
         holding: false,
-        touching: false,
     };
     let x = 0, y = 0, oX = 0, oY = 0, timeout = null;
     function onPointerDown(e) {
@@ -65,21 +64,11 @@ export function pointer(opts, callback) {
     function preventDefault(e) {
         e.preventDefault();
     }
-    function onTouchStart() {
-        state.touching = true;
-        cb(state);
-    }
-    function onTouchEnd() {
-        state.touching = false;
-        cb(state);
-    }
     element.addEventListener('pointerdown', onPointerDown);
     document.addEventListener('pointermove', onPointerMove);
     document.addEventListener('pointerup', onPointerUp);
     document.addEventListener('pointerleave', onPointerUp);
     document.addEventListener('pointercancel', onPointerUp);
-    document.addEventListener('touchstart', onTouchStart);
-    document.addEventListener('touchend', onTouchEnd);
     if (enableRightButton) {
         element.addEventListener('contextmenu', preventDefault);
     }
@@ -90,8 +79,6 @@ export function pointer(opts, callback) {
         document.removeEventListener('pointerup', onPointerUp);
         document.removeEventListener('pointerleave', onPointerUp);
         document.removeEventListener('pointercancel', onPointerUp);
-        document.removeEventListener('touchstart', onTouchStart);
-        document.removeEventListener('touchend', onTouchEnd);
         if (enableRightButton) {
             element.removeEventListener('contextmenu', preventDefault);
         }

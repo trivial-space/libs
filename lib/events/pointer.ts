@@ -17,7 +17,6 @@ export interface PointerState {
 	}
 	dragging: boolean
 	holding: boolean
-	touching: boolean
 }
 
 export interface PointerOpts {
@@ -50,7 +49,6 @@ export function pointer(
 		drag: { x: 0, y: 0, dX: 0, dY: 0, xMax: 0, yMax: 0 },
 		dragging: false,
 		holding: false,
-		touching: false,
 	}
 
 	let x = 0,
@@ -116,22 +114,11 @@ export function pointer(
 		e.preventDefault()
 	}
 
-	function onTouchStart() {
-		state.touching = true
-		cb(state)
-	}
-	function onTouchEnd() {
-		state.touching = false
-		cb(state)
-	}
-
 	element.addEventListener('pointerdown', onPointerDown as EventListener)
 	document.addEventListener('pointermove', onPointerMove)
 	document.addEventListener('pointerup', onPointerUp)
 	document.addEventListener('pointerleave', onPointerUp)
 	document.addEventListener('pointercancel', onPointerUp)
-	document.addEventListener('touchstart', onTouchStart)
-	document.addEventListener('touchend', onTouchEnd)
 
 	if (enableRightButton) {
 		element.addEventListener('contextmenu', preventDefault)
@@ -145,8 +132,6 @@ export function pointer(
 		document.removeEventListener('pointerup', onPointerUp)
 		document.removeEventListener('pointerleave', onPointerUp)
 		document.removeEventListener('pointercancel', onPointerUp)
-		document.removeEventListener('touchstart', onTouchStart)
-		document.removeEventListener('touchend', onTouchEnd)
 		if (enableRightButton) {
 			element.removeEventListener('contextmenu', preventDefault)
 		}
