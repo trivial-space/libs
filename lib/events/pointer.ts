@@ -40,7 +40,7 @@ export function pointer(
 	const {
 		element = document,
 		enableRightButton,
-		holdDelay = 300,
+		holdDelay = 400,
 		holdRadius = 5,
 	} = opts as PointerOpts
 
@@ -79,25 +79,19 @@ export function pointer(
 		cb(state)
 	}
 
-	function onPointerUp(e: PointerEvent) {
-		if (e.isPrimary) {
-			delete state.pressed[e.button]
-			if (!state.pressed[Buttons.LEFT]) {
-				delete state.drag.event
-				state.drag.x = 0
-				state.drag.y = 0
-				state.drag.dX = 0
-				state.drag.dY = 0
-				state.drag.xMax = 0
-				state.drag.yMax = 0
-				state.dragging = false
-				state.holding = false
-				timeout ?? clearTimeout(timeout)
-				timeout = null
-			}
-		} else {
-			delete state.pressed[Buttons.RIGHT]
-		}
+	function onPointerUp(_e: PointerEvent) {
+		state.pressed = {}
+		delete state.drag.event
+		state.drag.x = 0
+		state.drag.y = 0
+		state.drag.dX = 0
+		state.drag.dY = 0
+		state.drag.xMax = 0
+		state.drag.yMax = 0
+		state.dragging = false
+		state.holding = false
+		timeout ?? clearTimeout(timeout)
+		timeout = null
 		cb(state)
 	}
 
@@ -126,7 +120,6 @@ export function pointer(
 	element.addEventListener('pointerdown', onPointerDown as EventListener)
 	document.addEventListener('pointermove', onPointerMove)
 	document.addEventListener('pointerup', onPointerUp)
-	document.addEventListener('pointercancel', onPointerUp)
 	document.addEventListener('pointerleave', onPointerUp)
 
 	if (enableRightButton) {
@@ -139,7 +132,6 @@ export function pointer(
 		element.removeEventListener('pointerdown', onPointerDown as EventListener)
 		document.removeEventListener('pointermove', onPointerMove)
 		document.removeEventListener('pointerup', onPointerUp)
-		document.removeEventListener('pointercancel', onPointerUp)
 		document.removeEventListener('pointerleave', onPointerUp)
 		if (enableRightButton) {
 			element.removeEventListener('contextmenu', preventDefault)
