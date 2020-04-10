@@ -60,19 +60,16 @@ export function pointer(
 	function onPointerDown(e: PointerEvent) {
 		if (e.isPrimary) {
 			state.pressed[e.button] = e
-
-			if (e.button === Buttons.LEFT) {
-				x = oX = e.clientX
-				y = oY = e.clientY
-				state.dragging = true
-				timeout ?? clearTimeout(timeout)
-				timeout = setTimeout(() => {
-					if (state.drag.xMax < holdRadius && state.drag.yMax < holdRadius) {
-						state.holding = true
-						cb(state)
-					}
-				}, holdDelay)
-			}
+			x = oX = e.clientX
+			y = oY = e.clientY
+			state.dragging = true
+			timeout != null && clearTimeout(timeout)
+			timeout = setTimeout(() => {
+				if (state.drag.xMax < holdRadius && state.drag.yMax < holdRadius) {
+					state.holding = true
+					cb(state)
+				}
+			}, holdDelay)
 		} else {
 			state.pressed[Buttons.RIGHT] = e
 		}
@@ -90,7 +87,7 @@ export function pointer(
 		state.drag.yMax = 0
 		state.dragging = false
 		state.holding = false
-		timeout ?? clearTimeout(timeout)
+		timeout != null && clearTimeout(timeout)
 		timeout = null
 		cb(state)
 	}

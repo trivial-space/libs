@@ -16,18 +16,16 @@ export function pointer(opts, callback) {
     function onPointerDown(e) {
         if (e.isPrimary) {
             state.pressed[e.button] = e;
-            if (e.button === Buttons.LEFT) {
-                x = oX = e.clientX;
-                y = oY = e.clientY;
-                state.dragging = true;
-                timeout !== null && timeout !== void 0 ? timeout : clearTimeout(timeout);
-                timeout = setTimeout(() => {
-                    if (state.drag.xMax < holdRadius && state.drag.yMax < holdRadius) {
-                        state.holding = true;
-                        cb(state);
-                    }
-                }, holdDelay);
-            }
+            x = oX = e.clientX;
+            y = oY = e.clientY;
+            state.dragging = true;
+            timeout != null && clearTimeout(timeout);
+            timeout = setTimeout(() => {
+                if (state.drag.xMax < holdRadius && state.drag.yMax < holdRadius) {
+                    state.holding = true;
+                    cb(state);
+                }
+            }, holdDelay);
         }
         else {
             state.pressed[Buttons.RIGHT] = e;
@@ -45,7 +43,7 @@ export function pointer(opts, callback) {
         state.drag.yMax = 0;
         state.dragging = false;
         state.holding = false;
-        timeout !== null && timeout !== void 0 ? timeout : clearTimeout(timeout);
+        timeout != null && clearTimeout(timeout);
         timeout = null;
         cb(state);
     }
