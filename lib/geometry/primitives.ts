@@ -23,7 +23,10 @@ export const lerpVecs = partial(interpolate, lerp)
 
 export function split(part: number, [v1, v2]: Edge): Edge[] {
 	const p = lerpVecs(part, v1, v2)
-	return [[v1, p], [p, v2]]
+	return [
+		[v1, p],
+		[p, v2],
+	]
 }
 
 export function translate(vec: Vec, e: Edge): Edge

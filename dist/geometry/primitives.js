@@ -8,7 +8,10 @@ export function interpolate(fn, step, start, end) {
 export const lerpVecs = partial(interpolate, lerp);
 export function split(part, [v1, v2]) {
     const p = lerpVecs(part, v1, v2);
-    return [[v1, p], [p, v2]];
+    return [
+        [v1, p],
+        [p, v2],
+    ];
 }
 export function translate(vec, p) {
     return p.map(v => add(vec, v));

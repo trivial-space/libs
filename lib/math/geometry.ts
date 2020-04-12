@@ -28,7 +28,6 @@ http://khayyam.kaplinski.com/2011/09/reflective-water-with-glsl-part-i.html
               mat.m._30 = 0.0f;	mat.m._31 = 0.0f;	mat.m._32 = 0.0f;	mat.m._33 = 1.0f;
 https://www.opengl.org/discussion_boards/showthread.php/147784-Mirror-Matrices
 */
-
 export function mirrorMatrixFromPlane(plane: Vec) {
 	const [a, b, c, d] = plane as number[]
 
