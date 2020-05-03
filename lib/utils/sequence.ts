@@ -3,6 +3,7 @@ import { randInt, randIntInRange } from '../math/random'
 export interface Sequence<T> {
 	length: number
 	[n: number]: T
+	[Symbol.iterator](): IterableIterator<T>
 }
 
 export type Collection<T> = T[] | { [key: string]: T }

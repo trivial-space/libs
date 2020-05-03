@@ -1,6 +1,7 @@
 export interface Sequence<T> {
     length: number;
     [n: number]: T;
+    [Symbol.iterator](): IterableIterator<T>;
 }
 export declare type Collection<T> = T[] | {
     [key: string]: T;

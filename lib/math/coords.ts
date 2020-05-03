@@ -14,9 +14,7 @@ export function cartesianToPolar2D(v: Vec): Vec {
 	return polarCoord(length(v), Math.atan2(v[1], v[0]))
 }
 
-export function polarToCartesian2D(coords: Vec): Vec {
-	const r = coords[0],
-		phi = coords[1]
+export function polarToCartesian2D([r, phi]: Vec): Vec {
 	return [r * Math.cos(phi), r * Math.sin(phi)]
 }
 
@@ -39,11 +37,7 @@ export function sphereCoord(
 	return [radius, angleY, angleZ]
 }
 
-export function cartesianToSphere3D(v: Vec): Vec {
-	const x = v[0],
-		y = v[1],
-		z = v[2]
-
+export function cartesianToSphere3D([x, y, z]: Vec): Vec {
 	const radius = Math.sqrt(x * x + y * y + z * z)
 	if (radius === 0) {
 		return sphereCoord(0, 0, 0)
