@@ -12,22 +12,10 @@ export function normalFromThreeCoplanarPoints(p1, p2, p3) {
 export function mirrorMatrixFromPlane(plane) {
     const [a, b, c, d] = plane;
     return [
-        1 - 2 * a * a,
-        -2 * a * b,
-        -2 * a * c,
-        0,
-        -2 * a * b,
-        1 - 2 * b * b,
-        -2 * b * c,
-        0,
-        -2 * a * c,
-        -2 * b * c,
-        1 - 2 * c * c,
-        0,
-        -2 * a * d,
-        -2 * b * d,
-        -2 * c * d,
-        1,
+        1 - 2 * a * a, -2 * a * b, -2 * a * c, 0,
+        -2 * a * b, 1 - 2 * b * b, -2 * b * c, 0,
+        -2 * a * c, -2 * b * c, 1 - 2 * c * c, 0,
+        -2 * a * d, -2 * b * d, -2 * c * d, 1,
     ];
 }
 export function getYawQuat(rotYAngle) {
