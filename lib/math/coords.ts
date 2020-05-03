@@ -1,11 +1,75 @@
 import { length, Vec } from './vectors'
 
-export function cartesianToPolar2D(v: Vec): number[] {
-	return [length(v), Math.atan2(v[1], v[0])]
+// === polar coordinates ===
+
+/**
+ * @param radius distance from origin
+ * @param angle counter clockwise
+ */
+export function polarCoord(radius: number, angle: number): Vec {
+	return [radius, angle]
 }
 
-export function polarToCartesian2D(coords: Vec): number[] {
+export function cartesianToPolar2D(v: Vec): Vec {
+	return polarCoord(length(v), Math.atan2(v[1], v[0]))
+}
+
+export function polarToCartesian2D(coords: Vec): Vec {
 	const r = coords[0],
 		phi = coords[1]
 	return [r * Math.cos(phi), r * Math.sin(phi)]
+}
+
+// === sphere coordinates ===
+
+/**
+ * Sphere coordinate vector.
+ *
+ * Angles rotate counterclockwise. Sphere coordinate [1, 0, 0] corresponds to cartesian coord [0, 0, 1].
+ *
+ * @param radius distance from origin
+ * @param angleY polar angle, rotating around y axis, 0 - PI (0° - 180°)
+ * @param angleZ azimuth angle, rotating around z axis, 0 - 2*PI (0° - 360°)
+ */
+export function sphereCoord(
+	radius: number,
+	angleY: number,
+	angleZ: number,
+): Vec {
+	return [radius, angleY, angleZ]
+}
+
+export function cartesianToSphere3D(v: Vec): Vec {
+	const x = v[0],
+		y = v[1],
+		z = v[2]
+
+	const radius = Math.sqrt(x * x + y * y + z * z)
+	if (radius === 0) {
+		return sphereCoord(0, 0, 0)
+	}
+
+	let azimuthAngleZ = x === 0 ? (y >= 0 ? 0 : Math.PI) : Math.atan2(y, x)
+
+	let polarAngleY = Math.acos(z / radius)
+
+	if (azimuthAngleZ < 0) azimuthAngleZ += Math.PI * 2
+
+	return sphereCoord(radius, polarAngleY, azimuthAngleZ)
+}
+
+export function sphereToCartesian3D(vec: Vec): Vec {
+	const radius = vec[0],
+		polar = vec[1],
+		azimuth = vec[2]
+
+	if (radius === 0) {
+		return [0, 0, 0]
+	}
+
+	return [
+		radius * Math.sin(polar) * Math.cos(azimuth),
+		radius * Math.sin(polar) * Math.sin(azimuth),
+		radius * Math.cos(polar),
+	]
 }
