@@ -77,6 +77,7 @@ export function remove(tree, node) {
         y.red = node.red;
     }
     if (!red) {
+        // removeFixup
         while (x !== tree.root && !x.red) {
             if (x === x.parent.left) {
                 let w = x.parent.right;
@@ -105,6 +106,7 @@ export function remove(tree, node) {
                 }
             }
             else {
+                // symmetric
                 let w = x.parent.left;
                 if (w.red) {
                     w.red = false;

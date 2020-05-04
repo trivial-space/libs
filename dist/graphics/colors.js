@@ -33,11 +33,15 @@ export function rgbToHexString([r, g, b]) {
 }
 export function hexStringToRgb(s) {
     s = s.replace(/^\s*#|\s*$/g, '');
+    // convert 3 char codes --> 6, e.g. `E0F` --> `EE00FF`
     if (s.length === 3) {
         s = s.replace(/(.)/g, '$1$1');
     }
     return hexToRgb(parseInt(s, 16));
 }
+/**
+ * @param rgb FloatColor with ranges 0 - 1
+ */
 export function rgbToHSL([r, g, b]) {
     const cMax = Math.max(r, g, b);
     const cMin = Math.min(r, g, b);

@@ -31,6 +31,7 @@ export function div(scalar, vec, res = []) {
 }
 export function length(vec) {
     let sum = 0;
+    // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < vec.length; i++) {
         const val = vec[i];
         sum += val * val;

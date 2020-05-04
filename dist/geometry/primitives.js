@@ -30,9 +30,18 @@ export function rotateLeft(p) {
 export function rotateRight(p) {
     return rotateRightInPlace(p.concat());
 }
+/**
+ * Unit normal on a clockwise polygon.
+ */
 export function normal(p) {
     return normalize(cross(sub(p[0], p[1]), sub(p[2], p[1])));
 }
+/**
+ * Returns a positive number if v is right of e,
+ * a negative number, iv v ist left of e, and 0, if v is colinear to e.
+ * @param e Edge
+ * @param v Point
+ */
 export function side(e, v) {
     return cross2D(sub(v, e[0]), sub(e[1], e[0]));
 }

@@ -279,6 +279,37 @@ export function noise1d(x) {
     u = fade(x);
     return lerp(u, grad(p1[X], x), grad(p1[X + 1], x - 1));
 }
+/*
+ * A fast javascript implementation of simplex noise by Jonas Wagner
+ *
+ * Based on a speed-improved simplex noise algorithm for 2D, 3D and 4D in Java.
+ * Which is based on example code by Stefan Gustavson (stegu@itn.liu.se).
+ * With Optimisations by Peter Eastman (peastman@drizzle.stanford.edu).
+ * Better rank ordering method by Stefan Gustavson in 2012.
+ *
+ *
+ * Copyright (C) 2012 Jonas Wagner
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining
+ * a copy of this software and associated documentation files (the
+ * "Software"), to deal in the Software without restriction, including
+ * without limitation the rights to use, copy, modify, merge, publish,
+ * distribute, sublicense, and/or sell copies of the Software, and to
+ * permit persons to whom the Software is furnished to do so, subject to
+ * the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be
+ * included in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+ * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+ * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+ * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ *
+ */
 const F2 = 0.5 * (Math.sqrt(3.0) - 1.0), G2 = (3.0 - Math.sqrt(3.0)) / 6.0, F3 = 1.0 / 3.0, G3 = 1.0 / 6.0, F4 = (Math.sqrt(5.0) - 1.0) / 4.0, G4 = (5.0 - Math.sqrt(5.0)) / 20.0, p = new Uint8Array(256), perm = new Uint8Array(512), permMod12 = new Uint8Array(512);
 for (let i = 0; i < 256; i++) {
     p[i] = Math.random() * 256;
@@ -456,35 +487,43 @@ const grad4 = new Float32Array([
     0,
 ]);
 export function noise2d(xin, yin) {
-    let n0 = 0, n1 = 0, n2 = 0;
-    const s = (xin + yin) * F2;
+    let n0 = 0, n1 = 0, n2 = 0; // Noise contributions from the three corners
+    // Skew the input space to determine which simplex cell we're in
+    const s = (xin + yin) * F2; // Hairy factor for 2D
     const i = Math.floor(xin + s);
     const j = Math.floor(yin + s);
     const t = (i + j) * G2;
-    const X0 = i - t;
+    const X0 = i - t; // Unskew the cell origin back to (x,y) space
     const Y0 = j - t;
-    const x0 = xin - X0;
+    const x0 = xin - X0; // The x,y distances from the cell origin
     const y0 = yin - Y0;
-    let i1, j1;
+    // For the 2D case, the simplex shape is an equilateral triangle.
+    // Determine which simplex we are in.
+    let i1, j1; // Offsets for second (middle) corner of simplex in (i,j) coords
     if (x0 > y0) {
         i1 = 1;
         j1 = 0;
-    }
+    } // lower triangle, XY order: (0,0)->(1,0)->(1,1)
     else {
         i1 = 0;
         j1 = 1;
-    }
-    const x1 = x0 - i1 + G2;
+    } // upper triangle, YX order: (0,0)->(0,1)->(1,1)
+    // A step of (1,0) in (i,j) means a step of (1-c,-c) in (x,y), and
+    // a step of (0,1) in (i,j) means a step of (-c,1-c) in (x,y), where
+    // c = (3-sqrt(3))/6
+    const x1 = x0 - i1 + G2; // Offsets for middle corner in (x,y) unskewed coords
     const y1 = y0 - j1 + G2;
-    const x2 = x0 - 1.0 + 2.0 * G2;
+    const x2 = x0 - 1.0 + 2.0 * G2; // Offsets for last corner in (x,y) unskewed coords
     const y2 = y0 - 1.0 + 2.0 * G2;
+    // Work out the hashed gradient indices of the three simplex corners
     const ii = i & 255;
     const jj = j & 255;
+    // Calculate the contribution from the three corners
     let t0 = 0.5 - x0 * x0 - y0 * y0;
     if (t0 >= 0) {
         const gi0 = permMod12[ii + perm[jj]] * 3;
         t0 *= t0;
-        n0 = t0 * t0 * (grad3[gi0] * x0 + grad3[gi0 + 1] * y0);
+        n0 = t0 * t0 * (grad3[gi0] * x0 + grad3[gi0 + 1] * y0); // (x,y) of grad3 used for 2D gradient
     }
     let t1 = 0.5 - x1 * x1 - y1 * y1;
     if (t1 >= 0) {
@@ -498,23 +537,29 @@ export function noise2d(xin, yin) {
         t2 *= t2;
         n2 = t2 * t2 * (grad3[gi2] * x2 + grad3[gi2 + 1] * y2);
     }
+    // Add contributions from each corner to get the final noise value.
+    // The result is scaled to return values in the interval [-1,1].
     return 70.0 * (n0 + n1 + n2);
 }
+// 3D simplex noise
 export function noise3d(xin, yin, zin) {
-    let n0, n1, n2, n3;
-    const s = (xin + yin + zin) * F3;
+    let n0, n1, n2, n3; // Noise contributions from the four corners
+    // Skew the input space to determine which simplex cell we're in
+    const s = (xin + yin + zin) * F3; // Very nice and simple skew factor for 3D
     const i = Math.floor(xin + s);
     const j = Math.floor(yin + s);
     const k = Math.floor(zin + s);
     const t = (i + j + k) * G3;
-    const X0 = i - t;
+    const X0 = i - t; // Unskew the cell origin back to (x,y,z) space
     const Y0 = j - t;
     const Z0 = k - t;
-    const x0 = xin - X0;
+    const x0 = xin - X0; // The x,y,z distances from the cell origin
     const y0 = yin - Y0;
     const z0 = zin - Z0;
-    let i1, j1, k1;
-    let i2, j2, k2;
+    // For the 3D case, the simplex shape is a slightly irregular tetrahedron.
+    // Determine which simplex we are in.
+    let i1, j1, k1; // Offsets for second corner of simplex in (i,j,k) coords
+    let i2, j2, k2; // Offsets for third corner of simplex in (i,j,k) coords
     if (x0 >= y0) {
         if (y0 >= z0) {
             i1 = 1;
@@ -523,7 +568,7 @@ export function noise3d(xin, yin, zin) {
             i2 = 1;
             j2 = 1;
             k2 = 0;
-        }
+        } // X Y Z order
         else if (x0 >= z0) {
             i1 = 1;
             j1 = 0;
@@ -531,7 +576,7 @@ export function noise3d(xin, yin, zin) {
             i2 = 1;
             j2 = 0;
             k2 = 1;
-        }
+        } // X Z Y order
         else {
             i1 = 0;
             j1 = 0;
@@ -539,9 +584,10 @@ export function noise3d(xin, yin, zin) {
             i2 = 1;
             j2 = 0;
             k2 = 1;
-        }
+        } // Z X Y order
     }
     else {
+        // x0<y0
         if (y0 < z0) {
             i1 = 0;
             j1 = 0;
@@ -549,7 +595,7 @@ export function noise3d(xin, yin, zin) {
             i2 = 0;
             j2 = 1;
             k2 = 1;
-        }
+        } // Z Y X order
         else if (x0 < z0) {
             i1 = 0;
             j1 = 1;
@@ -557,7 +603,7 @@ export function noise3d(xin, yin, zin) {
             i2 = 0;
             j2 = 1;
             k2 = 1;
-        }
+        } // Y Z X order
         else {
             i1 = 0;
             j1 = 1;
@@ -565,20 +611,26 @@ export function noise3d(xin, yin, zin) {
             i2 = 1;
             j2 = 1;
             k2 = 0;
-        }
+        } // Y X Z order
     }
-    const x1 = x0 - i1 + G3;
+    // A step of (1,0,0) in (i,j,k) means a step of (1-c,-c,-c) in (x,y,z),
+    // a step of (0,1,0) in (i,j,k) means a step of (-c,1-c,-c) in (x,y,z), and
+    // a step of (0,0,1) in (i,j,k) means a step of (-c,-c,1-c) in (x,y,z), where
+    // c = 1/6.
+    const x1 = x0 - i1 + G3; // Offsets for second corner in (x,y,z) coords
     const y1 = y0 - j1 + G3;
     const z1 = z0 - k1 + G3;
-    const x2 = x0 - i2 + 2.0 * G3;
+    const x2 = x0 - i2 + 2.0 * G3; // Offsets for third corner in (x,y,z) coords
     const y2 = y0 - j2 + 2.0 * G3;
     const z2 = z0 - k2 + 2.0 * G3;
-    const x3 = x0 - 1.0 + 3.0 * G3;
+    const x3 = x0 - 1.0 + 3.0 * G3; // Offsets for last corner in (x,y,z) coords
     const y3 = y0 - 1.0 + 3.0 * G3;
     const z3 = z0 - 1.0 + 3.0 * G3;
+    // Work out the hashed gradient indices of the four simplex corners
     const ii = i & 255;
     const jj = j & 255;
     const kk = k & 255;
+    // Calculate the contribution from the four corners
     let t0 = 0.6 - x0 * x0 - y0 * y0 - z0 * z0;
     if (t0 < 0)
         n0 = 0.0;
@@ -611,24 +663,33 @@ export function noise3d(xin, yin, zin) {
         t3 *= t3;
         n3 = t3 * t3 * (grad3[gi3] * x3 + grad3[gi3 + 1] * y3 + grad3[gi3 + 2] * z3);
     }
+    // Add contributions from each corner to get the final noise value.
+    // The result is scaled to stay just inside [-1,1]
     return 32.0 * (n0 + n1 + n2 + n3);
 }
+// 4D simplex noise, better simplex rank ordering method 2012-03-09
 export function noise4d(x, y, z, w) {
-    let n0, n1, n2, n3, n4;
-    const s = (x + y + z + w) * F4;
+    let n0, n1, n2, n3, n4; // Noise contributions from the five corners
+    // Skew the (x,y,z,w) space to determine which cell of 24 simplices we're in
+    const s = (x + y + z + w) * F4; // Factor for 4D skewing
     const i = Math.floor(x + s);
     const j = Math.floor(y + s);
     const k = Math.floor(z + s);
     const l = Math.floor(w + s);
-    const t = (i + j + k + l) * G4;
-    const X0 = i - t;
+    const t = (i + j + k + l) * G4; // Factor for 4D unskewing
+    const X0 = i - t; // Unskew the cell origin back to (x,y,z,w) space
     const Y0 = j - t;
     const Z0 = k - t;
     const W0 = l - t;
-    const x0 = x - X0;
+    const x0 = x - X0; // The x,y,z,w distances from the cell origin
     const y0 = y - Y0;
     const z0 = z - Z0;
     const w0 = w - W0;
+    // For the 4D case, the simplex is a 4D shape I won't even try to describe.
+    // To find out which of the 24 possible simplices we're in, we need to
+    // determine the magnitude ordering of x0, y0, z0 and w0.
+    // Six pair-wise comparisons are performed between each possible pair
+    // of the four coordinates, and the results are used to rank the numbers.
     let rankx = 0;
     let ranky = 0;
     let rankz = 0;
@@ -657,41 +718,51 @@ export function noise4d(x, y, z, w) {
         rankz++;
     else
         rankw++;
-    let i1, j1, k1, l1;
-    let i2, j2, k2, l2;
-    let i3, j3, k3, l3;
+    let i1, j1, k1, l1; // The integer offsets for the second simplex corner
+    let i2, j2, k2, l2; // The integer offsets for the third simplex corner
+    let i3, j3, k3, l3; // The integer offsets for the fourth simplex corner
+    // simplex[c] is a 4-vector with the numbers 0, 1, 2 and 3 in some order.
+    // Many values of c will never occur, since e.g. x>y>z>w makes x<z, y<w and x<w
+    // impossible. Only the 24 indices which have non-zero entries make any sense.
+    // We use a thresholding to set the coordinates in turn from the largest magnitude.
+    // Rank 3 denotes the largest coordinate.
     i1 = rankx >= 3 ? 1 : 0;
     j1 = ranky >= 3 ? 1 : 0;
     k1 = rankz >= 3 ? 1 : 0;
     l1 = rankw >= 3 ? 1 : 0;
+    // Rank 2 denotes the second largest coordinate.
     i2 = rankx >= 2 ? 1 : 0;
     j2 = ranky >= 2 ? 1 : 0;
     k2 = rankz >= 2 ? 1 : 0;
     l2 = rankw >= 2 ? 1 : 0;
+    // Rank 1 denotes the second smallest coordinate.
     i3 = rankx >= 1 ? 1 : 0;
     j3 = ranky >= 1 ? 1 : 0;
     k3 = rankz >= 1 ? 1 : 0;
     l3 = rankw >= 1 ? 1 : 0;
-    const x1 = x0 - i1 + G4;
+    // The fifth corner has all coordinate offsets = 1, so no need to compute that.
+    const x1 = x0 - i1 + G4; // Offsets for second corner in (x,y,z,w) coords
     const y1 = y0 - j1 + G4;
     const z1 = z0 - k1 + G4;
     const w1 = w0 - l1 + G4;
-    const x2 = x0 - i2 + 2.0 * G4;
+    const x2 = x0 - i2 + 2.0 * G4; // Offsets for third corner in (x,y,z,w) coords
     const y2 = y0 - j2 + 2.0 * G4;
     const z2 = z0 - k2 + 2.0 * G4;
     const w2 = w0 - l2 + 2.0 * G4;
-    const x3 = x0 - i3 + 3.0 * G4;
+    const x3 = x0 - i3 + 3.0 * G4; // Offsets for fourth corner in (x,y,z,w) coords
     const y3 = y0 - j3 + 3.0 * G4;
     const z3 = z0 - k3 + 3.0 * G4;
     const w3 = w0 - l3 + 3.0 * G4;
-    const x4 = x0 - 1.0 + 4.0 * G4;
+    const x4 = x0 - 1.0 + 4.0 * G4; // Offsets for last corner in (x,y,z,w) coords
     const y4 = y0 - 1.0 + 4.0 * G4;
     const z4 = z0 - 1.0 + 4.0 * G4;
     const w4 = w0 - 1.0 + 4.0 * G4;
+    // Work out the hashed gradient indices of the five simplex corners
     const ii = i & 255;
     const jj = j & 255;
     const kk = k & 255;
     const ll = l & 255;
+    // Calculate the contribution from the five corners
     let t0 = 0.6 - x0 * x0 - y0 * y0 - z0 * z0 - w0 * w0;
     if (t0 < 0)
         n0 = 0.0;
@@ -762,6 +833,7 @@ export function noise4d(x, y, z, w) {
                     grad4[gi4 + 2] * z4 +
                     grad4[gi4 + 3] * w4);
     }
+    // Sum up and scale the result to cover the range [-1,1]
     return 27.0 * (n0 + n1 + n2 + n3 + n4);
 }
 export function tileNoise(width, height, dx, dy) {

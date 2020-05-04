@@ -1,3 +1,4 @@
+// ===== stopable animation function with time per frame
 export function animateWithTPF(callback) {
     let isRunning = true;
     let oldTime;
@@ -13,6 +14,7 @@ export function animateWithTPF(callback) {
         isRunning = false;
     };
 }
+// ===== stopable animation function without time per frame
 export function animate(callback) {
     let isRunning = true;
     function next(time) {
@@ -26,6 +28,7 @@ export function animate(callback) {
         isRunning = false;
     };
 }
+// ===== start, stop, add and remove animated update functions
 export function createAnimator(animateFunction = animateWithTPF) {
     let updates = [];
     function callback() {
