@@ -6,7 +6,7 @@ export interface Sequence<T> {
 	[Symbol.iterator](): IterableIterator<T>
 }
 
-export type Collection<T> = T[] | { [key: string]: T }
+export type Collection<T> = Sequence<T> | T[] | { [key: string]: T }
 
 export function pickRandom<T>(arr: Sequence<T>): T {
 	return arr[randInt(arr.length)]
@@ -54,11 +54,13 @@ export function flatten<T>(array: Sequence<T>[], res: T[] = []): T[] {
 
 export function mapcat<A, B>(
 	fn: (a: A) => B[],
-	array: A[],
-	res: B[] = [],
+	array: Sequence<A>,
+	res: Sequence<B>[] = [],
 ): B[] {
-	return flatten(array.map(fn), res)
+	return flatten(map(fn, array, res))
 }
+
+export const flatMap = mapcat
 
 export function shuffle<T>(arr: T[]): T[] {
 	const shuffled: T[] = []
@@ -74,20 +76,36 @@ export function shuffle<T>(arr: T[]): T[] {
 }
 
 export function map<A, B>(
-	fn: (val: A, key?: any) => B,
-	coll: { [key: string]: A },
+	fn: (val: A, key: string) => B,
+	coll: {
+		[key: string]: A
+	},
+	result?: {
+		[key: string]: B
+	},
 ): { [key: string]: B }
-export function map<A, B>(fn: (val: A, key?: any) => B, coll: A[]): B[]
 export function map<A, B>(
-	fn: (val: A, key?: any) => B,
+	fn: (val: A, key: number) => B,
+	coll: Sequence<A> | A[],
+	result?: B[],
+): B[]
+export function map<A, B>(
+	fn: (val: A, key: any) => B,
 	coll: Collection<A>,
+	result?: Collection<B>,
 ): Collection<B> {
 	if (Array.isArray(coll)) {
 		return coll.map(fn)
+	} else if (Symbol.iterator in coll) {
+		const res = (result as Sequence<B>) || []
+		for (let i = 0; i < (coll as Sequence<A>).length; i++) {
+			res[i] = fn((coll as Sequence<A>)[i], i)
+		}
+		return res
 	} else {
-		const obj = {} as { [key: string]: B }
+		const obj = (result as { [key: string]: B }) || {}
 		for (const key in coll) {
-			obj[key] = fn(coll[key], key)
+			obj[key] = fn((coll as any)[key], key)
 		}
 		return obj
 	}

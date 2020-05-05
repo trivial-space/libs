@@ -30,8 +30,9 @@ export function flatten(array, res = []) {
     return res;
 }
 export function mapcat(fn, array, res = []) {
-    return flatten(array.map(fn), res);
+    return flatten(map(fn, array, res));
 }
+export const flatMap = mapcat;
 export function shuffle(arr) {
     const shuffled = [];
     for (let i = 0; i < arr.length; i++) {
@@ -42,12 +43,19 @@ export function shuffle(arr) {
     }
     return shuffled;
 }
-export function map(fn, coll) {
+export function map(fn, coll, result) {
     if (Array.isArray(coll)) {
         return coll.map(fn);
     }
+    else if (Symbol.iterator in coll) {
+        const res = result || [];
+        for (let i = 0; i < coll.length; i++) {
+            res[i] = fn(coll[i], i);
+        }
+        return res;
+    }
     else {
-        const obj = {};
+        const obj = result || {};
         for (const key in coll) {
             obj[key] = fn(coll[key], key);
         }
