@@ -53,7 +53,7 @@ export function flatten<T>(array: Sequence<T>[], res: T[] = []): T[] {
 }
 
 export function mapcat<A, B>(
-	fn: (a: A) => B[],
+	fn: (a: A) => Sequence<B>,
 	array: Sequence<A>,
 	res: Sequence<B>[] = [],
 ): B[] {
