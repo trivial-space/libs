@@ -48,7 +48,7 @@ export function pointer(opts, callback) {
         cb(state);
     }
     function onPointerMove(e) {
-        if (state.dragging) {
+        if (state.dragging && e.isPrimary) {
             state.drag.event = e;
             state.drag.x = x - e.clientX;
             state.drag.y = y - e.clientY;

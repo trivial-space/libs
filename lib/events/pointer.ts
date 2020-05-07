@@ -93,7 +93,7 @@ export function pointer(
 	}
 
 	function onPointerMove(e: PointerEvent) {
-		if (state.dragging) {
+		if (state.dragging && e.isPrimary) {
 			state.drag.event = e
 
 			state.drag.x = x - e.clientX
