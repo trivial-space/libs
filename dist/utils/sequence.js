@@ -13,6 +13,9 @@ export function times(fn, count, res = []) {
     }
     return res;
 }
+export function repeat(count, item) {
+    return times(() => item, count);
+}
 export function zip(fn, as, bs, res = []) {
     const length = Math.min(as.length, bs.length);
     for (let i = 0; i < length; i++) {

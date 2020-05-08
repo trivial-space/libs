@@ -29,6 +29,10 @@ export function times<T>(
 	return res
 }
 
+export function repeat<T>(count: number, item: T) {
+	return times(() => item, count)
+}
+
 export function zip<A, B, C>(
 	fn: (a: A, b: B) => C,
 	as: Sequence<A>,
