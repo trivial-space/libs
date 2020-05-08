@@ -62,53 +62,34 @@ export function mapcat<A, B>(
 
 export const flatMap = mapcat
 
-export function shuffle<T>(arr: T[]): T[] {
-	const shuffled: T[] = []
-
+export function reverse<T>(arr: Sequence<T>, res: T[] = []): T[] {
 	for (let i = 0; i < arr.length; i++) {
-		const j = randIntInRange(i, arr.length)
-		const temp = shuffled[i] !== undefined ? shuffled[i] : arr[i]
-		shuffled[i] = shuffled[j] !== undefined ? shuffled[j] : arr[j]
-		shuffled[j] = temp
+		res[i] = arr[arr.length - 1 - i]
 	}
 
-	return shuffled
+	return res
+}
+
+export function shuffle<T>(arr: Sequence<T>, res: T[] = []): T[] {
+	for (let i = 0; i < arr.length; i++) {
+		const j = randIntInRange(i, arr.length)
+		const temp = res[i] !== undefined ? res[i] : arr[i]
+		res[i] = res[j] !== undefined ? res[j] : arr[j]
+		res[j] = temp
+	}
+
+	return res
 }
 
 export function map<A, B>(
-	fn: (val: A, key: string) => B,
-	coll: {
-		[key: string]: A
-	},
-	result?: {
-		[key: string]: B
-	},
-): { [key: string]: B }
-export function map<A, B>(
 	fn: (val: A, key: number) => B,
-	coll: Sequence<A> | A[],
-	result?: B[],
-): B[]
-export function map<A, B>(
-	fn: (val: A, key: any) => B,
-	coll: Collection<A>,
-	result?: Collection<B>,
-): Collection<B> {
-	if (Array.isArray(coll)) {
-		return coll.map(fn)
-	} else if (Symbol.iterator in coll) {
-		const res = (result as Sequence<B>) || []
-		for (let i = 0; i < (coll as Sequence<A>).length; i++) {
-			res[i] = fn((coll as Sequence<A>)[i], i)
-		}
-		return res
-	} else {
-		const obj = (result as { [key: string]: B }) || {}
-		for (const key in coll) {
-			obj[key] = fn((coll as any)[key], key)
-		}
-		return obj
+	coll: Sequence<A>,
+	res: B[] = [],
+): B[] {
+	for (let i = 0; i < coll.length; i++) {
+		res[i] = fn(coll[i], i)
 	}
+	return res
 }
 
 export function each<A>(
@@ -118,4 +99,20 @@ export function each<A>(
 	for (const key in coll) {
 		fn((coll as any)[key], key)
 	}
+}
+
+export function reduce<A, B>(
+	fn: (sum: B, item: A) => B,
+	start: B,
+	arr: Sequence<A>,
+): B {
+	for (let i = 0; i < arr.length; i++) {
+		start = fn(start, arr[i])
+	}
+	return start
+}
+
+export function fold<T>(fn: (sum: T, item: T) => T, arr: Sequence<T>): T {
+	const [start, ...rest] = arr
+	return reduce(fn, start, rest)
 }

@@ -13,13 +13,9 @@ export declare function zip<A, B, C>(fn: (a: A, b: B) => C, as: Sequence<A>, bs:
 export declare function flatten<T>(array: Sequence<T>[], res?: T[]): T[];
 export declare function mapcat<A, B>(fn: (a: A) => Sequence<B>, array: Sequence<A>, res?: Sequence<B>[]): B[];
 export declare const flatMap: typeof mapcat;
-export declare function shuffle<T>(arr: T[]): T[];
-export declare function map<A, B>(fn: (val: A, key: string) => B, coll: {
-    [key: string]: A;
-}, result?: {
-    [key: string]: B;
-}): {
-    [key: string]: B;
-};
-export declare function map<A, B>(fn: (val: A, key: number) => B, coll: Sequence<A> | A[], result?: B[]): B[];
+export declare function reverse<T>(arr: Sequence<T>, res?: T[]): T[];
+export declare function shuffle<T>(arr: Sequence<T>, res?: T[]): T[];
+export declare function map<A, B>(fn: (val: A, key: number) => B, coll: Sequence<A>, res?: B[]): B[];
 export declare function each<A>(fn: (val: A, key?: any) => any, coll: Collection<A>): void;
+export declare function reduce<A, B>(fn: (sum: B, item: A) => B, start: B, arr: Sequence<A>): B;
+export declare function fold<T>(fn: (sum: T, item: T) => T, arr: Sequence<T>): T;

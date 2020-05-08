@@ -33,38 +33,40 @@ export function mapcat(fn, array, res = []) {
     return flatten(map(fn, array, res));
 }
 export const flatMap = mapcat;
-export function shuffle(arr) {
-    const shuffled = [];
+export function reverse(arr, res = []) {
+    for (let i = 0; i < arr.length; i++) {
+        res[i] = arr[arr.length - 1 - i];
+    }
+    return res;
+}
+export function shuffle(arr, res = []) {
     for (let i = 0; i < arr.length; i++) {
         const j = randIntInRange(i, arr.length);
-        const temp = shuffled[i] !== undefined ? shuffled[i] : arr[i];
-        shuffled[i] = shuffled[j] !== undefined ? shuffled[j] : arr[j];
-        shuffled[j] = temp;
+        const temp = res[i] !== undefined ? res[i] : arr[i];
+        res[i] = res[j] !== undefined ? res[j] : arr[j];
+        res[j] = temp;
     }
-    return shuffled;
+    return res;
 }
-export function map(fn, coll, result) {
-    if (Array.isArray(coll)) {
-        return coll.map(fn);
+export function map(fn, coll, res = []) {
+    for (let i = 0; i < coll.length; i++) {
+        res[i] = fn(coll[i], i);
     }
-    else if (Symbol.iterator in coll) {
-        const res = result || [];
-        for (let i = 0; i < coll.length; i++) {
-            res[i] = fn(coll[i], i);
-        }
-        return res;
-    }
-    else {
-        const obj = result || {};
-        for (const key in coll) {
-            obj[key] = fn(coll[key], key);
-        }
-        return obj;
-    }
+    return res;
 }
 export function each(fn, coll) {
     for (const key in coll) {
         fn(coll[key], key);
     }
+}
+export function reduce(fn, start, arr) {
+    for (let i = 0; i < arr.length; i++) {
+        start = fn(start, arr[i]);
+    }
+    return start;
+}
+export function fold(fn, arr) {
+    const [start, ...rest] = arr;
+    return reduce(fn, start, rest);
 }
 //# sourceMappingURL=sequence.js.map

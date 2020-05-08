@@ -42,4 +42,10 @@ export function deepOverride(obj1, obj2, opt) {
     }
     return obj2;
 }
+export function mapObj(fn, coll, res = {}) {
+    for (const key in coll) {
+        res[key] = fn(coll[key], key);
+    }
+    return res;
+}
 //# sourceMappingURL=object.js.map

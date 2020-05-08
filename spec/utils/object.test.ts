@@ -1,8 +1,8 @@
-import { deepmerge, deepOverride } from 'utils/object'
+import { deepmerge, deepOverride, mapObj } from 'utils/object'
 
-describe('utils object', function() {
-	describe('deepmerge', function() {
-		it('deepmerges two objects', function() {
+describe('utils object', function () {
+	describe('deepmerge', function () {
+		it('deepmerges two objects', function () {
 			const obj1 = {
 				lala: 2,
 				foo: {
@@ -39,7 +39,7 @@ describe('utils object', function() {
 			expect(result).not.toBe(obj2)
 		})
 
-		it('doesnt merge arrays', function() {
+		it('doesnt merge arrays', function () {
 			const obj1 = { arr: { foo: 'bar' } }
 			const obj2 = { arr: [1, 4, 5, 6] }
 
@@ -57,7 +57,7 @@ describe('utils object', function() {
 			expect(result2.arr).toBe(obj1.arr)
 		})
 
-		it('returns second arg if args are not objects', function() {
+		it('returns second arg if args are not objects', function () {
 			const obj = { fuu: 'bar' }
 			const arr = [1, 2, 3]
 			const val = 'baz'
@@ -68,7 +68,7 @@ describe('utils object', function() {
 			expect(deepmerge(val, obj)).toBe(obj)
 		})
 
-		it('removes a property when assigned to undefined', function() {
+		it('removes a property when assigned to undefined', function () {
 			const obj = { foo: 'bar', kuku: 'kaka' }
 
 			expect(deepmerge(obj, { kuku: undefined })).toEqual({
@@ -76,7 +76,7 @@ describe('utils object', function() {
 			})
 		})
 
-		it('doesnt merge equal objects', function() {
+		it('doesnt merge equal objects', function () {
 			const nested = { foo: 'bar' }
 			const o1 = { kuu: 1, nested }
 			const o2 = { kuu: 5, nested }
@@ -86,8 +86,8 @@ describe('utils object', function() {
 		})
 	})
 
-	describe('deepOverride', function() {
-		it('recursively overrides the values of obj1 without changing its structure', function() {
+	describe('deepOverride', function () {
+		it('recursively overrides the values of obj1 without changing its structure', function () {
 			const obj1 = {
 				lala: 2,
 				foo: {
@@ -126,7 +126,7 @@ describe('utils object', function() {
 			expect(result).not.toBe(obj2)
 		})
 
-		it('doesnt merge arrays', function() {
+		it('doesnt merge arrays', function () {
 			const obj1 = { arr: { foo: 'bar' } }
 			const obj2 = { arr: [1, 4, 5, 6] }
 
@@ -144,7 +144,7 @@ describe('utils object', function() {
 			expect(result2.arr).toBe(obj1.arr)
 		})
 
-		it('returns second arg if args are not objects', function() {
+		it('returns second arg if args are not objects', function () {
 			const obj = { fuu: 'bar' }
 			const arr = [1, 2, 3]
 			const val = 'baz'
@@ -155,7 +155,7 @@ describe('utils object', function() {
 			expect(deepmerge(val, obj)).toBe(obj)
 		})
 
-		it('doesnt merge equal objects', function() {
+		it('doesnt merge equal objects', function () {
 			const nested = { foo: 'bar' }
 			const o1 = { kuu: 1, nested }
 			const o2 = { kuu: 5, nested }
@@ -222,6 +222,18 @@ describe('utils object', function() {
 						},
 					},
 				},
+			})
+		})
+	})
+
+	describe('mapObj', () => {
+		it('maps over objects', function () {
+			const coll = { foo: 1, bar: 3, baz: 5 }
+			const fn = (x: number) => x + 2
+			expect(mapObj(fn, coll)).toEqual({
+				foo: 3,
+				bar: 5,
+				baz: 7,
 			})
 		})
 	})

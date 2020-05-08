@@ -56,3 +56,18 @@ export function deepOverride<T>(obj1: T, obj2: any, opt?: { ignore: any }): T {
 
 	return obj2
 }
+
+export function mapObj<A, B>(
+	fn: (val: A, key: string) => B,
+	coll: {
+		[key: string]: A
+	},
+	res: {
+		[key: string]: B
+	} = {},
+): { [key: string]: B } {
+	for (const key in coll) {
+		res[key] = fn((coll as any)[key], key)
+	}
+	return res
+}

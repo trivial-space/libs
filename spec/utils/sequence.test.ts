@@ -1,5 +1,5 @@
 import { equalArray } from 'utils/predicates'
-import { each, map, shuffle, flatMap } from 'utils/sequence'
+import { each, map, shuffle, flatMap, reverse } from 'utils/sequence'
 import { N, S } from '../types'
 
 describe('utils sequence', function () {
@@ -30,16 +30,6 @@ describe('utils sequence', function () {
 			expect(map(fn, arr)).toEqual(vals.map(fn))
 			expect(map(fn, arr, resArr as any)).toEqual(arr.map(fn))
 		})
-
-		it('maps over objects', function () {
-			const coll = { foo: 1, bar: 3, baz: 5 }
-			const fn = (x: N) => x + 2
-			expect(map(fn, coll)).toEqual({
-				foo: 3,
-				bar: 5,
-				baz: 7,
-			})
-		})
 	})
 
 	describe('flatMap', () => {
@@ -49,6 +39,16 @@ describe('utils sequence', function () {
 			const fn = (n: N) => [n * n]
 			expect(flatMap(fn, vals)).toEqual(vals.map(x => x * x))
 			expect(flatMap(fn, arr)).toEqual(vals.map(x => x * x))
+		})
+	})
+
+	describe('reverse', () => {
+		it('rverses sequences', () => {
+			const vals = [1, 3, 4, 5]
+			expect(reverse(vals)).toEqual([...vals].reverse())
+			expect(reverse(vals)).toEqual([5, 4, 3, 1])
+			expect(vals).toEqual([1, 3, 4, 5])
+			expect(reverse(new Float32Array(vals))).toEqual([...vals].reverse())
 		})
 	})
 
