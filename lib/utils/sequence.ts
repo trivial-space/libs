@@ -33,6 +33,10 @@ export function repeat<T>(count: number, item: T) {
 	return times(() => item, count)
 }
 
+export function concat<T>(arr: T[], ...arrs: T[][]) {
+	return arr.concat(...arrs)
+}
+
 export function zip<A, B, C>(
 	fn: (a: A, b: B) => C,
 	as: Sequence<A>,
