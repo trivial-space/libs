@@ -1,6 +1,6 @@
 // ===== stopable animation function with time per frame
 
-export function animateWithTPF(callback: (tps: number) => void) {
+export function animateWithTPF(callback: (tpf: number) => void) {
 	let isRunning = true
 	let oldTime: number
 
@@ -50,7 +50,7 @@ export function createAnimator(animateFunction: Function = animateWithTPF) {
 	}
 
 	return {
-		start: function() {
+		start: function () {
 			this.stop = animateFunction(callback)
 		},
 
@@ -58,11 +58,11 @@ export function createAnimator(animateFunction: Function = animateWithTPF) {
 
 		step: callback,
 
-		addUpdate: function(update: Function) {
+		addUpdate: function (update: Function) {
 			updates.push(update)
 		},
 
-		removeUpdate: function(update: Function) {
+		removeUpdate: function (update: Function) {
 			updates = updates.filter(u => u !== update)
 		},
 	}
