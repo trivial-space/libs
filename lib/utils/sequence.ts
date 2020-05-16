@@ -124,3 +124,5 @@ export function fold<T>(fn: (sum: T, item: T) => T, arr: Sequence<T>): T {
 	const [start, ...rest] = arr
 	return reduce(fn, start, rest)
 }
+
+export const last = <T>(arr: Sequence<T>) => arr[arr.length - 1]

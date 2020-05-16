@@ -75,4 +75,5 @@ export function fold(fn, arr) {
     const [start, ...rest] = arr;
     return reduce(fn, start, rest);
 }
+export const last = (arr) => arr[arr.length - 1];
 //# sourceMappingURL=sequence.js.map

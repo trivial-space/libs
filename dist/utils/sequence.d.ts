@@ -21,3 +21,4 @@ export declare function map<A, B>(fn: (val: A, key: number) => B, coll: Sequence
 export declare function each<A>(fn: (val: A, key?: any) => any, coll: Collection<A>): void;
 export declare function reduce<A, B>(fn: (sum: B, item: A) => B, start: B, arr: Sequence<A>): B;
 export declare function fold<T>(fn: (sum: T, item: T) => T, arr: Sequence<T>): T;
+export declare const last: <T>(arr: Sequence<T>) => T;
