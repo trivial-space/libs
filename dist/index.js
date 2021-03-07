@@ -62,6 +62,7 @@ export const datastructures = {
     rbtree: datastructuresRBTree,
     heap: datastructuresHeap,
 };
+export * from './types';
 export default {
     math,
     events,
