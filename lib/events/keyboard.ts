@@ -1,4 +1,4 @@
-export enum Keys {
+export enum KeyCodes {
 	CANCEL = 3,
 	HELP = 6,
 	BACK_SPACE = 8,
@@ -155,16 +155,16 @@ export function keyboard(
 }
 
 export interface KeyObserver {
-	Keys: typeof Keys
+	Keys: typeof KeyCodes
 	state: {
-		pressed: { [keyCode: number]: number },
+		pressed: { [keyCode: number]: number }
 	}
 	destroy: () => void
 }
 
 export function keyboardObserver(opts?: any): KeyObserver {
 	const observer: KeyObserver = {
-		Keys,
+		Keys: KeyCodes,
 		state: { pressed: {} as KeyState },
 		destroy: () => {},
 	}
