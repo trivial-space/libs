@@ -1,4 +1,10 @@
 import { clamp, lerp } from '../math/core';
+/**
+ * @param h hue in range 0 - 1
+ * @param s saturation in range 0 - 1
+ * @param l lightness in range 0 - 1
+ */
+export const hsl = (h, s, l) => ({ h, s, l });
 export const BLACK = [0, 0, 0, 255];
 export const WHITE = [255, 255, 255, 255];
 export function mixColors([r1, g1, b1, a1], [r2, g2, b2, a2]) {

@@ -11,11 +11,18 @@ export type Color = ColorRGB | ColorRGBA
  * @property s saturation in range 0 - 1
  * @property l lightness in range 0 - 1
  */
-export interface HSLColor {
+export interface ColorHSL {
 	h: number
 	s: number
 	l: number
 }
+
+/**
+ * @param h hue in range 0 - 1
+ * @param s saturation in range 0 - 1
+ * @param l lightness in range 0 - 1
+ */
+export const hsl = (h: number, s: number, l: number): ColorHSL => ({ h, s, l })
 
 export const BLACK: Color = [0, 0, 0, 255]
 
@@ -78,7 +85,7 @@ export function hexStringToRgb(s: string): ColorRGB {
 /**
  * @param rgb FloatColor with ranges 0 - 1
  */
-export function rgbToHSL([r, g, b]: Color): HSLColor {
+export function rgbToHSL([r, g, b]: Color): ColorHSL {
 	const cMax = Math.max(r, g, b)
 	const cMin = Math.min(r, g, b)
 	const delta = cMax - cMin
@@ -109,7 +116,7 @@ export function rgbToHSL([r, g, b]: Color): HSLColor {
 	}
 }
 
-export function hslToRGB({ h, s, l }: HSLColor): ColorRGB {
+export function hslToRGB({ h, s, l }: ColorHSL): ColorRGB {
 	const c = (1 - Math.abs(2 * l - 1)) * s
 	const x = c * (1 - Math.abs(((h * 6) % 2) - 1))
 	const m = l - c / 2
@@ -158,14 +165,14 @@ export function adjustHue(hue: number) {
 	return hue
 }
 
-export function updateHue(hsl: HSLColor, degree: number): HSLColor {
+export function updateHue(hsl: ColorHSL, degree: number): ColorHSL {
 	return { ...hsl, h: adjustHue(hsl.h + degree) }
 }
 
-export function updateSaturation(hsl: HSLColor, delta: number): HSLColor {
+export function updateSaturation(hsl: ColorHSL, delta: number): ColorHSL {
 	return { ...hsl, s: clamp(0, 1, hsl.s + delta) }
 }
 
-export function updateLightness(hsl: HSLColor, delta: number): HSLColor {
+export function updateLightness(hsl: ColorHSL, delta: number): ColorHSL {
 	return { ...hsl, l: clamp(0, 1, hsl.l + delta) }
 }

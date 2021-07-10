@@ -6,11 +6,17 @@ export declare type Color = ColorRGB | ColorRGBA;
  * @property s saturation in range 0 - 1
  * @property l lightness in range 0 - 1
  */
-export interface HSLColor {
+export interface ColorHSL {
     h: number;
     s: number;
     l: number;
 }
+/**
+ * @param h hue in range 0 - 1
+ * @param s saturation in range 0 - 1
+ * @param l lightness in range 0 - 1
+ */
+export declare const hsl: (h: number, s: number, l: number) => ColorHSL;
 export declare const BLACK: Color;
 export declare const WHITE: ColorRGBA;
 export declare function mixColors([r1, g1, b1, a1]: ColorRGBA, [r2, g2, b2, a2]: ColorRGBA): ColorRGBA;
@@ -24,9 +30,9 @@ export declare function hexStringToRgb(s: string): ColorRGB;
 /**
  * @param rgb FloatColor with ranges 0 - 1
  */
-export declare function rgbToHSL([r, g, b]: Color): HSLColor;
-export declare function hslToRGB({ h, s, l }: HSLColor): ColorRGB;
+export declare function rgbToHSL([r, g, b]: Color): ColorHSL;
+export declare function hslToRGB({ h, s, l }: ColorHSL): ColorRGB;
 export declare function adjustHue(hue: number): number;
-export declare function updateHue(hsl: HSLColor, degree: number): HSLColor;
-export declare function updateSaturation(hsl: HSLColor, delta: number): HSLColor;
-export declare function updateLightness(hsl: HSLColor, delta: number): HSLColor;
+export declare function updateHue(hsl: ColorHSL, degree: number): ColorHSL;
+export declare function updateSaturation(hsl: ColorHSL, delta: number): ColorHSL;
+export declare function updateLightness(hsl: ColorHSL, delta: number): ColorHSL;

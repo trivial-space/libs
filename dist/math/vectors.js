@@ -5,6 +5,12 @@ export function vec(v) {
     }
     return new Float32Array(v);
 }
+export function vecDouble(v) {
+    if (typeof v === 'number') {
+        return new Float64Array(v);
+    }
+    return new Float64Array(v);
+}
 export function add(vec1, vec2, res = []) {
     for (let i = 0; i < vec1.length; i++) {
         res[i] = vec1[i] + vec2[i];
