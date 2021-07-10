@@ -17,9 +17,9 @@ export interface HSLColor {
 	l: number
 }
 
-export const BLACK = [0, 0, 0, 255]
+export const BLACK: Color = [0, 0, 0, 255]
 
-export const WHITE = [255, 255, 255, 255]
+export const WHITE: ColorRGBA = [255, 255, 255, 255]
 
 export function mixColors(
 	[r1, g1, b1, a1]: ColorRGBA,
@@ -43,12 +43,12 @@ export function colorRgbaToCSS([r, g, b, a]: ColorRGBA): string {
 	return 'rgba(' + r + ', ' + g + ', ' + b + ', ' + a / 255 + ')'
 }
 
-export function intToFloat(color: Color): Color {
-	return color.map(v => v / 255) as Color
+export function intToFloat<C extends Color>(color: C): C {
+	return color.map(v => v / 255) as C
 }
 
-export function floatToInt(color: Color): Color {
-	return color.map(v => Math.floor(v * 255)) as Color
+export function floatToInt<C extends Color>(color: C): C {
+	return color.map(v => Math.floor(v * 255)) as C
 }
 
 export function hexToRgb(hex: number): ColorRGB {
@@ -109,7 +109,7 @@ export function rgbToHSL([r, g, b]: Color): HSLColor {
 	}
 }
 
-export function hslToRGB({ h, s, l }: HSLColor) {
+export function hslToRGB({ h, s, l }: HSLColor): ColorRGB {
 	const c = (1 - Math.abs(2 * l - 1)) * s
 	const x = c * (1 - Math.abs(((h * 6) % 2) - 1))
 	const m = l - c / 2

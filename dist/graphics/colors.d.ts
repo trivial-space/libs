@@ -11,13 +11,13 @@ export interface HSLColor {
     s: number;
     l: number;
 }
-export declare const BLACK: number[];
-export declare const WHITE: number[];
+export declare const BLACK: Color;
+export declare const WHITE: ColorRGBA;
 export declare function mixColors([r1, g1, b1, a1]: ColorRGBA, [r2, g2, b2, a2]: ColorRGBA): ColorRGBA;
 export declare function grey(scale: number, alpha?: number): ColorRGBA;
 export declare function colorRgbaToCSS([r, g, b, a]: ColorRGBA): string;
-export declare function intToFloat(color: Color): Color;
-export declare function floatToInt(color: Color): Color;
+export declare function intToFloat<C extends Color>(color: C): C;
+export declare function floatToInt<C extends Color>(color: C): C;
 export declare function hexToRgb(hex: number): ColorRGB;
 export declare function rgbToHexString([r, g, b]: Color): string;
 export declare function hexStringToRgb(s: string): ColorRGB;
@@ -25,7 +25,7 @@ export declare function hexStringToRgb(s: string): ColorRGB;
  * @param rgb FloatColor with ranges 0 - 1
  */
 export declare function rgbToHSL([r, g, b]: Color): HSLColor;
-export declare function hslToRGB({ h, s, l }: HSLColor): number[];
+export declare function hslToRGB({ h, s, l }: HSLColor): ColorRGB;
 export declare function adjustHue(hue: number): number;
 export declare function updateHue(hsl: HSLColor, degree: number): HSLColor;
 export declare function updateSaturation(hsl: HSLColor, delta: number): HSLColor;
