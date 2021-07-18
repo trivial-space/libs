@@ -1,7 +1,6 @@
 export declare type Predicate = (...a: any[]) => boolean;
 export declare const and: (p1: Predicate, p2: Predicate) => Predicate;
 export declare const not: (p: Predicate) => Predicate;
-export declare const defined: Predicate;
 export declare const notEmpty: Predicate;
 export declare const unequal: Predicate;
 export declare const equal: Predicate;
