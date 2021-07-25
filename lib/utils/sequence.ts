@@ -126,3 +126,7 @@ export function fold<T>(fn: (sum: T, item: T) => T, arr: Sequence<T>): T {
 }
 
 export const last = <T>(arr: Sequence<T>) => arr[arr.length - 1]
+
+export function window<A>(n: number, arr: A[]) {
+	return arr.slice(n - 1).map((_, i) => times(j => arr[i + j], n))
+}

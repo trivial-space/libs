@@ -76,4 +76,7 @@ export function fold(fn, arr) {
     return reduce(fn, start, rest);
 }
 export const last = (arr) => arr[arr.length - 1];
+export function window(n, arr) {
+    return arr.slice(n - 1).map((_, i) => times(j => arr[i + j], n));
+}
 //# sourceMappingURL=sequence.js.map
