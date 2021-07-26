@@ -1,15 +1,15 @@
-interface DoubleLinkedNode<T> {
-	get(): T
-	next(): DoubleLinkedNode<T> | null
-	prev(): DoubleLinkedNode<T> | null
+export interface DoubleLinkedNode<T> {
+	readonly val: T
+	readonly next: DoubleLinkedNode<T> | null
+	readonly prev: DoubleLinkedNode<T> | null
 	setPrev(node?: DoubleLinkedNode<T>): void
 	setNext(node?: DoubleLinkedNode<T>): void
 }
 
-interface DoubleLinkedList<T> {
-	first(): DoubleLinkedNode<T> | null
-	last(): DoubleLinkedNode<T> | null
-	size(): number
+export interface DoubleLinkedList<T> {
+	readonly first: DoubleLinkedNode<T> | null
+	readonly last: DoubleLinkedNode<T> | null
+	readonly size: number
 
 	append(...vals: T[]): DoubleLinkedList<T>
 	prepend(...vals: T[]): DoubleLinkedList<T>
@@ -20,13 +20,13 @@ function createNode<T>(val: T): DoubleLinkedNode<T> {
 	let prev: DoubleLinkedNode<T> | null = null
 
 	const node: DoubleLinkedNode<T> = {
-		get() {
+		get val() {
 			return val
 		},
-		next() {
+		get next() {
 			return next
 		},
-		prev() {
+		get prev() {
 			return prev
 		},
 		setNext(node) {
@@ -59,13 +59,13 @@ export function createDoubleLinkedList<T>(...vals: T[]): DoubleLinkedList<T> {
 	}
 
 	const list: DoubleLinkedList<T> = {
-		size() {
+		get size() {
 			return size
 		},
-		first() {
+		get first() {
 			return first
 		},
-		last() {
+		get last() {
 			return last
 		},
 		append(...vals) {
