@@ -8,15 +8,15 @@
   },
   "author": "Thomas Gorny",
   "license": "MIT",
-  "main": "dist/tvs-libs.js",
-  "esnext:main": "dist/index.js",
-  "jsnext:main": "dist/index.js",
-  "module": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "typings": "dist/index.d.ts",
+  "main": "lib/tvs-libs.js",
+  "esnext:main": "lib/index.js",
+  "jsnext:main": "lib/index.js",
+  "module": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "typings": "lib/index.d.ts",
   "scripts": {
     "test": "jest",
-    "build": "rm -rf ./dist && tsc -p \"./tsconfig.build.json\" && webpack",
+    "build": "rm -rf ./lib && tsc -p \"./tsconfig.build.json\" && webpack",
     "prepublish": "npm run build"
   },
   "devDependencies": {
