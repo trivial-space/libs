@@ -15,7 +15,7 @@
     "paths": {
       "*": ["src/*"]
     },
-    "outDir": "lib"
+    "outDir": "dist"
   },
-  "exclude": ["node_modules", "lib"]
+  "exclude": ["node_modules", "dist"]
 }

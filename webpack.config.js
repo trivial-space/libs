@@ -6,7 +6,7 @@ module.exports = {
 	entry: resolve(__dirname, 'src', 'index.ts'),
 
 	output: {
-		path: resolve(__dirname, 'lib'),
+		path: resolve(__dirname, 'dist'),
 		filename: 'tvs-libs.js',
 		library: 'tvsLibs',
 		libraryTarget: 'umd',
