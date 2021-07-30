@@ -6,10 +6,12 @@ export interface DoubleLinkedNode<T> {
 	setNext(node?: DoubleLinkedNode<T>): void
 }
 
-export interface DoubleLinkedList<T> {
+export interface DoubleLinkedList<T> extends Iterable<T> {
 	readonly first: DoubleLinkedNode<T> | null
 	readonly last: DoubleLinkedNode<T> | null
 	readonly size: number
+
+	readonly reverted: Iterable<T>
 
 	append(...vals: T[]): DoubleLinkedList<T>
 	prepend(...vals: T[]): DoubleLinkedList<T>
@@ -58,6 +60,19 @@ export function createDoubleLinkedList<T>(...vals: T[]): DoubleLinkedList<T> {
 		}
 	}
 
+	function prependVal(val: T) {
+		const node = createNode(val)
+		if (!first) {
+			first = last = createNode(val)
+			size = 1
+		} else {
+			first.setPrev(node)
+			node.setNext(first)
+			first = node
+			size++
+		}
+	}
+
 	const list: DoubleLinkedList<T> = {
 		get size() {
 			return size
@@ -70,8 +85,31 @@ export function createDoubleLinkedList<T>(...vals: T[]): DoubleLinkedList<T> {
 		},
 		append(...vals) {
 			vals.forEach(appendVal)
+			return list
 		},
-	} as DoubleLinkedList<T>
+		prepend(...vals) {
+			for (let i = vals.length - 1; i >= 0; i--) {
+				prependVal(vals[i])
+			}
+			return list
+		},
+		[Symbol.iterator]: function* () {
+			let node = first
+			while (node) {
+				yield node.val
+				node = node.next
+			}
+		},
+		reverted: {
+			[Symbol.iterator]: function* () {
+				let node = last
+				while (node) {
+					yield node.val
+					node = node.prev
+				}
+			},
+		},
+	}
 
 	if (vals) {
 		list.append(...vals)

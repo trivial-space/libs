@@ -37,5 +37,58 @@ describe('datastructures -> double linked list', () => {
 		expect(list.first?.val).toBe(1)
 		expect(list.last?.val).toBe(3)
 		expect(list.last?.prev?.val).toBe(2)
+
+		list.append(4, 5, 6)
+		expect(list.size).toBe(6)
+		expect(list.first?.prev).toBe(null)
+		expect(list.last?.next).toBe(null)
+		expect(list.first?.val).toBe(1)
+		expect(list.last?.val).toBe(6)
+		expect(list.last?.prev?.val).toBe(5)
+		expect(list.last?.prev?.prev?.val).toBe(4)
+		expect(list.last?.prev?.prev?.prev?.val).toBe(3)
+		expect(list.first?.next?.next?.next?.val).toBe(4)
+	})
+
+	it('can prepend nodes', () => {
+		const list = createDoubleLinkedList()
+		list.prepend(4, 5, 6)
+		expect(list.size).toBe(3)
+		expect(list.first!.next!.next).toBe(list.last)
+		expect(list.last!.prev!.prev).toBe(list.first)
+		expect(list.first?.prev).toBe(null)
+		expect(list.last?.next).toBe(null)
+		expect(list.first?.val).toBe(4)
+		expect(list.last?.val).toBe(6)
+		expect(list.first?.next?.val).toBe(5)
+
+		list.prepend(1, 2, 3)
+		expect(list.size).toBe(6)
+		expect(list.first?.prev).toBe(null)
+		expect(list.last?.next).toBe(null)
+		expect(list.first?.val).toBe(1)
+		expect(list.first?.next?.val).toBe(2)
+		expect(list.last?.val).toBe(6)
+		expect(list.last?.prev?.val).toBe(5)
+		expect(list.last?.prev?.prev?.val).toBe(4)
+		expect(list.last?.prev?.prev?.prev?.val).toBe(3)
+		expect(list.first?.next?.next?.next?.val).toBe(4)
+	})
+
+	it('is an iterator', () => {
+		const arr: number[] = []
+		const list = createDoubleLinkedList(1, 2, 3)
+		for (const val of list) {
+			arr.push(val)
+		}
+		expect(arr).toEqual([1, 2, 3])
+	})
+
+	it('has a reverted iterator', () => {
+		const arr: number[] = []
+		for (const val of createDoubleLinkedList(1).append(2, 3).reverted) {
+			arr.push(val)
+		}
+		expect(arr).toEqual([3, 2, 1])
 	})
 })
