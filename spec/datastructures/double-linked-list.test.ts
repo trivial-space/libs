@@ -82,6 +82,8 @@ describe('datastructures -> double linked list', () => {
 			arr.push(val)
 		}
 		expect(arr).toEqual([1, 2, 3])
+
+		expect([...list]).toEqual([1, 2, 3])
 	})
 
 	it('has a reverted iterator', () => {
@@ -90,5 +92,30 @@ describe('datastructures -> double linked list', () => {
 			arr.push(val)
 		}
 		expect(arr).toEqual([3, 2, 1])
+	})
+
+	it('can drop elements', () => {
+		const list = createDoubleLinkedList(1, 2, 3, 4, 5, 6, 7, 8)
+
+		expect([...list.drop(2)]).toEqual([3, 4, 5, 6, 7, 8])
+		expect(list.size).toBe(6)
+		expect(list.first?.prev).toBe(null)
+
+		expect([...list.drop(-2)]).toEqual([3, 4, 5, 6])
+		expect(list.size).toBe(4)
+		expect(list.last?.next).toBe(null)
+
+		expect([...list.drop(1)]).toEqual([4, 5, 6])
+		expect(list.size).toBe(3)
+		expect(list.first?.prev).toBe(null)
+
+		expect([...list.drop()]).toEqual([5, 6])
+		expect(list.size).toBe(2)
+		expect(list.first?.prev).toBe(null)
+
+		expect([...list.drop(-list.size)]).toEqual([])
+		expect(list.size).toBe(0)
+		expect(list.first).toBe(null)
+		expect(list.last).toBe(null)
 	})
 })
