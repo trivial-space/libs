@@ -1,15 +1,21 @@
+import { Opt } from '../types';
 export interface DoubleLinkedNode<T> {
     readonly val: T;
-    readonly next: DoubleLinkedNode<T> | null;
-    readonly prev: DoubleLinkedNode<T> | null;
-    setPrev(node?: DoubleLinkedNode<T>): void;
-    setNext(node?: DoubleLinkedNode<T>): void;
+    readonly next: Opt<DoubleLinkedNode<T>>;
+    readonly prev: Opt<DoubleLinkedNode<T>>;
 }
-export interface DoubleLinkedList<T> {
-    readonly first: DoubleLinkedNode<T> | null;
-    readonly last: DoubleLinkedNode<T> | null;
+export interface DoubleLinkedList<T> extends Iterable<T> {
+    readonly first: Opt<DoubleLinkedNode<T>>;
+    readonly last: Opt<DoubleLinkedNode<T>>;
     readonly size: number;
-    append(...vals: T[]): DoubleLinkedList<T>;
-    prepend(...vals: T[]): DoubleLinkedList<T>;
+    at(n: number): Opt<DoubleLinkedNode<T>>;
+    readonly reverted: Iterable<T>;
+    append(...vals: [T, ...T[]]): DoubleLinkedList<T>;
+    appendAt(node: DoubleLinkedNode<T>, ...vals: [T, ...T[]]): DoubleLinkedList<T>;
+    prepend(...vals: [T, ...T[]]): DoubleLinkedList<T>;
+    prependAt(node: DoubleLinkedNode<T>, ...vals: [T, ...T[]]): DoubleLinkedList<T>;
+    drop(n?: number): DoubleLinkedList<T>;
+    dropAt(node: DoubleLinkedNode<T>, n?: number): DoubleLinkedList<T>;
+    empty(): DoubleLinkedList<T>;
 }
 export declare function createDoubleLinkedList<T>(...vals: T[]): DoubleLinkedList<T>;

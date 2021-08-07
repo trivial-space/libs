@@ -117,5 +117,114 @@ describe('datastructures -> double linked list', () => {
 		expect(list.size).toBe(0)
 		expect(list.first).toBe(null)
 		expect(list.last).toBe(null)
+
+		list.append(1, 2, 3)
+		expect(list.size).toBe(3)
+		expect([...list.drop(list.size)]).toEqual([])
+		expect(list.size).toBe(0)
+		expect(list.first).toBe(null)
+		expect(list.last).toBe(null)
+
+		list.append(1, 2, 3)
+		expect(list.size).toBe(3)
+		expect([...list.drop(list.size + 2)]).toEqual([])
+		expect(list.size).toBe(0)
+		expect(list.first).toBe(null)
+		expect(list.last).toBe(null)
+	})
+
+	it('can get nodes at a position', () => {
+		const list = createDoubleLinkedList(1, 2, 3, 4)
+		expect(list.at(0)).toBe(list.first)
+		expect(list.at(1)).toBe(list.first?.next)
+		expect(list.at(2)).toBe(list.first?.next?.next)
+		expect(list.at(3)).toBe(list.last)
+		expect(list.at(4)).toBe(list.last)
+		expect(list.at(5)).toBe(list.last)
+		expect(list.at(-1)).toBe(list.last?.prev)
+		expect(list.at(-2)).toBe(list.last?.prev?.prev)
+		expect(list.at(-3)).toBe(list.first)
+		expect(list.at(-4)).toBe(list.first)
+
+		expect(list.at(0)?.val).toBe(1)
+		expect(list.at(1)?.val).toBe(2)
+		expect(list.at(2)?.val).toBe(3)
+		expect(list.at(3)?.val).toBe(4)
+		expect(list.at(4)?.val).toBe(4)
+		expect(list.at(4)?.val).toBe(4)
+		expect(list.at(-1)?.val).toBe(3)
+		expect(list.at(-2)?.val).toBe(2)
+		expect(list.at(-3)?.val).toBe(1)
+		expect(list.at(-4)?.val).toBe(1)
+
+		const list2 = createDoubleLinkedList()
+		expect(list2.at(0)).toBe(list2.first)
+		expect(list2.at(1)).toBe(list2.first)
+		expect(list2.at(2)).toBe(list2.last)
+		expect(list2.at(-1)).toBe(list2.last)
+		expect(list2.at(-2)).toBe(list2.first)
+	})
+
+	it('can append at a certain node', () => {
+		const list = createDoubleLinkedList(1, 2, 3)
+		list.appendAt(list.at(1)!, 8, 9)
+		expect(list.size).toBe(5)
+		expect([...list]).toEqual([1, 2, 8, 9, 3])
+
+		list.appendAt(list.first!, 6, 7)
+		expect(list.size).toBe(7)
+		expect([...list]).toEqual([1, 6, 7, 2, 8, 9, 3])
+
+		expect(list.last!.val).toBe(3)
+
+		list.appendAt(list.last!, 5)
+		expect(list.size).toBe(8)
+		expect([...list]).toEqual([1, 6, 7, 2, 8, 9, 3, 5])
+
+		expect(list.last!.val).toBe(5)
+	})
+
+	it('can prepend at a certain node', () => {
+		const list = createDoubleLinkedList(1, 2, 3)
+		list.prependAt(list.at(1)!, 8, 9)
+		expect(list.size).toBe(5)
+		expect([...list]).toEqual([1, 8, 9, 2, 3])
+
+		list.prependAt(list.first!, 6, 7)
+		expect(list.size).toBe(7)
+		expect([...list]).toEqual([6, 7, 1, 8, 9, 2, 3])
+
+		expect(list.last!.val).toBe(3)
+		expect(list.first!.val).toBe(6)
+
+		list.prependAt(list.last!, 5)
+		expect(list.size).toBe(8)
+		expect([...list]).toEqual([6, 7, 1, 8, 9, 2, 5, 3])
+
+		expect(list.last!.val).toBe(3)
+	})
+
+	it('can empty a list', () => {
+		const list = createDoubleLinkedList(12, 34)
+		expect([...list.empty()]).toEqual([])
+		expect(list.size).toEqual(0)
+		expect(list.first).toEqual(null)
+		expect(list.last).toEqual(null)
+	})
+
+	it('can drop nodes at a certain node', () => {
+		const list = createDoubleLinkedList(1, 2, 3, 4, 5, 6, 7, 8)
+		expect([...list.dropAt(list.at(2)!, 2)]).toEqual([1, 2, 5, 6, 7, 8])
+		expect([...list.dropAt(list.at(3)!, -2)]).toEqual([1, 2, 7, 8])
+		expect(list.last?.val).toBe(8)
+		expect([...list.dropAt(list.last!, -2)]).toEqual([1, 2])
+		expect(list.first?.val).toBe(1)
+		expect(list.last?.val).toBe(2)
+		expect([...list.dropAt(list.first!)]).toEqual([2])
+		expect(list.first?.val).toBe(2)
+		expect([...list.dropAt(list.last!)]).toEqual([])
+		expect(list.size).toBe(0)
+		expect(list.first).toBe(null)
+		expect(list.last).toBe(null)
 	})
 })
