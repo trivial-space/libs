@@ -1,8 +1,9 @@
 class Node {
-    constructor(val) {
+    constructor(val, list) {
         this.next = null;
         this.prev = null;
         this.val = val;
+        this.list = list;
     }
     setNext(newNext) {
         this.next = newNext || null;
@@ -16,7 +17,7 @@ export function createDoubleLinkedList(...vals) {
     let first = null;
     let last = null;
     function appendValAt(val, oldNode) {
-        const node = new Node(val);
+        const node = new Node(val, list);
         const oldNext = oldNode.next;
         oldNode.setNext(node);
         node.setPrev(oldNode);
@@ -31,7 +32,7 @@ export function createDoubleLinkedList(...vals) {
         return node;
     }
     function appendVal(val) {
-        const node = new Node(val);
+        const node = new Node(val, list);
         if (!last) {
             first = last = node;
             size = 1;
@@ -44,7 +45,7 @@ export function createDoubleLinkedList(...vals) {
         }
     }
     function prependValAt(val, oldNode) {
-        const node = new Node(val);
+        const node = new Node(val, list);
         const oldPrev = oldNode.prev;
         oldNode.setPrev(node);
         node.setNext(oldNode);
@@ -59,7 +60,7 @@ export function createDoubleLinkedList(...vals) {
         return node;
     }
     function prependVal(val) {
-        const node = new Node(val);
+        const node = new Node(val, list);
         if (!first) {
             first = last = node;
             size = 1;

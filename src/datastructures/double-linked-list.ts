@@ -4,6 +4,7 @@ export interface DoubleLinkedNode<T> {
 	readonly val: T
 	readonly next: Opt<DoubleLinkedNode<T>>
 	readonly prev: Opt<DoubleLinkedNode<T>>
+	readonly list: DoubleLinkedList<T>
 }
 
 export interface DoubleLinkedList<T> extends Iterable<T> {
@@ -34,9 +35,11 @@ class Node<T> implements DoubleLinkedNode<T> {
 	next: Opt<Node<T>> = null
 	prev: Opt<Node<T>> = null
 	readonly val: T
+	readonly list: DoubleLinkedList<T>
 
-	constructor(val: T) {
+	constructor(val: T, list: DoubleLinkedList<T>) {
 		this.val = val
+		this.list = list
 	}
 
 	setNext(newNext?: Opt<Node<T>>) {
@@ -53,7 +56,7 @@ export function createDoubleLinkedList<T>(...vals: T[]): DoubleLinkedList<T> {
 	let last: Opt<Node<T>> = null
 
 	function appendValAt(val: T, oldNode: Node<T>) {
-		const node = new Node(val)
+		const node = new Node(val, list)
 		const oldNext = oldNode.next
 		oldNode.setNext(node)
 		node.setPrev(oldNode)
@@ -68,7 +71,7 @@ export function createDoubleLinkedList<T>(...vals: T[]): DoubleLinkedList<T> {
 	}
 
 	function appendVal(val: T) {
-		const node = new Node(val)
+		const node = new Node(val, list)
 		if (!last) {
 			first = last = node
 			size = 1
@@ -81,7 +84,7 @@ export function createDoubleLinkedList<T>(...vals: T[]): DoubleLinkedList<T> {
 	}
 
 	function prependValAt(val: T, oldNode: Node<T>) {
-		const node = new Node(val)
+		const node = new Node(val, list)
 		const oldPrev = oldNode.prev
 		oldNode.setPrev(node)
 		node.setNext(oldNode)
@@ -96,7 +99,7 @@ export function createDoubleLinkedList<T>(...vals: T[]): DoubleLinkedList<T> {
 	}
 
 	function prependVal(val: T) {
-		const node = new Node(val)
+		const node = new Node(val, list)
 		if (!first) {
 			first = last = node
 			size = 1

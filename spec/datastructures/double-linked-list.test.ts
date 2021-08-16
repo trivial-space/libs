@@ -13,6 +13,7 @@ describe('datastructures -> double linked list', () => {
 		expect(list.first?.next).toBe(null)
 		expect(list.first?.prev).toBe(null)
 		expect(list.first?.val).toBe(1)
+		expect(list.first!.list).toBe(list)
 
 		const list2 = createDoubleLinkedList(1, 2, 3)
 		expect(list2.size).toBe(3)

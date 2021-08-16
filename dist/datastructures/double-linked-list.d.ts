@@ -3,6 +3,7 @@ export interface DoubleLinkedNode<T> {
     readonly val: T;
     readonly next: Opt<DoubleLinkedNode<T>>;
     readonly prev: Opt<DoubleLinkedNode<T>>;
+    readonly list: DoubleLinkedList<T>;
 }
 export interface DoubleLinkedList<T> extends Iterable<T> {
     readonly first: Opt<DoubleLinkedNode<T>>;
