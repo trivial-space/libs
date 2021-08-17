@@ -4,6 +4,7 @@ export interface DoubleLinkedNode<T> {
     readonly next: Opt<DoubleLinkedNode<T>>;
     readonly prev: Opt<DoubleLinkedNode<T>>;
     readonly list: DoubleLinkedList<T>;
+    set: (val: T) => void;
 }
 export interface DoubleLinkedList<T> extends Iterable<T> {
     readonly first: Opt<DoubleLinkedNode<T>>;
@@ -17,6 +18,7 @@ export interface DoubleLinkedList<T> extends Iterable<T> {
     prependAt(node: DoubleLinkedNode<T>, ...vals: [T, ...T[]]): DoubleLinkedList<T>;
     drop(n?: number): DoubleLinkedList<T>;
     dropAt(node: DoubleLinkedNode<T>, n?: number): DoubleLinkedList<T>;
+    splitAt(node: DoubleLinkedNode<T>): [DoubleLinkedList<T>, DoubleLinkedList<T>];
     empty(): DoubleLinkedList<T>;
 }
 export declare function createDoubleLinkedList<T>(...vals: T[]): DoubleLinkedList<T>;

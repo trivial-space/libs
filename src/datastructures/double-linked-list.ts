@@ -5,6 +5,7 @@ export interface DoubleLinkedNode<T> {
 	readonly next: Opt<DoubleLinkedNode<T>>
 	readonly prev: Opt<DoubleLinkedNode<T>>
 	readonly list: DoubleLinkedList<T>
+	set: (val: T) => void
 }
 
 export interface DoubleLinkedList<T> extends Iterable<T> {
@@ -28,13 +29,15 @@ export interface DoubleLinkedList<T> extends Iterable<T> {
 	drop(n?: number): DoubleLinkedList<T>
 	dropAt(node: DoubleLinkedNode<T>, n?: number): DoubleLinkedList<T>
 
+	splitAt(node: DoubleLinkedNode<T>): [DoubleLinkedList<T>, DoubleLinkedList<T>]
+
 	empty(): DoubleLinkedList<T>
 }
 
 class Node<T> implements DoubleLinkedNode<T> {
 	next: Opt<Node<T>> = null
 	prev: Opt<Node<T>> = null
-	readonly val: T
+	val: T
 	readonly list: DoubleLinkedList<T>
 
 	constructor(val: T, list: DoubleLinkedList<T>) {
@@ -47,6 +50,9 @@ class Node<T> implements DoubleLinkedNode<T> {
 	}
 	setPrev(newPrev?: Opt<Node<T>>) {
 		this.prev = newPrev || null
+	}
+	set(val: T) {
+		this.val = val
 	}
 }
 
@@ -236,6 +242,24 @@ export function createDoubleLinkedList<T>(...vals: T[]): DoubleLinkedList<T> {
 			first = null
 			last = null
 			return list
+		},
+
+		splitAt(node) {
+			const list1 = createDoubleLinkedList<T>()
+			const list2 = createDoubleLinkedList<T>()
+			let current: DoubleLinkedNode<T> = first!
+			while (current != node) {
+				list1.append(current!.val)
+				current = current.next!
+			}
+			list1.append(node.val)
+			current = node
+			while (current != last) {
+				list2.append(current!.val)
+				current = current.next!
+			}
+			list2.append(last.val)
+			return [list1, list2]
 		},
 
 		[Symbol.iterator]: function* () {

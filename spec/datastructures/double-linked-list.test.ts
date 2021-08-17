@@ -228,4 +228,40 @@ describe('datastructures -> double linked list', () => {
 		expect(list.first).toBe(null)
 		expect(list.last).toBe(null)
 	})
+
+	it('can set node values', () => {
+		const list = createDoubleLinkedList(1, 2)
+		list.at(1)?.set(3)
+		expect([...list]).toEqual([1, 3])
+	})
+
+	it('can split the list at certain points', () => {
+		const list = createDoubleLinkedList(1, 2, 3, 4, 5, 6)
+		const [list1, list2] = list.splitAt(list.at(3)!)
+		expect([...list1]).toEqual([1, 2, 3, 4])
+		expect([...list2]).toEqual([4, 5, 6])
+		expect(list1.first?.val).toEqual(1)
+		expect(list1.last?.val).toEqual(4)
+		expect(list2.first?.val).toEqual(4)
+		expect(list2.last?.val).toEqual(6)
+		expect(list1.size).toEqual(4)
+		expect(list2.size).toEqual(3)
+
+		const [list3, list4] = list.splitAt(list.first!)
+		expect([...list3]).toEqual([1])
+		expect([...list4]).toEqual([...list])
+
+		const [list5, list6] = list.splitAt(list.last!)
+		expect([...list5]).toEqual([...list])
+		expect([...list6]).toEqual([6])
+
+		expect([...list]).toEqual([1, 2, 3, 4, 5, 6])
+
+		expect(list.first?.list).toEqual(list)
+		expect(list1.first?.list).toEqual(list1)
+		expect(list2.first?.list).toEqual(list2)
+		expect(list3.first?.list).toEqual(list3)
+		expect(list4.first?.list).toEqual(list4)
+		expect(list5.first?.list).toEqual(list5)
+	})
 })

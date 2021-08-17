@@ -11,6 +11,9 @@ class Node {
     setPrev(newPrev) {
         this.prev = newPrev || null;
     }
+    set(val) {
+        this.val = val;
+    }
 }
 export function createDoubleLinkedList(...vals) {
     let size = 0;
@@ -197,6 +200,23 @@ export function createDoubleLinkedList(...vals) {
             first = null;
             last = null;
             return list;
+        },
+        splitAt(node) {
+            const list1 = createDoubleLinkedList();
+            const list2 = createDoubleLinkedList();
+            let current = first;
+            while (current != node) {
+                list1.append(current.val);
+                current = current.next;
+            }
+            list1.append(node.val);
+            current = node;
+            while (current != last) {
+                list2.append(current.val);
+                current = current.next;
+            }
+            list2.append(last.val);
+            return [list1, list2];
         },
         [Symbol.iterator]: function* () {
             let node = first;
