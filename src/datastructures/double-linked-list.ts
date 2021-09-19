@@ -16,11 +16,13 @@ export interface DoubleLinkedList<T> extends Iterable<T> {
 	at(n: number): Opt<DoubleLinkedNode<T>>
 
 	readonly reverted: Iterable<T>
+	readonly nodes: Iterable<DoubleLinkedNode<T>>
+	readonly nodesReverted: Iterable<DoubleLinkedNode<T>>
 
-	append(...vals: [T, ...T[]]): DoubleLinkedList<T>
+	append(val: T): DoubleLinkedList<T>
 	appendAt(node: DoubleLinkedNode<T>, ...vals: [T, ...T[]]): DoubleLinkedList<T>
 
-	prepend(...vals: [T, ...T[]]): DoubleLinkedList<T>
+	prepend(val: T): DoubleLinkedList<T>
 	prependAt(
 		node: DoubleLinkedNode<T>,
 		...vals: [T, ...T[]]
@@ -32,6 +34,11 @@ export interface DoubleLinkedList<T> extends Iterable<T> {
 	splitAt(node: DoubleLinkedNode<T>): [DoubleLinkedList<T>, DoubleLinkedList<T>]
 
 	empty(): DoubleLinkedList<T>
+
+	nodesFrom(node: Opt<DoubleLinkedNode<T>>): Iterable<DoubleLinkedNode<T>>
+	nodesRevertedFrom(
+		node: Opt<DoubleLinkedNode<T>>,
+	): Iterable<DoubleLinkedNode<T>>
 }
 
 class Node<T> implements DoubleLinkedNode<T> {
@@ -143,13 +150,8 @@ export function createDoubleLinkedList<T>(...vals: T[]): DoubleLinkedList<T> {
 			return prev
 		},
 
-		append(...vals) {
-			let i = 0
-			let val: T | undefined
-			while ((val = vals[i])) {
-				appendVal(val)
-				i++
-			}
+		append(val) {
+			appendVal(val)
 			return list
 		},
 
@@ -163,10 +165,8 @@ export function createDoubleLinkedList<T>(...vals: T[]): DoubleLinkedList<T> {
 			return list
 		},
 
-		prepend(...vals) {
-			for (let i = vals.length - 1; i >= 0; i--) {
-				prependVal(vals[i])
-			}
+		prepend(val) {
+			prependVal(val)
 			return list
 		},
 
@@ -278,10 +278,48 @@ export function createDoubleLinkedList<T>(...vals: T[]): DoubleLinkedList<T> {
 				}
 			},
 		},
+		nodes: {
+			[Symbol.iterator]: function* () {
+				let node = first
+				while (node) {
+					yield node
+					node = node.next
+				}
+			},
+		},
+		nodesReverted: {
+			[Symbol.iterator]: function* () {
+				let node = last
+				while (node) {
+					yield node
+					node = node.prev
+				}
+			},
+		},
+		nodesFrom(node) {
+			return {
+				[Symbol.iterator]: function* () {
+					while (node) {
+						yield node
+						node = node.next
+					}
+				},
+			}
+		},
+		nodesRevertedFrom(node) {
+			return {
+				[Symbol.iterator]: function* () {
+					while (node) {
+						yield node
+						node = node.prev
+					}
+				},
+			}
+		},
 	}
 
 	if (vals && vals.length) {
-		list.append(...(vals as [T, ...T[]]))
+		for (const val of vals) list.append(val)
 	}
 
 	return list

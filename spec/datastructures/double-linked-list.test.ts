@@ -1,4 +1,7 @@
-import { createDoubleLinkedList } from 'datastructures/double-linked-list'
+import {
+	createDoubleLinkedList,
+	DoubleLinkedNode,
+} from 'datastructures/double-linked-list'
 
 describe('datastructures -> double linked list', () => {
 	it('can create empty list', () => {
@@ -29,7 +32,7 @@ describe('datastructures -> double linked list', () => {
 
 	it('can append nodes', () => {
 		const list = createDoubleLinkedList()
-		list.append(1, 2, 3)
+		list.append(1).append(2).append(3)
 		expect(list.size).toBe(3)
 		expect(list.first!.next!.next).toBe(list.last)
 		expect(list.last!.prev!.prev).toBe(list.first)
@@ -39,7 +42,7 @@ describe('datastructures -> double linked list', () => {
 		expect(list.last?.val).toBe(3)
 		expect(list.last?.prev?.val).toBe(2)
 
-		list.append(4, 5, 6)
+		list.append(4).append(5).append(6)
 		expect(list.size).toBe(6)
 		expect(list.first?.prev).toBe(null)
 		expect(list.last?.next).toBe(null)
@@ -53,27 +56,28 @@ describe('datastructures -> double linked list', () => {
 
 	it('can prepend nodes', () => {
 		const list = createDoubleLinkedList()
-		list.prepend(4, 5, 6)
+		list.prepend(4).prepend(5).prepend(6)
 		expect(list.size).toBe(3)
 		expect(list.first!.next!.next).toBe(list.last)
 		expect(list.last!.prev!.prev).toBe(list.first)
 		expect(list.first?.prev).toBe(null)
 		expect(list.last?.next).toBe(null)
-		expect(list.first?.val).toBe(4)
-		expect(list.last?.val).toBe(6)
+		expect(list.first?.val).toBe(6)
+		expect(list.last?.val).toBe(4)
 		expect(list.first?.next?.val).toBe(5)
 
-		list.prepend(1, 2, 3)
+		list.prepend(1).prepend(2).prepend(3)
 		expect(list.size).toBe(6)
 		expect(list.first?.prev).toBe(null)
 		expect(list.last?.next).toBe(null)
-		expect(list.first?.val).toBe(1)
+		expect(list.first?.val).toBe(3)
 		expect(list.first?.next?.val).toBe(2)
-		expect(list.last?.val).toBe(6)
+		expect(list.last?.val).toBe(4)
 		expect(list.last?.prev?.val).toBe(5)
-		expect(list.last?.prev?.prev?.val).toBe(4)
-		expect(list.last?.prev?.prev?.prev?.val).toBe(3)
-		expect(list.first?.next?.next?.next?.val).toBe(4)
+		expect(list.last?.prev?.prev?.val).toBe(6)
+		expect(list.last?.prev?.prev?.prev?.val).toBe(1)
+		expect(list.first?.next?.next?.next?.val).toBe(6)
+		expect([...list]).toEqual([3, 2, 1, 6, 5, 4])
 	})
 
 	it('is an iterator', () => {
@@ -85,14 +89,22 @@ describe('datastructures -> double linked list', () => {
 		expect(arr).toEqual([1, 2, 3])
 
 		expect([...list]).toEqual([1, 2, 3])
+		expect([...list.nodes].map(n => n.val)).toEqual([1, 2, 3])
 	})
 
 	it('has a reverted iterator', () => {
 		const arr: number[] = []
-		for (const val of createDoubleLinkedList(1).append(2, 3).reverted) {
+		for (const val of createDoubleLinkedList(1).append(2).append(3).reverted) {
 			arr.push(val)
 		}
 		expect(arr).toEqual([3, 2, 1])
+
+		const nodes: DoubleLinkedNode<number>[] = []
+		for (const node of createDoubleLinkedList(1).append(2).append(3)
+			.nodesReverted) {
+			nodes.push(node)
+		}
+		expect(nodes.map(n => n.val)).toEqual([3, 2, 1])
 	})
 
 	it('can drop elements', () => {
@@ -119,14 +131,14 @@ describe('datastructures -> double linked list', () => {
 		expect(list.first).toBe(null)
 		expect(list.last).toBe(null)
 
-		list.append(1, 2, 3)
+		list.append(1).append(2).append(3)
 		expect(list.size).toBe(3)
 		expect([...list.drop(list.size)]).toEqual([])
 		expect(list.size).toBe(0)
 		expect(list.first).toBe(null)
 		expect(list.last).toBe(null)
 
-		list.append(1, 2, 3)
+		list.append(1).append(2).append(3)
 		expect(list.size).toBe(3)
 		expect([...list.drop(list.size + 2)]).toEqual([])
 		expect(list.size).toBe(0)
@@ -263,5 +275,17 @@ describe('datastructures -> double linked list', () => {
 		expect(list3.first?.list).toEqual(list3)
 		expect(list4.first?.list).toEqual(list4)
 		expect(list5.first?.list).toEqual(list5)
+	})
+
+	it('can have node from and reverted nodes starting at a given node', () => {
+		const list = createDoubleLinkedList(1, 2, 3, 4, 5, 6)
+		const node = list.at(3)
+		expect([...list.nodesFrom(node)].map(n => n.val)).toEqual([4, 5, 6])
+		expect([...list.nodesRevertedFrom(node)].map(n => n.val)).toEqual([
+			4, 3, 2, 1,
+		])
+		expect([...list.nodesFrom(null)].map(n => n.val)).toEqual([])
+		expect([...list.nodesFrom(list.last)].map(n => n.val)).toEqual([6])
+		expect([...list.nodesFrom(list.first)].map(n => n.val)).toEqual([...list])
 	})
 })

@@ -99,13 +99,8 @@ export function createDoubleLinkedList(...vals) {
             }
             return prev;
         },
-        append(...vals) {
-            let i = 0;
-            let val;
-            while ((val = vals[i])) {
-                appendVal(val);
-                i++;
-            }
+        append(val) {
+            appendVal(val);
             return list;
         },
         appendAt(node, ...vals) {
@@ -117,10 +112,8 @@ export function createDoubleLinkedList(...vals) {
             }
             return list;
         },
-        prepend(...vals) {
-            for (let i = vals.length - 1; i >= 0; i--) {
-                prependVal(vals[i]);
-            }
+        prepend(val) {
+            prependVal(val);
             return list;
         },
         prependAt(node, ...vals) {
@@ -234,9 +227,48 @@ export function createDoubleLinkedList(...vals) {
                 }
             },
         },
+        nodes: {
+            [Symbol.iterator]: function* () {
+                let node = first;
+                while (node) {
+                    yield node;
+                    node = node.next;
+                }
+            },
+        },
+        nodesReverted: {
+            [Symbol.iterator]: function* () {
+                let node = last;
+                while (node) {
+                    yield node;
+                    node = node.prev;
+                }
+            },
+        },
+        nodesFrom(node) {
+            return {
+                [Symbol.iterator]: function* () {
+                    while (node) {
+                        yield node;
+                        node = node.next;
+                    }
+                },
+            };
+        },
+        nodesRevertedFrom(node) {
+            return {
+                [Symbol.iterator]: function* () {
+                    while (node) {
+                        yield node;
+                        node = node.prev;
+                    }
+                },
+            };
+        },
     };
     if (vals && vals.length) {
-        list.append(...vals);
+        for (const val of vals)
+            list.append(val);
     }
     return list;
 }

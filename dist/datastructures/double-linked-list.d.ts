@@ -12,13 +12,17 @@ export interface DoubleLinkedList<T> extends Iterable<T> {
     readonly size: number;
     at(n: number): Opt<DoubleLinkedNode<T>>;
     readonly reverted: Iterable<T>;
-    append(...vals: [T, ...T[]]): DoubleLinkedList<T>;
+    readonly nodes: Iterable<DoubleLinkedNode<T>>;
+    readonly nodesReverted: Iterable<DoubleLinkedNode<T>>;
+    append(val: T): DoubleLinkedList<T>;
     appendAt(node: DoubleLinkedNode<T>, ...vals: [T, ...T[]]): DoubleLinkedList<T>;
-    prepend(...vals: [T, ...T[]]): DoubleLinkedList<T>;
+    prepend(val: T): DoubleLinkedList<T>;
     prependAt(node: DoubleLinkedNode<T>, ...vals: [T, ...T[]]): DoubleLinkedList<T>;
     drop(n?: number): DoubleLinkedList<T>;
     dropAt(node: DoubleLinkedNode<T>, n?: number): DoubleLinkedList<T>;
     splitAt(node: DoubleLinkedNode<T>): [DoubleLinkedList<T>, DoubleLinkedList<T>];
     empty(): DoubleLinkedList<T>;
+    nodesFrom(node: Opt<DoubleLinkedNode<T>>): Iterable<DoubleLinkedNode<T>>;
+    nodesRevertedFrom(node: Opt<DoubleLinkedNode<T>>): Iterable<DoubleLinkedNode<T>>;
 }
 export declare function createDoubleLinkedList<T>(...vals: T[]): DoubleLinkedList<T>;
