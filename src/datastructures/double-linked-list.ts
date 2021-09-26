@@ -5,7 +5,7 @@ export interface DoubleLinkedNode<T> {
 	readonly next: Opt<DoubleLinkedNode<T>>
 	readonly prev: Opt<DoubleLinkedNode<T>>
 	readonly list: DoubleLinkedList<T>
-	set: (val: T) => void
+	set: (val: T, recalculate?: boolean) => void
 }
 
 export interface DoubleLinkedList<T> extends Iterable<T> {
@@ -15,18 +15,21 @@ export interface DoubleLinkedList<T> extends Iterable<T> {
 
 	at(n: number): Opt<DoubleLinkedNode<T>>
 
-	readonly reverted: Iterable<T>
-	readonly nodes: Iterable<DoubleLinkedNode<T>>
-	readonly nodesReverted: Iterable<DoubleLinkedNode<T>>
+	append(val: T, recalculate?: boolean): DoubleLinkedList<T>
+	appendAt(
+		node: DoubleLinkedNode<T>,
+		val: T,
+		recalculate?: boolean,
+	): DoubleLinkedList<T>
+	appendAll(vals: T[], recalculate?: boolean): DoubleLinkedList<T>
 
-	append(val: T): DoubleLinkedList<T>
-	appendAt(node: DoubleLinkedNode<T>, ...vals: [T, ...T[]]): DoubleLinkedList<T>
-
-	prepend(val: T): DoubleLinkedList<T>
+	prepend(val: T, recalculate?: boolean): DoubleLinkedList<T>
 	prependAt(
 		node: DoubleLinkedNode<T>,
-		...vals: [T, ...T[]]
+		val: T,
+		recalculate?: boolean,
 	): DoubleLinkedList<T>
+	prependAll(vals: T[], recalculate?: boolean): DoubleLinkedList<T>
 
 	drop(n?: number): DoubleLinkedList<T>
 	dropAt(node: DoubleLinkedNode<T>, n?: number): DoubleLinkedList<T>
@@ -35,6 +38,9 @@ export interface DoubleLinkedList<T> extends Iterable<T> {
 
 	empty(): DoubleLinkedList<T>
 
+	readonly reverted: Iterable<T>
+	readonly nodes: Iterable<DoubleLinkedNode<T>>
+	readonly nodesReverted: Iterable<DoubleLinkedNode<T>>
 	nodesFrom(node: Opt<DoubleLinkedNode<T>>): Iterable<DoubleLinkedNode<T>>
 	nodesRevertedFrom(
 		node: Opt<DoubleLinkedNode<T>>,
@@ -46,10 +52,16 @@ class Node<T> implements DoubleLinkedNode<T> {
 	prev: Opt<Node<T>> = null
 	val: T
 	readonly list: DoubleLinkedList<T>
+	private recalculateNode: (node: Node<T>, recalculate?: boolean) => void
 
-	constructor(val: T, list: DoubleLinkedList<T>) {
+	constructor(
+		val: T,
+		list: DoubleLinkedList<T>,
+		recalculateNode: (node: Node<T>, recalculate?: boolean) => void,
+	) {
 		this.val = val
 		this.list = list
+		this.recalculateNode = recalculateNode
 	}
 
 	setNext(newNext?: Opt<Node<T>>) {
@@ -58,18 +70,36 @@ class Node<T> implements DoubleLinkedNode<T> {
 	setPrev(newPrev?: Opt<Node<T>>) {
 		this.prev = newPrev || null
 	}
-	set(val: T) {
+	set(val: T, recalculate?: boolean) {
 		this.val = val
+		this.recalculateNode(this, recalculate)
 	}
 }
 
-export function createDoubleLinkedList<T>(...vals: T[]): DoubleLinkedList<T> {
+interface LinkedListOptions<T> {
+	onNextUpdated?: (node: DoubleLinkedNode<T>) => void
+	onPrevUpdated?: (node: DoubleLinkedNode<T>) => void
+}
+
+export function createDoubleLinkedList<T>(
+	vals?: T[],
+	{ onNextUpdated, onPrevUpdated }: LinkedListOptions<T> = {},
+): DoubleLinkedList<T> {
 	let size = 0
 	let first: Opt<Node<T>> = null
 	let last: Opt<Node<T>> = null
 
-	function appendValAt(val: T, oldNode: Node<T>) {
-		const node = new Node(val, list)
+	function recalculateNode(node: Node<T>, recalculate?: boolean) {
+		if (onNextUpdated && recalculate && node.prev) {
+			onNextUpdated(node.prev)
+		}
+		if (onPrevUpdated && recalculate && node.next) {
+			onPrevUpdated(node.next)
+		}
+	}
+
+	function appendValAt(val: T, oldNode: Node<T>, recalculate?: boolean) {
+		const node = new Node(val, list, recalculateNode)
 		const oldNext = oldNode.next
 		oldNode.setNext(node)
 		node.setPrev(oldNode)
@@ -80,11 +110,12 @@ export function createDoubleLinkedList<T>(...vals: T[]): DoubleLinkedList<T> {
 			last = node
 		}
 		size++
+		recalculateNode(node, recalculate)
 		return node
 	}
 
-	function appendVal(val: T) {
-		const node = new Node(val, list)
+	function appendVal(val: T, recalculate?: boolean) {
+		const node = new Node(val, list, recalculateNode)
 		if (!last) {
 			first = last = node
 			size = 1
@@ -94,10 +125,11 @@ export function createDoubleLinkedList<T>(...vals: T[]): DoubleLinkedList<T> {
 			last = node
 			size++
 		}
+		recalculateNode(node, recalculate)
 	}
 
-	function prependValAt(val: T, oldNode: Node<T>) {
-		const node = new Node(val, list)
+	function prependValAt(val: T, oldNode: Node<T>, recalculate?: boolean) {
+		const node = new Node(val, list, recalculateNode)
 		const oldPrev = oldNode.prev
 		oldNode.setPrev(node)
 		node.setNext(oldNode)
@@ -108,11 +140,12 @@ export function createDoubleLinkedList<T>(...vals: T[]): DoubleLinkedList<T> {
 			first = node
 		}
 		size++
+		recalculateNode(node, recalculate)
 		return node
 	}
 
-	function prependVal(val: T) {
-		const node = new Node(val, list)
+	function prependVal(val: T, recalculate?: boolean) {
+		const node = new Node(val, list, recalculateNode)
 		if (!first) {
 			first = last = node
 			size = 1
@@ -122,6 +155,7 @@ export function createDoubleLinkedList<T>(...vals: T[]): DoubleLinkedList<T> {
 			first = node
 			size++
 		}
+		recalculateNode(node, recalculate)
 	}
 
 	const list: DoubleLinkedList<T> = {
@@ -150,29 +184,36 @@ export function createDoubleLinkedList<T>(...vals: T[]): DoubleLinkedList<T> {
 			return prev
 		},
 
-		append(val) {
-			appendVal(val)
+		append(val, recalculate) {
+			appendVal(val, recalculate)
 			return list
 		},
 
-		appendAt(node, ...vals) {
-			let i = 0
-			let val: T | undefined
-			while ((val = vals[i])) {
-				node = appendValAt(val, node as Node<T>)
-				i++
+		appendAt(node, val, recalculate) {
+			appendValAt(val, node as Node<T>, recalculate)
+			return list
+		},
+
+		appendAll(vals, recalculate) {
+			for (const val of vals) {
+				appendVal(val, recalculate)
 			}
 			return list
 		},
 
-		prepend(val) {
-			prependVal(val)
+		prepend(val, recalculate) {
+			prependVal(val, recalculate)
 			return list
 		},
 
-		prependAt(node, ...vals) {
-			for (let i = vals.length - 1; i >= 0; i--) {
-				node = prependValAt(vals[i], node as Node<T>)
+		prependAt(node, val, recalculate) {
+			prependValAt(val, node as Node<T>, recalculate)
+			return list
+		},
+
+		prependAll(vals, recalculate) {
+			for (const val of vals) {
+				prependVal(val, recalculate)
 			}
 			return list
 		},

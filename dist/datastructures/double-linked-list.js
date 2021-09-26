@@ -1,9 +1,10 @@
 class Node {
-    constructor(val, list) {
+    constructor(val, list, recalculateNode) {
         this.next = null;
         this.prev = null;
         this.val = val;
         this.list = list;
+        this.recalculateNode = recalculateNode;
     }
     setNext(newNext) {
         this.next = newNext || null;
@@ -11,16 +12,25 @@ class Node {
     setPrev(newPrev) {
         this.prev = newPrev || null;
     }
-    set(val) {
+    set(val, recalculate) {
         this.val = val;
+        this.recalculateNode(this, recalculate);
     }
 }
-export function createDoubleLinkedList(...vals) {
+export function createDoubleLinkedList(vals, { onNextUpdated, onPrevUpdated } = {}) {
     let size = 0;
     let first = null;
     let last = null;
-    function appendValAt(val, oldNode) {
-        const node = new Node(val, list);
+    function recalculateNode(node, recalculate) {
+        if (onNextUpdated && recalculate && node.prev) {
+            onNextUpdated(node.prev);
+        }
+        if (onPrevUpdated && recalculate && node.next) {
+            onPrevUpdated(node.next);
+        }
+    }
+    function appendValAt(val, oldNode, recalculate) {
+        const node = new Node(val, list, recalculateNode);
         const oldNext = oldNode.next;
         oldNode.setNext(node);
         node.setPrev(oldNode);
@@ -32,10 +42,11 @@ export function createDoubleLinkedList(...vals) {
             last = node;
         }
         size++;
+        recalculateNode(node, recalculate);
         return node;
     }
-    function appendVal(val) {
-        const node = new Node(val, list);
+    function appendVal(val, recalculate) {
+        const node = new Node(val, list, recalculateNode);
         if (!last) {
             first = last = node;
             size = 1;
@@ -46,9 +57,10 @@ export function createDoubleLinkedList(...vals) {
             last = node;
             size++;
         }
+        recalculateNode(node, recalculate);
     }
-    function prependValAt(val, oldNode) {
-        const node = new Node(val, list);
+    function prependValAt(val, oldNode, recalculate) {
+        const node = new Node(val, list, recalculateNode);
         const oldPrev = oldNode.prev;
         oldNode.setPrev(node);
         node.setNext(oldNode);
@@ -60,10 +72,11 @@ export function createDoubleLinkedList(...vals) {
             first = node;
         }
         size++;
+        recalculateNode(node, recalculate);
         return node;
     }
-    function prependVal(val) {
-        const node = new Node(val, list);
+    function prependVal(val, recalculate) {
+        const node = new Node(val, list, recalculateNode);
         if (!first) {
             first = last = node;
             size = 1;
@@ -74,6 +87,7 @@ export function createDoubleLinkedList(...vals) {
             first = node;
             size++;
         }
+        recalculateNode(node, recalculate);
     }
     const list = {
         get size() {
@@ -99,26 +113,31 @@ export function createDoubleLinkedList(...vals) {
             }
             return prev;
         },
-        append(val) {
-            appendVal(val);
+        append(val, recalculate) {
+            appendVal(val, recalculate);
             return list;
         },
-        appendAt(node, ...vals) {
-            let i = 0;
-            let val;
-            while ((val = vals[i])) {
-                node = appendValAt(val, node);
-                i++;
+        appendAt(node, val, recalculate) {
+            appendValAt(val, node, recalculate);
+            return list;
+        },
+        appendAll(vals, recalculate) {
+            for (const val of vals) {
+                appendVal(val, recalculate);
             }
             return list;
         },
-        prepend(val) {
-            prependVal(val);
+        prepend(val, recalculate) {
+            prependVal(val, recalculate);
             return list;
         },
-        prependAt(node, ...vals) {
-            for (let i = vals.length - 1; i >= 0; i--) {
-                node = prependValAt(vals[i], node);
+        prependAt(node, val, recalculate) {
+            prependValAt(val, node, recalculate);
+            return list;
+        },
+        prependAll(vals, recalculate) {
+            for (const val of vals) {
+                prependVal(val, recalculate);
             }
             return list;
         },

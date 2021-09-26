@@ -16,6 +16,7 @@
   "typings": "dist/index.d.ts",
   "scripts": {
     "test": "jest",
+    "test:watch": "jest --watch",
     "build": "rm -rf ./dist && tsc -p \"./tsconfig.build.json\" && webpack",
     "prepublish": "npm run build"
   },
