@@ -76,7 +76,7 @@ class Node<T> implements DoubleLinkedNode<T> {
 	}
 }
 
-interface LinkedListOptions<T> {
+export interface LinkedListOptions<T> {
 	onNextUpdated?: (node: DoubleLinkedNode<T>) => void
 	onPrevUpdated?: (node: DoubleLinkedNode<T>) => void
 }

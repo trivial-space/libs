@@ -27,9 +27,8 @@ export interface DoubleLinkedList<T> extends Iterable<T> {
     nodesFrom(node: Opt<DoubleLinkedNode<T>>): Iterable<DoubleLinkedNode<T>>;
     nodesRevertedFrom(node: Opt<DoubleLinkedNode<T>>): Iterable<DoubleLinkedNode<T>>;
 }
-interface LinkedListOptions<T> {
+export interface LinkedListOptions<T> {
     onNextUpdated?: (node: DoubleLinkedNode<T>) => void;
     onPrevUpdated?: (node: DoubleLinkedNode<T>) => void;
 }
 export declare function createDoubleLinkedList<T>(vals?: T[], { onNextUpdated, onPrevUpdated }?: LinkedListOptions<T>): DoubleLinkedList<T>;
-export {};
