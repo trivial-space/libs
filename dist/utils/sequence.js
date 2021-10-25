@@ -79,4 +79,11 @@ export const last = (arr) => arr[arr.length - 1];
 export function window(n, arr) {
     return arr.slice(n - 1).map((_, i) => times(j => arr[i + j], n));
 }
+export function range(first, last, step = 1) {
+    const arr = [];
+    for (let j = first; j <= last; j += step) {
+        arr.push(j);
+    }
+    return arr;
+}
 //# sourceMappingURL=sequence.js.map

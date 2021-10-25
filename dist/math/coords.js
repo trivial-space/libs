@@ -32,7 +32,7 @@ export function cartesianToSphere3D([x, y, z]) {
         return sphereCoord(0, 0, 0);
     }
     let azimuthAngleZ = x === 0 ? (y >= 0 ? 0 : Math.PI) : Math.atan2(y, x);
-    let polarAngleY = Math.acos(z / radius);
+    const polarAngleY = Math.acos(z / radius);
     if (azimuthAngleZ < 0)
         azimuthAngleZ += Math.PI * 2;
     return sphereCoord(radius, polarAngleY, azimuthAngleZ);

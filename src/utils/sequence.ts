@@ -130,3 +130,11 @@ export const last = <T>(arr: Sequence<T>) => arr[arr.length - 1]
 export function window<A>(n: number, arr: A[]) {
 	return arr.slice(n - 1).map((_, i) => times(j => arr[i + j], n))
 }
+
+export function range (first: number, last: number, step = 1) {
+	const arr = []
+	for (let j = first; j <= last; j += step) {
+		arr.push(j)
+	}
+	return arr
+}

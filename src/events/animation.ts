@@ -40,7 +40,7 @@ export function animate(callback: (time?: number) => void) {
 
 // ===== start, stop, add and remove animated update functions
 
-export function createAnimator(animateFunction: Function = animateWithTPF) {
+export function createAnimator(animateFunction = animateWithTPF) {
 	let updates: Function[] = []
 
 	function callback() {

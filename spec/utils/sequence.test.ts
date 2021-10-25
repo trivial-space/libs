@@ -1,5 +1,5 @@
 import { equalArray } from 'utils/predicates'
-import { each, map, shuffle, flatMap, reverse } from 'utils/sequence'
+import { each, map, shuffle, flatMap, reverse, range } from 'utils/sequence'
 import { N, S } from '../types'
 
 describe('utils sequence', function () {
@@ -74,6 +74,13 @@ describe('utils sequence', function () {
 				bar: 5,
 				baz: 7,
 			})
+		})
+	})
+
+	describe('range', () => {
+		it('creates ranges', () => {
+			expect(range(2, 6)).toEqual([2, 3, 4, 5, 6])
+			expect(range(2, 3, 0.5)).toEqual([2, 2.5, 3])
 		})
 	})
 })

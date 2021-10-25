@@ -6,7 +6,7 @@ export class RBNode<K = any, V = any> extends BT.Node<K, V> {
 	parent!: RBNode<K, V>
 	left!: RBNode<K, V>
 	right!: RBNode<K, V>
-	red: boolean = true
+	red = true
 
 	constructor(nil: RBNil, key: K, value?: V) {
 		super(nil, key, value)

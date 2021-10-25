@@ -206,7 +206,7 @@ export class BinaryTree<K, V> implements BinaryTreeData<K, V> {
 	compare: CompareFn<K>
 	root: Node<K, V>
 	nil: Nil
-	count: number = 0
+	count = 0
 
 	constructor(compareFn: CompareFn<K>, newNil: Nil = nil) {
 		this.compare = compareFn

@@ -45,7 +45,7 @@ export function cartesianToSphere3D([x, y, z]: Vec): Vec {
 
 	let azimuthAngleZ = x === 0 ? (y >= 0 ? 0 : Math.PI) : Math.atan2(y, x)
 
-	let polarAngleY = Math.acos(z / radius)
+	const polarAngleY = Math.acos(z / radius)
 
 	if (azimuthAngleZ < 0) azimuthAngleZ += Math.PI * 2
 

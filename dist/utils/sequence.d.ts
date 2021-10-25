@@ -23,3 +23,4 @@ export declare function reduce<A, B>(fn: (sum: B, item: A) => B, start: B, arr: 
 export declare function fold<T>(fn: (sum: T, item: T) => T, arr: Sequence<T>): T;
 export declare const last: <T>(arr: Sequence<T>) => T;
 export declare function window<A>(n: number, arr: A[]): A[][];
+export declare function range(first: number, last: number, step?: number): number[];
