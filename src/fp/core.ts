@@ -66,7 +66,7 @@ export function pipe<A extends any[], B, C, D, E>(
 	fn2: (b: B) => C,
 	fn3?: (c: C) => D,
 	fn4?: (d: D) => E,
-): (...args: A) => C
+): (...args: A) => E
 export function pipe<A extends any[], B, C, D, E, F>(
 	fn1: (...args: A) => B,
 	fn2: (b: B) => C,

@@ -25,10 +25,16 @@ export function deepmerge(obj1: any, obj2: any): any {
 	return obj2
 }
 
-export function deepOverride<T>(obj1: T, obj2: any, opt?: { ignore: any }): T {
+export function deepOverride<T extends {}>(
+	obj1: any,
+	obj2: T,
+	opt?: { ignore: any },
+): T {
 	const ignore = opt && opt.ignore
 
 	if (
+		obj1 &&
+		obj2 &&
 		typeof obj1 === 'object' &&
 		typeof obj2 === 'object' &&
 		!Array.isArray(obj1) &&
@@ -41,7 +47,7 @@ export function deepOverride<T>(obj1: T, obj2: any, opt?: { ignore: any }): T {
 				!(ignore && key in ignore && ignore[key] === true)
 			) {
 				const val1 = obj1[key]
-				const val2 = obj2[key]
+				const val2 = (obj2 as any)[key]
 
 				if (val2 !== undefined) {
 					obj1[key] = deepOverride(val1, val2, {

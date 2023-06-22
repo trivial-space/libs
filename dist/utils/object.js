@@ -21,7 +21,9 @@ export function deepmerge(obj1, obj2) {
 }
 export function deepOverride(obj1, obj2, opt) {
     const ignore = opt && opt.ignore;
-    if (typeof obj1 === 'object' &&
+    if (obj1 &&
+        obj2 &&
+        typeof obj1 === 'object' &&
         typeof obj2 === 'object' &&
         !Array.isArray(obj1) &&
         !Array.isArray(obj2) &&

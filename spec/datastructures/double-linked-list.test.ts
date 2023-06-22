@@ -162,13 +162,13 @@ describe('datastructures -> double linked list', () => {
 	it('can get nodes at a position', () => {
 		const list = createDoubleLinkedList([1, 2, 3, 4])
 		expect(list.at(0)).toBe(list.first)
-		expect(list.at(1)).toBe(list.first?.next)
-		expect(list.at(2)).toBe(list.first?.next?.next)
+		expect(list.at(1)).toBe(list.first!.next)
+		expect(list.at(2)).toBe(list.first!.next!.next)
 		expect(list.at(3)).toBe(list.last)
 		expect(list.at(4)).toBe(list.last)
 		expect(list.at(5)).toBe(list.last)
-		expect(list.at(-1)).toBe(list.last?.prev)
-		expect(list.at(-2)).toBe(list.last?.prev?.prev)
+		expect(list.at(-1)).toBe(list.last!.prev)
+		expect(list.at(-2)).toBe(list.last!.prev!.prev)
 		expect(list.at(-3)).toBe(list.first)
 		expect(list.at(-4)).toBe(list.first)
 

@@ -1,6 +1,6 @@
 {
   "name": "tvs-libs",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "description": "trivialspace libs - basic functions and algorithms",
   "repository": {
     "type": "git",

@@ -120,9 +120,9 @@ describe('utils object', function () {
 						lulu: 3,
 					},
 				},
-			})
+			} as any)
 
-			expect(result).toBe(obj1)
+			expect(result).toBe(obj1 as any)
 			expect(result).not.toBe(obj2)
 		})
 
