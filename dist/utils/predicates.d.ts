@@ -1,4 +1,4 @@
-export declare type Predicate = (...a: any[]) => boolean;
+export type Predicate = (...a: any[]) => boolean;
 export declare const and: (p1: Predicate, p2: Predicate) => Predicate;
 export declare const not: (p: Predicate) => Predicate;
 export declare const notEmpty: Predicate;

@@ -1,6 +1,6 @@
 import { Vec } from '../math/vectors';
 import { Edge } from './primitives';
-export declare type Quad = [Vec, Vec, Vec, Vec];
+export type Quad = [Vec, Vec, Vec, Vec];
 export declare function top(q: Quad): Edge;
 export declare function right(q: Quad): Edge;
 export declare function bottom(q: Quad): Edge;

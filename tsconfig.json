@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "target": "es6",
-    "lib": ["esnext", "dom"],
-    "module": "ES2020",
+    "lib": ["ESNext", "DOM"],
+    "module": "ESNext",
     "moduleResolution": "node",
     "strict": true,
     "noUnusedLocals": true,
@@ -10,7 +10,6 @@
     "preserveConstEnums": true,
     "declaration": true,
     "sourceMap": true,
-    "esModuleInterop": true,
     "baseUrl": ".",
     "paths": {
       "*": ["src/*"]

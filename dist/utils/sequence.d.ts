@@ -3,7 +3,7 @@ export interface Sequence<T> {
     [n: number]: T;
     [Symbol.iterator](): IterableIterator<T>;
 }
-export declare type Collection<T> = Sequence<T> | T[] | {
+export type Collection<T> = Sequence<T> | T[] | {
     [key: string]: T;
 };
 export declare function pickRandom<T>(arr: Sequence<T>): T;

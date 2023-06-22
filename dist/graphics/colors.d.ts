@@ -1,6 +1,6 @@
-export declare type ColorRGBA = [number, number, number, number];
-export declare type ColorRGB = [number, number, number];
-export declare type Color = ColorRGB | ColorRGBA;
+export type ColorRGBA = [number, number, number, number];
+export type ColorRGB = [number, number, number];
+export type Color = ColorRGB | ColorRGBA;
 /**
  * @property h hue in range 0 - 1
  * @property s saturation in range 0 - 1

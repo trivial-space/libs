@@ -7,7 +7,7 @@ export declare class RBNode<K = any, V = any> extends BT.Node<K, V> {
     red: boolean;
     constructor(nil: RBNil, key: K, value?: V);
 }
-export declare type RBNil = RBNode<any, any>;
+export type RBNil = RBNode<any, any>;
 export interface RBTreeData<K = any, V = any> extends BT.BinaryTreeData<K, V> {
     root: RBNode<K, V>;
     nil: RBNil;

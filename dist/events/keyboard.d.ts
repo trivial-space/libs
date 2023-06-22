@@ -115,7 +115,7 @@ export declare enum KeyCodes {
     QUOTE = 222,
     META = 224
 }
-export declare type KeyState = {
+export type KeyState = {
     [key: number]: number;
 };
 export declare function keyboard(callback: (val: KeyState) => void): () => void;

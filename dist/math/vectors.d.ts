@@ -1,5 +1,5 @@
 import { Sequence } from '../utils/sequence';
-export declare type Vec = Sequence<number>;
+export type Vec = Sequence<number>;
 export declare function vec(v: number | Vec): Float32Array;
 export declare function vecDouble(v: number | Vec): Float64Array;
 export declare function add(vec1: Vec, vec2: Vec): number[];

@@ -7,7 +7,7 @@ export declare class Node<K = any, V = any> {
     value?: V;
     constructor(nil: Nil, key: K, value?: V);
 }
-export declare type Nil = Node<any, any>;
+export type Nil = Node<any, any>;
 export interface BinaryTreeData<K = any, V = any> {
     root: Node<K, V>;
     nil: Nil;
