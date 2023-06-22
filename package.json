@@ -1,6 +1,6 @@
 {
   "name": "tvs-libs",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "trivialspace libs - basic functions and algorithms",
   "repository": {
     "type": "git",
@@ -8,12 +8,10 @@
   },
   "author": "Thomas Gorny",
   "license": "MIT",
-  "main": "dist/tvs-libs.js",
-  "esnext:main": "dist/index.js",
-  "jsnext:main": "dist/index.js",
-  "module": "dist/index.js",
+  "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "typings": "dist/index.d.ts",
+  "type": "module",
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
