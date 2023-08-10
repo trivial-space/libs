@@ -11,7 +11,7 @@ export interface MouseState {
 		y: number
 		dX: number
 		dY: number
-		event?: MouseEvent,
+		event?: MouseEvent
 	}
 	dragging: boolean
 }
@@ -19,20 +19,17 @@ export interface MouseState {
 export interface MouseOpts {
 	element?: HTMLElement
 	enableRightButton?: boolean
+	keepDefault?: boolean
+	propagate?: boolean
 }
 
-export function mouse(callback: (val: MouseState) => void): () => void
-export function mouse(
-	opts: MouseOpts,
-	callback: (val: MouseState) => void,
-): () => void
-export function mouse(
-	opts: MouseOpts | ((val: MouseState) => void),
-	callback?: (val: MouseState) => void,
-) {
-	const cb = callback || (opts as (val: MouseState) => void)
-
-	const { element = document, enableRightButton } = opts as MouseOpts
+export function mouse(callback: (val: MouseState) => void, opts?: MouseOpts) {
+	const {
+		element = document,
+		enableRightButton,
+		keepDefault,
+		propagate,
+	} = opts || {}
 
 	const state: MouseState = {
 		pressed: {},
@@ -54,7 +51,14 @@ export function mouse(
 			state.dragging = true
 		}
 
-		cb(state)
+		callback(state)
+
+		if (!keepDefault) {
+			e.preventDefault()
+		}
+		if (!propagate) {
+			e.stopPropagation()
+		}
 	}
 
 	function onMouseUp(e: MouseEvent) {
@@ -67,7 +71,11 @@ export function mouse(
 		state.drag.dY = 0
 		state.dragging = false
 
-		cb(state)
+		callback(state)
+
+		// if (!propagate) {
+		// 	e.stopPropagation()
+		// }
 	}
 
 	function onMouseMove(e: MouseEvent) {
@@ -82,7 +90,11 @@ export function mouse(
 			oX = e.clientX
 			oY = e.clientY
 
-			cb(state)
+			callback(state)
+
+			// if (!propagate) {
+			// 	e.stopPropagation()
+			// }
 		}
 	}
 
@@ -98,7 +110,7 @@ export function mouse(
 		element.addEventListener('contextmenu', preventDefault)
 	}
 
-	cb(state)
+	callback(state)
 
 	return function destroy() {
 		element.removeEventListener('mousedown', onMouseDown as EventListener)
@@ -116,7 +128,7 @@ export interface MouseObserver {
 	destroy: () => void
 }
 
-export function mouseObserver(opts: any = {}): MouseObserver {
+export function mouseObserver(opts?: MouseOpts): MouseObserver {
 	const observer: MouseObserver = {
 		Buttons,
 		state: {} as MouseState,
@@ -127,7 +139,7 @@ export function mouseObserver(opts: any = {}): MouseObserver {
 		observer.state = state
 	}
 
-	observer.destroy = mouse(opts, callback)
+	observer.destroy = mouse(callback, opts)
 
 	return observer
 }

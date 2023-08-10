@@ -24,25 +24,22 @@ export interface PointerOpts {
 	enableRightButton?: boolean
 	holdDelay?: number
 	holdRadius?: number
+	keepDefault?: boolean
+	propagate?: boolean
 }
 
-export function pointer(callback: (val: PointerState) => void): () => void
 export function pointer(
-	opts: PointerOpts,
 	callback: (val: PointerState) => void,
-): () => void
-export function pointer(
-	opts: PointerOpts | ((val: PointerState) => void),
-	callback?: (val: PointerState) => void,
+	opts?: PointerOpts,
 ) {
-	const cb = callback || (opts as (val: PointerState) => void)
-
 	const {
 		element = document,
 		enableRightButton,
 		holdDelay = 400,
 		holdRadius = 5,
-	} = opts as PointerOpts
+		keepDefault,
+		propagate,
+	} = opts || {}
 
 	const state: PointerState = {
 		pressed: {},
@@ -67,16 +64,23 @@ export function pointer(
 			timeout = setTimeout(() => {
 				if (state.drag.xMax < holdRadius && state.drag.yMax < holdRadius) {
 					state.holding = true
-					cb(state)
+					callback(state)
 				}
 			}, holdDelay)
 		} else {
-			state.pressed[Buttons.RIGHT] = e
+			state.pressed[e.button] = e
 		}
-		cb(state)
+
+		if (!keepDefault) {
+			e.preventDefault()
+		}
+		if (!propagate) {
+			e.stopPropagation()
+		}
+		callback(state)
 	}
 
-	function onPointerUp(_e: PointerEvent) {
+	function onPointerUp(e: PointerEvent) {
 		state.pressed = {}
 		delete state.drag.event
 		state.drag.x = 0
@@ -89,7 +93,14 @@ export function pointer(
 		state.holding = false
 		timeout != null && clearTimeout(timeout)
 		timeout = null
-		cb(state)
+		callback(state)
+
+		if (!propagate) {
+			e.stopPropagation()
+		}
+		if (!keepDefault) {
+			e.preventDefault()
+		}
 	}
 
 	function onPointerMove(e: PointerEvent) {
@@ -106,7 +117,14 @@ export function pointer(
 			oX = e.clientX
 			oY = e.clientY
 
-			cb(state)
+			callback(state)
+
+			if (!propagate) {
+				e.stopPropagation()
+			}
+			if (!keepDefault) {
+				e.preventDefault()
+			}
 		}
 	}
 
@@ -115,23 +133,23 @@ export function pointer(
 	}
 
 	element.addEventListener('pointerdown', onPointerDown as EventListener)
-	document.addEventListener('pointermove', onPointerMove)
-	document.addEventListener('pointerup', onPointerUp)
-	document.addEventListener('pointerleave', onPointerUp)
-	document.addEventListener('pointercancel', onPointerUp)
+	element.addEventListener('pointermove', onPointerMove as EventListener)
+	element.addEventListener('pointerup', onPointerUp as EventListener)
+	element.addEventListener('pointerleave', onPointerUp as EventListener)
+	element.addEventListener('pointercancel', onPointerUp as EventListener)
 
 	if (enableRightButton) {
 		element.addEventListener('contextmenu', preventDefault)
 	}
 
-	cb(state)
+	callback(state)
 
 	return function destroy() {
 		element.removeEventListener('pointerdown', onPointerDown as EventListener)
-		document.removeEventListener('pointermove', onPointerMove)
-		document.removeEventListener('pointerup', onPointerUp)
-		document.removeEventListener('pointerleave', onPointerUp)
-		document.removeEventListener('pointercancel', onPointerUp)
+		element.removeEventListener('pointermove', onPointerMove as EventListener)
+		element.removeEventListener('pointerup', onPointerUp as EventListener)
+		element.removeEventListener('pointerleave', onPointerUp as EventListener)
+		element.removeEventListener('pointercancel', onPointerUp as EventListener)
 		if (enableRightButton) {
 			element.removeEventListener('contextmenu', preventDefault)
 		}
@@ -144,7 +162,7 @@ export interface PointerObserver {
 	destroy: () => void
 }
 
-export function pointerObserver(opts: any = {}): PointerObserver {
+export function pointerObserver(opts?: PointerOpts): PointerObserver {
 	const observer: PointerObserver = {
 		Buttons,
 		state: {} as PointerState,
@@ -155,7 +173,7 @@ export function pointerObserver(opts: any = {}): PointerObserver {
 		observer.state = state
 	}
 
-	observer.destroy = pointer(opts, callback)
+	observer.destroy = pointer(callback, opts)
 
 	return observer
 }

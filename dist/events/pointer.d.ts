@@ -24,12 +24,13 @@ export interface PointerOpts {
     enableRightButton?: boolean;
     holdDelay?: number;
     holdRadius?: number;
+    keepDefault?: boolean;
+    propagate?: boolean;
 }
-export declare function pointer(callback: (val: PointerState) => void): () => void;
-export declare function pointer(opts: PointerOpts, callback: (val: PointerState) => void): () => void;
+export declare function pointer(callback: (val: PointerState) => void, opts?: PointerOpts): () => void;
 export interface PointerObserver {
     Buttons: typeof Buttons;
     state: PointerState;
     destroy: () => void;
 }
-export declare function pointerObserver(opts?: any): PointerObserver;
+export declare function pointerObserver(opts?: PointerOpts): PointerObserver;

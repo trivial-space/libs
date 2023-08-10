@@ -19,12 +19,13 @@ export interface MouseState {
 export interface MouseOpts {
     element?: HTMLElement;
     enableRightButton?: boolean;
+    keepDefault?: boolean;
+    propagate?: boolean;
 }
-export declare function mouse(callback: (val: MouseState) => void): () => void;
-export declare function mouse(opts: MouseOpts, callback: (val: MouseState) => void): () => void;
+export declare function mouse(callback: (val: MouseState) => void, opts?: MouseOpts): () => void;
 export interface MouseObserver {
     Buttons: typeof Buttons;
     state: MouseState;
     destroy: () => void;
 }
-export declare function mouseObserver(opts?: any): MouseObserver;
+export declare function mouseObserver(opts?: MouseOpts): MouseObserver;

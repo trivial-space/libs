@@ -3,9 +3,8 @@ export const Buttons = {
     MIDDLE: 1,
     RIGHT: 2,
 };
-export function mouse(opts, callback) {
-    const cb = callback || opts;
-    const { element = document, enableRightButton } = opts;
+export function mouse(callback, opts) {
+    const { element = document, enableRightButton, keepDefault, propagate, } = opts || {};
     const state = {
         pressed: {},
         drag: { x: 0, y: 0, dX: 0, dY: 0 },
@@ -19,7 +18,13 @@ export function mouse(opts, callback) {
             y = oY = e.clientY;
             state.dragging = true;
         }
-        cb(state);
+        callback(state);
+        if (!keepDefault) {
+            e.preventDefault();
+        }
+        if (!propagate) {
+            e.stopPropagation();
+        }
     }
     function onMouseUp(e) {
         delete state.pressed[e.button];
@@ -29,7 +34,10 @@ export function mouse(opts, callback) {
         state.drag.dX = 0;
         state.drag.dY = 0;
         state.dragging = false;
-        cb(state);
+        callback(state);
+        // if (!propagate) {
+        // 	e.stopPropagation()
+        // }
     }
     function onMouseMove(e) {
         if (state.dragging) {
@@ -40,7 +48,10 @@ export function mouse(opts, callback) {
             state.drag.dY = oY - e.clientY;
             oX = e.clientX;
             oY = e.clientY;
-            cb(state);
+            callback(state);
+            // if (!propagate) {
+            // 	e.stopPropagation()
+            // }
         }
     }
     function preventDefault(e) {
@@ -52,7 +63,7 @@ export function mouse(opts, callback) {
     if (enableRightButton) {
         element.addEventListener('contextmenu', preventDefault);
     }
-    cb(state);
+    callback(state);
     return function destroy() {
         element.removeEventListener('mousedown', onMouseDown);
         document.removeEventListener('mousemove', onMouseMove);
@@ -62,7 +73,7 @@ export function mouse(opts, callback) {
         }
     };
 }
-export function mouseObserver(opts = {}) {
+export function mouseObserver(opts) {
     const observer = {
         Buttons,
         state: {},
@@ -71,7 +82,7 @@ export function mouseObserver(opts = {}) {
     function callback(state) {
         observer.state = state;
     }
-    observer.destroy = mouse(opts, callback);
+    observer.destroy = mouse(callback, opts);
     return observer;
 }
 //# sourceMappingURL=mouse.js.map
