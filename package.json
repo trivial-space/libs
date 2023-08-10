@@ -1,6 +1,6 @@
 {
   "name": "tvs-libs",
-  "version": "0.7.2",
+  "version": "0.8.0",
   "description": "trivialspace libs - basic functions and algorithms",
   "repository": {
     "type": "git",
@@ -16,8 +16,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:types": "tsc --noEmit",
-    "build": "rm -rf ./dist && tsc -p \"./tsconfig.build.json\"",
-    "prepublish": "npm run build"
+    "build": "rm -rf ./dist && tsc -p \"./tsconfig.build.json\""
   },
   "devDependencies": {
     "@types/jest": "^29.5.2",
