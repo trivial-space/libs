@@ -1,4 +1,4 @@
-import { length, Vec } from './vectors'
+import { length, Vec } from './vectors.js'
 
 // === polar coordinates ===
 

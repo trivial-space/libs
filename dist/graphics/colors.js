@@ -1,4 +1,4 @@
-import { clamp, lerp } from '../math/core';
+import { clamp, lerp } from '../math/core.js';
 /**
  * @param h hue in range 0 - 1
  * @param s saturation in range 0 - 1

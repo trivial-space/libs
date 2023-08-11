@@ -1,14 +1,12 @@
-const lib = require('../../dist/tvs-libs')
-const assert = require('chai').assert
+import assert from 'node:assert'
+import { numericalCompare } from '../../dist/algorithms/base.js'
+import { min, next, walkInOrder } from '../../dist/datastructures/bintree.js'
+import { RBTree } from '../../dist/datastructures/rbtree.js'
+import { times } from '../../dist/utils/sequence.js'
 
-const rbtree = lib.datastructures.rbtree
-const bintree = lib.datastructures.bintree
+const tree = new RBTree(numericalCompare)
 
-const tree = new rbtree.RBTree(
-	lib.algorithms.base.numericalCompare
-)
-
-const randomSeq = lib.utils.seq.times(() => Math.floor(Math.random() * 1000) + 1, 1000)
+const randomSeq = times(() => Math.floor(Math.random() * 1000) + 1, 1000)
 
 randomSeq.forEach(n => tree.insert(n))
 
@@ -16,17 +14,17 @@ const initialSum = randomSeq.reduce((a, b) => a + b)
 
 function traverseWithNext(tree) {
 	let sum = 0
-	let node = bintree.min(tree, tree.root)
+	let node = min(tree, tree.root)
 	while (node !== tree.nil) {
 		sum += node.key
-		node = bintree.next(tree, node)
+		node = next(tree, node)
 	}
 	assert(sum === initialSum)
 }
 
 function traverseWithRecursion(tree) {
 	let sum = 0
-	bintree.walkInOrder(tree, tree.root, n => sum += n.key)
+	walkInOrder(tree, tree.root, n => (sum += n.key))
 	assert(sum === initialSum)
 }
 

@@ -1,4 +1,4 @@
-import { Opt } from '../types';
+import { Opt } from '../types.js';
 export interface DoubleLinkedNode<T> {
     readonly val: T;
     readonly next: Opt<DoubleLinkedNode<T>>;

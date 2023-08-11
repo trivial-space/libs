@@ -1,4 +1,4 @@
-import { ColorRGBA, mixColors } from './colors'
+import { ColorRGBA, mixColors } from './colors.js'
 
 export type Position = [number, number]
 

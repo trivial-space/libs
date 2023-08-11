@@ -1,4 +1,4 @@
-import { cross, dot, normalize, sub } from './vectors';
+import { cross, dot, normalize, sub } from './vectors.js';
 export function planeFromNormalAndCoplanarPoint(n, point) {
     const d = dot(n, point);
     return [n[0], n[1], n[2], -d];

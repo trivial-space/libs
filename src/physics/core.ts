@@ -1,4 +1,4 @@
-import { div, length, mul, sub } from '../math/vectors'
+import { div, length, mul, sub } from '../math/vectors.js'
 
 export function gravity(obj1: any, obj2: any, G: number) {
 	const force = sub(obj1.position, obj2.position)

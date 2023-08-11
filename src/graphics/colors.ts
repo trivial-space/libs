@@ -1,4 +1,4 @@
-import { clamp, lerp } from '../math/core'
+import { clamp, lerp } from '../math/core.js'
 
 // see also https://www.rapidtables.com/convert/color/
 

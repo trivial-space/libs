@@ -1,4 +1,4 @@
-import { equalArray } from '../utils/predicates';
+import { equalArray } from '../utils/predicates.js';
 export function vec(v) {
     return new Float32Array(v);
 }

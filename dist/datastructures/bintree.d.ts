@@ -1,4 +1,4 @@
-import { CompareFn } from '../algorithms/base';
+import { CompareFn } from '../algorithms/base.js';
 export declare class Node<K = any, V = any> {
     parent: Node<K, V>;
     left: Node<K, V>;

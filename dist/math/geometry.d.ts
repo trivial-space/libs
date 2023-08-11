@@ -1,4 +1,4 @@
-import { Vec } from './vectors';
+import { Vec } from './vectors.js';
 export declare function planeFromNormalAndCoplanarPoint(n: Vec, point: Vec): number[];
 export declare function planeFromThreeCoplanarPoints(p1: Vec, p2: Vec, p3: Vec): number[];
 export declare function normalFromThreeCoplanarPoints(p1: Vec, p2: Vec, p3: Vec): number[];

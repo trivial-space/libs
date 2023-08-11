@@ -1,4 +1,4 @@
-import * as BT from './bintree';
+import * as BT from './bintree.js';
 export class RBNode extends BT.Node {
     constructor(nil, key, value) {
         super(nil, key, value);

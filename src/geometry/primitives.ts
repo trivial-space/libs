@@ -1,7 +1,7 @@
-import { partial } from '../fp/core'
-import { lerp } from '../math/core'
-import { add, cross, cross2D, normalize, sub, Vec } from '../math/vectors'
-import { zip } from '../utils/sequence'
+import { partial } from '../fp/core.js'
+import { lerp } from '../math/core.js'
+import { add, cross, cross2D, normalize, sub, Vec } from '../math/vectors.js'
+import { zip } from '../utils/sequence.js'
 
 /**
  * Clockwise Polygon

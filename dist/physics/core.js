@@ -1,4 +1,4 @@
-import { div, length, mul, sub } from '../math/vectors';
+import { div, length, mul, sub } from '../math/vectors.js';
 export function gravity(obj1, obj2, G) {
     const force = sub(obj1.position, obj2.position);
     const distance = length(force);

@@ -1,5 +1,5 @@
-import { equalArray } from '../utils/predicates'
-import { Sequence } from '../utils/sequence'
+import { equalArray } from '../utils/predicates.js'
+import { Sequence } from '../utils/sequence.js'
 
 export type Vec = Sequence<number>
 

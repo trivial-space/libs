@@ -1,4 +1,4 @@
-import { CompareFn } from '../algorithms/base'
+import { CompareFn } from '../algorithms/base.js'
 
 export interface Heap<T> {
 	insert: (item: T) => void

@@ -1,4 +1,4 @@
-import { randInt, randIntInRange } from '../math/random';
+import { randInt, randIntInRange } from '../math/random.js';
 export function pickRandom(arr) {
     return arr[randInt(arr.length)];
 }

@@ -1,5 +1,5 @@
-import { CompareFn } from '../algorithms/base';
-import * as BT from './bintree';
+import { CompareFn } from '../algorithms/base.js';
+import * as BT from './bintree.js';
 export declare class RBNode<K = any, V = any> extends BT.Node<K, V> {
     parent: RBNode<K, V>;
     left: RBNode<K, V>;

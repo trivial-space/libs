@@ -1,4 +1,4 @@
-import { CompareFn } from '../algorithms/base'
+import { CompareFn } from '../algorithms/base.js'
 
 export class Node<K = any, V = any> {
 	parent: Node<K, V>
@@ -24,7 +24,7 @@ export interface BinaryTreeData<K = any, V = any> {
 	compare: CompareFn<K>
 }
 
-export const nil = (function() {
+export const nil = (function () {
 	const nil = {
 		parent: null as any,
 		left: null as any,

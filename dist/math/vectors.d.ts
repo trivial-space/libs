@@ -1,4 +1,4 @@
-import { Sequence } from '../utils/sequence';
+import { Sequence } from '../utils/sequence.js';
 export type Vec = Sequence<number>;
 export declare function vec(v: number | Vec): Float32Array;
 export declare function vecDouble(v: number | Vec): Float64Array;

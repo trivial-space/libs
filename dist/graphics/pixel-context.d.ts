@@ -1,4 +1,4 @@
-import { ColorRGBA } from './colors';
+import { ColorRGBA } from './colors.js';
 export type Position = [number, number];
 export declare function repeatedPosition([x, y]: Position, imgData: ImageData): Position;
 export declare function closedPosition([x, y]: Position, imgData: ImageData): Position;

@@ -1,4 +1,4 @@
-import { lerp } from './core'
+import { lerp } from './core.js'
 
 const p1 = [
 	151, 160, 137, 91, 90, 15, 131, 13, 201, 95, 96, 53, 194, 233, 7, 225, 140,

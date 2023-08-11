@@ -1,6 +1,6 @@
 // compare to https://github.com/vadimg/js_bintrees for reference
-import { CompareFn } from '../algorithms/base'
-import * as BT from './bintree'
+import { CompareFn } from '../algorithms/base.js'
+import * as BT from './bintree.js'
 
 export class RBNode<K = any, V = any> extends BT.Node<K, V> {
 	parent!: RBNode<K, V>
@@ -148,8 +148,10 @@ export function remove<K>(tree: RBTreeData<K>, node: RBNode<K>) {
 	}
 }
 
-export class RBTree<K, V> extends BT.BinaryTree<K, V>
-	implements RBTreeData<K, V> {
+export class RBTree<K, V>
+	extends BT.BinaryTree<K, V>
+	implements RBTreeData<K, V>
+{
 	compare!: CompareFn<K>
 	root!: RBNode<K, V>
 	nil!: RBNil

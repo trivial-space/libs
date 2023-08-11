@@ -1,4 +1,4 @@
-import { Vec } from '../math/vectors';
+import { Vec } from '../math/vectors.js';
 /**
  * Clockwise Polygon
  */

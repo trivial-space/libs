@@ -1,4 +1,4 @@
-import { Vec } from './vectors';
+import { Vec } from './vectors.js';
 /**
  * @param radius distance from origin
  * @param angle counter clockwise

@@ -1,6 +1,6 @@
 // Bezier Curves
 
-import { add, mul, Vec } from '../math/vectors'
+import { add, mul, Vec } from '../math/vectors.js'
 
 // The formula for a 2-points curve:
 // P = (1-t)*P1 + t*P2

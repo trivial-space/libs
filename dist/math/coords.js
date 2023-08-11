@@ -1,4 +1,4 @@
-import { length } from './vectors';
+import { length } from './vectors.js';
 // === polar coordinates ===
 /**
  * @param radius distance from origin

@@ -1,7 +1,7 @@
-import { partial } from '../fp/core';
-import { lerp } from '../math/core';
-import { add, cross, cross2D, normalize, sub } from '../math/vectors';
-import { zip } from '../utils/sequence';
+import { partial } from '../fp/core.js';
+import { lerp } from '../math/core.js';
+import { add, cross, cross2D, normalize, sub } from '../math/vectors.js';
+import { zip } from '../utils/sequence.js';
 export function interpolate(fn, step, start, end) {
     return zip(partial(fn, step), start, end);
 }

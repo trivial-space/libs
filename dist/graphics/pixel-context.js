@@ -1,4 +1,4 @@
-import { mixColors } from './colors';
+import { mixColors } from './colors.js';
 export function repeatedPosition([x, y], imgData) {
     const w = imgData.width;
     const h = imgData.height;
