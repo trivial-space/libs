@@ -40,17 +40,17 @@ export function mirrorMatrixFromPlane(plane: Vec) {
 	]
 }
 
-export function getYawQuat(rotYAngle: number): Vec {
+export function getYRotQuat(rotYAngle: number): Vec {
 	rotYAngle *= 0.5
 	return [0, Math.sin(rotYAngle), 0, Math.cos(rotYAngle)]
 }
 
-export function getPitchQuat(rotXAngle: number): Vec {
+export function getXRotQuat(rotXAngle: number): Vec {
 	rotXAngle *= 0.5
 	return [Math.sin(rotXAngle), 0, 0, Math.cos(rotXAngle)]
 }
 
-export function getRollQuat(rotZAngle: number): Vec {
+export function getZRotQuat(rotZAngle: number): Vec {
 	rotZAngle *= 0.5
 	return [0, 0, Math.sin(rotZAngle), Math.cos(rotZAngle)]
 }

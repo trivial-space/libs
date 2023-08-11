@@ -157,10 +157,10 @@ export function hslToRGB({ h, s, l }: ColorHSL): ColorRGB {
 
 export function adjustHue(hue: number) {
 	if (hue >= 1) {
-		return hue - 1
+		return adjustHue(hue - 1)
 	}
 	if (hue < 0) {
-		return hue + 1
+		return adjustHue(hue + 1)
 	}
 	return hue
 }

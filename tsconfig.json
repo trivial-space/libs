@@ -14,7 +14,8 @@
     "paths": {
       "*": ["src/*"]
     },
-    "outDir": "dist"
+    "outDir": "dist",
+    "skipLibCheck": true
   },
-  "exclude": ["node_modules", "dist"]
+  "exclude": ["dist"]
 }

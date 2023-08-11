@@ -1,14 +1,8 @@
 import { equalArray } from '../utils/predicates';
 export function vec(v) {
-    if (typeof v === 'number') {
-        return new Float32Array(v);
-    }
     return new Float32Array(v);
 }
 export function vecDouble(v) {
-    if (typeof v === 'number') {
-        return new Float64Array(v);
-    }
     return new Float64Array(v);
 }
 export function add(vec1, vec2, res = []) {

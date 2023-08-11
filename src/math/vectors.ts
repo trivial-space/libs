@@ -4,17 +4,11 @@ import { Sequence } from '../utils/sequence'
 export type Vec = Sequence<number>
 
 export function vec(v: number | Vec) {
-	if (typeof v === 'number') {
-		return new Float32Array(v)
-	}
-	return new Float32Array(v)
+	return new Float32Array(v as number)
 }
 
 export function vecDouble(v: number | Vec) {
-	if (typeof v === 'number') {
-		return new Float64Array(v)
-	}
-	return new Float64Array(v)
+	return new Float64Array(v as number)
 }
 
 export function add(vec1: Vec, vec2: Vec): number[]
