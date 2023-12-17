@@ -456,8 +456,8 @@ export function tileNoise(
 	height: number,
 	dx: number,
 	dy: number,
-): number[] {
-	const noise: number[] = []
+): Float64Array {
+	const noise = new Float64Array(width * height)
 	for (let y = 0; y < height; y++) {
 		for (let x = 0; x < width; x++) {
 			const s = x / width,
@@ -466,7 +466,7 @@ export function tileNoise(
 				ny = (Math.cos(t * 2 * Math.PI) * dy) / (2 * Math.PI),
 				nz = (Math.sin(s * 2 * Math.PI) * dx) / (2 * Math.PI),
 				nw = (Math.sin(t * 2 * Math.PI) * dy) / (2 * Math.PI)
-			noise.push(noise4d(nx, ny, nz, nw))
+			noise[x + y * width] = noise4d(nx, ny, nz, nw)
 		}
 	}
 	return noise
